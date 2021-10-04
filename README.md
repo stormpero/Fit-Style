@@ -13,7 +13,7 @@
 - Spring MVC
 - PostgreSQL  
 ## Installation  
-##### FrontEnd  
+#### FrontEnd  
 ----
 Download Node.js: [Скачать](https://nodejs.org/en/ "Node.js =)")
 ```sh
@@ -21,7 +21,7 @@ npm i
 npm start
 ```
 
-##### BackEnd  
+#### BackEnd  
 ----
 
 ```sh
