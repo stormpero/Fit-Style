@@ -1,6 +1,5 @@
 # Fit Style
-## Creating a web application for a Fitness club
----
+## Creating a web application for a Fitness club  
 ## Technology Stack
 ##### FrontEnd:
 - HTML + CSS + JS
