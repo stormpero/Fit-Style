@@ -1,9 +1,13 @@
 # Fit Style
 ## Creating a web application for a Fitness club  
+
+## How to install the project
+[Guide](https://drive.google.com/file/d/1fZQNrWqWu4uRt_kzoFVKoUoaoMF8iZJJ/view?usp=sharing "Guide =)")
+
 ## Technology Stack
 ##### FrontEnd:
 - HTML + CSS + JS
-- Node.js (Для React.js)
+- Node.js (for React.js)
 - React.js 
 - Bootstrap 4
 - Axios
@@ -15,7 +19,7 @@
 ## Installation  
 #### FrontEnd  
 ----
-Download Node.js: [Скачать](https://nodejs.org/en/ "Node.js =)")
+Download Node.js: [Download](https://nodejs.org/en/ "Node.js =)")
 ```sh
 npm i
 npm start
