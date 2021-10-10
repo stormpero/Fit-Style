@@ -1,56 +1,126 @@
 package ru.project.fitstyle.model;
-
 import javax.persistence.*;
 
+
 @Entity
-@Table(name="users")
+@Table(name = "users")
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
-    private String name;
-    private int age;
-    private String email;
+    //@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
+    private long userCardLogin; //id
+
+    @Column(name="user_password")
+    private String userPassword;
+    @Column(name="user_passport_number")
+    private int userPassportNumber;
+    @Column(name="user_paycard_number")
+    private int userPayCardNumber;
+    @Column(name="user_firstname")
+    private String userFirstname;
+    @Column(name="user_lastname")
+    private String userLastname;
+    @Column(name="user_gender")
+    private String userGender;
+    @Column(name="user_birthdaydate")
+    private java.sql.Date userBirthdayDate;
+    @Column(name="user_specialrequests")
+    private String userSpecialRequests;
 
     public User() {
     }
 
-    public User(String name, int age, String email) {
-        this.name = name;
-        this.age = age;
-        this.email = email;
+    public User(String userPassword, int userPassportNumber, int userPayCardNumber, String userFirstname, String userLastname, String userGender, java.sql.Date userBirthdayDate, String userSpecialRequests) {
+        this.userPassword = userPassword;
+        this.userPassportNumber = userPassportNumber;
+        this.userPayCardNumber = userPayCardNumber;
+        this.userFirstname = userFirstname;
+        this.userLastname = userLastname;
+        this.userGender = userGender;
+        this.userBirthdayDate = userBirthdayDate;
+        this.userSpecialRequests = userSpecialRequests;
     }
 
-    public long getId() {
-        return id;
+
+
+    public long getUserCardLogin() {
+        return userCardLogin;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setUserCardLogin(long userCardLogin) {
+        this.userCardLogin = userCardLogin;
     }
 
-    public String getName() {
-        return name;
+    public String getUserPassword() {
+        return userPassword;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUserPassword(String userPassword) {
+        this.userPassword = userPassword;
     }
 
-    public int getAge() {
-        return age;
+    public int getUserPassportNumber() {
+        return userPassportNumber;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setUserPassportNumber(int userPassportNumber) {
+        this.userPassportNumber = userPassportNumber;
     }
 
-    public String getEmail() {
-        return email;
+    public int getUserPayCardNumber() {
+        return userPayCardNumber;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUserPayCardNumber(int userPayCardNumber) {
+        this.userPayCardNumber = userPayCardNumber;
     }
+
+    public String getUserFirstname() {
+        return userFirstname;
+    }
+
+    public void setUserFirstname(String userFirstname) {
+        this.userFirstname = userFirstname;
+    }
+
+    public String getUserLastname() {
+        return userLastname;
+    }
+
+    public void setUserLastname(String userLastname) {
+        this.userLastname = userLastname;
+    }
+
+    public String getUserGender() {
+        return userGender;
+    }
+
+    public void setUserGender(String userGender) {
+        this.userGender = userGender;
+    }
+
+    public java.sql.Date getUserBirthdayDate() {
+        return userBirthdayDate;
+    }
+
+    public void setUserBirthdayDate(java.sql.Date userBirthdayDate) {
+        this.userBirthdayDate = userBirthdayDate;
+    }
+
+    public String getUserSpecialRequests() {
+        return userSpecialRequests;
+    }
+
+    public void setUserSpecialRequests(String userSpecialRequests) {
+        this.userSpecialRequests = userSpecialRequests;
+    }
+
 }
+
+
+
+
+
+
