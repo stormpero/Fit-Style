@@ -1,126 +1,104 @@
 package ru.project.fitstyle.model;
 import javax.persistence.*;
-
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+import java.sql.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
 public class User {
 
     @Id
-    //@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
-    private long userCardLogin; //id
+    @Column(name="user_cardid")
+    private long cardId;
 
+    @NotBlank
+    @Size(max = 20)
+    @Column(name="user_name")
+    private String name;
+
+    @NotBlank
+    @Size(max = 50)
+    @Email
+    @Column(name="user_email")
+    private String email;
+
+    @NotBlank
+    @Size(max = 120)
     @Column(name="user_password")
-    private String userPassword;
-    @Column(name="user_passport_number")
-    private int userPassportNumber;
-    @Column(name="user_paycard_number")
-    private int userPayCardNumber;
-    @Column(name="user_firstname")
-    private String userFirstname;
-    @Column(name="user_lastname")
-    private String userLastname;
-    @Column(name="user_gender")
-    private String userGender;
-    @Column(name="user_birthdaydate")
-    private java.sql.Date userBirthdayDate;
-    @Column(name="user_specialrequests")
-    private String userSpecialRequests;
+    private String password;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_cardId"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
 
     public User() {
     }
 
-    public User(String userPassword, int userPassportNumber, int userPayCardNumber, String userFirstname, String userLastname, String userGender, java.sql.Date userBirthdayDate, String userSpecialRequests) {
-        this.userPassword = userPassword;
-        this.userPassportNumber = userPassportNumber;
-        this.userPayCardNumber = userPayCardNumber;
-        this.userFirstname = userFirstname;
-        this.userLastname = userLastname;
-        this.userGender = userGender;
-        this.userBirthdayDate = userBirthdayDate;
-        this.userSpecialRequests = userSpecialRequests;
+    public User(String name, String email, String password, Set<Role> roles) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.roles = roles;
     }
 
-
-
-    public long getUserCardLogin() {
-        return userCardLogin;
+    public long getCardId() {
+        return cardId;
     }
 
-    public void setUserCardLogin(long userCardLogin) {
-        this.userCardLogin = userCardLogin;
+    public void setCardId(long cardId) {
+        this.cardId = cardId;
     }
 
-    public String getUserPassword() {
-        return userPassword;
+    public String getName() {
+        return name;
     }
 
-    public void setUserPassword(String userPassword) {
-        this.userPassword = userPassword;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public int getUserPassportNumber() {
-        return userPassportNumber;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUserPassportNumber(int userPassportNumber) {
-        this.userPassportNumber = userPassportNumber;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public int getUserPayCardNumber() {
-        return userPayCardNumber;
+    public String getPassword() {
+        return password;
     }
 
-    public void setUserPayCardNumber(int userPayCardNumber) {
-        this.userPayCardNumber = userPayCardNumber;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getUserFirstname() {
-        return userFirstname;
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    public void setUserFirstname(String userFirstname) {
-        this.userFirstname = userFirstname;
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
-
-    public String getUserLastname() {
-        return userLastname;
-    }
-
-    public void setUserLastname(String userLastname) {
-        this.userLastname = userLastname;
-    }
-
-    public String getUserGender() {
-        return userGender;
-    }
-
-    public void setUserGender(String userGender) {
-        this.userGender = userGender;
-    }
-
-    public java.sql.Date getUserBirthdayDate() {
-        return userBirthdayDate;
-    }
-
-    public void setUserBirthdayDate(java.sql.Date userBirthdayDate) {
-        this.userBirthdayDate = userBirthdayDate;
-    }
-
-    public String getUserSpecialRequests() {
-        return userSpecialRequests;
-    }
-
-    public void setUserSpecialRequests(String userSpecialRequests) {
-        this.userSpecialRequests = userSpecialRequests;
-    }
-
 }
-
-
-
-
-
-
+    //    @Column(name="user_passport_number")
+//    private int passportNumber;
+//    @Column(name="user_paycard_number")
+//    private int payCardNumber;
+//    @Column(name="user_firstname")
+//    private String firstname;
+//    @Column(name="user_lastname")
+//    private String lastname;
+//    @Column(name="user_gender")
+//    private String gender;
+//    @Column(name="user_birthdaydate")
+//    private java.sql.Date birthdayDate;
+//    @Column(name="user_specialrequests")
+//    private String specialRequests;
