@@ -1,4 +1,4 @@
-package ru.project.fitstyle.controller;
+package ru.project.fitstyle.controllers;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,11 +14,11 @@ public class TestController {
 	public String allAccess() {
 		return "Public Content.";
 	}
-
+	
 	@GetMapping("/user")
 	@PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('COACH')")
 	public String userAccess() {
-		return "COACH Content.";
+		return "User Content.";
 	}
 
 	@GetMapping("/mod")
@@ -30,6 +30,6 @@ public class TestController {
 	@GetMapping("/admin")
 	@PreAuthorize("hasRole('COACH')")
 	public String adminAccess() {
-		return "COACH Board.";
+		return "Admin Board.";
 	}
 }

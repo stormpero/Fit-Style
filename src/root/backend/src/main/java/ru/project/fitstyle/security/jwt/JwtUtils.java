@@ -2,7 +2,6 @@ package ru.project.fitstyle.security.jwt;
 
 import java.util.Date;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,19 +16,23 @@ import ru.project.fitstyle.security.services.UserDetailsImpl;
 public class JwtUtils {
   private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
-  @Value("${fitstyle.app.jwtSecret}")
+  @Value("${fitstyle.project.jwtSecret}")
   private String jwtSecret;
 
-  @Value("${fitstyle.app.jwtExpirationMs}")
+  @Value("${fitstyle.project.jwtExpirationMs}")
   private int jwtExpirationMs;
 
   public String generateJwtToken(Authentication authentication) {
-
     UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
 
-    return Jwts.builder().setSubject((userPrincipal.getUsername())).setIssuedAt(new Date())
-        .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs)).signWith(SignatureAlgorithm.HS512, jwtSecret)
-        .compact();
+    long now = new Date().getTime();
+    Date validity = new Date(now + this.jwtExpirationMs);
+
+    return Jwts.builder().setSubject((userPrincipal.getUsername()))
+            .setIssuedAt(new Date())
+            .setExpiration(validity)
+            .signWith(SignatureAlgorithm.HS512, jwtSecret)
+            .compact();
   }
 
   public String getUserNameFromJwtToken(String token) {

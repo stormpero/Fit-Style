@@ -1,4 +1,5 @@
-package ru.project.fitstyle.model;
+package ru.project.fitstyle.models;
+
 
 import javax.persistence.*;
 
@@ -11,13 +12,13 @@ public class Role {
 
 	@Enumerated(EnumType.STRING)
 	@Column(length = 20)
-	private EnumRole name;
+	private ERole name;
 
 	public Role() {
 
 	}
 
-	public Role(EnumRole name) {
+	public Role(ERole name) {
 		this.name = name;
 	}
 
@@ -29,11 +30,11 @@ public class Role {
 		this.id = id;
 	}
 
-	public EnumRole getName() {
+	public ERole getName() {
 		return name;
 	}
 
-	public void setName(EnumRole name) {
+	public void setName(ERole name) {
 		this.name = name;
 	}
 }
