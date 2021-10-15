@@ -46,7 +46,7 @@ const vpassword = value => {
   }
 };
 
-export default class Register extends Component {
+export default class Register extends Component { //TODO
   constructor(props) {
     super(props);
     this.handleRegister = this.handleRegister.bind(this);
