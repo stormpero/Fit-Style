@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import AuthService from "../services/auth.service";
+import AuthService from "../services/authService";
 import isEmpty from "validator/es/lib/isEmpty";
 
 export default class Login extends Component {

@@ -1,16 +1,12 @@
 import React, { Component } from "react";
 
-import UserService from "../services/user.service";
-import EventBus from "../common/EventBus";
+import UserService from "../services/userService";
+import EventBus from "../services/EventBus";
 
-export default class BoardUser extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      content: ""
-    };
-  }
+export default class UserContent extends Component {
+  state = {
+    content: ""
+  };
 
   componentDidMount() {
     UserService.getUserBoard().then(
@@ -20,13 +16,9 @@ export default class BoardUser extends Component {
         });
       },
       error => {
+        let errorMsg =  error.response?.data?.message || error.message;
         this.setState({
-          content:
-            (error.response &&
-              error.response.data &&
-              error.response.data.message) ||
-            error.message ||
-            error.toString()
+          content: errorMsg
         });
 
         if (error.response && error.response.status === 401) {
@@ -37,10 +29,13 @@ export default class BoardUser extends Component {
   }
 
   render() {
+    console.log(this.props.location)
+    const username = this.props.location.state.username;
+
     return (
       <div className="container">
         <header className="jumbotron">
-          <h3>{this.state.content}</h3>
+          <h3>{this.state.content + username + "!"}</h3>
         </header>
       </div>
     );
