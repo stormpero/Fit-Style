@@ -5,8 +5,8 @@ import "./App.css";
 
 import AuthService from "./services/auth.service";
 
-import Login from "./components/login.component";
-import Register from "./components/register.component";
+import Login from "./components/login";
+import Register from "./components/register";
 import Home from "./components/home";
 import Profile from "./components/profile";
 import BoardUser from "./components/board-user.component";
@@ -59,7 +59,7 @@ class App extends Component {
       <div>
         <nav className="navbar navbar-expand navbar-dark bg-dark">
           <Link to={"/"} className="navbar-brand">
-            bezKoder
+            Fit-Style
           </Link>
           <div className="navbar-nav mr-auto">
             <li className="nav-item">
@@ -72,19 +72,8 @@ class App extends Component {
               showModeratorBoard && 
               (
                 <li className="nav-item">
-                  <Link to={"/mod"} className="nav-link">
-                    Moderator Board
-                  </Link>
-                </li>
-              )
-            }
-
-            {
-              showCoachBoard && 
-              (
-                <li className="nav-item">
-                  <Link to={"/admin"} className="nav-link">
-                    Admin Board
+                  <Link to={"/register"} className="nav-link">
+                    Sign Up
                   </Link>
                 </li>
               )
@@ -122,12 +111,6 @@ class App extends Component {
                 <li className="nav-item">
                   <Link to={"/login"} className="nav-link">
                     Login
-                  </Link>
-                </li>
-
-                <li className="nav-item">
-                  <Link to={"/register"} className="nav-link">
-                    Sign Up
                   </Link>
                 </li>
               </div>
