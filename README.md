@@ -1,35 +1,48 @@
 # Fit Style
-## Creating a web application for a Fitness club  
+### Creating a web application for a Fitness club
+
 ## Technology Stack
 ##### FrontEnd:
 - HTML + CSS + JS
-- Node.js (Для React.js)
+- Node.js (for React.js)
 - React.js 
-- Bootstrap 4
+- Bootstrap 5
 - Axios
 ##### BackEnd:
 - Java
 - Spring Data JPA
 - Spring MVC
-- PostgreSQL  
-## Installation  
-#### FrontEnd  
-----
-Download Node.js: [Скачать](https://nodejs.org/en/ "Node.js =)")
+- PostgreSQL 
+
+
+## Installation 
+
+#### Clone
 ```sh
-npm i
+git clone https://github.com/stormpero/Fit-Style.git; cd Fit-Style; rm readme.md 
+```
+### FrontEnd  
+----
+Download Node.js: [Download](https://nodejs.org/en/ "Node.js =)")
+#### Install dependencies
+```sh
+npm install
+```
+#### Start react-app
+```sh
 npm start
 ```
 
-#### BackEnd  
+### BackEnd  
 ----
+Download Postgresql: [Download](https://www.enterprisedb.com/downloads/postgres-postgresql-downloads "Postgresql =)")  
+Create database with name "fit-style"  
+Open folder backend with IntelliJ IDEA  
+Wait until the dependencies are established  
 
-```sh
-¯\_(ツ)_/¯
-Intellij IDEA
-```
+----
 Servers:
 ```sh
-Frontend: localhost:3000
-Backend: localhost:8080
+[Client] Frontend: localhost:3000
+[Server] Backend: localhost:8080
 ```
