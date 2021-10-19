@@ -3,10 +3,10 @@ import { Switch, Route, Link } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-
+import logo from "./assets/logo.png"
 import AuthService from "./services/authService";
+import { Routes } from "./pages/routes/routes";
 
-    import { Routes } from "./pages/routes/routes"
 
 // import AuthVerify from "./common/auth-verify";
 import EventBus from "./services/EventBus";
@@ -48,9 +48,9 @@ class App extends Component {
     const { currentUser, isAdmin } = this.state;
     return (
       <div>
-        <nav className="navbar navbar-expand navbar-dark bg-dark ">
-          <Link to={"/"} className="navbar-brand logo">
-            Fit-Style
+        <nav className="header navbar navbar-expand    d-flex justify-content-center  ">
+          <Link to={"/"} className="navbar-brand ">
+            <img className="logo" src={logo} />
           </Link>
           <div className="navbar-nav mr-auto">
             { currentUser && (
