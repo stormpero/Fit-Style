@@ -11,6 +11,7 @@ export default class UserContent extends Component {
   componentDidMount() {
     UserService.getUserBoard().then(
       response => {
+
         this.setState({
           content: response.data
         });
@@ -29,7 +30,6 @@ export default class UserContent extends Component {
   }
 
   render() {
-    console.log(this.props.location)
     const username = this.props.location.state.username;
 
     return (
