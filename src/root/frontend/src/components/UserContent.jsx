@@ -2,18 +2,24 @@ import React, { Component } from "react";
 
 import UserService from "../services/userService";
 import EventBus from "../services/EventBus";
+import AuthService from "../services/authService";
 
 export default class UserContent extends Component {
   state = {
-    content: ""
+    content: "",
+    username: ""
   };
 
   componentDidMount() {
+
+    const currentUser = AuthService.getCurrentUser();
+
     UserService.getUserBoard().then(
       response => {
 
         this.setState({
-          content: response.data
+          content: response.data,
+          username: currentUser.username
         });
       },
       error => {
@@ -30,7 +36,7 @@ export default class UserContent extends Component {
   }
 
   render() {
-    const username = this.props.location.state.username;
+    const username = this.state.username;
 
     return (
       <div className="container">

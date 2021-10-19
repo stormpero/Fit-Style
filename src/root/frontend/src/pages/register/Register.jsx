@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import AuthService from "../services/authService";
+import AuthService from "../../services/authService";
 import isEmpty from "validator/es/lib/isEmpty";
 
 export default class Register extends Component {
@@ -33,11 +33,14 @@ export default class Register extends Component {
       return;
     }
 
-    //TODO: Проверить данные на ошибки
+    //TODO: Проверить дqанные на ошибки
 
     AuthService.register(this.state.username, this.state.email, this.state.password).then(
         (response) => {
           this.setState({
+            username: "",
+            email: "",
+            password: "",
             message: response.data.message,
             successful: true
           });
@@ -60,7 +63,7 @@ export default class Register extends Component {
           <form>
             <div className="form-group">
               <label htmlFor="username">Username</label>
-              <input className="form-control"
+              <input className="form-control mb-2"
                      required
                      name="username"
                      type="text"

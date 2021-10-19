@@ -6,14 +6,13 @@ import "./App.css";
 import logo from "./assets/logo.png"
 import AuthService from "./services/authService";
 import { Routes } from "./pages/routes/routes";
-
+import Navbar from "./components/navbar/Navbar";
 
 // import AuthVerify from "./common/auth-verify";
 import EventBus from "./services/EventBus";
 
 class App extends Component {
   state = {
-    isAdmin: false,
     currentUser: undefined,
   }
 
@@ -22,74 +21,28 @@ class App extends Component {
 
     if (user) {
       this.setState({
-        currentUser: user,
-        isAdmin: user.roles.includes("ROLE_MODERATOR"),
+        currentUser: user
       });
     }
-    
-    EventBus.on("logout", () => {
-      this.logOut();
-    });
-  }
-
-  componentWillUnmount() {
-    EventBus.remove("logout");
-  }
-
-  logOut() {
-    AuthService.logout();
-    this.setState({
-      isAdmin: false,
-      currentUser: undefined,
-    });
   }
 
   render() {
-    const { currentUser, isAdmin } = this.state;
+    const currentUser  = this.state.currentUser;
     return (
       <div>
-        <nav className="header navbar navbar-expand    d-flex justify-content-center  ">
-          <Link to={"/"} className="navbar-brand ">
-            <img className="logo" src={logo} />
-          </Link>
+          { !currentUser &&
+            <div className="d-flex justify-content-center">
+              <Link to={"/"} className="navbar-brand ">
+                <img className="logo" src={logo}/>
+              </Link>
+            </div>
+          }
           <div className="navbar-nav mr-auto">
             { currentUser && (
-                <div className="navbar-nav ml-auto">
-                  <li className="nav-item">
-                    <Link to={"/profile"} className="nav-link">
-                      Профиль
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link to={{
-                      pathname: "/user",
-                      state: {
-                        username: currentUser.username
-                      }
-                    }} className="nav-link">
-                      Контент
-                    </Link>
-                  </li>
-                </div>
-            )}
-            { isAdmin && (
-                <li className="nav-item">
-                  <Link to={"/register"} className="nav-link">
-                    Регистрация клиента
-                  </Link>
-                </li>
-            )}
-            { currentUser && (
-                <div className="navbar-nav ml-auto">
-                  <li className="nav-item">
-                    <a href="/login" className="nav-link" onClick={this.logOut}>
-                      Выйти
-                    </a>
-                  </li>
-                </div>
+                <Navbar/>
             )}
           </div>
-        </nav>
+
 
         <Routes/>
 

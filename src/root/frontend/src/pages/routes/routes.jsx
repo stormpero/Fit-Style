@@ -1,8 +1,8 @@
 import React from "react";
 import {Route, Switch} from "react-router-dom";
 
-import Login from "../../components/Login";
-import Register from "../../components/Register";
+import Login from "../../components/login/Login";
+import Register from "../register/Register";
 import Profile from "../profile/Profile";
 import UserContent from "../../components/UserContent";
 

@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import "./Login.css";
-import AuthService from "../services/authService";
+import AuthService from "../../services/authService";
 import isEmpty from "validator/es/lib/isEmpty";
+import {Redirect} from "react-router-dom";
 
 export default class Login extends Component {
 
@@ -9,9 +10,16 @@ export default class Login extends Component {
     username: "",
     password: "",
     isLoading: false,
-    errorMsg: ""
+    errorMsg: "",
+    redirect: null
   }
-  
+
+  componentDidMount() {
+    const currentUser = AuthService.getCurrentUser();
+
+    if (currentUser) this.setState({ redirect: "/user" });
+  }
+
   handleInputChange = (event) => {
     const {name, value} = event.target;
 
@@ -40,7 +48,7 @@ export default class Login extends Component {
 
     AuthService.login(this.state.username, this.state.password).then(
       () => {
-        this.props.history.push("/profile");
+        this.props.history.push("/user");
         window.location.reload();
         this.setState({
           isLoading: false,
@@ -58,21 +66,28 @@ export default class Login extends Component {
   }
 
   render() {
+    if (this.state.redirect) {
+      return <Redirect to={this.state.redirect} />
+    }
     return (
       <div className="col-md-12">
         <div className="card card-container">
           <ul className="list-inline">
             <li className="list-inline-item head1">Go</li>
-            <li className="list-inline-item head2">Abroad</li>
-            <li className="list-inline-item head3">Now</li>
+            <li className="list-inline-item head2">Beyond</li>
+            <li className="list-inline-item head3">Limits</li>
           </ul>
-          <div className="bg"></div>
-          <div className="bg bg2"></div>
-          <div className="bg bg3"></div>
+          <ul className="list-inline">
+            <li className="list-inline-item head2">Fit</li>
+            <li className="list-inline-item head3">Style</li>
+          </ul>
+          <div className="bg"/>
+          <div className="bg bg2"/>
+          <div className="bg bg3"/>
           <form className="form-div">
             <div className="form-group">
-              <label htmlFor="username"></label>
-              <input className="form-control"
+              <label htmlFor="username"/>
+              <input className="form-control form-control-auth"
                   required
                   name="username"
                   type="text"
@@ -82,8 +97,8 @@ export default class Login extends Component {
               />
             </div>
             <div className="form-group">
-              <label htmlFor="password"></label>
-              <input className="form-control"
+              <label htmlFor="password"/>
+              <input className="form-control form-control-auth"
                   required
                   name="password"
                   type="password"
@@ -94,8 +109,9 @@ export default class Login extends Component {
             </div>
             <br/>
             <div className="form-group d-flex justify-content-between">
-              <button className="butt"
+              <button className="btn btn-secondary"
                 onClick={this.handleLogin}>
+                Войти
               </button>
             </div>
             {this.state.errorMsg && (

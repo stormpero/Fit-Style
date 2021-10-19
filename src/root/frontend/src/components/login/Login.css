@@ -6,6 +6,10 @@ body {
     margin:0;
 }
 
+.navbar {
+    background: none;
+}
+
 .card-container.card {
     max-width: 350px !important;
     padding: 40px 40px;
@@ -15,33 +19,36 @@ body {
     justify-content: center;
     color: white;
     font-size: 30px;
-    margin-bottom: 50px;
 }
-.list-inline-item:not(:last-child) {
-    margin-right: -4.9rem;
-}
+
 .head1, .head2,.head3{
     opacity: 0;
 }
 
-
 .head1{
-    margin-right: -25px;
-    -webkit-animation: fadeOut 1 5s ease-in;
-    -moz-animation: fadeOut 1 5s ease-in;
-    -o-animation: fadeOut 1 5s ease-in;
-    animation: fadeOut 1 5s ease-in;
+    -webkit-animation: finalFade 1 5s ease-in;
+    -moz-animation: finalFade 1 5s ease-in;
+    -o-animation: finalFade 1 5s ease-in;
+    animation: finalFade 1 5s ease-in;
+    -webkit-animation-fill-mode: forwards;
+    -moz-animation-fill-mode: forwards;
+    -o-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
 }
 
 .head2{
-    -webkit-animation: fadeOut 1 5s ease-in;
-    -moz-animation: fadeOut 1 5s ease-in;
-    -o-animation: fadeOut 1 5s ease-in;
-    animation: fadeOut 1 5s ease-in;
-    -webkit-animation-delay: 5s;
-    -moz-animation-delay: 5s;
-    -o-animation-delay: 5s;
-    animation-delay: 5s;
+    -webkit-animation: finalFade 1 5s ease-in;
+    -moz-animation: finalFade 1 5s ease-in;
+    -o-animation: finalFade 1 5s ease-in;
+    animation: finalFade 1 5s ease-in;
+    -webkit-animation-fill-mode: forwards;
+    -moz-animation-fill-mode: forwards;
+    -o-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+    -webkit-animation-delay: 1s;
+    -moz-animation-delay: 1s;
+    -o-animation-delay: 1s;
+    animation-delay: 1s;
 }
 
 .head3{
@@ -53,37 +60,35 @@ body {
     -moz-animation-fill-mode: forwards;
     -o-animation-fill-mode: forwards;
     animation-fill-mode: forwards;
-    -webkit-animation-delay: 10s;
-    -moz-animation-delay: 10s;
-    -o-animation-delay: 10s;
-    animation-delay: 10s;
+    -webkit-animation-delay: 2s;
+    -moz-animation-delay: 2s;
+    -o-animation-delay: 2s;
+    animation-delay: 2s;
 }
-
 
 .card {
     background-color: rgba(255, 255, 255, 0);
     padding: 20px 25px 30px;
-    margin: 0 auto 25px;
-    margin-top: 30px;
+    margin: 30px auto 25px;
     border: 0;
 }
 
-.form-control{
+.form-control-auth{
     text-decoration-color: white;
     border-color: white;
     background: rgba(255, 255, 255, 0);
 }
-.form-control:focus {
+.form-control-auth:focus {
     -webkit-box-shadow: 5px 5px 5px -5px rgba(34, 60, 80, 0.6) inset;
     -moz-box-shadow: 5px 5px 5px -5px rgba(34, 60, 80, 0.6) inset;
     box-shadow: rgba(0, 0, 0, 0.4) 0px 30px 90px;
     background-color: rgba(255, 255, 255, 0.5) ;
 }
 
-input.form-control:focus::placeholder{
+input.form-control-auth:focus::placeholder{
     opacity: 0 ;
 }
-input.form-control::placeholder{
+input.form-control-auth::placeholder{
     color: white ;
 }
 
@@ -107,7 +112,15 @@ input.form-control::placeholder{
 .bg3 {
     animation-duration:5s;
 }
+.btn-secondary {
+    background-color: rgba(255, 255, 255, 0);
+    border-color: #ffffff;
+}
 
+.btn-secondary:hover {
+    background-color: rgba(255, 255, 255, 0);
+    border-color: #000;
+}
 
 .content {
     background-color:rgba(255,255,255,.8);
@@ -122,13 +135,6 @@ input.form-control::placeholder{
     transform:translate(-50%, -50%);
 }
 
-h1 {
-    font-family:monospace;
-}
-.butt{
-    opacity: 0;
-}
-
 @keyframes slide {
     0% {
         transform:translateX(-25%);
@@ -136,25 +142,6 @@ h1 {
     100% {
         transform:translateX(25%);
     }
-}
-@-webkit-keyframes fadeIn{
-    from{opacity: 0;}
-    to{opacity: 1;}
-}
-
-@-moz-keyframes fadeIn{
-    from{opacity: 0;}
-    to{opacity: 1;}
-}
-
-@-o-keyframes fadeIn{
-    from{opacity: 0;}
-    to{opacity: 1;}
-}
-
-@keyframes fadeIn{
-    from{opacity: 0;}
-    to{opacity: 1;}
 }
 
 @-webkit-keyframes fadeOut{
