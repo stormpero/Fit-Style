@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import "./Login.css";
 import AuthService from "../services/authService";
 import isEmpty from "validator/es/lib/isEmpty";
 
@@ -61,10 +61,17 @@ export default class Login extends Component {
     return (
       <div className="col-md-12">
         <div className="card card-container">
-          <h3 className="text-muted">Auth</h3>
-          <form>
+          <ul className="list-inline">
+            <li className="list-inline-item head1">Go</li>
+            <li className="list-inline-item head2">Abroad</li>
+            <li className="list-inline-item head3">Now</li>
+          </ul>
+          <div className="bg"></div>
+          <div className="bg bg2"></div>
+          <div className="bg bg3"></div>
+          <form className="form-div">
             <div className="form-group">
-              <label htmlFor="username">Username</label>
+              <label htmlFor="username"></label>
               <input className="form-control"
                   required
                   name="username"
@@ -75,7 +82,7 @@ export default class Login extends Component {
               />
             </div>
             <div className="form-group">
-              <label htmlFor="password">Password</label>
+              <label htmlFor="password"></label>
               <input className="form-control"
                   required
                   name="password"
@@ -87,9 +94,8 @@ export default class Login extends Component {
             </div>
             <br/>
             <div className="form-group d-flex justify-content-between">
-              <button className="btn btn-primary btn-block"
+              <button className="butt"
                 onClick={this.handleLogin}>
-                <span>Login</span>
               </button>
             </div>
             {this.state.errorMsg && (
