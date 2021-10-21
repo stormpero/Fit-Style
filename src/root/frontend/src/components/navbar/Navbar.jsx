@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {Link} from "react-router-dom";
+import LStorageUser from "../../services/LStorageUser";
 import AuthService from "../../services/authService";
 import EventBus from "../../services/EventBus";
 import "./Navbar.css"
-
 
 export default class Navbar extends Component {
     state = {
@@ -12,7 +12,7 @@ export default class Navbar extends Component {
     }
 
     componentDidMount() {
-        const user = AuthService.getCurrentUser();
+        const user = LStorageUser.getUser();
 
         if (user) {
             this.setState({

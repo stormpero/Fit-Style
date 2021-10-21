@@ -1,15 +1,13 @@
 import React, { Component } from "react";
-import { Switch, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import logo from "./assets/logo.png"
-import AuthService from "./services/authService";
 import { Routes } from "./pages/routes/routes";
 import Navbar from "./components/navbar/Navbar";
+import LStorageUser from "./services/LStorageUser";
 
-// import AuthVerify from "./common/auth-verify";
-import EventBus from "./services/EventBus";
 
 class App extends Component {
   state = {
@@ -17,7 +15,8 @@ class App extends Component {
   }
 
   componentDidMount() {
-    const user = AuthService.getCurrentUser();
+
+    const user = LStorageUser.getUser();
 
     if (user) {
       this.setState({
@@ -33,7 +32,7 @@ class App extends Component {
           { !currentUser &&
             <div className="d-flex justify-content-center">
               <Link to={"/"} className="navbar-brand ">
-                <img className="logo" src={logo}/>
+                <img className="logo" src={logo} alt="Fit-Style"/>
               </Link>
             </div>
           }

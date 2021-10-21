@@ -1,5 +1,7 @@
+import LStorageUser from "./LStorageUser";
+
 export default function authHeader() {
-  const user = JSON.parse(localStorage.getItem('user'));
+  const user =LStorageUser.getUser();
 
   if (user && user.accessToken) {
     return { Authorization: 'Bearer ' + user.accessToken };

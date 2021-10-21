@@ -3,6 +3,7 @@ import "./Login.css";
 import AuthService from "../../services/authService";
 import isEmpty from "validator/es/lib/isEmpty";
 import {Redirect} from "react-router-dom";
+import LStorageUser from "../../services/LStorageUser";
 
 export default class Login extends Component {
 
@@ -15,7 +16,7 @@ export default class Login extends Component {
   }
 
   componentDidMount() {
-    const currentUser = AuthService.getCurrentUser();
+    const currentUser = LStorageUser.getUser();
 
     if (currentUser) this.setState({ redirect: "/user" });
   }

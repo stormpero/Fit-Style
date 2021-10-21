@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-
 import UserService from "../services/userService";
 import EventBus from "../services/EventBus";
-import AuthService from "../services/authService";
+import LStorageUser from "../services/LStorageUser";
 
 export default class UserContent extends Component {
   state = {
@@ -12,7 +11,7 @@ export default class UserContent extends Component {
 
   componentDidMount() {
 
-    const currentUser = AuthService.getCurrentUser();
+    const currentUser = LStorageUser.getUser();
 
     UserService.getUserBoard().then(
       response => {

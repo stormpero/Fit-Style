@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import LStorageUser from "./LStorageUser";
 const API_URL = "http://localhost:8080/api/auth/";
 
 class AuthService {
@@ -11,7 +11,7 @@ class AuthService {
       })
       .then(response => {
         if (response.data.accessToken) {
-          localStorage.setItem("user", JSON.stringify(response.data));
+          LStorageUser.add(response.data);
         }
 
         return response.data;
@@ -19,7 +19,7 @@ class AuthService {
   }
 
   logout() {
-    localStorage.removeItem("user");
+    LStorageUser.remove();
   }
 
   register(username, email, password) {
@@ -28,10 +28,6 @@ class AuthService {
       email,
       password
     });
-  }
-
-  getCurrentUser() {
-    return JSON.parse(localStorage.getItem('user'));
   }
 }
 
