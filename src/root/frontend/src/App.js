@@ -7,7 +7,8 @@ import logo from "./assets/logo.png"
 import { Routes } from "./pages/routes/routes";
 import Navbar from "./components/navbar/Navbar";
 import LStorageUser from "./services/LStorageUser";
-
+import AuthVerify from "./services/jwt/auth-verify";
+import AuthService from "./services/authService";
 
 class App extends Component {
   state = {
@@ -45,7 +46,7 @@ class App extends Component {
 
         <Routes/>
 
-        { /*<AuthVerify logOut={this.logOut}/> */ }
+        {/*{ <AuthVerify logOut={AuthService.logOut}/>  }*/}
       </div>
     );
   }

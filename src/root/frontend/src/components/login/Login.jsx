@@ -56,7 +56,7 @@ export default class Login extends Component {
         });
       }).catch((error)=> {
         let errorMsg =  error.response?.data?.message || error.message;
-        console.log(error.response.data);
+
         errorMsg = errorMsg === "Bad credentials" ? "Неверные данные" : "Заполните поля"; //TODO: Проверка на ошибки
        
         this.setState({
