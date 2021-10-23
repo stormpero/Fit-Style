@@ -2,6 +2,8 @@ import React, { Component } from "react";
 
 import AuthService from "../../services/authService";
 import isEmpty from "validator/es/lib/isEmpty";
+import LStorageUser from "../../services/LStorageUser";
+import {Redirect} from "react-router-dom";
 
 export default class Register extends Component {
 
@@ -10,7 +12,16 @@ export default class Register extends Component {
     email: "",
     password: "",
     successful: false,
-    message: ""
+    message: "",
+    redirect: null
+  }
+  componentDidMount() {
+    const currentUser = LStorageUser.getUser();
+
+    if (!currentUser) {
+      this.setState({ redirect: "/login" });
+      return;
+    }
   }
 
   handleInputChange = (event) => {
@@ -56,6 +67,9 @@ export default class Register extends Component {
 
 
   render() {
+    if (this.state.redirect) {
+      return <Redirect to={this.state.redirect} />
+    }
     return (
       <div className="col-md-12">
         <div className="card card-container">

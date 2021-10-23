@@ -2,16 +2,23 @@ import React, { Component } from "react";
 import UserService from "../services/userService";
 import EventBus from "../services/EventBus";
 import LStorageUser from "../services/LStorageUser";
+import {Redirect} from "react-router-dom";
 
 export default class UserContent extends Component {
   state = {
     content: "",
-    username: ""
+    username: "",
+    redirect: null
   };
 
   componentDidMount() {
 
     const currentUser = LStorageUser.getUser();
+
+    if (!currentUser) {
+      this.setState({ redirect: "/login" });
+      return;
+    }
 
     UserService.getUserBoard().then(
       response => {
@@ -35,6 +42,10 @@ export default class UserContent extends Component {
   }
 
   render() {
+    if (this.state.redirect) {
+      return <Redirect to={this.state.redirect} />
+    }
+
     const username = this.state.username;
 
     return (

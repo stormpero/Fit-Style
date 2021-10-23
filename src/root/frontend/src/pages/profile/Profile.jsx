@@ -13,7 +13,7 @@ export default class Profile extends Component {
 
     const currentUser = LStorageUser.getUser();
 
-    if (!currentUser) this.setState({ redirect: "/home" });
+    if (!currentUser) this.setState({ redirect: "/login" });
     this.setState({ currentUser: currentUser, userReady: true })
   }
 
