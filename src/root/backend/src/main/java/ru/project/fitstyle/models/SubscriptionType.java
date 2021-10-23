@@ -22,15 +22,11 @@ public class SubscriptionType {
 	@Size(max = 5)
 	private String coast;
 
-	@OneToOne(optional = false, mappedBY = "subscriptionType")
+	@OneToOne(optional = false, mappedBy = "subscriptionType")
 	private Subscription owner;
 
 	public SubscriptionType() {
 
-	}
-
-	public SubscriptionType(ESubsValidity name) {
-		this.validity = validity;
 	}
 
 	public SubscriptionType(ESubsPlacementTime name) {

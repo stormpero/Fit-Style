@@ -15,19 +15,19 @@ public class Subscription {
 	private SubscriptionType subscriptionType;
 
 	@NotBlank
-	private java.sql.Date begindate;
+	private java.sql.Date beginDate;
 
 	@NotBlank
-	private java.sql.Date enddate;
+	private java.sql.Date endDate;
 
 	@NotBlank
 	@Size(max = 16)
 	private String contract;
 
-	@OneToOne(optional = false, mappedBY = "subscription")
+	@OneToOne(optional = false, mappedBy = "subscription")
 	private User owner;
 
-	public Role() {
+	public Subscription() {
 
 	}
 
@@ -47,18 +47,18 @@ public class Subscription {
 		this.subscriptionType = subscriptionType;
 	}
 
-	public java.sql.Date getBegindate() { return begindate; }
+	public java.sql.Date getBeginDate() { return beginDate; }
 
-	public void setBegindate(java.sql.Date begindate) {
-		this.begindate = begindate;
+	public void setBeginDate(java.sql.Date beginDate) {
+		this.beginDate = beginDate;
 	}
 
-	public java.sql.Date getEnddate() {
-		return enddate;
+	public java.sql.Date getEndDate() {
+		return endDate;
 	}
 
-	public void setEnddate(java.sql.Date enddate) {
-		this.enddate = enddate;
+	public void setEndDate(java.sql.Date endDate) {
+		this.endDate = endDate;
 	}
 
 	public String getContract() {
