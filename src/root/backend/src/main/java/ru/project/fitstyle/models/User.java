@@ -24,6 +24,14 @@ public class User {
 	private String username;
 
 	@NotBlank
+	@Size(max = 20)
+	private String surname;
+
+	@NotBlank
+	@Size(max = 20)
+	private String patronymic;
+
+	@NotBlank
 	@Size(max = 50)
 	@Email
 	private String email;
@@ -32,19 +40,54 @@ public class User {
 	@Size(max = 120)
 	private String password;
 
+	@NotBlank
+	@Size(max = 3)
+	private String age;
+
+	@NotBlank
+	@Size(max = 6)
+	private String gender;
+
+	@NotBlank
+	private java.sql.Date birthdate;
+
+	@NotBlank
+	@Size(max = 12)
+	private String telephone;
+
+	@NotBlank
+	@Size(max = 16)
+	private String passport;
+
+	@NotBlank
+	@Size(max = 40)
+	private String adress;
+
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(	name = "user_roles", 
 				joinColumns = @JoinColumn(name = "user_id"), 
 				inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
 
+	@OneToOne(optional=false, cascade = CascadeType.ALL)
+	@JoinColumn(name = "subscription_id")
+	private Subscription subscription;
+
 	public User() {
 	}
 
-	public User(String username, String email, String password) {
+	public User(String username, String surname, String patronymic, String email, String password, String age, String gender, java.sql.Date birthdate, String telephone, String passport, String adress) {
 		this.username = username;
+		this.surname = surname;
+		this.patronymic = patronymic;
 		this.email = email;
 		this.password = password;
+		this.age = age;
+		this.gender = gender;
+		this.birthdate = birthdate;
+		this.telephone = telephone;
+		this.passport = passport;
+		this.adress = adress;
 	}
 
 	public Long getId() {
@@ -63,6 +106,22 @@ public class User {
 		this.username = username;
 	}
 
+	public String getSurname() {
+		return surname;
+	}
+
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
+
+	public String getPatronymic() {
+		return patronymic;
+	}
+
+	public void setPatronymic(String patronymic) {
+		this.patronymic = patronymic;
+	}
+
 	public String getEmail() {
 		return email;
 	}
@@ -79,11 +138,67 @@ public class User {
 		this.password = password;
 	}
 
+	public String getAge() {
+		return age;
+	}
+
+	public void setAge(String age) {
+		this.age = age;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.password = gender;
+	}
+
+	public java.sql.Date getBirthdate() {
+		return birthdate;
+	}
+
+	public void setBirthdate(java.sql.Date birthdate) {
+		this.birthdate = birthdate;
+	}
+
+	public String getTelephone() {
+		return telephone;
+	}
+
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
+	}
+
+	public String getPassport() {
+		return passport;
+	}
+
+	public void setPassport(String passport) {
+		this.passport = passport;
+	}
+
+	public String getAdress() {
+		return adress;
+	}
+
+	public void setAdress(String adress) {
+		this.adress = adress;
+	}
+
 	public Set<Role> getRoles() {
 		return roles;
 	}
 
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
+	}
+
+	public Subscription getSubscription() {
+		return subscription;
+	}
+
+	public void setSubscription(Subscription subscription) {
+		this.subscription = subscription;
 	}
 }
