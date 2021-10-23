@@ -29,7 +29,7 @@ public class SubscriptionType {
 
 	}
 
-	public SubscriptionType(ESubsPlacementTime name) {
+	public SubscriptionType(ESubsPlacementTime placementTime) {
 		this.placementTime = placementTime;
 	}
 
