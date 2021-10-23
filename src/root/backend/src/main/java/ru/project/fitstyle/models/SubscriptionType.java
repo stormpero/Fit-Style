@@ -10,28 +10,28 @@ public class SubscriptionType {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@Enumerated(EnumType.INTEGER)
+	@Enumerated(EnumType.STRING)
 	private ESubsValidity validity;
 
 	@Enumerated(EnumType.STRING)
 	@Column(length = 10)
 	private ESubsPlacementTime placementTime;
 
-	@Enumerated(EnumType.INTEGER)
+	@Enumerated(EnumType.STRING)
 	private ESubsCoast coast;
 
-	@OneToOne(optional = false, mappedBY = "subscriptionType")
+	@OneToOne(optional = false, mappedBy = "subscriptionType")
 	private Subscription owner;
 
 	public SubscriptionType() {
 
 	}
 
-	public SubscriptionType(ESubsValidity name) {
+	public SubscriptionType(ESubsValidity validity) {
 		this.validity = validity;
 	}
 
-	public SubscriptionType(ESubsPlacementTime name) {
+	public SubscriptionType(ESubsPlacementTime placementTime) {
 		this.placementTime = placementTime;
 	}
 
