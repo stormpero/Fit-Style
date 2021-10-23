@@ -2,8 +2,6 @@ package ru.project.fitstyle.models;
 
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "subscription")
@@ -17,20 +15,19 @@ public class Subscription {
 	private SubscriptionType subscriptionType;
 
 	@NotBlank
-	private java.sql.Date beginDate;
+	private java.sql.Date begindate;
 
 	@NotBlank
-	private java.sql.Date endDate;
+	private java.sql.Date enddate;
 
 	@NotBlank
 	@Size(max = 16)
 	private String contract;
 
-	@OneToOne(optional = false, mappedBy = "subscription")
+	@OneToOne(optional = false, mappedBY = "subscription")
 	private User owner;
 
-	public Subscription()
-	{
+	public Role() {
 
 	}
 
@@ -50,18 +47,18 @@ public class Subscription {
 		this.subscriptionType = subscriptionType;
 	}
 
-	public java.sql.Date getBeginDate() { return beginDate; }
+	public java.sql.Date getBegindate() { return begindate; }
 
-	public void setBeginDate(java.sql.Date beginDate) {
-		this.beginDate = beginDate;
+	public void setBegindate(java.sql.Date begindate) {
+		this.begindate = begindate;
 	}
 
-	public java.sql.Date getEndDate() {
-		return endDate;
+	public java.sql.Date getEnddate() {
+		return enddate;
 	}
 
-	public void setEndDate(java.sql.Date endDate) {
-		this.endDate = endDate;
+	public void setEnddate(java.sql.Date enddate) {
+		this.enddate = enddate;
 	}
 
 	public String getContract() {

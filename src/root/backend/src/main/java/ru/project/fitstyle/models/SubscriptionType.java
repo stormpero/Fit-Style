@@ -10,28 +10,30 @@ public class SubscriptionType {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@Enumerated(EnumType.STRING)
-	private ESubsValidity validity;
+	@NotBlank
+	@Size(max = 3)
+	private String validity;
 
 	@Enumerated(EnumType.STRING)
 	@Column(length = 10)
 	private ESubsPlacementTime placementTime;
 
-	@Enumerated(EnumType.STRING)
-	private ESubsCoast coast;
+	@NotBlank
+	@Size(max = 5)
+	private String coast;
 
-	@OneToOne(optional = false, mappedBy = "subscriptionType")
+	@OneToOne(optional = false, mappedBY = "subscriptionType")
 	private Subscription owner;
 
 	public SubscriptionType() {
 
 	}
 
-	public SubscriptionType(ESubsValidity validity) {
+	public SubscriptionType(ESubsValidity name) {
 		this.validity = validity;
 	}
 
-	public SubscriptionType(ESubsPlacementTime placementTime) {
+	public SubscriptionType(ESubsPlacementTime name) {
 		this.placementTime = placementTime;
 	}
 
@@ -43,11 +45,11 @@ public class SubscriptionType {
 		this.id = id;
 	}
 
-	public ESubsValidity getValidity() {
+	public String getValidity() {
 		return validity;
 	}
 
-	public void setValidity(ESubsValidity validity) {
+	public void setValidity(String validity) {
 		this.validity = validity;
 	}
 
@@ -59,11 +61,11 @@ public class SubscriptionType {
 		this.placementTime = placementTime;
 	}
 
-	public ESubsCoast getCoast() {
+	public String getCoast() {
 		return coast;
 	}
 
-	public void setCoast(ESubsCoast coast) {
+	public void setCoast(String coast) {
 		this.coast = coast;
 	}
 
