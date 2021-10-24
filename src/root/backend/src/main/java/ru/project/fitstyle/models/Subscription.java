@@ -10,7 +10,7 @@ public class Subscription {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@OneToOne(optional=false, cascade = CascadeType.ALL)
+	@ManyToOne(optional=false, cascade = CascadeType.ALL)
 	@JoinColumn(name = "subscriptionType_id")
 	private SubscriptionType subscriptionType;
 
@@ -24,8 +24,8 @@ public class Subscription {
 	@Size(max = 16)
 	private String contract;
 
-	@OneToOne(optional = false, mappedBy = "subscription")
-	private User owner;
+	//@OneToOne(optional = false, mappedBy = "subscription")
+	//private User owner;
 
 	public Subscription() {
 
@@ -69,11 +69,11 @@ public class Subscription {
 		this.contract = contract;
 	}
 
-	public User getOwner() {
-		return owner;
-	}
+	//public User getOwner() {
+	//	return owner;
+	//}
 
-	public void setOwner(User owner) {
-		this.owner = owner;
-	}
+	//public void setOwner(User owner) {
+	//	this.owner = owner;
+	//}
 }

@@ -69,8 +69,8 @@ public class User {
 				inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
 
-	@OneToOne(optional=false, cascade = CascadeType.ALL)
-	@JoinColumn(name = "subscription_id")
+	@OneToOne(fetch = FetchType.LAZY)
+	@PrimaryKeyJoinColumn//(name = "subscription_id")
 	private Subscription subscription;
 
 	public User() {
@@ -89,6 +89,14 @@ public class User {
 		this.passport = passport;
 		this.adress = adress;
 	}
+
+    public Subscription getSubscription() {
+        return subscription;
+    }
+
+    public void setSubscription(Subscription subscription) {
+        this.subscription = subscription;
+    }
 
 	public Long getId() {
 		return id;
@@ -194,11 +202,4 @@ public class User {
 		this.roles = roles;
 	}
 
-	public Subscription getSubscription() {
-		return subscription;
-	}
-
-	public void setSubscription(Subscription subscription) {
-		this.subscription = subscription;
-	}
 }

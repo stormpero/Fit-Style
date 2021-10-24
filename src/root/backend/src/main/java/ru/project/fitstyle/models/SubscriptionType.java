@@ -22,8 +22,8 @@ public class SubscriptionType {
 	@Size(max = 5)
 	private String coast;
 
-	@OneToOne(optional = false, mappedBy = "subscriptionType")
-	private Subscription owner;
+	@OneToMany(mappedBy = "subscriptionType", fetch = FetchType.EAGER)
+	private Collection<Subscription> owner;
 
 	public SubscriptionType() {
 
@@ -65,11 +65,11 @@ public class SubscriptionType {
 		this.coast = coast;
 	}
 
-	public Subscription getOwner() {
+	public Collection<Subscription> getOwner() {
 		return owner;
 	}
 
-	public void setOwner(Subscription owner) {
+	public void setOwner(Collection<Subscription> owner) {
 		this.owner = owner;
 	}
 }
