@@ -7,18 +7,12 @@ import {Redirect} from "react-router-dom";
 export default class UserContent extends Component {
   state = {
     content: "",
-    username: "",
-    redirect: null
+    username: ""
   };
 
   componentDidMount() {
 
     const currentUser = LStorageUser.getUser();
-
-    if (!currentUser) {
-      this.setState({ redirect: "/login" });
-      return;
-    }
 
     UserService.getUserBoard().then(
       response => {
@@ -42,10 +36,6 @@ export default class UserContent extends Component {
   }
 
   render() {
-    if (this.state.redirect) {
-      return <Redirect to={this.state.redirect} />
-    }
-
     const username = this.state.username;
 
     return (
