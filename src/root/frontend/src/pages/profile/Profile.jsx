@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
 import LStorageUser from "../../services/LStorageUser";
 
 export default class Profile extends Component {

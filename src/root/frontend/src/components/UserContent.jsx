@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import UserService from "../services/UserService";
 import EventBus from "../services/EventBus";
 import LStorageUser from "../services/LStorageUser";
-import {Redirect} from "react-router-dom";
 
 export default class UserContent extends Component {
   state = {

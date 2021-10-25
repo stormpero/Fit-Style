@@ -7,8 +7,8 @@ import logo from "./assets/logo.png"
 import { Routes } from "./pages/routes/routes";
 import Navbar from "./components/navbar/Navbar";
 import LStorageUser from "./services/LStorageUser";
-import AuthVerify from "./components/AuthVerify";
-import AuthService from "./services/AuthService";
+// import AuthVerify from "./components/AuthVerify";
+// import AuthService from "./services/AuthService";
 
 class App extends Component {
   state = {
