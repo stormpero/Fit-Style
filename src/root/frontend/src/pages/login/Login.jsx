@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./Login.css";
-import AuthService from "../../services/authService";
+import AuthService from "../../services/AuthService";
 import isEmpty from "validator/es/lib/isEmpty";
 import {Redirect} from "react-router-dom";
 import LStorageUser from "../../services/LStorageUser";
@@ -19,6 +19,8 @@ export default class Login extends Component {
     const currentUser = LStorageUser.getUser();
 
     if (currentUser) this.setState({ redirect: "/user" });
+
+
   }
 
   handleInputChange = (event) => {

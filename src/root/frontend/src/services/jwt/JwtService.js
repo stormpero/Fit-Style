@@ -1,7 +1,6 @@
 import LStorageUser from "../LStorageUser";
 
 class JwtService {
-
     getAuthHeader() {
         const user = LStorageUser.getUser();
 
@@ -11,6 +10,14 @@ class JwtService {
             return {};
         }
     }
+
+    parseJwt(token) {
+        try {
+            return JSON.parse(atob(token.split('.')[1]));
+        } catch (e) {
+            return null;
+        }
+    };
 }
 
 export default new JwtService()

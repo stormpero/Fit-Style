@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Link} from "react-router-dom";
 import LStorageUser from "../../services/LStorageUser";
-import AuthService from "../../services/authService";
+import AuthService from "../../services/AuthService";
 import EventBus from "../../services/EventBus";
 import "./Navbar.css"
 
