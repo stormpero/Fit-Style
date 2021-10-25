@@ -12,16 +12,7 @@ export default class Register extends Component {
     email: "",
     password: "",
     successful: false,
-    message: "",
-    redirect: null
-  }
-  componentDidMount() {
-    const currentUser = LStorageUser.getUser();
-
-    if (!currentUser) {
-      this.setState({ redirect: "/login" });
-      return;
-    }
+    message: ""
   }
 
   handleInputChange = (event) => {
@@ -67,9 +58,6 @@ export default class Register extends Component {
 
 
   render() {
-    if (this.state.redirect) {
-      return <Redirect to={this.state.redirect} />
-    }
     return (
       <div className="col-md-12">
         <div className="card card-container">

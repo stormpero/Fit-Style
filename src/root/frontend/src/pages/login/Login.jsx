@@ -17,10 +17,7 @@ export default class Login extends Component {
 
   componentDidMount() {
     const currentUser = LStorageUser.getUser();
-
     if (currentUser) this.setState({ redirect: "/user" });
-
-
   }
 
   handleInputChange = (event) => {
