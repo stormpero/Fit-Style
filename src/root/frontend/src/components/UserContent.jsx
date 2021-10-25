@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import UserService from "../services/userService";
+import UserService from "../services/UserService";
 import EventBus from "../services/EventBus";
 import LStorageUser from "../services/LStorageUser";
 import {Redirect} from "react-router-dom";
