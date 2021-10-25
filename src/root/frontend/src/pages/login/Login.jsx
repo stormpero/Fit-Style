@@ -14,7 +14,6 @@ export default class Login extends Component {
     errorMsg: "",
     redirect: null
   }
-
   componentDidMount() {
     const currentUser = LStorageUser.getUser();
     if (currentUser) this.setState({ redirect: "/user" });

@@ -6,15 +6,15 @@ import Register from "../register/Register";
 import Profile from "../profile/Profile";
 import UserContent from "../../components/UserContent";
 
-import requireAuth from "../../services/security/reqAuth";
+import PrivateRoute from "./PrivateRoute";
 
 const Routes = () => {
     return (
         <Switch>
             <Route exact path={["/", "/login"]} component={Login} />
-            <Route exact path="/register" component={requireAuth(Register)} />
-            <Route exact path="/profile" component={requireAuth(Profile)} />
-            <Route path="/user" component={requireAuth(UserContent)} />
+            <PrivateRoute role={"ROLE_MODERATOR"} path="/register" component={Register} />
+            <PrivateRoute exact role={"ROLE_USER"} path="/profile" component={Profile} />
+            <PrivateRoute role={"ROLE_USER"} path="/user" component={UserContent} />
         </Switch>
     )
 }

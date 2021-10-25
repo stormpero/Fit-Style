@@ -1,5 +1,6 @@
 import axios from "axios";
 import LStorageUser from "./LStorageUser";
+import JwtService from "./jwt/JwtService";
 const API_URL = "http://localhost:8080/api/auth/";
 
 class AuthService {
@@ -13,7 +14,6 @@ class AuthService {
                 if (response.data.accessToken) {
                     LStorageUser.add(response.data);
                 }
-
                 return response.data;
             });
     }
@@ -27,7 +27,7 @@ class AuthService {
             username,
             email,
             password
-        });
+        }, { headers: JwtService.getAuthHeader() });
     }
 }
 

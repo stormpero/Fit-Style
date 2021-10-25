@@ -13,6 +13,10 @@ class LStorageUser {
         return this.exist ? this.user.accessToken : null;
     }
 
+    getRoles() {
+        return this.exist? this.user.roles : null;
+    }
+
     isExist() {
         return this.exist;
     }
