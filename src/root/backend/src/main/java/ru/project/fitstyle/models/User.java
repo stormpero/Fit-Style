@@ -84,8 +84,8 @@ public class User {
 				String gender, java.sql.Date birthdate, String telephone,
 				String passport, String address) {
 		this.username = username;
-		this.surname = surname;
-		this.patronymic = patronymic;
+		this.surname=surname;
+		this.patronymic=patronymic;
 		this.email = email;
 		this.password = password;
 		this.age = age;
