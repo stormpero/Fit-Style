@@ -33,6 +33,7 @@ public class User {
 	private String patronymic;
 
 	@NotBlank
+
 	@Size(max = 50)
 	@Email
 	private String email;
@@ -64,6 +65,7 @@ public class User {
 	@Size(max = 40)
 	private String address;
 
+
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(	name = "user_roles",
 			joinColumns = @JoinColumn(name = "user_id"),
@@ -77,7 +79,10 @@ public class User {
 	public User() {
 	}
 
-	public User(String username, String surname, String patronymic, String email, String password, String age, String gender, java.sql.Date birthdate, String telephone, String passport, String address) {
+	public User(String username, String surname, String patronymic,
+				String email, String password, String age,
+				String gender, java.sql.Date birthdate, String telephone,
+				String passport, String address) {
 		this.username = username;
 		this.surname = surname;
 		this.patronymic = patronymic;
