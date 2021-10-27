@@ -4,24 +4,16 @@ import LStorageUser from "../../services/LStorageUser";
 
 export default class Profile extends Component {
   state = {
-    redirect: null,
     userReady: false,
     currentUser: { username: "" }
   }
   
   componentDidMount() {
-
     const currentUser = LStorageUser.getUser();
-
-    if (!currentUser) this.setState({ redirect: "/login" });
     this.setState({ currentUser: currentUser, userReady: true })
   }
 
   render() {
-    if (this.state.redirect) {
-      return <Redirect to={this.state.redirect} />
-    }
-
     const { currentUser } = this.state;
 
     return (
