@@ -11,7 +11,7 @@ import java.util.Collection;
 public class SubscriptionType {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 
 	@NotBlank
 	@Size(max = 3)
@@ -36,11 +36,11 @@ public class SubscriptionType {
 		this.placementTime = placementTime;
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

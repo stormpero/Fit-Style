@@ -10,7 +10,7 @@ import javax.validation.constraints.Size;
 public class Subscription {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 
 	@ManyToOne(optional=false, cascade = CascadeType.ALL)
 	@JoinColumn(name = "subscriptionType_id")
@@ -26,18 +26,18 @@ public class Subscription {
 	@Size(max = 16)
 	private String contract;
 
-	//@OneToOne(optional = false, mappedBy = "subscription")
-	//private User owner;
+//	@OneToOne(optional = false, mappedBy = "subscription")
+//	private User owner;
 
 	public Subscription() {
 
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -71,11 +71,11 @@ public class Subscription {
 		this.contract = contract;
 	}
 
-	//public User getOwner() {
-	//	return owner;
-	//}
-
-	//public void setOwner(User owner) {
-	//	this.owner = owner;
-	//}
+//	public User getOwner() {
+//		return owner;
+//	}
+//
+//	public void setOwner(User owner) {
+//		this.owner = owner;
+//	}
 }

@@ -27,6 +27,7 @@ public class User {
 	@Size(max = 20)
 	private String surname;
 
+
 	@NotBlank
 	@Size(max = 20)
 	private String patronymic;
@@ -61,7 +62,7 @@ public class User {
 
 	@NotBlank
 	@Size(max = 40)
-	private String adress;
+	private String address;
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(	name = "user_roles",
@@ -76,7 +77,7 @@ public class User {
 	public User() {
 	}
 
-	public User(String username, String surname, String patronymic, String email, String password, String age, String gender, java.sql.Date birthdate, String telephone, String passport, String adress) {
+	public User(String username, String surname, String patronymic, String email, String password, String age, String gender, java.sql.Date birthdate, String telephone, String passport, String address) {
 		this.username = username;
 		this.surname = surname;
 		this.patronymic = patronymic;
@@ -87,7 +88,7 @@ public class User {
 		this.birthdate = birthdate;
 		this.telephone = telephone;
 		this.passport = passport;
-		this.adress = adress;
+		this.address = address;
 	}
 
 	public Subscription getSubscription() {
@@ -186,12 +187,12 @@ public class User {
 		this.passport = passport;
 	}
 
-	public String getAdress() {
-		return adress;
+	public String getAddress() {
+		return address;
 	}
 
-	public void setAdress(String adress) {
-		this.adress = adress;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	public Set<Role> getRoles() {

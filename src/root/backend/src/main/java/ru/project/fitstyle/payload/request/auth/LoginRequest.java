@@ -1,4 +1,4 @@
-package ru.project.fitstyle.payload.request;
+package ru.project.fitstyle.payload.request.auth;
 
 import javax.validation.constraints.NotBlank;
 
