@@ -33,7 +33,6 @@ public class User {
 	private String patronymic;
 
 	@NotBlank
-
 	@Size(max = 50)
 	@Email
 	private String email;
@@ -64,7 +63,6 @@ public class User {
 	@NotBlank
 	@Size(max = 40)
 	private String address;
-
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(	name = "user_roles",
@@ -151,7 +149,6 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
 	public String getAge() {
 		return age;
 	}
@@ -207,5 +204,4 @@ public class User {
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
-
 }
