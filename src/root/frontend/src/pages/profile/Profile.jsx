@@ -4,25 +4,32 @@ import "./Profile.css";
 import LStorageUser from "../../services/LStorageUser";
 import ProfilePicture from "../../assets/default-profile-picture.jpg";
 import UserService from "../../services/UserService";
+import EventBus from "../../services/EventBus";
 
 export default class Profile extends Component {
   state = {
     userReady: false,
-    currentUser: { username: "" }
+    currentUser: { username: "" },
+    userInfo: null
   }
   
   componentDidMount() {
     const currentUser = LStorageUser.getUser();
-    const userInfo = UserService.getProfileInfo(currentUser.id);
-    console.log(userInfo)
-    this.setState({ currentUser: currentUser, userReady: true })
+    UserService.getProfileInfo(currentUser.id).then(
+        response => {
+          this.setState({
+            userInfo: response.data,
+            currentUser: currentUser,
+            userReady: true
+          });
+        }
+    );
   }
 
   render() {
-    const { currentUser } = this.state;
+    const { userInfo } = this.state;
 
     return (
-
       <div className="container profile-info">
         {
           (this.state.userReady) ?
@@ -33,48 +40,48 @@ export default class Profile extends Component {
             <div className="right-info d-flex justify-content-between">
               <div className="first-column">
               <p>
-                <label> ID </label>
-                <strong>{currentUser.id}</strong>
+                <label> Номер клубной карты </label>
+                  <strong>{userInfo.id}</strong>
               </p>
               <p>
                 <label> ФИО </label>
-                <strong>{currentUser.name} </strong>
-                <strong>{currentUser.surname} </strong>
-                <strong>{currentUser.patronymic} </strong>
+                <strong>{userInfo.username} </strong>
+                <strong>{userInfo.surname} </strong>
+                <strong>{userInfo.patronymic} </strong>
               </p>
               <p>
                 <label> Возраст </label>
-                <strong>{currentUser.age}</strong>
+                <strong>{userInfo.age}</strong>
               </p>
               <p>
                 <label> Пол </label>
-                <strong>{currentUser.gender}</strong>
+                <strong>{userInfo.gender}</strong>
               </p>
               <p>
                 <label> Дата рождения </label>
-                <strong>{currentUser.birthdate}</strong>
+                <strong>{userInfo.birthdate}</strong>
               </p>
               </div>
               <div className="second-column">
               <p>
                 <label> Телефон </label>
-                <strong>{currentUser.telephone}</strong>
+                <strong>{userInfo.telephone}</strong>
               </p>
               <p>
                 <label> Паспорт </label>
-                <strong>{currentUser.passport}</strong>
+                <strong>{userInfo.passport}</strong>
               </p>
               <p>
                 <label> Адрес </label>
-                <strong>{currentUser.address}</strong>
+                <strong>{userInfo.address}</strong>
               </p>
               <p>
                 <label> Вид абонемента </label>
-                <strong>{currentUser.subscription}</strong>
+                <strong>Премиум</strong>
               </p>
               <p>
                 <label> Дата окончания </label>
-                <strong>{currentUser.endDate}</strong>
+                <strong>2021-11-20</strong>
               </p>
               </div>
             </div>
