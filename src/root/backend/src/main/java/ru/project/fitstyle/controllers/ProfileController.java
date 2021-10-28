@@ -27,17 +27,10 @@ public class ProfileController {
         this.userRepository = userRepository;
     }
 
-    @PostMapping("")
-    public ResponseEntity<?> getUserProfileInfo(@Valid @RequestBody UserRequest userRequest,
-                                                BindingResult bindingResult)
+    @GetMapping()
+    public ResponseEntity<?> getUserProfileInfo(@RequestParam("id") Long id)
     {
-        if(bindingResult.hasErrors())
-        {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Error: invalid id!"));
-        }
-        Optional<User> user = userRepository.findById(userRequest.getId());
+        Optional<User> user = userRepository.findById(id);
         User returnUser = user.orElse(
                 null
         );
@@ -60,16 +53,10 @@ public class ProfileController {
         );
     }
 
-    @PostMapping("/roles")
-    public ResponseEntity<?> getUserRoles(@Valid @RequestBody UserRequest userRequest,
-                                          BindingResult bindingResult)
+    @GetMapping("/roles")
+    public ResponseEntity<?> getUserRoles(@RequestParam("id") Long id)
     {
-        if(bindingResult.hasErrors())
-        {
-            return ResponseEntity.badRequest()
-                    .body(new MessageResponse("Error: invalid id!"));
-        }
-        Optional<User> user = userRepository.findById(userRequest.getId());
+        Optional<User> user = userRepository.findById(id);
         User returnUser = user.orElse(null);
         if(returnUser==null)
         {
