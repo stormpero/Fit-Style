@@ -22,11 +22,19 @@ class AuthService {
         LStorageUser.remove();
     }
 
-    register(username, email, password) {
+    register(username, email, password, surname, patronymic, age, gender, birthdate, telephone, passport, address) {
         return axios.post(API_URL + "signup", {
             username,
             email,
-            password
+            password,
+            surname,
+            patronymic,
+            age,
+            gender,
+            birthdate,
+            telephone,
+            passport,
+            address
         }, { headers: JwtService.getAuthHeader() });
     }
 }
