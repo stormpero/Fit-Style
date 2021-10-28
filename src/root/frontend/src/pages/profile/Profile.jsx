@@ -3,6 +3,7 @@ import "./Profile.css";
 
 import LStorageUser from "../../services/LStorageUser";
 import ProfilePicture from "../../assets/default-profile-picture.jpg";
+import UserService from "../../services/UserService";
 
 export default class Profile extends Component {
   state = {
@@ -12,6 +13,8 @@ export default class Profile extends Component {
   
   componentDidMount() {
     const currentUser = LStorageUser.getUser();
+    const userInfo = UserService.getProfileInfo(currentUser.id);
+    console.log(userInfo)
     this.setState({ currentUser: currentUser, userReady: true })
   }
 

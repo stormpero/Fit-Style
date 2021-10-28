@@ -9,8 +9,8 @@ class UserService {
     return axios.get(API_URL + 'user', { headers: JwtService.getAuthHeader() });
   }
 
-  getProfileInfo() {
-    return axios.get(API_URL + 'profile', { headers: JwtService.getAuthHeader() })
+  getProfileInfo(getId) {
+    return axios.get('http://localhost:8080/api/profile', { headers: JwtService.getAuthHeader(), params: { id: getId} })
   }
 
 }
