@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/profile")
+@RequestMapping("/api")
 public class ProfileController {
 
     UserRepository userRepository;
@@ -23,7 +23,7 @@ public class ProfileController {
         this.userRepository = userRepository;
     }
 
-    @GetMapping()
+    @GetMapping("/profile")
     public ResponseEntity<?> getUserProfileInfo(@RequestParam("id") Long id)
     {
         Optional<User> user = userRepository.findById(id);
