@@ -27,8 +27,8 @@ public class ProfileController {
         this.userRepository = userRepository;
     }
 
-    @PostMapping()
-    public ResponseEntity<?> getUserProfileInfo(@Valid @ModelAttribute UserRequest userRequest,
+    @PostMapping("")
+    public ResponseEntity<?> getUserProfileInfo(@Valid @RequestBody UserRequest userRequest,
                                                 BindingResult bindingResult)
     {
         if(bindingResult.hasErrors())
@@ -47,18 +47,26 @@ public class ProfileController {
                     body(new MessageResponse("Error: user with that id doesn't exist!"));
         }
         return ResponseEntity.ok(
-                new UserProfileResponse(returnUser)
+                new UserProfileResponse(returnUser.getUsername(),
+                        returnUser.getSurname(),
+                        returnUser.getPatronymic(),
+                        returnUser.getEmail(),
+                        returnUser.getAge(),
+                        returnUser.getGender(),
+                        returnUser.getBirthdate(),
+                        returnUser.getTelephone(),
+                        returnUser.getPassport(),
+                        returnUser.getAddress())
         );
     }
 
     @PostMapping("/roles")
-    public ResponseEntity<?> getUserRoles(@Valid @ModelAttribute UserRequest userRequest,
+    public ResponseEntity<?> getUserRoles(@Valid @RequestBody UserRequest userRequest,
                                           BindingResult bindingResult)
     {
         if(bindingResult.hasErrors())
         {
-            return ResponseEntity
-                    .badRequest()
+            return ResponseEntity.badRequest()
                     .body(new MessageResponse("Error: invalid id!"));
         }
         Optional<User> user = userRepository.findById(userRequest.getId());

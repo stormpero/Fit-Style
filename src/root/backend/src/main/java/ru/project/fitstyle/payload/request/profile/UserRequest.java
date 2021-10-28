@@ -17,4 +17,9 @@ public class UserRequest {
     public UserRequest(Long id) {
         this.id = id;
     }
+
+    public UserRequest()
+    {
+
+    }
 }
