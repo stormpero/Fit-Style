@@ -2,21 +2,17 @@ package ru.project.fitstyle.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.project.fitstyle.models.User;
-import ru.project.fitstyle.payload.request.profile.UserRequest;
 import ru.project.fitstyle.payload.response.MessageResponse;
 import ru.project.fitstyle.payload.response.UserProfileResponse;
 import ru.project.fitstyle.repository.UserRepository;
 
-import javax.validation.Valid;
 import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/profile")
+@RequestMapping("/api")
 public class ProfileController {
 
     UserRepository userRepository;
@@ -27,7 +23,7 @@ public class ProfileController {
         this.userRepository = userRepository;
     }
 
-    @GetMapping()
+    @GetMapping("/profile")
     public ResponseEntity<?> getUserProfileInfo(@RequestParam("id") Long id)
     {
         Optional<User> user = userRepository.findById(id);
