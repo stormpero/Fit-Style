@@ -7,8 +7,7 @@ public class MessageResponse {
 	    this.message = message;
 	  }
 
-	public MessageResponse()
-	{
+	public MessageResponse() {
 
 	}
 	public String getMessage() {

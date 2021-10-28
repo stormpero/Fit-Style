@@ -36,7 +36,9 @@ public class ProfileController {
                     body(new MessageResponse("Error: user with that id doesn't exist!"));
         }
         return ResponseEntity.ok(
-                new UserProfileResponse(returnUser.getUsername(),
+                new UserProfileResponse(
+                        returnUser.getId(),
+                        returnUser.getUsername(),
                         returnUser.getSurname(),
                         returnUser.getPatronymic(),
                         returnUser.getEmail(),

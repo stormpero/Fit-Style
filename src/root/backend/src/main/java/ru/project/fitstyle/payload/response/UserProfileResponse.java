@@ -5,6 +5,9 @@ import ru.project.fitstyle.models.User;
 import java.sql.Date;
 
 public class UserProfileResponse {
+
+    private Long id;
+
     private String username;
 
     private String surname;
@@ -25,7 +28,8 @@ public class UserProfileResponse {
 
     private String address;
 
-    public UserProfileResponse(String username,
+    public UserProfileResponse(Long id,
+                               String username,
                                String surname,
                                String patronymic,
                                String email,
@@ -35,6 +39,7 @@ public class UserProfileResponse {
                                String telephone,
                                String passport,
                                String address) {
+        this.id = id;
         this.username = username;
         this.surname = surname;
         this.patronymic = patronymic;
@@ -47,9 +52,16 @@ public class UserProfileResponse {
         this.address = address;
     }
 
-    public UserProfileResponse()
-    {
+    public UserProfileResponse() {
 
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getUsername() {
