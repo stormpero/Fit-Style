@@ -36,7 +36,6 @@ public class SignupRequest {
     @Size(max = 6)
     private String gender;
 
-    @NotBlank
     private java.sql.Date birthdate;
 
     @NotBlank
