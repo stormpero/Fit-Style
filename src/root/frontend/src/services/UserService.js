@@ -9,10 +9,13 @@ class UserService {
     return axios.get(API_URL + 'user', { headers: JwtService.getAuthHeader() });
   }
 
-  getProfileInfo(getId) {
-    return axios.get('http://localhost:8080/api/profile', { headers: JwtService.getAuthHeader(), params: { id: getId} })
+  getProfileInfo(id) {
+    return axios.get('http://localhost:8080/api/profile', { headers: JwtService.getAuthHeader(), params: { id: id} })
   }
 
+  getRoles(id) {
+    return axios.get('http://localhost:8080/api/perm/roles', { headers: JwtService.getAuthHeader(), params: { id: id} })
+  }
 }
 
 export default new UserService();

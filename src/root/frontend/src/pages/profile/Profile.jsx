@@ -4,7 +4,6 @@ import "./Profile.css";
 import LStorageUser from "../../services/LStorageUser";
 import ProfilePicture from "../../assets/default-profile-picture.jpg";
 import UserService from "../../services/UserService";
-import EventBus from "../../services/EventBus";
 
 export default class Profile extends Component {
   state = {
