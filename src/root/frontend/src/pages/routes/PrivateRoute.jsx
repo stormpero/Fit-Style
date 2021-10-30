@@ -13,8 +13,11 @@ export default function PrivateRoute ({component: Component, role, ...rest}) {
             response => {
                 let cookieRoles = response.data.map(res => res.name);
                 setPerm(LStorageUser.isExist() && !!(cookieRoles.indexOf(role) + 1));
-                setLoad(true);
-            })
+            },
+            error => {
+                console.log(error)
+                LStorageUser.remove();
+            }).then(() => setLoad(true))
     }, [])
 
     return (
