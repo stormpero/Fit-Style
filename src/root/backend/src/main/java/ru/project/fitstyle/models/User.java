@@ -25,6 +25,10 @@ public class User {
 
 	@NotBlank
 	@Size(max = 20)
+	private String name;
+
+	@NotBlank
+	@Size(max = 20)
 	private String surname;
 
 
@@ -76,11 +80,12 @@ public class User {
 	public User() {
 	}
 
-	public User(String username, String surname, String patronymic,
+	public User(String username, String name, String surname, String patronymic,
 				String email, String password, String age,
 				String gender, java.sql.Date birthdate, String telephone,
 				String passport, String address) {
 		this.username = username;
+		this.name = name;
 		this.surname=surname;
 		this.patronymic=patronymic;
 		this.email = email;
@@ -115,6 +120,14 @@ public class User {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getSurname() {
