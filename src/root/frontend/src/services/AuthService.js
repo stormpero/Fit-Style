@@ -1,14 +1,12 @@
-import axios from "axios";
+import api from "./Api";
 import LStorageUser from "./LStorageUser";
-import JwtService from "./jwt/JwtService";
-const API_URL = "http://localhost:8080/api/auth/";
 
 class AuthService {
     login(username, password) {
-        return axios
-            .post(API_URL + "signin", {
-                username,
-                password
+        return api
+            .post('auth/signin',{
+               username,
+               password
             })
             .then(response => {
                 if (response.data.accessToken) {
@@ -23,19 +21,20 @@ class AuthService {
     }
 
     register(username, email, password, surname, patronymic, age, gender, birthdate, telephone, passport, address) {
-        return axios.post(API_URL + "signup", {
-            username,
-            email,
-            password,
-            surname,
-            patronymic,
-            age,
-            gender,
-            birthdate,
-            telephone,
-            passport,
-            address
-        }, { headers: JwtService.getAuthHeader() });
+        return api
+            .post('auth/signup', {
+                username,
+                email,
+                password,
+                surname,
+                patronymic,
+                age,
+                gender,
+                birthdate,
+                telephone,
+                passport,
+                address
+            });
     }
 }
 

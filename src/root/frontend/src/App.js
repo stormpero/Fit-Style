@@ -16,9 +16,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-
     const user = LStorageUser.getUser();
-
     if (user) {
       this.setState({
         currentUser: user
@@ -43,10 +41,7 @@ class App extends Component {
             )}
           </div>
 
-
         <Routes/>
-
-        {/*{ <AuthVerify logOut={AuthService.logOut}/>  }*/}
       </div>
     );
   }

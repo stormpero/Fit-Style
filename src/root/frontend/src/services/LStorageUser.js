@@ -9,11 +9,12 @@ class LStorageUser {
         return this.exist ? this.user : null;
     }
 
-    getToken() {
+    getAccessToken() {
         return this.exist ? this.user.accessToken : null;
     }
 
     getId() {
+        console.log(this.exist ? this.user.id : null);
         return this.exist ? this.user.id : null;
     }
 
