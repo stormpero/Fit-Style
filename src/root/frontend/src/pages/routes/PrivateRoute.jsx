@@ -11,7 +11,7 @@ export default function PrivateRoute ({component: Component, role, ...rest}) {
     useEffect( () => {
         UserService.getRoles(LStorageUser.getId()).then(
             response => {
-                let cookieRoles = response.data.map(res => res.name);
+                let cookieRoles = response.data?.roles.map(res => res.name);
                 if (!cookieRoles.length) alert('Ошибка Backend, У пользователя нет ролей')
                 setPerm(LStorageUser.isExist() && !!(cookieRoles.indexOf(role) + 1));
             },

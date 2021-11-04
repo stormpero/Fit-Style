@@ -11,7 +11,7 @@ class UserService {
   }
 
   getRoles(id) {
-    return api.get('perm/roles', { params: { id: id} });
+    return api.get('permission/roles', { params: { id: id} });
   }
 }
 
