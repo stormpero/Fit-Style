@@ -13,7 +13,7 @@ const Routes = () => {
         <Switch>
             <Route exact path={["/", "/login"]} component={Login} />
             <PrivateRoute role={"ROLE_MODERATOR"} path="/register" component={Register} />
-            <PrivateRoute exact role={"ROLE_USER"} path="/profile" component={Profile} />
+            <PrivateRoute role={"ROLE_USER"} path="/profile" component={Profile} />
             <PrivateRoute role={"ROLE_USER"} path="/user" component={UserContent} />
         </Switch>
     )

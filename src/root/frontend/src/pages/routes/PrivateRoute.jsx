@@ -12,12 +12,12 @@ export default function PrivateRoute ({component: Component, role, ...rest}) {
         UserService.getRoles(LStorageUser.getId()).then(
             response => {
                 let cookieRoles = response.data.map(res => res.name);
+                if (!cookieRoles.length) alert('Ошибка Backend, У пользователя нет ролей')
                 setPerm(LStorageUser.isExist() && !!(cookieRoles.indexOf(role) + 1));
             },
             error => {
                 console.log(error)
                 LStorageUser.remove();
-                window.location.reload();
             }).then(() => setLoad(true))
     }, [])
 
@@ -27,10 +27,13 @@ export default function PrivateRoute ({component: Component, role, ...rest}) {
             render=
             {
                 (props) =>
-                     isLoad
+                 isLoad
                         ? isPerm
                             ? <Component {...props} />
-                            : <Redirect to={{pathname: LStorageUser.isExist() ? '/profile' : '/login', state: {from: props.location}}}/>
+                            : <Redirect to={{
+                                pathname: LStorageUser.isExist() ? '/profile' : '/login',
+                                state: {from: props.location}
+                            }}/>
                         : null
             }
         />
