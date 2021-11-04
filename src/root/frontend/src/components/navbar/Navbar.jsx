@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {Link} from "react-router-dom";
 import LStorageUser from "../../services/LStorageUser";
 import AuthService from "../../services/AuthService";
-import EventBus from "../../services/EventBus";
 import "./Navbar.css"
 
 export default class Navbar extends Component {
@@ -17,13 +16,9 @@ export default class Navbar extends Component {
         if (user) {
             this.setState({
                 currentUser: user,
-                isAdmin: user.roles.includes("ROLE_MODERATOR"),
+                isAdmin: user?.roles.includes("ROLE_MODERATOR"),
             });
         }
-
-        EventBus.on("logout", () => {
-            this.logOut();
-        });
     }
 
     logOut() {
@@ -32,11 +27,6 @@ export default class Navbar extends Component {
             isAdmin: false,
             currentUser: undefined,
         });
-    }
-
-
-    componentWillUnmount() {
-        EventBus.remove("logout");
     }
 
     render() {

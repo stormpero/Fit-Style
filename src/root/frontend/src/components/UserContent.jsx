@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import UserService from "../services/UserService";
-import EventBus from "../services/EventBus";
 import LStorageUser from "../services/LStorageUser";
 
 export default class UserContent extends Component {
@@ -10,9 +9,7 @@ export default class UserContent extends Component {
   };
 
   componentDidMount() {
-
     const currentUser = LStorageUser.getUser();
-
     UserService.getUserBoard().then(
       response => {
 
@@ -26,10 +23,6 @@ export default class UserContent extends Component {
         this.setState({
           content: errorMsg
         });
-
-        if (error.response && error.response.status === 401) {
-          EventBus.dispatch("logout");
-        }
       }
     );
   }
