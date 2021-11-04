@@ -2,6 +2,7 @@ package ru.project.fitstyle.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,8 +27,8 @@ import ru.project.fitstyle.models.Role;
 import ru.project.fitstyle.models.User;
 import ru.project.fitstyle.payload.request.auth.LoginRequest;
 import ru.project.fitstyle.payload.request.auth.SignupRequest;
-import ru.project.fitstyle.payload.response.JwtResponse;
-import ru.project.fitstyle.payload.response.MessageResponse;
+import ru.project.fitstyle.payload.response.jwt.JwtResponse;
+import ru.project.fitstyle.payload.response.utils.MessageResponse;
 import ru.project.fitstyle.repository.RoleRepository;
 import ru.project.fitstyle.repository.UserRepository;
 import ru.project.fitstyle.security.jwt.JwtUtils;
@@ -71,7 +72,7 @@ public class AuthController {
 
 		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 		List<String> roles = userDetails.getAuthorities().stream()
-				.map(item -> item.getAuthority())
+				.map(GrantedAuthority::getAuthority)
 				.collect(Collectors.toList());
 
 		return ResponseEntity.ok(new JwtResponse(jwt,

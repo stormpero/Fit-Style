@@ -5,7 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.project.fitstyle.models.User;
-import ru.project.fitstyle.payload.response.MessageResponse;
+import ru.project.fitstyle.payload.response.permission.PermissionResponse;
+import ru.project.fitstyle.payload.response.utils.MessageResponse;
 import ru.project.fitstyle.repository.UserRepository;
 
 import java.util.Optional;
@@ -32,6 +33,6 @@ public class PermissionController {
             return ResponseEntity.badRequest().
                     body(new MessageResponse("Error: user with that id doesn't exist!"));
         }
-        return ResponseEntity.ok(returnUser.getRoles());
+        return ResponseEntity.ok(new PermissionResponse(returnUser.getRoles()));
     }
 }

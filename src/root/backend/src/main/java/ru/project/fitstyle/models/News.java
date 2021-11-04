@@ -4,6 +4,7 @@ package ru.project.fitstyle.models;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "news")
@@ -20,7 +21,7 @@ public class News {
 	@Size(max = 500)
 	private String content;
 
-	private java.sql.Timestamp dateTime;
+	private Timestamp dateTime;
 
 	@NotBlank
 	@Size(max = 50)
@@ -30,7 +31,7 @@ public class News {
 
 	}
 
-	public News(String header, String content, java.sql.Timestamp dateTime, String imgURL) {
+	public News(String header, String content, Timestamp dateTime, String imgURL) {
 		this.header = header;
 		this.content = content;
 		this.dateTime=dateTime;

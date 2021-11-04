@@ -2,7 +2,6 @@ package ru.project.fitstyle.controllers;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import ru.project.fitstyle.payload.response.MessageResponse;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController

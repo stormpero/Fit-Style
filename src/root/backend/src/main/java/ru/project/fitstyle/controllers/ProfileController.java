@@ -5,8 +5,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.project.fitstyle.models.User;
-import ru.project.fitstyle.payload.response.MessageResponse;
-import ru.project.fitstyle.payload.response.UserProfileResponse;
+import ru.project.fitstyle.payload.response.utils.MessageResponse;
+import ru.project.fitstyle.payload.response.user.UserProfileResponse;
 import ru.project.fitstyle.repository.UserRepository;
 
 import java.util.Optional;

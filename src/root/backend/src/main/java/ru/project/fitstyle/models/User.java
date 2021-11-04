@@ -1,5 +1,6 @@
 package ru.project.fitstyle.models;
 
+import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -53,7 +54,7 @@ public class User {
 	@Size(max = 6)
 	private String gender;
 
-	private java.sql.Date birthdate;
+	private Date birthdate;
 
 	@NotBlank
 	@Size(max = 12)
