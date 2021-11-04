@@ -57,7 +57,7 @@ public class User {
 	private Date birthdate;
 
 	@NotBlank
-	@Size(max = 12)
+	@Size(max = 20)
 	private String telephone;
 
 	@NotBlank
