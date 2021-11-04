@@ -4,6 +4,7 @@ import "./Profile.css";
 import LStorageUser from "../../services/LStorageUser";
 import ProfilePicture from "../../assets/default-profile-picture.jpg";
 import UserService from "../../services/UserService";
+import DateFormat from "../../services/utils/DateFormat";
 
 export default class Profile extends Component {
   state = {
@@ -16,8 +17,11 @@ export default class Profile extends Component {
     const currentUser = LStorageUser.getUser();
     UserService.getProfileInfo(currentUser.id).then(
         response => {
+          const userInfo = response.data;
+          userInfo.id = ('000000' + userInfo.id).slice(Math.log(Number(userInfo.id)) * Math.LOG10E + 1 | 0);
+          userInfo.birthdate = DateFormat.convert(userInfo.birthdate);
           this.setState({
-            userInfo: response.data,
+            userInfo: userInfo,
             currentUser: currentUser,
             userReady: true
           });
@@ -80,7 +84,7 @@ export default class Profile extends Component {
               </p>
               <p>
                 <label> Дата окончания </label>
-                <strong>2021-11-20</strong>
+                <strong>20.11.2021</strong>
               </p>
               </div>
             </div>
