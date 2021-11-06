@@ -20,6 +20,7 @@ import java.util.List;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/news")
+@PreAuthorize("hasRole('USER')")
 public class NewsController {
     //Constant variable that specifies number of news in one page
     private final int newsInPage = 6;
@@ -124,6 +125,7 @@ public class NewsController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('MODERATOR')")
     public ResponseEntity<?> delete(@PathVariable("id") Long id)
     {
         //Delete news
