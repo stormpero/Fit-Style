@@ -26,9 +26,6 @@ public class Subscription {
 	@Size(max = 16)
 	private String contract;
 
-//	@OneToOne(optional = false, mappedBy = "subscription")
-//	private User owner;
-
 	public Subscription() {
 
 	}
@@ -70,12 +67,4 @@ public class Subscription {
 	public void setContract(String contract) {
 		this.contract = contract;
 	}
-
-//	public User getOwner() {
-//		return owner;
-//	}
-//
-//	public void setOwner(User owner) {
-//		this.owner = owner;
-//	}
 }

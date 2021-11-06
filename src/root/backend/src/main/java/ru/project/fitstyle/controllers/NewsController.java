@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.project.fitstyle.models.News;
 import ru.project.fitstyle.payload.request.news.AddEditNewsRequest;
+import ru.project.fitstyle.payload.response.news.NewsInfo;
 import ru.project.fitstyle.payload.response.news.NewsShowPageResponse;
 import ru.project.fitstyle.payload.response.news.NewsShowResponse;
 import ru.project.fitstyle.payload.response.utils.MessageResponse;
@@ -24,6 +25,9 @@ import java.util.List;
 public class NewsController {
     private final NewsRepository newsRepository;
 
+    //Constant variable that specifies number of news in one page
+    final int numberOfNewsInOnePage = 6;
+
     @Autowired
     public NewsController(NewsRepository newsRepository) {
         this.newsRepository = newsRepository;
@@ -33,10 +37,9 @@ public class NewsController {
     public ResponseEntity<?> showPage(@PathVariable("page_number") int pageNumber)
     {
         //Here we get first 6 (can be specified) recently added news
-        //Constant variable that specifies number of news in one page
-        final int newsInPage = 6;
+
         if(pageNumber > 0) {
-            List<News> news = newsRepository.findAll(PageRequest.of(pageNumber - 1, newsInPage,
+            List<News> news = newsRepository.findAll(PageRequest.of(pageNumber - 1, numberOfNewsInOnePage,
                     Sort.by(Sort.Direction.DESC, "dateTime"))).toList();
 
             if (news.size() != 0) {
@@ -146,5 +149,14 @@ public class NewsController {
             return ResponseEntity.badRequest().
                     body(new MessageResponse("News with that id has been deleted or never been created!"));
         }
+    }
+
+    @GetMapping("/info")
+    public ResponseEntity<?> getInfo()
+    {
+        long numberOfNews = newsRepository.count();
+        long numberOfPages = (long)Math.ceil((double)numberOfNews/numberOfNewsInOnePage);
+        NewsInfo newsInfo = new NewsInfo(numberOfPages, numberOfNews, numberOfNewsInOnePage);
+        return ResponseEntity.ok(newsInfo);
     }
 }
