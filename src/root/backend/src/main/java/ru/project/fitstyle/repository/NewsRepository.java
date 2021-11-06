@@ -13,8 +13,4 @@ public interface NewsRepository extends JpaRepository<News, Long> {
     List<News> findAll();
 
     Optional<News> findById(Long id);
-
-//    @Query(value = "select id from News where id=?1")
-//    List<News> findByOrderByName(Integer pageNumber, Integer newsInPage);
-
 }
