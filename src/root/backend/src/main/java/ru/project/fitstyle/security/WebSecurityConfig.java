@@ -25,11 +25,16 @@ import ru.project.fitstyle.security.services.UserDetailsServiceImpl;
 		// jsr250Enabled = true,
 		prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-	@Autowired
+	
 	UserDetailsServiceImpl userDetailsService;
 
-	@Autowired
 	private AuthEntryPointJwt unauthorizedHandler;
+
+	@Autowired
+	public WebSecurityConfig(UserDetailsServiceImpl userDetailsService, AuthEntryPointJwt unauthorizedHandler) {
+		this.userDetailsService = userDetailsService;
+		this.unauthorizedHandler = unauthorizedHandler;
+	}
 
 	@Bean
 	public AuthTokenFilter authenticationJwtTokenFilter() {

@@ -1,5 +1,6 @@
 package ru.project.fitstyle.security.jwt;
 
+import java.security.Key;
 import java.util.Date;
 
 import org.slf4j.Logger;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.*;
 import ru.project.fitstyle.security.services.UserDetailsImpl;
+
 
 @Component
 public class JwtUtils {
@@ -32,6 +34,12 @@ public class JwtUtils {
             .setIssuedAt(new Date())
             .setExpiration(validity)
             .signWith(SignatureAlgorithm.HS256, jwtSecret)
+            .compact();
+  }
+
+  public String generateTokenFromUsername(String username) {
+    return Jwts.builder().setSubject(username).setIssuedAt(new Date())
+            .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs)).signWith(SignatureAlgorithm.HS256, jwtSecret)
             .compact();
   }
 

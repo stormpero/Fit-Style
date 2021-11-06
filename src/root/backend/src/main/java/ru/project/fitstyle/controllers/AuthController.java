@@ -22,16 +22,22 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import ru.project.fitstyle.exception.TokenRefreshException;
 import ru.project.fitstyle.models.ERole;
+import ru.project.fitstyle.models.RefreshToken;
 import ru.project.fitstyle.models.Role;
 import ru.project.fitstyle.models.User;
+import ru.project.fitstyle.payload.request.auth.LogOutRequest;
 import ru.project.fitstyle.payload.request.auth.LoginRequest;
 import ru.project.fitstyle.payload.request.auth.SignupRequest;
-import ru.project.fitstyle.payload.response.jwt.JwtResponse;
+import ru.project.fitstyle.payload.request.auth.TokenRefreshRequest;
+import ru.project.fitstyle.payload.response.auth.JwtResponse;
+import ru.project.fitstyle.payload.response.auth.TokenRefreshResponse;
 import ru.project.fitstyle.payload.response.utils.MessageResponse;
 import ru.project.fitstyle.repository.RoleRepository;
 import ru.project.fitstyle.repository.UserRepository;
 import ru.project.fitstyle.security.jwt.JwtUtils;
+import ru.project.fitstyle.security.services.RefreshTokenService;
 import ru.project.fitstyle.security.services.UserDetailsImpl;
 
 
@@ -50,14 +56,18 @@ public class AuthController {
 
 	JwtUtils jwtUtils;
 
+	RefreshTokenService refreshTokenService;
+
 	@Autowired
 	public AuthController(AuthenticationManager authenticationManager, UserRepository userRepository,
-						  RoleRepository roleRepository, PasswordEncoder encoder, JwtUtils jwtUtils) {
+						  RoleRepository roleRepository, PasswordEncoder encoder, JwtUtils jwtUtils,
+						  RefreshTokenService refreshTokenService) {
 		this.authenticationManager = authenticationManager;
 		this.userRepository = userRepository;
 		this.roleRepository = roleRepository;
 		this.encoder = encoder;
 		this.jwtUtils = jwtUtils;
+		this.refreshTokenService = refreshTokenService;
 	}
 
 	@PostMapping("/signin")
@@ -75,11 +85,10 @@ public class AuthController {
 				.map(GrantedAuthority::getAuthority)
 				.collect(Collectors.toList());
 
-		return ResponseEntity.ok(new JwtResponse(jwt,
-												 userDetails.getId(), 
-												 userDetails.getUsername(), 
-												 userDetails.getEmail(), 
-												 roles));
+		RefreshToken refreshToken = refreshTokenService.createRefreshToken(userDetails.getId());
+
+		return ResponseEntity.ok(new JwtResponse(jwt, refreshToken.getToken(), userDetails.getId(),
+				userDetails.getUsername(), userDetails.getEmail(), roles));
 	}
 
 	@PostMapping("/signup")
@@ -146,5 +155,27 @@ public class AuthController {
 		userRepository.save(user);
 
 		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+	}
+
+	@PostMapping("/refreshtoken")
+	@PreAuthorize("hasRole('USER')")
+	public ResponseEntity<?> refreshToken(@Valid @RequestBody TokenRefreshRequest request) {
+		String requestRefreshToken = request.getRefreshToken();
+
+		return refreshTokenService.findByToken(requestRefreshToken)
+				.map(refreshTokenService::verifyExpiration)
+				.map(RefreshToken::getUser)
+				.map(user -> {
+					String token = jwtUtils.generateTokenFromUsername(user.getUsername());
+					return ResponseEntity.ok(new TokenRefreshResponse(token, requestRefreshToken));
+				})
+				.orElseThrow(() -> new TokenRefreshException(requestRefreshToken,
+						"Refresh token is not in database!"));
+	}
+
+	@PostMapping("/logout")
+	public ResponseEntity<?> logoutUser(@Valid @RequestBody LogOutRequest logOutRequest) {
+		refreshTokenService.deleteByUserId(logOutRequest.getUserId());
+		return ResponseEntity.ok(new MessageResponse("Log out successful!"));
 	}
 }
