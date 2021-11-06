@@ -3,6 +3,7 @@ package ru.project.fitstyle.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.project.fitstyle.models.User;
 import ru.project.fitstyle.payload.response.permission.PermissionResponse;
@@ -14,6 +15,7 @@ import java.util.Optional;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/permission")
+@PreAuthorize("hasRole('USER')")
 public class PermissionController {
 
     UserRepository userRepository;
