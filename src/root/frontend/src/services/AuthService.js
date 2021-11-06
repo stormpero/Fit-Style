@@ -10,7 +10,7 @@ class AuthService {
             })
             .then(response => {
                 if (response.data.accessToken) {
-                    LStorageUser.add(response.data);
+                    LStorageUser.setUser(response.data);
                 }
                 return response.data;
             });

@@ -9,23 +9,15 @@ class LStorageUser {
         return this.exist ? this.user : null;
     }
 
-    getAccessToken() {
-        return this.exist ? this.user?.accessToken : null;
-    }
-
     getId() {
         return this.exist ? this.user?.id : null;
-    }
-
-    getRoles() {
-        return this.exist? this.user?.roles : null;
     }
 
     isExist() {
         return this.exist;
     }
 
-    add(data) {
+    setUser(data) {
         localStorage.setItem("user", JSON.stringify(data));
         this.user = data;
         this.exist = true;
