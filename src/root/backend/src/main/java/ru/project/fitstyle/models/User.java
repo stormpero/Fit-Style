@@ -83,7 +83,7 @@ public class User {
 
 	public User(String username, String name, String surname, String patronymic,
 				String email, String password, String age,
-				String gender, java.sql.Date birthdate, String telephone,
+				String gender, Date birthdate, String telephone,
 				String passport, String address) {
 		this.username = username;
 		this.name = name;

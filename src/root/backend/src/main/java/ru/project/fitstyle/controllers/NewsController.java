@@ -22,8 +22,6 @@ import java.util.List;
 @RequestMapping("/news")
 @PreAuthorize("hasRole('USER')")
 public class NewsController {
-    //Constant variable that specifies number of news in one page
-    private final int newsInPage = 6;
     private final NewsRepository newsRepository;
 
     @Autowired
@@ -35,17 +33,23 @@ public class NewsController {
     public ResponseEntity<?> showPage(@PathVariable("page_number") int pageNumber)
     {
         //Here we get first 6 (can be specified) recently added news
-        List<News> news = newsRepository.findAll(PageRequest.of(pageNumber - 1, newsInPage,
-                Sort.by(Sort.Direction.DESC, "dateTime"))).toList();
+        //Constant variable that specifies number of news in one page
+        final int newsInPage = 6;
+        if(pageNumber > 0) {
+            List<News> news = newsRepository.findAll(PageRequest.of(pageNumber - 1, newsInPage,
+                    Sort.by(Sort.Direction.DESC, "dateTime"))).toList();
 
-        if(news.size() != 0)
-        {
-            return ResponseEntity.ok(new NewsShowPageResponse(news));
+            if (news.size() != 0) {
+                return ResponseEntity.ok(new NewsShowPageResponse(news));
+            } else {
+                return ResponseEntity.badRequest().
+                        body(new MessageResponse("Oops..."));
+            }
         }
         else
         {
             return ResponseEntity.badRequest().
-                    body(new MessageResponse("Oops..."));
+                    body(new MessageResponse("Page number cannot be less than zero!"));
         }
     }
 
