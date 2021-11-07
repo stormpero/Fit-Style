@@ -21,6 +21,7 @@ public class News {
 	@Size(max = 500)
 	private String content;
 
+	//TODO Make another Timestamp for last news update??
 	private Timestamp dateTime;
 
 	@NotBlank

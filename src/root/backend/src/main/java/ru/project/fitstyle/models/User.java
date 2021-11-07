@@ -74,6 +74,12 @@ public class User {
 			inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
 
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(	name = "user_training",
+			joinColumns = @JoinColumn(name = "user_id"),
+			inverseJoinColumns = @JoinColumn(name = "training_id"))
+	private Set<Training> trainings = new HashSet<>();
+
 	@OneToOne(fetch = FetchType.LAZY)
 	@PrimaryKeyJoinColumn//(name = "subscription_id")
 	private Subscription subscription;
@@ -216,5 +222,13 @@ public class User {
 
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
+	}
+
+	public Set<Training> getTrainings() {
+		return trainings;
+	}
+
+	public void setTrainings(Set<Training> trainings) {
+		this.trainings = trainings;
 	}
 }

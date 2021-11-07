@@ -173,6 +173,7 @@ public class AuthController {
 	}
 
 	@PostMapping("/logout")
+	@PreAuthorize("hasRole('USER')")
 	public ResponseEntity<?> logoutUser(@Valid @RequestBody LogOutRequest logOutRequest) {
 		refreshTokenService.deleteByUserId(logOutRequest.getUserId());
 		return ResponseEntity.ok(new MessageResponse("Log out successful!"));
