@@ -15,7 +15,7 @@ import ru.project.fitstyle.repository.UserRepository;
 
 @Service
 public class RefreshTokenService {
-    @Value("${fitstyle.project.jwtExpirationMs}")
+    @Value("${fitstyle.project.jwtExpirationRefreshMs}")
     private Long refreshTokenDurationMs;
 
     private RefreshTokenRepository refreshTokenRepository;
