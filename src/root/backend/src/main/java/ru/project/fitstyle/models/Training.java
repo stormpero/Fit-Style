@@ -21,7 +21,7 @@ public class Training {
 
     private Long userId;
 
-    @NotBlank(message = "treaningDate should not be blank")
+    @NotBlank(message = "trainingDate should not be blank")
     private Timestamp trainingDate;
 
     @NotBlank(message = "trainingName should not be blank")
