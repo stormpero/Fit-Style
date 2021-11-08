@@ -9,63 +9,63 @@ import java.sql.Date;
 @Entity
 @Table(name = "subscription")
 public class Subscription {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	@ManyToOne(optional=false, cascade = CascadeType.ALL)
-	@JoinColumn(name = "subscriptionType_id")
-	private SubscriptionType subscriptionType;
+    @ManyToOne(optional=false, cascade = CascadeType.ALL)
+    @JoinColumn(name = "subscriptionType_id")
+    private SubscriptionType subscriptionType;
 
-	@NotBlank(message = "beginDate should not be blank")
-	private Date beginDate;
+    @NotBlank(message = "beginDate should not be blank")
+    private Date beginDate;
 
-	@NotBlank(message = "endDate should not be blank")
-	private Date endDate;
+    @NotBlank(message = "endDate should not be blank")
+    private Date endDate;
 
-	@NotBlank(message = "contract should not be blank")
-	@Size(max = 16, message = "contract should be less or equal than 16 chars")
-	private String contract;
+    @NotBlank(message = "contract should not be blank")
+    @Size(max = 16, message = "contract should be less or equal than 16 chars")
+    private String contract;
 
-	public Subscription() {
+    public Subscription() {
 
-	}
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public SubscriptionType getSubscriptionType() {
-		return subscriptionType;
-	}
+    public SubscriptionType getSubscriptionType() {
+        return subscriptionType;
+    }
 
-	public void setSubscriptionType(SubscriptionType subscriptionType) {
-		this.subscriptionType = subscriptionType;
-	}
+    public void setSubscriptionType(SubscriptionType subscriptionType) {
+        this.subscriptionType = subscriptionType;
+    }
 
-	public Date getBeginDate() { return beginDate; }
+    public Date getBeginDate() { return beginDate; }
 
-	public void setBeginDate(Date beginDate) {
-		this.beginDate = beginDate;
-	}
+    public void setBeginDate(Date beginDate) {
+        this.beginDate = beginDate;
+    }
 
-	public Date getEndDate() {
-		return endDate;
-	}
+    public Date getEndDate() {
+        return endDate;
+    }
 
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
-	}
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
 
-	public String getContract() {
-		return contract;
-	}
+    public String getContract() {
+        return contract;
+    }
 
-	public void setContract(String contract) {
-		this.contract = contract;
-	}
+    public void setContract(String contract) {
+        this.contract = contract;
+    }
 }
