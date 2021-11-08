@@ -3,7 +3,7 @@ package ru.project.fitstyle.payload.request.auth;
 import javax.validation.constraints.NotBlank;
 
 public class TokenRefreshRequest {
-    @NotBlank
+    @NotBlank(message = "refreshToken should not be blank")
     private String refreshToken;
 
     public String getRefreshToken() {

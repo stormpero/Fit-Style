@@ -4,6 +4,7 @@ package ru.project.fitstyle.models;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.sql.Date;
 
 @Entity
 @Table(name = "subscription")
@@ -16,14 +17,14 @@ public class Subscription {
 	@JoinColumn(name = "subscriptionType_id")
 	private SubscriptionType subscriptionType;
 
-	@NotBlank
-	private java.sql.Date beginDate;
+	@NotBlank(message = "beginDate should not be blank")
+	private Date beginDate;
 
-	@NotBlank
-	private java.sql.Date endDate;
+	@NotBlank(message = "endDate should not be blank")
+	private Date endDate;
 
-	@NotBlank
-	@Size(max = 16)
+	@NotBlank(message = "contract should not be blank")
+	@Size(max = 16, message = "contract should be less or equal than 16 chars")
 	private String contract;
 
 	public Subscription() {
@@ -46,17 +47,17 @@ public class Subscription {
 		this.subscriptionType = subscriptionType;
 	}
 
-	public java.sql.Date getBeginDate() { return beginDate; }
+	public Date getBeginDate() { return beginDate; }
 
-	public void setBeginDate(java.sql.Date beginDate) {
+	public void setBeginDate(Date beginDate) {
 		this.beginDate = beginDate;
 	}
 
-	public java.sql.Date getEndDate() {
+	public Date getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(java.sql.Date endDate) {
+	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
 

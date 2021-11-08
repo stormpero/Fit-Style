@@ -13,17 +13,17 @@ public class SubscriptionType {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@NotBlank
-	@Size(max = 3)
+	@NotBlank(message = "validity should not be empty")
+	@Size(max = 3, message = "validity should be less or equal than 3 chars")
 	private String validity;
 
 	@Enumerated(EnumType.STRING)
 	@Column(length = 10)
 	private ESubsPlacementTime placementTime;
 
-	@NotBlank
-	@Size(max = 5)
-	private String coast;
+	@NotBlank(message = "cost should not be blank")
+	@Size(max = 5, message = "cost should be less or equal than 5 chars")
+	private String cost;
 
 	@OneToMany(mappedBy = "subscriptionType", fetch = FetchType.EAGER)
 	private Collection<Subscription> owner;
@@ -60,12 +60,12 @@ public class SubscriptionType {
 		this.placementTime = placementTime;
 	}
 
-	public String getCoast() {
-		return coast;
+	public String getCost() {
+		return cost;
 	}
 
-	public void setCoast(String coast) {
-		this.coast = coast;
+	public void setCost(String cost) {
+		this.cost = cost;
 	}
 
 	public Collection<Subscription> getOwner() {

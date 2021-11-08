@@ -1,22 +1,25 @@
 package ru.project.fitstyle.payload.request.news;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.sql.Timestamp;
 
 public class AddEditNewsRequest {
-    @NotBlank
-    @Size(max = 50)
+    @NotBlank(message = "header should not be blank")
+    @Size(max = 50, message = "header size should be less or equal than 50 chars")
     private String header;
 
-    @NotBlank
-    @Size(max = 500)
+    @NotBlank(message = "content should not be blank")
+    @Size(max = 500, message = "content size should be less or equal then 500 chars")
     private String content;
 
     private Timestamp dateTime;
 
-    @NotBlank
-    @Size(max = 50)
+    @NotBlank(message = "imgUrl should not be blank")
+    @Size(max = 100, message = "imgUrl should be less or equal than 100 chars")
     private String imgURL;
 
     public AddEditNewsRequest(String header, String content, Timestamp dateTime, String imgURL) {

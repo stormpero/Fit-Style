@@ -3,10 +3,10 @@ package ru.project.fitstyle.payload.request.auth;
 import javax.validation.constraints.NotBlank;
 
 public class LoginRequest {
-	@NotBlank
+	@NotBlank(message = "username should not be blank")
 	private String username;
 
-	@NotBlank
+	@NotBlank(message = "password should not be blank")
 	private String password;
 
 	public String getUsername() {
