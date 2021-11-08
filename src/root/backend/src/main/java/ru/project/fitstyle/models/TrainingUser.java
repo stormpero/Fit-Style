@@ -15,7 +15,7 @@ public class TrainingUser {
 
 	private Long userId;
 
-	@ManyToOne(mappedBy = "trainingUser", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "trainingUser", fetch = FetchType.EAGER)
 	private Collection<Training> owner;
 
 	public TrainingUser() {

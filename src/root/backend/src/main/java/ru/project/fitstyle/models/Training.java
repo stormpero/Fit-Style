@@ -1,6 +1,7 @@
 package ru.project.fitstyle.models;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -31,11 +32,11 @@ public class Training {
 	@Column(length = 10)
 	private ETrainingType trainingType;
 
-	@@Enumerated(EnumType.STRING)
+	@Enumerated(EnumType.STRING)
 	@Column(length = 10)
 	private ETrainingStatus trainingStatus;
 
-	@OneToMany(optional=false, cascade = CascadeType.ALL)
+	@ManyToOne(optional=false, cascade = CascadeType.ALL)
 	@JoinColumn(name = "trainingUser_id")
 	private TrainingUser trainingUser;
 
