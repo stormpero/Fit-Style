@@ -188,7 +188,6 @@ public class AuthController {
 	}
 
 	@PostMapping("/refreshtoken")
-	@PreAuthorize("hasRole('USER')")
 	public ResponseEntity<?> refreshToken(@Valid @RequestBody TokenRefreshRequest request,
 										  BindingResult bindingResult) {
 		if(!bindingResult.hasErrors())
