@@ -16,16 +16,16 @@ public class Training {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@NotBlank
+	@NotBlank(message = "coachId should not be blank")
 	private Long coachId;
 
 	private Long userId;
 
-	@NotBlank
+	@NotBlank(message = "treaningDate should not be blank")
 	private Timestamp trainingDate;
 
-	@NotBlank
-	@Size(max = 30)
+	@NotBlank(message = "trainingName should not be blank")
+	@Size(max = 30, message = "trainingName should be less or equal than 30 chars")
 	private String trainingName;
 
 	@Enumerated(EnumType.STRING)
