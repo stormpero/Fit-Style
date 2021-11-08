@@ -6,8 +6,6 @@ import java.sql.Date;
 
 public class UserProfileResponse {
 
-    private Long id;
-
     private String username;
 
     private String surname;
@@ -28,7 +26,7 @@ public class UserProfileResponse {
 
     private String address;
 
-    public UserProfileResponse(Long id,
+    public UserProfileResponse(
                                String username,
                                String surname,
                                String patronymic,
@@ -39,7 +37,6 @@ public class UserProfileResponse {
                                String telephone,
                                String passport,
                                String address) {
-        this.id = id;
         this.username = username;
         this.surname = surname;
         this.patronymic = patronymic;
@@ -52,17 +49,23 @@ public class UserProfileResponse {
         this.address = address;
     }
 
+    public UserProfileResponse(User user) {
+        this.username = user.getUsername();
+        this.surname = user.getSurname();
+        this.patronymic = user.getPatronymic();
+        this.email = user.getEmail();
+        this.age = user.getAge();
+        this.gender = user.getGender();
+        this.birthdate = user.getBirthdate();
+        this.telephone = user.getTelephone();
+        this.passport = user.getPassport();
+        this.address = user.getAddress();
+    }
+
     public UserProfileResponse() {
 
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getUsername() {
         return username;

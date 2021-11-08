@@ -29,12 +29,16 @@ public class PermissionController {
     public ResponseEntity<?> getUserRoles(@RequestParam("id") Long id)
     {
         Optional<User> user = userRepository.findById(id);
-        User returnUser = user.orElse(null);
-        if(returnUser==null)
-        {
-            return ResponseEntity.badRequest().
-                    body(new MessageResponse("Error: user with that id doesn't exist!"));
+        User returnUser = user
+                .orElse(null);
+        if(returnUser != null) {
+            return ResponseEntity.ok(
+                    new PermissionResponse(returnUser.getRoles()));
         }
-        return ResponseEntity.ok(new PermissionResponse(returnUser.getRoles()));
+        else {
+            return ResponseEntity.badRequest().
+                    body(
+                            new MessageResponse("Error: user with that id doesn't exist!"));
+        }
     }
 }

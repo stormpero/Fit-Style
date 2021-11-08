@@ -3,9 +3,11 @@ package ru.project.fitstyle.security.jwt;
 import java.security.Key;
 import java.util.Date;
 
+import io.jsonwebtoken.security.Keys;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
@@ -24,6 +26,12 @@ public class JwtUtils {
   @Value("${fitstyle.project.jwtExpirationMs}")
   private int jwtExpirationMs;
 
+  @Bean
+  public Key jwtSecret()
+  {
+    return Keys.secretKeyFor(SignatureAlgorithm.HS256);
+  }
+
   public String generateJwtToken(Authentication authentication) {
     UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
 
@@ -39,12 +47,14 @@ public class JwtUtils {
 
   public String generateTokenFromUsername(String username) {
     return Jwts.builder().setSubject(username).setIssuedAt(new Date())
-            .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs)).signWith(SignatureAlgorithm.HS256, jwtSecret)
+            .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
+            .signWith(SignatureAlgorithm.HS256, jwtSecret)
             .compact();
   }
 
   public String getUserNameFromJwtToken(String token) {
-    return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
+    return Jwts.parser().setSigningKey(jwtSecret)
+            .parseClaimsJws(token).getBody().getSubject();
   }
 
   public boolean validateJwtToken(String authToken) {
