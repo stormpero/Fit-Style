@@ -111,80 +111,71 @@ public class AuthController {
     @PreAuthorize("hasRole('MODERATOR')")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest,
                                           BindingResult bindingResult) {
-        if(!bindingResult.hasErrors()) {
-            if (!userRepository.
-                    existsByUsername(signUpRequest.getUsername())) {
-                if (!userRepository.
-                        existsByEmail(signUpRequest.getEmail())) {
-                    // Create new user's account
+		if (!userRepository.
+				existsByUsername(signUpRequest.getUsername())) {
+			if (!userRepository.
+					existsByEmail(signUpRequest.getEmail())) {
+				// Create new user's account
 
-                    User user = new User(
-                            signUpRequest.getUsername(),
-                            signUpRequest.getName(),
-                            signUpRequest.getSurname(),
-                            signUpRequest.getPatronymic(),
-                            signUpRequest.getEmail(),
-                            encoder.encode(signUpRequest.getPassword()),
-                            signUpRequest.getAge(),
-                            signUpRequest.getGender(),
-                            signUpRequest.getBirthdate(),
-                            signUpRequest.getTelephone(),
-                            signUpRequest.getPassport(),
-                            signUpRequest.getAddress());
+				User user = new User(
+						signUpRequest.getUsername(),
+						signUpRequest.getName(),
+						signUpRequest.getSurname(),
+						signUpRequest.getPatronymic(),
+						signUpRequest.getEmail(),
+						encoder.encode(signUpRequest.getPassword()),
+						signUpRequest.getAge(),
+						signUpRequest.getGender(),
+						signUpRequest.getBirthdate(),
+						signUpRequest.getTelephone(),
+						signUpRequest.getPassport(),
+						signUpRequest.getAddress());
 
-                    Set<String> strRoles = signUpRequest.getRole();
-                    Set<Role> roles = new HashSet<>();
+				Set<String> strRoles = signUpRequest.getRole();
+				Set<Role> roles = new HashSet<>();
 
-                    if (strRoles != null) {
-                        strRoles.forEach(role -> {
-                            switch (role) {
-                                case "admin":
-                                    Role adminRole = roleRepository.findByName(ERole.ROLE_COACH)
-                                            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                                    roles.add(adminRole);
+				if (strRoles != null) {
+					strRoles.forEach(role -> {
+						switch (role) {
+							case "admin":
+								Role adminRole = roleRepository.findByName(ERole.ROLE_COACH)
+										.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+								roles.add(adminRole);
 
-                                    break;
-                                case "mod":
-                                    Role modRole = roleRepository.findByName(ERole.ROLE_MODERATOR)
-                                            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                                    roles.add(modRole);
+								break;
+							case "mod":
+								Role modRole = roleRepository.findByName(ERole.ROLE_MODERATOR)
+										.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+								roles.add(modRole);
 
-                                    break;
-                                default:
-                                    Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-                                            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                                    roles.add(userRole);
-                            }
-                        });
-                    } else {
-                        Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(userRole);
-                    }
+								break;
+							default:
+								Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+										.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+								roles.add(userRole);
+						}
+					});
+				} else {
+					Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+					roles.add(userRole);
+				}
 
-                    user.setRoles(roles);
-                    userRepository.save(user);
+				user.setRoles(roles);
+				userRepository.save(user);
 
-                    return ResponseEntity.ok(
-                            new MessageResponse("User registered successfully!"));
-                } else {
-                    return ResponseEntity
-                            .badRequest()
-                            .body(new MessageResponse("Error: Email is already in use!"));
-                }
-            } else {
-                return ResponseEntity
-                        .badRequest()
-                        .body(new MessageResponse("Error: Username is already in use!"));
-            }
-        }
-        else
-        {
-            return ResponseEntity.badRequest()
-                    .body(
-                            new MessageResponse("SignupRequest error!")
-                    );
-        }
+				return ResponseEntity.ok(
+						new MessageResponse("User registered successfully!"));
+			} else {
+				return ResponseEntity
+						.badRequest()
+						.body(new MessageResponse("Error: Email is already in use!"));
+			}
+		} else {
+			return ResponseEntity
+					.badRequest()
+					.body(new MessageResponse("Error: Username is already in use!"));
+		}
     }
 
     @PostMapping("/refreshtoken")
