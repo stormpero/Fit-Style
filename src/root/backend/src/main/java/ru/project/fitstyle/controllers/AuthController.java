@@ -111,7 +111,6 @@ public class AuthController {
 	@PreAuthorize("hasRole('MODERATOR')")
 	public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest,
 										  BindingResult bindingResult) {
-		if(!bindingResult.hasErrors()) {
 			if (!userRepository.
 					existsByUsername(signUpRequest.getUsername())) {
 				if (!userRepository.
@@ -177,14 +176,7 @@ public class AuthController {
 						.badRequest()
 						.body(new MessageResponse("Error: Username is already in use!"));
 			}
-		}
-		else
-		{
-			return ResponseEntity.badRequest()
-					.body(
-							new MessageResponse("SignupRequest error!")
-					);
-		}
+
 	}
 
 	@PostMapping("/refreshtoken")

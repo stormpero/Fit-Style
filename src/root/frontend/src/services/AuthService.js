@@ -21,8 +21,10 @@ class AuthService {
     }
 
     register(username, email, password, surname, patronymic, age, gender, birthdate, telephone, passport, address) {
+        const name = 'denis';
         return api
             .post('auth/signup', {
+                name,
                 username,
                 email,
                 password,

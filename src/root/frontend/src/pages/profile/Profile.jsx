@@ -18,7 +18,7 @@ export default class Profile extends Component {
     UserService.getProfileInfo(currentUser.id).then(
         response => {
           const userInfo = response.data;
-          userInfo.id = ('000000' + userInfo.id).slice(Math.log(Number(userInfo.id)) * Math.LOG10E + 1 | 0);
+          userInfo.id = ('000000' + currentUser.id).slice(Math.log(Number(currentUser.id)) * Math.LOG10E + 1 | 0);
           userInfo.birthdate = DateFormat.convert(userInfo.birthdate);
           this.setState({
             userInfo: userInfo,
