@@ -1,6 +1,6 @@
 package ru.project.fitstyle.payload.response.user;
 
-import ru.project.fitstyle.models.User;
+import ru.project.fitstyle.models.user.User;
 
 import java.sql.Date;
 

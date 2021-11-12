@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import ru.project.fitstyle.models.News;
+import ru.project.fitstyle.models.news.News;
 import ru.project.fitstyle.payload.request.news.AddEditNewsRequest;
 import ru.project.fitstyle.payload.response.news.NewsInfo;
 import ru.project.fitstyle.payload.response.news.NewsShowPageResponse;

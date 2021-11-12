@@ -24,10 +24,10 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import ru.project.fitstyle.exception.TokenRefreshException;
-import ru.project.fitstyle.models.ERole;
-import ru.project.fitstyle.models.RefreshToken;
-import ru.project.fitstyle.models.Role;
-import ru.project.fitstyle.models.User;
+import ru.project.fitstyle.models.user.ERole;
+import ru.project.fitstyle.models.user.RefreshToken;
+import ru.project.fitstyle.models.user.Role;
+import ru.project.fitstyle.models.user.User;
 import ru.project.fitstyle.payload.request.auth.LogOutRequest;
 import ru.project.fitstyle.payload.request.auth.LoginRequest;
 import ru.project.fitstyle.payload.request.auth.SignupRequest;

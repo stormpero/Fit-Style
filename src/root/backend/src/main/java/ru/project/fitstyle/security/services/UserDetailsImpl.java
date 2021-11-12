@@ -11,7 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import ru.project.fitstyle.models.User;
+import ru.project.fitstyle.models.user.User;
 
 public class UserDetailsImpl implements UserDetails {
 	private static final long serialVersionUID = 1L;

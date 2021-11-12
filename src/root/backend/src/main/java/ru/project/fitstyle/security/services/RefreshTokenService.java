@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.project.fitstyle.exception.TokenRefreshException;
-import ru.project.fitstyle.models.RefreshToken;
+import ru.project.fitstyle.models.user.RefreshToken;
 import ru.project.fitstyle.repository.RefreshTokenRepository;
 import ru.project.fitstyle.repository.UserRepository;
 

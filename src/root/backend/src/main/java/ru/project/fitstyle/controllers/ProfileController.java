@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import ru.project.fitstyle.models.User;
+import ru.project.fitstyle.models.user.User;
 import ru.project.fitstyle.payload.response.utils.MessageResponse;
 import ru.project.fitstyle.payload.response.user.UserProfileResponse;
 import ru.project.fitstyle.repository.UserRepository;

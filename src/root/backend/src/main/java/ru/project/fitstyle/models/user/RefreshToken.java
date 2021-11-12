@@ -1,4 +1,6 @@
-package ru.project.fitstyle.models;
+package ru.project.fitstyle.models.user;
+
+import ru.project.fitstyle.models.user.User;
 
 import java.time.Instant;
 
