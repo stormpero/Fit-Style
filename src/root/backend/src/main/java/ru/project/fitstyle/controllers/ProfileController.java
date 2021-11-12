@@ -25,29 +25,17 @@ public class ProfileController {
     }
 
     @GetMapping()
-    public ResponseEntity<?> getUserProfileInfo(@RequestParam("id") Long id) {
+    public ResponseEntity<?> getUserProfileInfoById(@RequestParam("id") Long id) {
         Optional<User> user = userRepository.findById(id);
-        User returnUser = user.orElse(
-                null
-        );
-        if(returnUser==null)
-        {
+        User returnUser = user
+                .orElse(null);
+        if(returnUser != null) {
+            return ResponseEntity.ok(
+                    new UserProfileResponse(returnUser));
+        }
+        else {
             return ResponseEntity.badRequest().
                     body(new MessageResponse("Error: user with that id doesn't exist!"));
         }
-        return ResponseEntity.ok(
-                new UserProfileResponse(
-                        returnUser.getId(),
-                        returnUser.getUsername(),
-                        returnUser.getSurname(),
-                        returnUser.getPatronymic(),
-                        returnUser.getEmail(),
-                        returnUser.getAge(),
-                        returnUser.getGender(),
-                        returnUser.getBirthdate(),
-                        returnUser.getTelephone(),
-                        returnUser.getPassport(),
-                        returnUser.getAddress())
-        );
     }
 }

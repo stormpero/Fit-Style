@@ -1,18 +1,13 @@
-package ru.project.fitstyle.models;
+package ru.project.fitstyle.payload.request.news;
 
-
-import javax.persistence.*;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.sql.Timestamp;
 
-@Entity
-@Table(name = "news")
-public class News {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+public class AddEditNewsRequest {
     @NotBlank(message = "header should not be blank")
     @Size(max = 50, message = "header size should be less or equal than 50 chars")
     private String header;
@@ -21,31 +16,20 @@ public class News {
     @Size(max = 500, message = "content size should be less or equal then 500 chars")
     private String content;
 
-    //TODO Make another Timestamp for last news update??
     private Timestamp dateTime;
 
     @NotBlank(message = "imgUrl should not be blank")
     @Size(max = 100, message = "imgUrl should be less or equal than 100 chars")
     private String imgURL;
 
-    public News() {
-
-    }
-
-    public News(String header, String content, Timestamp dateTime, String imgURL) {
+    public AddEditNewsRequest(String header, String content, Timestamp dateTime, String imgURL) {
         this.header = header;
         this.content = content;
-        this.dateTime=dateTime;
-        this.imgURL=imgURL;
+        this.dateTime = dateTime;
+        this.imgURL = imgURL;
     }
 
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public AddEditNewsRequest() {
     }
 
     public String getHeader() {
@@ -64,11 +48,11 @@ public class News {
         this.content = content;
     }
 
-    public java.sql.Timestamp getDateTime() {
+    public Timestamp getDateTime() {
         return dateTime;
     }
 
-    public void setDateTime(java.sql.Timestamp dateTime) {
+    public void setDateTime(Timestamp dateTime) {
         this.dateTime = dateTime;
     }
 
@@ -79,5 +63,4 @@ public class News {
     public void setImgURL(String imgURL) {
         this.imgURL = imgURL;
     }
-
 }

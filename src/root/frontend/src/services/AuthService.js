@@ -10,7 +10,7 @@ class AuthService {
             })
             .then(response => {
                 if (response.data.accessToken) {
-                    LStorageUser.add(response.data);
+                    LStorageUser.setUser(response.data);
                 }
                 return response.data;
             });
@@ -21,8 +21,10 @@ class AuthService {
     }
 
     register(username, email, password, surname, patronymic, age, gender, birthdate, telephone, passport, address) {
+        const name = 'denis';
         return api
             .post('auth/signup', {
+                name,
                 username,
                 email,
                 password,
