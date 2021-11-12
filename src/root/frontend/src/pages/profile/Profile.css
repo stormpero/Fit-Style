@@ -6,6 +6,7 @@ body {
 
 .profile-info{
     margin-top: 20vh;
+    border-radius: 30px;
     color: rgba(41, 31, 30, 1);
     background-color: rgba(255, 255, 255, 0.8);
     height: 20rem;

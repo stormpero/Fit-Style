@@ -33,8 +33,8 @@ export default class Navbar extends Component {
         const { currentUser, isAdmin } = this.state;
 
         return (
-            <div>
-                <nav className="navbarcastom navbar navbar-expand-lg navbar-dark bg-dark ">
+            <div className="header-main">
+                <nav className="navbar navbar-expand-lg navbar-dark bg-dark ">
                 { currentUser && (
                     <div className="navbar-nav ml-auto">
                         <li className="nav-item">
@@ -54,6 +54,15 @@ export default class Navbar extends Component {
                         </li>
                     </div>
                 )}
+                    { currentUser && (
+                        <div className="navbar-nav ml-auto">
+                            <li className="nav-item">
+                                <Link to={"/news"} className="nav-link">
+                                    Новости
+                                </Link>
+                            </li>
+                        </div>
+                    )}
                 { isAdmin && (
                     <div className="navbar-nav ml-auto">
                         <li className="nav-item">

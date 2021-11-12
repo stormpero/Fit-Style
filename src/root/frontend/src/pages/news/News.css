@@ -1,0 +1,80 @@
+.block-news {
+    cursor: default;
+    color: white;
+    position: relative;
+    margin-top: 5vh;
+    border-radius: 30px;
+    height: 20rem;
+    width: 27rem;
+    padding-left: 0px;
+    margin-right: 1.2rem;
+    margin-left: 1.2rem;
+    background-image: linear-gradient(rgba(41, 31, 30, 1), rgba(41, 31, 30, 0.4)), url("../../assets/gym.jpg");
+    background-size: cover;
+    background-position: center;
+    transition: 0.5s ease-in;
+}
+.content-news {
+    border-radius: 30px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    background-color: rgba(0,0,0,0.75);
+    transition: 0.1s ease-in;
+    display: flex;
+    -ms-align-items: center;
+    align-items: center;
+    justify-content: center;
+}
+.content-news-text{
+    padding: 1rem;
+    height: 21rem;
+    overflow-y: scroll;
+}
+.title-news{
+    text-align: center;
+    padding-top: 0.8rem;
+    padding-bottom: 0.8rem;
+}
+.block-news:hover{
+    height: 26rem;
+    width: 31rem;
+}
+.block-news:hover .content-news {
+    opacity: 1;
+}
+.block-news:hover .title {
+    opacity: 0;
+}
+.block-news:hover .dateTime {
+    opacity: 0;
+}
+.row-news{
+    margin-right: 1.2rem;
+    margin-left: 1.2rem;
+}
+.title{
+    padding: 3rem;
+    text-align: center;
+    transition: 0.1s ease-in;
+}
+
+.dateTime{
+    font-size: 0.8rem;
+}
+
+.content-news-text::-webkit-scrollbar {
+    width: 5px;
+}
+
+.content-news-text::-webkit-scrollbar-track {
+    -webkit-box-shadow: 5px 5px 5px -5px rgba(34, 60, 80, 0.2) inset;
+    background-color: rgba(0,0,0,0.75);
+}
+
+.content-news-text::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #27FB6B, #00E8FC);
+}
