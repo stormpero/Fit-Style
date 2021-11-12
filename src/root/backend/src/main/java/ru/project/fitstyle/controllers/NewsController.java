@@ -34,8 +34,7 @@ public class NewsController {
     }
 
     @GetMapping("/{page_number}")
-    public ResponseEntity<?> showPage(@PathVariable("page_number") int pageNumber)
-    {
+    public ResponseEntity<?> showPage(@PathVariable("page_number") int pageNumber) {
         //Here we get first 6 (can be specified) recently added news
 
         if(pageNumber > 0) {
@@ -61,8 +60,7 @@ public class NewsController {
     }
 
     @GetMapping("/story/{id}")
-    public ResponseEntity<?> show(@PathVariable("id") Long id)
-    {
+    public ResponseEntity<?> show(@PathVariable("id") Long id) {
         //Find news by given id
         News news = newsRepository.findById(id)
                 .orElse(null);
@@ -79,8 +77,7 @@ public class NewsController {
     @PostMapping()
     @PreAuthorize("hasRole('MODERATOR')")
     public ResponseEntity<?> add(@Valid @RequestBody AddEditNewsRequest addEditNewsRequest,
-                         BindingResult bindingResult)
-    {
+                         BindingResult bindingResult) {
         //Add News
         if(!bindingResult.hasErrors()) {
             News news = new News(
@@ -108,8 +105,7 @@ public class NewsController {
     @PreAuthorize("hasRole('MODERATOR')")
     public ResponseEntity<?> update(@Valid @RequestBody AddEditNewsRequest addEditNewsRequest,
                          BindingResult bindingResult,
-                         @PathVariable("id") Long id)
-    {
+                         @PathVariable("id") Long id) {
         //Update news. It currently updates all fields of the DB object instead of updating only those which are changed
         if(!bindingResult.hasErrors()) {
             News news = newsRepository.findById(id)
@@ -138,8 +134,7 @@ public class NewsController {
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('MODERATOR')")
-    public ResponseEntity<?> delete(@PathVariable("id") Long id)
-    {
+    public ResponseEntity<?> delete(@PathVariable("id") Long id) {
         //Delete news
         News news = newsRepository.findById(id)
                 .orElse(null);
@@ -156,8 +151,7 @@ public class NewsController {
     }
 
     @GetMapping("/info")
-    public ResponseEntity<?> getInfo()
-    {
+    public ResponseEntity<?> getInfo() {
         long numberOfNews = newsRepository.count();
         long numberOfPages =
                 (long)Math.ceil((double)numberOfNews/numberOfNewsInOnePage);
