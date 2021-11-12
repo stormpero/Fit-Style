@@ -1,3 +1,6 @@
+.news-board{
+    max-width: 1200px;
+}
 .block-news {
     cursor: default;
     color: white;

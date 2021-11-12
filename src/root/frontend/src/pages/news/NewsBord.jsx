@@ -32,9 +32,11 @@ export default class NewsBord extends Component {
             }
         ]
         return(
-            <div>
-                <NewsRow news={newsArray}/>
-                <NewsRow news={newsArray}/>
+            <div className="d-flex justify-content-centerg">
+                <div className="news-board">
+                    <NewsRow news={newsArray}/>
+                    <NewsRow news={newsArray}/>
+                </div>
             </div>
         );
     }
