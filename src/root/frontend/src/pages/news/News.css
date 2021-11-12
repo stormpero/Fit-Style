@@ -12,9 +12,6 @@
     padding-left: 0px;
     margin-right: 1.2rem;
     margin-left: 1.2rem;
-    background-image: linear-gradient(rgba(41, 31, 30, 1), rgba(41, 31, 30, 0.4)), url("../../assets/gym.jpg");
-    background-size: cover;
-    background-position: center;
     transition: 0.5s ease-in;
 }
 .content-news {
@@ -36,6 +33,7 @@
     padding: 1rem;
     height: 21rem;
     overflow-y: scroll;
+
 }
 .title-news{
     text-align: center;
@@ -48,6 +46,7 @@
 }
 .block-news:hover .content-news {
     opacity: 1;
+    transition: 0.6s all ease-in;
 }
 .block-news:hover .title {
     opacity: 0;
