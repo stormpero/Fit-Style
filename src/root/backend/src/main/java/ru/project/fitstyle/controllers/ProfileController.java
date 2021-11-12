@@ -28,21 +28,6 @@ public class ProfileController {
         this.userRepository = userRepository;
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getUserProfileInfoById(@PathVariable("id") Long id) {
-        Optional<User> user = userRepository.findById(id);
-        User returnUser = user
-                .orElse(null);
-        if(returnUser != null) {
-            return ResponseEntity.ok(
-                    new UserProfileResponse(returnUser));
-        }
-        else {
-            return ResponseEntity.badRequest().
-                    body(new MessageResponse("Error: user with that id doesn't exist!"));
-        }
-    }
-
     @GetMapping()
     public ResponseEntity<?> getUserProfileInfo() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -58,6 +43,22 @@ public class ProfileController {
                     .body(
                             new MessageResponse("User not found!")
                     );
+        }
+    }
+
+    @GetMapping("/{id}")
+    @PreAuthorize("hasRole('MODERATOR')")
+    public ResponseEntity<?> getUserProfileInfoById(@PathVariable("id") Long id) {
+        Optional<User> user = userRepository.findById(id);
+        User returnUser = user
+                .orElse(null);
+        if(returnUser != null) {
+            return ResponseEntity.ok(
+                    new UserProfileResponse(returnUser));
+        }
+        else {
+            return ResponseEntity.badRequest().
+                    body(new MessageResponse("Error: user with that id doesn't exist!"));
         }
     }
 }
