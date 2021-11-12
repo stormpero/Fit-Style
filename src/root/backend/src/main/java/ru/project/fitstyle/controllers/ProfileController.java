@@ -10,8 +10,6 @@ import ru.project.fitstyle.models.user.User;
 import ru.project.fitstyle.payload.response.utils.MessageResponse;
 import ru.project.fitstyle.payload.response.user.UserProfileResponse;
 import ru.project.fitstyle.repository.UserRepository;
-import ru.project.fitstyle.security.jwt.AuthTokenFilter;
-import ru.project.fitstyle.security.services.UserDetailsImpl;
 
 import java.util.Optional;
 
