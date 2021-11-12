@@ -74,37 +74,27 @@ public class AuthController {
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest,
                                               BindingResult bindingResult) {
-        if(!bindingResult.hasErrors())
-        {
-            Authentication authentication = authenticationManager
-                    .authenticate(new UsernamePasswordAuthenticationToken(
-                            loginRequest.getUsername(), loginRequest.getPassword()));
+        Authentication authentication = authenticationManager
+                .authenticate(new UsernamePasswordAuthenticationToken(
+                        loginRequest.getUsername(), loginRequest.getPassword()));
 
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
 
-            String jwt = jwtUtils
-                    .generateJwtToken(authentication);
+        String jwt = jwtUtils
+                .generateJwtToken(authentication);
 
-            UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-            List<String> roles = userDetails.getAuthorities().stream()
-                    .map(GrantedAuthority::getAuthority)
-                    .collect(Collectors.toList());
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        List<String> roles = userDetails.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.toList());
 
-            RefreshToken refreshToken = refreshTokenService
-                    .createRefreshToken(userDetails.getId());
+        RefreshToken refreshToken = refreshTokenService
+                .createRefreshToken(userDetails.getId());
 
-            return ResponseEntity.ok(
-                    new JwtResponse(
-                            jwt, refreshToken.getToken(), userDetails.getId(),
-                            userDetails.getUsername(), userDetails.getEmail(), roles));
-        }
-        else
-        {
-            return ResponseEntity.badRequest()
-                    .body(
-                            new MessageResponse("LoginRequest error!")
-                    );
-        }
+        return ResponseEntity.ok(
+                new JwtResponse(
+                        jwt, refreshToken.getToken(), userDetails.getId(),
+                        userDetails.getUsername(), userDetails.getEmail(), roles));
     }
 
     @PostMapping("/signup")
@@ -178,50 +168,30 @@ public class AuthController {
     @PostMapping("/refreshtoken")
     public ResponseEntity<?> refreshToken(@Valid @RequestBody TokenRefreshRequest request,
                                           BindingResult bindingResult) {
-        if(!bindingResult.hasErrors())
-        {
-            String requestRefreshToken = request.getRefreshToken();
+        String requestRefreshToken = request.getRefreshToken();
 
-            return refreshTokenService.
-                    findByToken(requestRefreshToken)
-                    .map(refreshTokenService::verifyExpiration)
-                    .map(RefreshToken::getUser)
-                    .map(user -> {
-                        String token = jwtUtils
-                                .generateTokenFromUsername(user.getUsername());
-                        return ResponseEntity.ok(
-                                new TokenRefreshResponse(token, requestRefreshToken));
-                    })
-                    .orElseThrow(() ->
-                            new TokenRefreshException(requestRefreshToken, "Refresh token is not in database!"));
-        }
-        else
-        {
-            return ResponseEntity.badRequest()
-                    .body(
-                            new MessageResponse("TokenRefreshRequest error!")
-                    );
-        }
+        return refreshTokenService.
+                findByToken(requestRefreshToken)
+                .map(refreshTokenService::verifyExpiration)
+                .map(RefreshToken::getUser)
+                .map(user -> {
+                    String token = jwtUtils
+                            .generateTokenFromUsername(user.getUsername());
+                    return ResponseEntity.ok(
+                            new TokenRefreshResponse(token, requestRefreshToken));
+                })
+                .orElseThrow(() ->
+                        new TokenRefreshException(requestRefreshToken, "Refresh token is not in database!"));
     }
 
     @PostMapping("/logout")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> logoutUser(@Valid @RequestBody LogOutRequest logOutRequest,
                                         BindingResult bindingResult) {
-        if(!bindingResult.hasErrors())
-        {
-            refreshTokenService
-                    .deleteByUserId(logOutRequest.getUserId());
-            return ResponseEntity.ok(
-                    new MessageResponse("Log out successful!"));
-        }
-        else
-        {
-            return ResponseEntity.badRequest()
-                    .body(
-                            new MessageResponse("LogOutRequest error!")
-                    );
-        }
+        refreshTokenService
+                .deleteByUserId(logOutRequest.getUserId());
+        return ResponseEntity.ok(
+                new MessageResponse("Log out successful!"));
     }
 
 }

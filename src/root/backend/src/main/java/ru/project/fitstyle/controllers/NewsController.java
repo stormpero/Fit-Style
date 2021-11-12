@@ -79,23 +79,17 @@ public class NewsController {
     public ResponseEntity<?> add(@Valid @RequestBody AddEditNewsRequest addEditNewsRequest,
                          BindingResult bindingResult) {
         //Add News
-        if(!bindingResult.hasErrors()) {
-            News news = new News(
-                    addEditNewsRequest.getHeader(),
-                    addEditNewsRequest.getContent(),
-                    addEditNewsRequest.getDateTime(),
-                    addEditNewsRequest.getImgURL()
-            );
+        News news = new News(
+                addEditNewsRequest.getHeader(),
+                addEditNewsRequest.getContent(),
+                addEditNewsRequest.getDateTime(),
+                addEditNewsRequest.getImgURL()
+        );
 
-            newsRepository.save(news);
-            return ResponseEntity.ok(
-                    new MessageResponse("Success! News created!")
-            );
-        }
-        else {
-            return ResponseEntity.badRequest().
-                    body(new MessageResponse("AddEditNewsRequest error!"));
-        }
+        newsRepository.save(news);
+        return ResponseEntity.ok(
+                new MessageResponse("Success! News created!")
+        );
     }
 
 
@@ -106,29 +100,23 @@ public class NewsController {
     public ResponseEntity<?> update(@Valid @RequestBody AddEditNewsRequest addEditNewsRequest,
                          BindingResult bindingResult,
                          @PathVariable("id") Long id) {
-        //Update news. It currently updates all fields of the DB object instead of updating only those which are changed
-        if(!bindingResult.hasErrors()) {
-            News news = newsRepository.findById(id)
-                    .orElse(null);
-            if(news != null) {
-                news.setHeader(addEditNewsRequest.getHeader());
-                news.setContent(addEditNewsRequest.getContent());
-                news.setDateTime(addEditNewsRequest.getDateTime());
-                news.setImgURL(addEditNewsRequest.getImgURL());
+    //Update news. It currently updates all fields of the DB object instead of updating only those which are changed
+        News news = newsRepository.findById(id)
+                .orElse(null);
+        if(news != null) {
+            news.setHeader(addEditNewsRequest.getHeader());
+            news.setContent(addEditNewsRequest.getContent());
+            news.setDateTime(addEditNewsRequest.getDateTime());
+            news.setImgURL(addEditNewsRequest.getImgURL());
 
-                newsRepository.save(news);
-                return ResponseEntity.ok(
-                        new MessageResponse("Success! News updated!")
-                );
-            }
-            else {
-                return ResponseEntity.badRequest().
-                        body(new MessageResponse("News with that id has been deleted or never been created!"));
-            }
+            newsRepository.save(news);
+            return ResponseEntity.ok(
+                    new MessageResponse("Success! News updated!")
+            );
         }
         else {
             return ResponseEntity.badRequest().
-                    body(new MessageResponse("AddEditNewsRequest error!"));
+                    body(new MessageResponse("News with that id has been deleted or never been created!"));
         }
     }
 
