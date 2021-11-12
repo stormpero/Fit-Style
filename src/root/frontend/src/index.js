@@ -11,5 +11,3 @@ ReactDOM.render((
     <App />
   </BrowserRouter>
 ), app);
-
-//serviceWorker.unregister();
