@@ -1,7 +1,7 @@
 package ru.project.fitstyle.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import ru.project.fitstyle.models.News;
+import ru.project.fitstyle.models.news.News;
 
 import java.util.List;
 import java.util.Optional;

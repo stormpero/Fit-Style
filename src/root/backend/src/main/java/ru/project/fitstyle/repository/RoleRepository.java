@@ -4,8 +4,8 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import ru.project.fitstyle.models.ERole;
-import ru.project.fitstyle.models.Role;
+import ru.project.fitstyle.models.user.ERole;
+import ru.project.fitstyle.models.user.Role;
 
 
 @Repository
