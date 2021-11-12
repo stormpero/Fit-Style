@@ -1,8 +1,13 @@
 import React, { Component } from "react";
 
+import { AddressSuggestions } from 'react-dadata';
+import 'react-dadata/dist/react-dadata.css';
+
 import AuthService from "../../services/AuthService";
 import isEmpty from "validator/es/lib/isEmpty";
 
+import "./Register.css"
+const DADATA_TOKEN = '5932e701529e183094a644d44a4c995b14ac0582';
 export default class Register extends Component {
 
     state = {
@@ -27,10 +32,15 @@ export default class Register extends Component {
             [name]: value
         });
     }
+    handleAddrInputChange = (event) => {
+        const value = event.value || '';
+        this.setState({
+            address: value
+        })
+    }
 
     handleRegister = (event) => {
         event.preventDefault();
-        console.log(this.state.birthdate)
         if (isEmpty(this.state.username) ||
             isEmpty(this.state.password) ||
             isEmpty(this.state.email) ||
@@ -53,7 +63,6 @@ export default class Register extends Component {
         }
 
         //TODO: Проверить дqанные на ошибки
-
         AuthService.register(this.state.username, this.state.email, this.state.password, this.state.surname, this.state.patronymic, this.state.age, this.state.gender, this.state.birthdate, this.state.telephone, this.state.passport, this.state.address).then(
             (response) => {
                 this.setState({
@@ -83,6 +92,7 @@ export default class Register extends Component {
 
 
     render() {
+
         return (
             <div className="col-md-12">
                 <div className="card card-container">
@@ -216,14 +226,8 @@ export default class Register extends Component {
                         </div>
                         <div className="form-group">
                             <label htmlFor="address">Address</label>
-                            <input className="form-control mb-2"
-                                   required
-                                   name="address"
-                                   type="text"
-                                   onChange={this.handleInputChange}
-                                   value={this.state.address}
-                                   placeholder="Address"
-                            />
+
+                            <AddressSuggestions token={DADATA_TOKEN} value={this.state.address | ''} onChange={this.handleAddrInputChange} count={5}/>
                         </div>
                         <br/>
                         <div className="form-group d-flex justify-content-between">

@@ -25,7 +25,6 @@ public class ProfileController {
     }
 
     @GetMapping()
-    @PreAuthorize("hasRole('MODERATOR')")
     public ResponseEntity<?> getUserProfileInfoById(@RequestParam("id") Long id) {
         Optional<User> user = userRepository.findById(id);
         User returnUser = user

@@ -7,6 +7,7 @@ import Profile from "../profile/Profile";
 import UserContent from "../../components/UserContent";
 
 import PrivateRoute from "./PrivateRoute";
+import NewsBord from "../news/NewsBord";
 
 const Routes = () => {
     return (
@@ -15,6 +16,7 @@ const Routes = () => {
             <PrivateRoute role={"ROLE_MODERATOR"} path="/register" component={Register} />
             <PrivateRoute role={"ROLE_USER"} path="/profile" component={Profile} />
             <PrivateRoute role={"ROLE_USER"} path="/user" component={UserContent} />
+            <PrivateRoute role={"ROLE_USER"} path="/news" component={NewsBord} />
         </Switch>
     )
 }
