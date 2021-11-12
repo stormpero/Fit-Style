@@ -3,7 +3,7 @@ import NewsRow from "./NewsRow";
 import UserService from "../../services/UserService";
 import DateFormat from "../../services/utils/DateFormat";
 
-export default class NewsBord extends Component {
+export default class NewsBoard extends Component {
 
     state = {
         rowNews: [],
