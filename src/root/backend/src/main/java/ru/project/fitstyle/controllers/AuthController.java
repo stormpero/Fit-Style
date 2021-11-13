@@ -76,7 +76,7 @@ public class AuthController {
                                               BindingResult bindingResult) {
         Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(
-                        loginRequest.getUsername(), loginRequest.getPassword()));
+                        loginRequest.getEmail(), loginRequest.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
@@ -94,13 +94,12 @@ public class AuthController {
         return ResponseEntity.ok(
                 new JwtResponse(
                         jwt, refreshToken.getToken(), userDetails.getId(),
-                        userDetails.getUsername(), userDetails.getEmail(), roles));
+                        userDetails.getUsername(), roles));
     }
 
     @PostMapping("/signup")
     @PreAuthorize("hasRole('MODERATOR')")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest,
-                                          BindingResult bindingResult) {
+    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
         if (userRepository
                 .existsByEmail(signUpRequest.getEmail())) {
             return ResponseEntity
@@ -166,12 +165,11 @@ public class AuthController {
     }
 
     @PostMapping("/refreshtoken")
-    public ResponseEntity<?> refreshToken(@Valid @RequestBody TokenRefreshRequest request,
-                                          BindingResult bindingResult) {
+    public ResponseEntity<?> refreshToken(@Valid @RequestBody TokenRefreshRequest request) {
         String requestRefreshToken = request.getRefreshToken();
 
-        return refreshTokenService.
-                findByToken(requestRefreshToken)
+        return refreshTokenService
+                .findByToken(requestRefreshToken)
                 .map(refreshTokenService::verifyExpiration)
                 .map(RefreshToken::getUser)
                 .map(user -> {

@@ -1,20 +1,22 @@
 package ru.project.fitstyle.payload.request.auth;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 public class LoginRequest {
     @NotBlank(message = "username should not be blank")
-    private String username;
+    @Email
+    private String email;
 
     @NotBlank(message = "password should not be blank")
     private String password;
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {

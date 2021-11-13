@@ -30,7 +30,7 @@ public class ProfileController {
     public ResponseEntity<?> getUserProfileInfo() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepository
-                .findByUsername(authentication.getName())
+                .findByEmail(authentication.getName())
                 .orElse(null);
         if(user != null) {
             return ResponseEntity.ok(
