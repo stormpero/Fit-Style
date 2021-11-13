@@ -18,7 +18,7 @@ public class News {
     private String header;
 
     @NotBlank(message = "content should not be blank")
-    @Size(max = 500, message = "content size should be less or equal then 500 chars")
+    @Size(max = 1500, message = "content size should be less or equal then 500 chars")
     private String content;
 
     //TODO Make another Timestamp for last news update??

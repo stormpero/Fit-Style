@@ -13,6 +13,10 @@ class UserService {
   getRoles(id) {
     return api.get('permission/roles', { params: { id: id} });
   }
+
+  getNews(pageNumber) {
+    return api.get(`news/${pageNumber}`);
+  }
 }
 
 export default new UserService();

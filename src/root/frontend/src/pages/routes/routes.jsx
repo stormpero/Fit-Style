@@ -1,22 +1,22 @@
 import React from "react";
 import {Route, Switch} from "react-router-dom";
 
+import PrivateRoute from "./PrivateRoute";
+
 import Login from "../login/Login";
 import Register from "../register/Register";
-import Profile from "../profile/Profile";
+import ProfileContainer from "../profile/ProfileContainer";
 import UserContent from "../../components/UserContent";
-
-import PrivateRoute from "./PrivateRoute";
-import NewsBord from "../news/NewsBord";
+import NewsBoard from "../news/NewsBoard";
 
 const Routes = () => {
     return (
         <Switch>
             <Route exact path={["/", "/login"]} component={Login} />
             <PrivateRoute role={"ROLE_MODERATOR"} path="/register" component={Register} />
-            <PrivateRoute role={"ROLE_USER"} path="/profile" component={Profile} />
+            <PrivateRoute role={"ROLE_USER"} path="/profile" component={ProfileContainer} />
             <PrivateRoute role={"ROLE_USER"} path="/user" component={UserContent} />
-            <PrivateRoute role={"ROLE_USER"} path="/news" component={NewsBord} />
+            <PrivateRoute role={"ROLE_USER"} path="/news" component={NewsBoard} />
         </Switch>
     )
 }

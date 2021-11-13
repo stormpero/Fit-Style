@@ -7,7 +7,8 @@ import AuthService from "../../services/AuthService";
 import isEmpty from "validator/es/lib/isEmpty";
 
 import "./Register.css"
-const DADATA_TOKEN = '5932e701529e183094a644d44a4c995b14ac0582';
+import {DADATA_TOKEN} from "../../services/utils/Dadata";
+
 export default class Register extends Component {
 
     state = {
