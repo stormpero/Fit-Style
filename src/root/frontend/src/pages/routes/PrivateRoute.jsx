@@ -20,7 +20,7 @@ export default function PrivateRoute ({component: Component, role, ...rest}) {
                 console.log(error)
                 LStorageUser.remove();
             }).then(() => setLoad(true))
-    }, [])
+    }, [role])
 
     return (
         <Route
