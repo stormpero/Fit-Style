@@ -19,7 +19,7 @@ const Profile = (props) => {
                         </p>
                         <p>
                             <label> ФИО </label>
-                            <strong>{userInfo.username} </strong>
+                            <strong>{userInfo.name} </strong>
                             <strong>{userInfo.surname} </strong>
                             <strong>{userInfo.patronymic} </strong>
                         </p>

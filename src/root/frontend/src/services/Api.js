@@ -26,8 +26,8 @@ instance.interceptors.response.use(
     },
     async error => {
         const config = error.config;
-
-        if (config.url !== "/auth/signin" && error.response) {
+        console.log(config.url)
+        if (config.url !== "auth/signin" && error.response) {
             if (error.response.status === 401 && !config._retry) {
                 config._retry = true;
 
@@ -39,7 +39,6 @@ instance.interceptors.response.use(
                             LStorageUser.remove();
                         }
                     });
-                    console.log(result.config)
                     const {accessToken} = result.data;
 
                     JwtService.updateAccessToken(accessToken);

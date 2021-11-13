@@ -12,17 +12,19 @@ import {DADATA_TOKEN} from "../../services/utils/Dadata";
 export default class Register extends Component {
 
     state = {
-        username: "",
-        email: "",
-        password: "",
-        surname: "",
-        patronymic: "",
-        age: "",
-        gender: "",
-        birthdate: "",
-        telephone: "",
-        passport: "",
-        address: "",
+        userInfo: {
+            email: "",
+            password: "",
+            name: "",
+            surname: "",
+            patronymic: "",
+            age: "",
+            gender: "",
+            birthdate: "",
+            telephone: "",
+            passport: "",
+            address: "",
+        },
         successful: false,
         message: ""
     }
@@ -30,31 +32,38 @@ export default class Register extends Component {
     handleInputChange = (event) => {
         const {name, value} = event.target;
         this.setState({
-            [name]: value
+            userInfo: {
+                ...this.state.userInfo,
+                [name]: value
+            }
         });
     }
+
     handleAddrInputChange = (event) => {
         const value = event.value || '';
         this.setState({
-            address: value
+            userInfo: {
+                ...this.state.userInfo,
+                address: value
+            }
         })
     }
 
     handleRegister = (event) => {
         event.preventDefault();
-        if (isEmpty(this.state.username) ||
-            isEmpty(this.state.password) ||
-            isEmpty(this.state.email) ||
-            isEmpty(this.state.surname) ||
-            isEmpty(this.state.patronymic) ||
-            isEmpty(this.state.age) ||
-            isEmpty(this.state.gender) ||
-            isEmpty(this.state.birthdate) ||
-            isEmpty(this.state.telephone) ||
-            isEmpty(this.state.passport) ||
-            isEmpty(this.state.address)){
+        console.log(this.state)
+        if (isEmpty(this.state.userInfo.name) ||
+            isEmpty(this.state.userInfo.password) ||
+            isEmpty(this.state.userInfo.email) ||
+            isEmpty(this.state.userInfo.surname) ||
+            isEmpty(this.state.userInfo.patronymic) ||
+            isEmpty(this.state.userInfo.age) ||
+            isEmpty(this.state.userInfo.gender) ||
+            isEmpty(this.state.userInfo.birthdate) ||
+            isEmpty(this.state.userInfo.telephone) ||
+            isEmpty(this.state.userInfo.passport) ||
+            isEmpty(this.state.userInfo.address)){
             const errorMsg = "Заполните поля";
-
 
             this.setState({
                 message: errorMsg,
@@ -63,21 +72,23 @@ export default class Register extends Component {
             return;
         }
 
-        //TODO: Проверить дqанные на ошибки
-        AuthService.register(this.state.username, this.state.email, this.state.password, this.state.surname, this.state.patronymic, this.state.age, this.state.gender, this.state.birthdate, this.state.telephone, this.state.passport, this.state.address).then(
+        //TODO: Проверить данные на ошибки + на пустоту
+        AuthService.register(this.state.userInfo).then(
             (response) => {
                 this.setState({
-                    username: "",
-                    email: "",
-                    password: "",
-                    surname: "",
-                    patronymic: "",
-                    age: "",
-                    gender: "",
-                    birthdate: "",
-                    telephone: "",
-                    passport: "",
-                    address: "",
+                    userInfo: {
+                        email: "",
+                        password: "",
+                        name: "",
+                        surname: "",
+                        patronymic: "",
+                        age: "",
+                        gender: "",
+                        birthdate: "",
+                        telephone: "",
+                        passport: "",
+                        address: ""
+                    },
                     message: response.data.message,
                     successful: true
                 });
@@ -91,7 +102,6 @@ export default class Register extends Component {
         });
     }
 
-
     render() {
 
         return (
@@ -100,25 +110,47 @@ export default class Register extends Component {
                     <h3 className="text-muted">Auth</h3>
                     <form>
                         <div className="form-group">
-                            <label htmlFor="username">Username</label>
+                            <label htmlFor="name">Имя</label>
                             <input className="form-control mb-2"
                                    required
-                                   name="username"
+                                   name="name"
                                    type="text"
                                    onChange={this.handleInputChange}
-                                   value={this.state.username}
-                                   placeholder="Username"
+                                   value={this.state.userInfo.name}
+                                   placeholder="Имя"
                             />
                         </div>
                         <div className="form-group">
-                            <label htmlFor="password">Password</label>
+                            <label htmlFor="surname">Фамилия</label>
+                            <input className="form-control mb-2"
+                                   required
+                                   name="surname"
+                                   type="text"
+                                   onChange={this.handleInputChange}
+                                   value={this.state.userInfo.surname}
+                                   placeholder="Фамилия"
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="patronymic">Отчество</label>
+                            <input className="form-control mb-2"
+                                   required
+                                   name="patronymic"
+                                   type="text"
+                                   onChange={this.handleInputChange}
+                                   value={this.state.userInfo.patronymic}
+                                   placeholder="Отчество"
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="password">Пароль</label>
                             <input className="form-control"
                                    required
                                    name="password"
                                    type="password"
                                    onChange={this.handleInputChange}
-                                   value={this.state.password}
-                                   placeholder="Password"
+                                   value={this.state.userInfo.password}
+                                   placeholder="Пароль"
                             />
                         </div>
                         <div className="form-group">
@@ -128,30 +160,8 @@ export default class Register extends Component {
                                    name="email"
                                    type="email"
                                    onChange={this.handleInputChange}
-                                   value={this.state.email}
+                                   value={this.state.userInfo.email}
                                    placeholder="Email"
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="surname">Surname</label>
-                            <input className="form-control mb-2"
-                                   required
-                                   name="surname"
-                                   type="text"
-                                   onChange={this.handleInputChange}
-                                   value={this.state.surname}
-                                   placeholder="Surname"
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="patronymic">Patronymic</label>
-                            <input className="form-control mb-2"
-                                   required
-                                   name="patronymic"
-                                   type="text"
-                                   onChange={this.handleInputChange}
-                                   value={this.state.patronymic}
-                                   placeholder="Patronymic"
                             />
                         </div>
                         <div className="form-group">
@@ -161,12 +171,12 @@ export default class Register extends Component {
                                    name="age"
                                    type="number"
                                    onChange={this.handleInputChange}
-                                   value={this.state.age}
+                                   value={this.state.userInfo.age}
                                    placeholder="Age"
                             />
                         </div>
                         <div className="form-group">
-                            <label htmlFor="gender">Gender</label>
+                            <label htmlFor="gender">Пол</label>
                             <div>
                             <div className="form-check">
                                 <input className="form-check-input mb-2"
@@ -176,7 +186,7 @@ export default class Register extends Component {
                                        onChange={this.handleInputChange}
                                        value="M"
                                 />
-                                <label htmlFor="gender">Male</label>
+                                <label htmlFor="gender">Мужчина</label>
 
                             </div>
                             <div className="form-check">
@@ -187,48 +197,49 @@ export default class Register extends Component {
                                        onChange={this.handleInputChange}
                                        value="F"
                                 />
-                            <label htmlFor="gender" className="g-gender">Female</label>
+                            <label htmlFor="gender" className="g-gender">Женщина</label>
 
                             </div>
                             </div>
                         </div>
                         <div className="form-group">
-                            <label htmlFor="birthdate">Birthdate</label>
+                            <label htmlFor="birthdate">Дата рождения</label>
                             <input className="form-control mb-2"
                                    required
                                    name="birthdate"
                                    type="date"
                                    onChange={this.handleInputChange}
-                                   value={this.state.birthdate}
+                                   value={this.state.userInfo.birthdate}
                                    placeholder="Birthdate"
                             />
                         </div>
                         <div className="form-group">
-                            <label htmlFor="telephone">Telephone</label>
+                            <label htmlFor="telephone">Телефон</label>
                             <input className="form-control mb-2"
                                    required
                                    name="telephone"
                                    type="tel"
                                    onChange={this.handleInputChange}
-                                   value={this.state.telephone}
+                                   value={this.state.userInfo.telephone}
                                    placeholder="Telephone"
                             />
                         </div>
+                        {/*TODO: Добавить поля для паспортных данных */}
                         <div className="form-group">
-                            <label htmlFor="passport">Passport</label>
+                            <label htmlFor="passport">Паспортные данные</label>
                             <input className="form-control mb-2"
                                    required
                                    name="passport"
                                    type="text"
                                    onChange={this.handleInputChange}
-                                   value={this.state.passport}
+                                   value={this.state.userInfo.passport}
                                    placeholder="Passport"
                             />
                         </div>
                         <div className="form-group">
-                            <label htmlFor="address">Address</label>
+                            <label htmlFor="address">Адрес</label>
 
-                            <AddressSuggestions token={DADATA_TOKEN} value={this.state.address | ''} onChange={this.handleAddrInputChange} count={5}/>
+                            <AddressSuggestions placeholder="Адрес" token={DADATA_TOKEN} value={this.state.userInfo.address | ''} onChange={this.handleAddrInputChange} count={5}/>
                         </div>
                         <br/>
                         <div className="form-group d-flex justify-content-between">

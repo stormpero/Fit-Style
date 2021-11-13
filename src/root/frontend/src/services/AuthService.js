@@ -2,17 +2,20 @@ import api from "./Api";
 import LStorageUser from "./LStorageUser";
 
 class AuthService {
-    login(username, password) {
+    login(email, password) {
         return api
             .post('auth/signin',{
-               username,
+               email,
                password
             })
             .then(response => {
+                console.log(response.data)
                 if (response.data.accessToken) {
                     LStorageUser.setUser(response.data);
                 }
                 return response.data;
+            }).catch(error => {
+                console.error(error)
             });
     }
 
@@ -20,23 +23,9 @@ class AuthService {
         LStorageUser.remove();
     }
 
-    register(username, email, password, surname, patronymic, age, gender, birthdate, telephone, passport, address) {
-        const name = 'denis';
+    register(userInfo) {
         return api
-            .post('auth/signup', {
-                name,
-                username,
-                email,
-                password,
-                surname,
-                patronymic,
-                age,
-                gender,
-                birthdate,
-                telephone,
-                passport,
-                address
-            });
+            .post('auth/signup', userInfo);
     }
 }
 

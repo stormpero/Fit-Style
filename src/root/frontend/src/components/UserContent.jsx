@@ -5,7 +5,7 @@ import LStorageUser from "../services/LStorageUser";
 export default class UserContent extends Component {
   state = {
     content: "",
-    username: ""
+    email: ""
   };
 
   componentDidMount() {
@@ -15,7 +15,7 @@ export default class UserContent extends Component {
 
         this.setState({
           content: response.data,
-          username: currentUser.username
+          email: currentUser.email
         });
       },
       error => {
@@ -28,12 +28,12 @@ export default class UserContent extends Component {
   }
 
   render() {
-    const username = this.state.username;
+    const email = this.state.email;
 
     return (
       <div className="container">
         <header className="jumbotron">
-          <h3>{this.state.content + username + "!"}</h3>
+          <h3>{this.state.content + email + "!"}</h3>
         </header>
       </div>
     );
