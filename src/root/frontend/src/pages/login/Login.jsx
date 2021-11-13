@@ -38,6 +38,7 @@ const Login = (props) => {
                              type="password"
                              onChange={props.handleFunc.input}
                              value={props.value.password}
+                             autoComplete="on"
                              placeholder="Password"
                       />
                   </div>
