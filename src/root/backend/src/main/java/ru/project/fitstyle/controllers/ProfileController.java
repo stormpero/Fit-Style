@@ -44,6 +44,7 @@ public class ProfileController {
         }
     }
 
+    //TODO Delete this method?
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('MODERATOR')")
     public ResponseEntity<?> getUserProfileInfoById(@PathVariable("id") Long id) {
