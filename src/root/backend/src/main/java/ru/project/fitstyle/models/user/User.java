@@ -15,17 +15,12 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(	name = "users",
         uniqueConstraints = {
-                @UniqueConstraint(columnNames = "username"),
                 @UniqueConstraint(columnNames = "email")
         })
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @NotBlank(message = "username should not be blank")
-    @Size(max = 20, message = "username size should be less or equal than 20 chars")
-    private String username;
 
     @NotBlank(message = "name should not be blank")
     @Size(max = 20, message = "name size should be less or equal than 20 chars")
@@ -90,11 +85,10 @@ public class User {
     public User() {
     }
 
-    public User(String username, String name, String surname, String patronymic,
+    public User(String name, String surname, String patronymic,
                 String email, String password, String age,
                 String gender, Date birthdate, String telephone,
                 String passport, String address) {
-        this.username = username;
         this.name = name;
         this.surname=surname;
         this.patronymic=patronymic;
@@ -122,14 +116,6 @@ public class User {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getName() {

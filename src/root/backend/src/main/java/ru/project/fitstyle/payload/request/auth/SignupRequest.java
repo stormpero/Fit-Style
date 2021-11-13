@@ -10,9 +10,6 @@ import javax.validation.constraints.*;
 
 
 public class SignupRequest {
-    @NotBlank(message = "username should not be blank")
-    @Size(max = 20, message = "username size should be less or equal than 20 chars")
-    private String username;
 
     @NotBlank(message = "name should not be blank")
     @Size(max = 20, message = "name size should be less or equal than 20 chars")
@@ -61,13 +58,6 @@ public class SignupRequest {
     private Set<String> role;
 
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
 
     public String getName() {
         return name;

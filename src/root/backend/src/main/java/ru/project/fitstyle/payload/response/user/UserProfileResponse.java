@@ -6,7 +6,7 @@ import java.sql.Date;
 
 public class UserProfileResponse {
 
-    private String username;
+    private String name;
 
     private String surname;
 
@@ -27,7 +27,7 @@ public class UserProfileResponse {
     private String address;
 
     public UserProfileResponse(
-                               String username,
+                               String name,
                                String surname,
                                String patronymic,
                                String email,
@@ -37,7 +37,7 @@ public class UserProfileResponse {
                                String telephone,
                                String passport,
                                String address) {
-        this.username = username;
+        this.name = name;
         this.surname = surname;
         this.patronymic = patronymic;
         this.email = email;
@@ -50,7 +50,7 @@ public class UserProfileResponse {
     }
 
     public UserProfileResponse(User user) {
-        this.username = user.getUsername();
+        this.name = user.getName();
         this.surname = user.getSurname();
         this.patronymic = user.getPatronymic();
         this.email = user.getEmail();
@@ -67,12 +67,12 @@ public class UserProfileResponse {
     }
 
 
-    public String getUsername() {
-        return username;
+    public String getName() {
+        return name;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getSurname() {

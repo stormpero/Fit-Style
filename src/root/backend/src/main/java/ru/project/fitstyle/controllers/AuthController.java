@@ -106,15 +106,8 @@ public class AuthController {
                     .badRequest()
                     .body(new MessageResponse("Error: Email is already in use!"));
         }
-		if (userRepository
-                .existsByUsername(signUpRequest.getUsername())) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Error: Username is already in use!"));
-        }
         // Create new user's account
         User user = new User(
-						signUpRequest.getUsername(),
 						signUpRequest.getName(),
 						signUpRequest.getSurname(),
 						signUpRequest.getPatronymic(),
@@ -174,7 +167,7 @@ public class AuthController {
                 .map(RefreshToken::getUser)
                 .map(user -> {
                     String token = jwtUtils
-                            .generateTokenFromUsername(user.getUsername());
+                            .generateTokenFromUsername(user.getEmail());
                     return ResponseEntity.ok(
                             new TokenRefreshResponse(token, requestRefreshToken));
                 })
