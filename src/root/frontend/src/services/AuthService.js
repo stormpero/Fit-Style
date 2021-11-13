@@ -2,12 +2,9 @@ import api from "./Api";
 import LStorageUser from "./LStorageUser";
 
 class AuthService {
-    login(email, password) {
+    login(userInfo) {
         return api
-            .post('auth/signin',{
-               email,
-               password
-            })
+            .post('auth/signin', userInfo)
             .then(response => {
                 console.log(response.data)
                 if (response.data.accessToken) {

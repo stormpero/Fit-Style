@@ -8,8 +8,10 @@ import LStorageUser from "../../services/LStorageUser";
 export default class Login extends Component {
 
   state = {
-    email: "",
-    password: "",
+    userInfo: {
+      email: "",
+      password: "",
+    },
     isLoading: false,
     errorMsg: "",
     redirect: null
@@ -23,13 +25,16 @@ export default class Login extends Component {
     const {name, value} = event.target;
 
     this.setState({
-      [name]: value
+      userInfo: {
+        ...this.state.userInfo,
+        [name]: value
+      }
     });
   }
 
   handleLogin = (event) => {
     event.preventDefault();
-    if (isEmpty(this.state.email) || isEmpty(this.state.password)) {
+    if (isEmpty(this.state.userInfo.email) || isEmpty(this.state.userInfo.password)) {
       const errorMsg = "Заполните поля";
 
       this.setState({
@@ -45,7 +50,7 @@ export default class Login extends Component {
     
     //TODO: Проверить данные на ошибки
 
-    AuthService.login(this.state.email, this.state.password).then(
+    AuthService.login(this.state.userInfo).then(
       () => {
         this.props.history.push("/user");
         window.location.reload();
@@ -91,7 +96,7 @@ export default class Login extends Component {
                   name="email"
                   type="text"
                   onChange={this.handleInputChange}
-                  value={this.state.usernameEmail}
+                  value={this.state.userInfo.email}
                   placeholder="Email"
               />
             </div>
@@ -102,7 +107,7 @@ export default class Login extends Component {
                   name="password"
                   type="password"
                   onChange={this.handleInputChange}
-                  value={this.state.password}
+                  value={this.state.userInfo.password}
                   placeholder="Password"
               />
             </div>
