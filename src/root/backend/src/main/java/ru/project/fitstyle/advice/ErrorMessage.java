@@ -6,12 +6,15 @@ public class ErrorMessage {
     private final int statusCode;
     private final Date timestamp;
     private final String message;
+    private final int refreshTokenErrorCode;
     private final String description;
 
-    public ErrorMessage(int statusCode, Date timestamp, String message, String description) {
+    public ErrorMessage(int statusCode, Date timestamp, String message,
+                        int refreshTokenErrorCode, String description) {
         this.statusCode = statusCode;
         this.timestamp = timestamp;
         this.message = message;
+        this.refreshTokenErrorCode = refreshTokenErrorCode;
         this.description = description;
     }
 
@@ -25,6 +28,10 @@ public class ErrorMessage {
 
     public String getMessage() {
         return message;
+    }
+
+    public int getRefreshTokenErrorCode() {
+        return refreshTokenErrorCode;
     }
 
     public String getDescription() {

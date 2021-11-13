@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.project.fitstyle.exception.ERefreshTokenError;
 import ru.project.fitstyle.exception.TokenRefreshException;
 import ru.project.fitstyle.models.user.RefreshToken;
 import ru.project.fitstyle.repository.RefreshTokenRepository;
@@ -46,7 +47,8 @@ public class RefreshTokenService {
     public RefreshToken verifyExpiration(RefreshToken token) {
         if (token.getExpiryDate().compareTo(Instant.now()) < 0) {
             refreshTokenRepository.delete(token);
-            throw new TokenRefreshException(token.getToken(), "Refresh token was expired. Please make a new signin request");
+            throw new TokenRefreshException(token.getToken(),
+                    ERefreshTokenError.EXPIRED);
         }
 
         return token;

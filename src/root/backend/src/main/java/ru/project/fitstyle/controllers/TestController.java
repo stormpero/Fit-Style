@@ -2,6 +2,8 @@ package ru.project.fitstyle.controllers;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import ru.project.fitstyle.exception.ERefreshTokenError;
+import ru.project.fitstyle.exception.TokenRefreshException;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -28,5 +30,11 @@ public class TestController {
     @PreAuthorize("hasRole('COACH')")
     public String adminAccess() {
         return "Admin Board.";
+    }
+
+    @GetMapping("/exception_check")
+    public void exceptionCheck()
+    {
+        throw new TokenRefreshException("f3tdrgsdfgsd", ERefreshTokenError.MISSED);
     }
 }

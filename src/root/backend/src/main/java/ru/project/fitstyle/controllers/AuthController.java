@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import ru.project.fitstyle.exception.ERefreshTokenError;
 import ru.project.fitstyle.exception.TokenRefreshException;
 import ru.project.fitstyle.models.user.ERole;
 import ru.project.fitstyle.models.user.RefreshToken;
@@ -172,7 +173,8 @@ public class AuthController {
                             new TokenRefreshResponse(token, requestRefreshToken));
                 })
                 .orElseThrow(() ->
-                        new TokenRefreshException(requestRefreshToken, "Refresh token is not in database!"));
+                        new TokenRefreshException(requestRefreshToken,
+                                ERefreshTokenError.MISSED));
     }
 
     @PostMapping("/logout")

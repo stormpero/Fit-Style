@@ -8,7 +8,14 @@ public class TokenRefreshException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
 
-    public TokenRefreshException(String token, String message) {
-        super(String.format("Failed for [%s]: %s", token, message));
+    private int refreshTokenErrorCode;
+
+    public TokenRefreshException(String token, ERefreshTokenError refreshTokenError) {
+        super(String.format("Failed for [%s]: %s", token, refreshTokenError.getMessage()));
+        this.refreshTokenErrorCode = refreshTokenError.getCode();
+    }
+
+    public int getRefreshTokenErrorCode() {
+        return refreshTokenErrorCode;
     }
 }
