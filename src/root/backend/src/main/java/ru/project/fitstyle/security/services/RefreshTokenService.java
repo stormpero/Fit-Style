@@ -19,9 +19,9 @@ public class RefreshTokenService {
     @Value("${fitstyle.project.jwtExpirationRefreshMs}")
     private Long refreshTokenDurationMs;
 
-    private RefreshTokenRepository refreshTokenRepository;
+    private final RefreshTokenRepository refreshTokenRepository;
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Autowired
     public RefreshTokenService(RefreshTokenRepository refreshTokenRepository, UserRepository userRepository) {
@@ -57,5 +57,11 @@ public class RefreshTokenService {
     @Transactional
     public int deleteByUserId(Long userId) {
         return refreshTokenRepository.deleteByUser(userRepository.findById(userId).get());
+    }
+
+    @Transactional
+    public RefreshToken save(RefreshToken refreshToken)
+    {
+        return refreshTokenRepository.save(refreshToken);
     }
 }

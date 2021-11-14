@@ -169,8 +169,12 @@ public class AuthController {
                 .map(user -> {
                     String token = jwtUtils
                             .generateTokenFromUsername(user.getEmail());
+                    refreshTokenService.deleteByUserId(user.getId());
                     return ResponseEntity.ok(
-                            new TokenRefreshResponse(token, requestRefreshToken));
+                            new TokenRefreshResponse(token,
+                                    refreshTokenService.save(
+                                            refreshTokenService.createRefreshToken(user.getId())
+                                    ).getToken()));
                 })
                 .orElseThrow(() ->
                         new TokenRefreshException(requestRefreshToken,
