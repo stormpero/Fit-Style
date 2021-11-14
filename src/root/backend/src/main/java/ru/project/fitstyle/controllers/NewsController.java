@@ -98,7 +98,6 @@ public class NewsController {
     @PatchMapping("/{id}")
     @PreAuthorize("hasRole('MODERATOR')")
     public ResponseEntity<?> update(@Valid @RequestBody AddEditNewsRequest addEditNewsRequest,
-                         BindingResult bindingResult,
                          @PathVariable("id") Long id) {
     //Update news. It currently updates all fields of the DB object instead of updating only those which are changed
         News news = newsRepository.findById(id)

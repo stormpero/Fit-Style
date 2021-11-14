@@ -1,6 +1,7 @@
 package ru.project.fitstyle.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.validation.BindingResult;
@@ -9,6 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
@@ -48,17 +52,17 @@ import ru.project.fitstyle.security.services.UserDetailsImpl;
 @RequestMapping("/api/auth")
 public class AuthController {
 
-    AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
 
-    UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    RoleRepository roleRepository;
+    private final RoleRepository roleRepository;
 
-    PasswordEncoder encoder;
+    private final PasswordEncoder encoder;
 
-    JwtUtils jwtUtils;
+    private final JwtUtils jwtUtils;
 
-    RefreshTokenService refreshTokenService;
+    private final RefreshTokenService refreshTokenService;
 
     @Autowired
     public AuthController(AuthenticationManager authenticationManager, UserRepository userRepository,
@@ -74,7 +78,7 @@ public class AuthController {
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest,
-                                              BindingResult bindingResult) {
+                                              HttpServletResponse httpServletResponse) {
         Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(
                         loginRequest.getEmail(), loginRequest.getPassword()));
@@ -89,9 +93,21 @@ public class AuthController {
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
 
+
+        refreshTokenService.deleteByUserId(userDetails.getId());
         RefreshToken refreshToken = refreshTokenService
                 .createRefreshToken(userDetails.getId());
 
+//        Cookie jwtTokenCookie = new Cookie("JSON Web Token", jwt);
+//        jwtTokenCookie.setSecure(true);
+//        jwtTokenCookie.setHttpOnly(true);
+//
+//        Cookie refreshTokenCookie = new Cookie("Refresh Token", refreshToken.getToken());
+//        refreshTokenCookie.setSecure(true);
+//        refreshTokenCookie.setHttpOnly(true);
+//
+//        httpServletResponse.addCookie(jwtTokenCookie);
+//        httpServletResponse.addCookie(refreshTokenCookie);
         return ResponseEntity.ok(
                 new JwtResponse(
                         jwt, refreshToken.getToken(), userDetails.getId(),
@@ -181,10 +197,10 @@ public class AuthController {
                                 ERefreshTokenError.MISSED));
     }
 
+    //TODO Frontend: post logout request every time user logouts
     @PostMapping("/logout")
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<?> logoutUser(@Valid @RequestBody LogOutRequest logOutRequest,
-                                        BindingResult bindingResult) {
+    public ResponseEntity<?> logoutUser(@Valid @RequestBody LogOutRequest logOutRequest) {
         refreshTokenService
                 .deleteByUserId(logOutRequest.getUserId());
         return ResponseEntity.ok(
