@@ -9,7 +9,6 @@ const instance = axios.create({
 instance.interceptors.request.use(
     (config) => {
         const accessToken = JwtService.getAccessToken();
-        //alert(accessToken)
         if (accessToken) {
             config.headers["Authorization"] = 'Bearer ' + accessToken;
         }
@@ -26,7 +25,7 @@ instance.interceptors.response.use(
     },
     async error => {
         const config = error.config;
-        if (config.url !== "auth/signin" && error.response) {
+        if ((config.url !== "auth/signin" || config.url !== "auth/logout") && error.response) {
             if (error.response.status === 401 && !config._retry) {
                 config._retry = true;
 
@@ -41,7 +40,7 @@ instance.interceptors.response.use(
                     })
                     .catch((_error) => {
                         console.error(_error);
-                        if (_error.response.status === 403 ) { //TODO: Статус ошибки, проверка на refresh token expired
+                        if (_error.response.status === 403 ) {
                             LStorageUser.remove();
                             window.location.reload();
                         }
