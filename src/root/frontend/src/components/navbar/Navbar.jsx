@@ -33,55 +33,57 @@ export default class Navbar extends Component {
         const { currentUser, isAdmin } = this.state;
 
         return (
-            <div className="header-main">
-                <nav className="navbar navbar-expand-lg navbar-dark bg-dark ">
-                { currentUser && (
-                    <div className="navbar-nav ml-auto">
-                        <li className="nav-item">
-                            <Link to={"/profile"} className="nav-link">
-                                Профиль
-                            </Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link to={{
-                                pathname: "/user",
-                                state: {
-                                    username: currentUser.username
-                                }
-                            }} className="nav-link">
-                                Контент
-                            </Link>
-                        </li>
-                    </div>
-                )}
+            <div className="navbar-nav mr-auto">
+                <div className="header-main">
+                    <nav className="navbar navbar-expand-lg navbar-dark bg-dark ">
                     { currentUser && (
                         <div className="navbar-nav ml-auto">
                             <li className="nav-item">
-                                <Link to={"/news"} className="nav-link">
-                                    Новости
+                                <Link to={"/profile"} className="nav-link">
+                                    Профиль
+                                </Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link to={{
+                                    pathname: "/user",
+                                    state: {
+                                        username: currentUser.username
+                                    }
+                                }} className="nav-link">
+                                    Контент
                                 </Link>
                             </li>
                         </div>
                     )}
-                { isAdmin && (
-                    <div className="navbar-nav ml-auto">
-                        <li className="nav-item">
-                            <Link to={"/register"} className="nav-link">
-                                Регистрация клиента
-                            </Link>
-                        </li>
-                    </div>
-                )}
-                { currentUser && (
-                    <div className="navbar-nav ml-auto">
-                        <li className="nav-item">
-                            <a href="/login" className="nav-link" onClick={this.logOut}>
-                                Выйти
-                            </a>
-                        </li>
-                    </div>
-                )}
-                </nav>
+                        { currentUser && (
+                            <div className="navbar-nav ml-auto">
+                                <li className="nav-item">
+                                    <Link to={"/news"} className="nav-link">
+                                        Новости
+                                    </Link>
+                                </li>
+                            </div>
+                        )}
+                    { isAdmin && (
+                        <div className="navbar-nav ml-auto">
+                            <li className="nav-item">
+                                <Link to={"/register"} className="nav-link">
+                                    Регистрация клиента
+                                </Link>
+                            </li>
+                        </div>
+                    )}
+                    { currentUser && (
+                        <div className="navbar-nav ml-auto">
+                            <li className="nav-item">
+                                <a href="/login" className="nav-link" onClick={this.logOut}>
+                                    Выйти
+                                </a>
+                            </li>
+                        </div>
+                    )}
+                    </nav>
+                </div>
             </div>
         );
     }
