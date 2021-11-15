@@ -73,9 +73,7 @@ public class AuthController {
     }
 
     @PostMapping("/signin")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest,
-                                              @CookieValue(name = "accessToken", required = false) String accessToken,
-                                              @CookieValue(name = "refreshToken", required = false) String refreshToken) {
+    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(
                         loginRequest.getEmail(), loginRequest.getPassword()));
@@ -87,9 +85,9 @@ public class AuthController {
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
 
-        accessToken = accessTokenService
+        String accessToken = accessTokenService
                 .generateToken(authentication);
-        refreshToken = refreshTokenService
+        String refreshToken = refreshTokenService
                 .generateToken(userDetails.getId()).getToken();
 
         HttpHeaders httpHeaders = new HttpHeaders();
