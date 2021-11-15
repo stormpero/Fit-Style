@@ -17,12 +17,21 @@ class AuthService {
     }
 
     logout() {
-        LStorageUser.remove();
+        const userId = LStorageUser.getId();
+        api.post('auth/logout', {userId: userId})
+           .then(response => {
+                console.log(response)
+                LStorageUser.remove();
+           })
+           .catch(error =>{
+                console.error(error)
+                LStorageUser.remove();
+           })
+        window.location.reload();
     }
 
     register(userInfo) {
-        return api
-            .post('auth/signup', userInfo);
+        return api.post('auth/signup', userInfo);
     }
 }
 

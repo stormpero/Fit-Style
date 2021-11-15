@@ -24,6 +24,12 @@ class JwtService {
         user.accessToken = accessToken;
         LStorageUser.setUser(user);
     }
+
+    updateRefreshToken(refreshToken) {
+        const user = LStorageUser.getUser();
+        user.refreshToken = refreshToken;
+        LStorageUser.setUser(user);
+    }
 }
 
 export default new JwtService()

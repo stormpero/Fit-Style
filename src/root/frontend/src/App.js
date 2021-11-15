@@ -1,9 +1,8 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import logo from "./assets/logo.png"
+
 import { Routes } from "./pages/routes/routes";
 import Navbar from "./components/navbar/Navbar";
 import LStorageUser from "./services/LStorageUser";
@@ -15,8 +14,8 @@ class App extends Component {
   }
 
   componentDidMount() {
-    const user = LStorageUser.getUser();
-    if (user) {
+    if (LStorageUser.isExist()) {
+      const user = LStorageUser.getUser();
       this.setState({
         currentUser: user
       });
@@ -27,19 +26,7 @@ class App extends Component {
     const currentUser  = this.state.currentUser;
     return (
       <div>
-          { !currentUser &&
-            <div className="d-flex justify-content-center">
-              <Link to={"/"} className="navbar-brand ">
-                <img className="logo" src={logo} alt="Fit-Style"/>
-              </Link>
-            </div>
-          }
-          <div className="navbar-nav mr-auto">
-            { currentUser && (
-                <Navbar/>
-            )}
-          </div>
-
+        { currentUser && <Navbar/> }
         <Routes/>
       </div>
     );
