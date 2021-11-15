@@ -17,7 +17,7 @@ public class ProfileControllerAdvice {
                 HttpStatus.BAD_REQUEST.value(),
                 new Date(),
                 ex.getMessage(),
-                ex.getProfileErrorCode(),
+                ex.getErrorCode(),
                 request.getDescription(false));
     }
 }

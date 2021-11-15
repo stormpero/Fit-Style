@@ -1,12 +1,12 @@
-package ru.project.fitstyle.exception.profile;
+package ru.project.fitstyle.exception.auth.role;
 
-public enum EProfileError {
-    NOT_FOUND(1, "User with that id has been deleted or never been created!");
+public enum ERoleError {
+    NOT_FOUND(1, "Role is not found!");
 
     private final int code;
     private final String message;
 
-    EProfileError(int code, String message)
+    ERoleError(int code, String message)
     {
         this.code = code;
         this.message = message;

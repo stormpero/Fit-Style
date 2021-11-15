@@ -19,7 +19,7 @@ public class PermissionControllerAdvice {
                 HttpStatus.BAD_REQUEST.value(),
                 new Date(),
                 ex.getMessage(),
-                ex.getPermissionErrorCode(),
+                ex.getErrorCode(),
                 request.getDescription(false));
     }
 }

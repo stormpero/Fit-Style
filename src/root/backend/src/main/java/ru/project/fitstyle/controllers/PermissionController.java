@@ -29,14 +29,9 @@ public class PermissionController {
     @GetMapping("/roles")
     public ResponseEntity<PermissionResponse> getUserRoles(@RequestParam("id") Long id) {
         Optional<User> user = userRepository.findById(id);
-        User returnUser = user
-                .orElse(null);
-        if(returnUser != null) {
-            return ResponseEntity.ok(
-                    new PermissionResponse(returnUser.getRoles()));
-        }
-        else {
-            throw new PermissionException(EPermissionError.MISSED);
-        }
+        User returnUser = user.orElseThrow(() ->
+                new PermissionException(EPermissionError.NOT_FOUND));
+        return ResponseEntity.ok(
+                new PermissionResponse(returnUser.getRoles()));
     }
 }
