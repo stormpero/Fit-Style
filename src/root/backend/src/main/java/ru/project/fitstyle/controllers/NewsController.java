@@ -10,7 +10,7 @@ import ru.project.fitstyle.exception.news.ENewsError;
 import ru.project.fitstyle.exception.news.NewsException;
 import ru.project.fitstyle.models.news.News;
 import ru.project.fitstyle.payload.request.news.AddEditNewsRequest;
-import ru.project.fitstyle.payload.response.news.NewsInfo;
+import ru.project.fitstyle.payload.response.news.NewsInfoResponse;
 import ru.project.fitstyle.payload.response.news.NewsShowPageResponse;
 import ru.project.fitstyle.payload.response.news.NewsShowResponse;
 import ru.project.fitstyle.payload.response.utils.MessageResponse;
@@ -35,7 +35,7 @@ public class NewsController {
     }
 
     @GetMapping("/{page_number}")
-    public ResponseEntity<?> showPage(@PathVariable("page_number") int pageNumber) {
+    public ResponseEntity<NewsShowPageResponse> showPage(@PathVariable("page_number") int pageNumber) {
         //Here we get first 6 (can be specified) recently added news
 
         if(pageNumber > 0) {
@@ -57,7 +57,7 @@ public class NewsController {
     }
 
     @GetMapping("/story/{id}")
-    public ResponseEntity<?> show(@PathVariable("id") Long id) {
+    public ResponseEntity<NewsShowResponse> show(@PathVariable("id") Long id) {
         //Find news by given id
         News news = newsRepository.findById(id)
                 .orElse(null);
@@ -71,7 +71,7 @@ public class NewsController {
 
     @PostMapping()
     @PreAuthorize("hasRole('MODERATOR')")
-    public ResponseEntity<?> add(@Valid @RequestBody AddEditNewsRequest addEditNewsRequest) {
+    public ResponseEntity<MessageResponse> add(@Valid @RequestBody AddEditNewsRequest addEditNewsRequest) {
         //Add News
         News news = new News(
                 addEditNewsRequest.getHeader(),
@@ -91,7 +91,7 @@ public class NewsController {
 
     @PatchMapping("/{id}")
     @PreAuthorize("hasRole('MODERATOR')")
-    public ResponseEntity<?> update(@Valid @RequestBody AddEditNewsRequest addEditNewsRequest,
+    public ResponseEntity<MessageResponse> update(@Valid @RequestBody AddEditNewsRequest addEditNewsRequest,
                          @PathVariable("id") Long id) {
     //Update news. It currently updates all fields of the DB object instead of updating only those which are changed
         News news = newsRepository.findById(id)
@@ -114,7 +114,7 @@ public class NewsController {
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('MODERATOR')")
-    public ResponseEntity<?> delete(@PathVariable("id") Long id) {
+    public ResponseEntity<MessageResponse> delete(@PathVariable("id") Long id) {
         //Delete news
         News news = newsRepository.findById(id)
                 .orElse(null);
@@ -130,12 +130,12 @@ public class NewsController {
     }
 
     @GetMapping("/info")
-    public ResponseEntity<?> getInfo() {
+    public ResponseEntity<NewsInfoResponse> getInfo() {
         long numberOfNews = newsRepository.count();
         long numberOfPages =
                 (long)Math.ceil((double)numberOfNews/numberOfNewsInOnePage);
-        NewsInfo newsInfo =
-                new NewsInfo(numberOfPages, numberOfNews, numberOfNewsInOnePage);
-        return ResponseEntity.ok(newsInfo);
+        NewsInfoResponse newsInfoResponse =
+                new NewsInfoResponse(numberOfPages, numberOfNews, numberOfNewsInOnePage);
+        return ResponseEntity.ok(newsInfoResponse);
     }
 }

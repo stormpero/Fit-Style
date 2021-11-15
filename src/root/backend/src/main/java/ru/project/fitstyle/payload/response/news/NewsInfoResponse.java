@@ -1,11 +1,11 @@
 package ru.project.fitstyle.payload.response.news;
 
-public class NewsInfo {
+public class NewsInfoResponse {
     private final long numberOfPages;
     private final long numberOfNews;
     private final int numberOfNewsInOnePage;
 
-    public NewsInfo(long numberOfPages, long numberOfNews, int numberOfNewsInOnePage) {
+    public NewsInfoResponse(long numberOfPages, long numberOfNews, int numberOfNewsInOnePage) {
         this.numberOfPages = numberOfPages;
         this.numberOfNews = numberOfNews;
         this.numberOfNewsInOnePage = numberOfNewsInOnePage;

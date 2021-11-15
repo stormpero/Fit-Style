@@ -28,7 +28,7 @@ public class PermissionController {
     }
 
     @GetMapping("/roles")
-    public ResponseEntity<?> getUserRoles(@RequestParam("id") Long id) {
+    public ResponseEntity<PermissionResponse> getUserRoles(@RequestParam("id") Long id) {
         Optional<User> user = userRepository.findById(id);
         User returnUser = user
                 .orElse(null);
