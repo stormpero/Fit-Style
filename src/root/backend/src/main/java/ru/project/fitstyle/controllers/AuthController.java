@@ -90,11 +90,7 @@ public class AuthController {
         String refreshToken = refreshTokenService
                 .generateToken(userDetails.getId()).getToken();
 
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add(HttpHeaders.SET_COOKIE, cookieUtil.createRefreshTokenCookie(refreshToken,
-                refreshTokenService.getRefreshTokenExpirationMs()).toString());
-
-        return ResponseEntity.ok().headers(httpHeaders).body(
+        return ResponseEntity.ok().headers(createRefreshTokenCookie(refreshToken)).body(
                 new LoginResponse(userDetails.getId(),
                         userDetails.getUsername(), accessToken, roles));
     }
@@ -167,11 +163,7 @@ public class AuthController {
                     String refreshToken = refreshTokenService
                             .generateTokenFromUser(user).getToken();
 
-                    HttpHeaders httpHeaders = new HttpHeaders();
-                    httpHeaders.add(HttpHeaders.SET_COOKIE, cookieUtil.createRefreshTokenCookie(refreshToken,
-                            refreshTokenService.getRefreshTokenExpirationMs()).toString());
-
-                    return ResponseEntity.ok().headers(httpHeaders).body(
+                    return ResponseEntity.ok().headers(createRefreshTokenCookie(refreshToken)).body(
                             new RefreshTokenResponse(jwtToken));
                 })
                 .orElseThrow(() ->
@@ -188,4 +180,11 @@ public class AuthController {
                 new MessageResponse("Log out successful!"));
     }
 
+
+    HttpHeaders createRefreshTokenCookie(String refreshToken) {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add(HttpHeaders.SET_COOKIE, cookieUtil.createRefreshTokenCookie(refreshToken,
+                refreshTokenService.getRefreshTokenExpirationMs()).toString());
+        return httpHeaders;
+    }
 }
