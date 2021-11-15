@@ -1,5 +1,6 @@
 package ru.project.fitstyle.security.services.token;
 
+import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
@@ -40,5 +41,25 @@ public class AccessTokenService {
 
     public Long getAccessTokenExpirationMs() {
         return accessTokenExpirationMs;
+    }
+
+    public boolean validateToken(String token) {
+        try {
+            Jwts.parser()
+                    .setSigningKey(accessTokenSecret)
+                    .parseClaimsJws(token);
+            return true;
+        } catch (SignatureException ex) {
+            ex.printStackTrace();
+        } catch (MalformedJwtException ex) {
+            ex.printStackTrace();
+        } catch (ExpiredJwtException ex) {
+            ex.printStackTrace();
+        } catch (UnsupportedJwtException ex) {
+            ex.printStackTrace();
+        } catch (IllegalArgumentException ex) {
+            ex.printStackTrace();
+        }
+        return false;
     }
 }
