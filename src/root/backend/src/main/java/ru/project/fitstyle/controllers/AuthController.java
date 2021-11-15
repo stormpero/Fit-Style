@@ -122,7 +122,7 @@ public class AuthController {
 						signUpRequest.getPassport(),
 						signUpRequest.getAddress());
 
-        Set<String> strRoles = signUpRequest.getRole();
+        Set<String> strRoles = signUpRequest.getRoles();
         Set<Role> roles = new HashSet<>();
 
         if (strRoles != null) {
@@ -140,17 +140,12 @@ public class AuthController {
                         roles.add(modRole);
 
                         break;
-                    default:
-                        Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(userRole);
                 }
             });
-        } else {
-            Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-            roles.add(userRole);
         }
+        Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+        roles.add(userRole);
 
         user.setRoles(roles);
         userRepository.save(user);

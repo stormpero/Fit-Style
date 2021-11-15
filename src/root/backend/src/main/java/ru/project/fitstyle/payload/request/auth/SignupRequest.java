@@ -19,7 +19,6 @@ public class SignupRequest {
     @Size(max = 20, message = "surname size should be less or equal than 20 chars")
     private String surname;
 
-
     @NotBlank(message = "patronymic should not be blank")
     @Size(max = 20, message = "patronymic should be less or equal than 20 chars")
     private String patronymic;
@@ -55,7 +54,7 @@ public class SignupRequest {
     @Size(max = 40, message = "address should be less or equal than 40 chars")
     private String address;
 
-    private Set<String> role;
+    private Set<String> roles;
 
 
 
@@ -147,11 +146,11 @@ public class SignupRequest {
         this.address = address;
     }
 
-    public Set<String> getRole() {
-      return this.role;
+    public Set<String> getRoles() {
+      return this.roles;
     }
     
-    public void setRole(Set<String> role) {
-      this.role = role;
+    public void setRoles(Set<String> roles) {
+      this.roles = roles;
     }
 }

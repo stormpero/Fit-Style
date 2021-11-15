@@ -76,8 +76,7 @@ public class NewsController {
 
     @PostMapping()
     @PreAuthorize("hasRole('MODERATOR')")
-    public ResponseEntity<?> add(@Valid @RequestBody AddEditNewsRequest addEditNewsRequest,
-                         BindingResult bindingResult) {
+    public ResponseEntity<?> add(@Valid @RequestBody AddEditNewsRequest addEditNewsRequest) {
         //Add News
         News news = new News(
                 addEditNewsRequest.getHeader(),
