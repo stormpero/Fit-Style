@@ -20,8 +20,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import ru.project.fitstyle.exception.ERefreshTokenError;
-import ru.project.fitstyle.exception.TokenRefreshException;
+import ru.project.fitstyle.exception.auth.ERefreshTokenError;
+import ru.project.fitstyle.exception.auth.RefreshTokenException;
 import ru.project.fitstyle.models.user.ERole;
 import ru.project.fitstyle.models.user.RefreshToken;
 import ru.project.fitstyle.models.user.Role;
@@ -73,7 +73,7 @@ public class AuthController {
     }
 
     @PostMapping("/signin")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<LoginResponse> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(
                         loginRequest.getEmail(), loginRequest.getPassword()));
@@ -101,7 +101,7 @@ public class AuthController {
 
     @PostMapping("/signup")
     @PreAuthorize("hasRole('MODERATOR')")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
+    public ResponseEntity<MessageResponse> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
         if (userRepository
                 .existsByEmail(signUpRequest.getEmail())) {
             return ResponseEntity
@@ -155,7 +155,7 @@ public class AuthController {
     }
 
     @PostMapping("/refreshtoken")
-    public ResponseEntity<?> refreshToken(@CookieValue(value = "refreshToken")
+    public ResponseEntity<RefreshTokenResponse> refreshToken(@CookieValue(value = "refreshToken")
                                                       String requestRefreshToken) {
         return refreshTokenService
                 .findByToken(requestRefreshToken)
@@ -175,13 +175,13 @@ public class AuthController {
                             new RefreshTokenResponse(jwtToken));
                 })
                 .orElseThrow(() ->
-                        new TokenRefreshException(requestRefreshToken,
+                        new RefreshTokenException(requestRefreshToken,
                                 ERefreshTokenError.MISSED));
     }
 
     @PostMapping("/logout")
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<?> logoutUser(@Valid @RequestBody LogOutRequest logOutRequest) {
+    public ResponseEntity<MessageResponse> logoutUser(@Valid @RequestBody LogOutRequest logOutRequest) {
         refreshTokenService
                 .deleteByUserId(logOutRequest.getUserId());
         return ResponseEntity.ok(

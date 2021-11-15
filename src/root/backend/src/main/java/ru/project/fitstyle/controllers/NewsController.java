@@ -5,8 +5,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import ru.project.fitstyle.exception.news.ENewsError;
+import ru.project.fitstyle.exception.news.NewsException;
 import ru.project.fitstyle.models.news.News;
 import ru.project.fitstyle.payload.request.news.AddEditNewsRequest;
 import ru.project.fitstyle.payload.response.news.NewsInfo;
@@ -47,15 +48,11 @@ public class NewsController {
                 return ResponseEntity.ok(
                         new NewsShowPageResponse(news));
             } else {
-                return ResponseEntity.badRequest().
-                        body(
-                                new MessageResponse("Oops..."));
+                throw new NewsException(ENewsError.OUT_OF_NEWS_PAGES);
             }
         }
         else {
-            return ResponseEntity.badRequest().
-                    body(
-                            new MessageResponse("Page number cannot be less than zero!"));
+            throw new NewsException(ENewsError.PAGE_NUMBER_LESS_THAN_ZERO);
         }
     }
 
@@ -68,9 +65,7 @@ public class NewsController {
             return ResponseEntity.ok(new NewsShowResponse(news));
         }
         else {
-            return ResponseEntity.badRequest().
-                    body(
-                            new MessageResponse("News with that id has been deleted or never been created!"));
+            throw new NewsException(ENewsError.MISSED_NEWS_WITH_ID);
         }
     }
 
@@ -113,8 +108,7 @@ public class NewsController {
             );
         }
         else {
-            return ResponseEntity.badRequest().
-                    body(new MessageResponse("News with that id has been deleted or never been created!"));
+            throw new NewsException(ENewsError.MISSED_NEWS_WITH_ID);
         }
     }
 
@@ -131,8 +125,7 @@ public class NewsController {
             );
         }
         else {
-            return ResponseEntity.badRequest()
-                    .body(new MessageResponse("News with that id has been deleted or never been created!"));
+            throw new NewsException(ENewsError.MISSED_NEWS_WITH_ID);
         }
     }
 

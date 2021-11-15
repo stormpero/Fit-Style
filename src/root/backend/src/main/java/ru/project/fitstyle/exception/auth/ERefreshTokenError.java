@@ -1,11 +1,11 @@
-package ru.project.fitstyle.exception;
+package ru.project.fitstyle.exception.auth;
 
 public enum ERefreshTokenError {
     MISSED(1, "Refresh token is not in database!"),
     EXPIRED(2, "Refresh token was expired. Please make a new signin request");
 
-    private int code;
-    private String message;
+    private final int code;
+    private final String message;
 
     ERefreshTokenError(int code, String message)
     {

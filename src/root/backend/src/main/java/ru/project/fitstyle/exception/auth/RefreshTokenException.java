@@ -1,16 +1,16 @@
-package ru.project.fitstyle.exception;
+package ru.project.fitstyle.exception.auth;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.FORBIDDEN)
-public class TokenRefreshException extends RuntimeException {
+public class RefreshTokenException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
 
-    private int refreshTokenErrorCode;
+    private final int refreshTokenErrorCode;
 
-    public TokenRefreshException(String token, ERefreshTokenError refreshTokenError) {
+    public RefreshTokenException(String token, ERefreshTokenError refreshTokenError) {
         super(String.format("Failed for [%s]: %s", token, refreshTokenError.getMessage()));
         this.refreshTokenErrorCode = refreshTokenError.getCode();
     }

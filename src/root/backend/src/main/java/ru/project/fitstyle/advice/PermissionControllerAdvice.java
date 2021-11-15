@@ -5,21 +5,21 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
-import ru.project.fitstyle.exception.TokenRefreshException;
+import ru.project.fitstyle.advice.message.ErrorMessage;
+import ru.project.fitstyle.exception.permission.PermissionException;
 
 import java.util.Date;
 
 @RestControllerAdvice
-public class TokenControllerAdvice {
-
-    @ExceptionHandler(value = TokenRefreshException.class)
-    @ResponseStatus(HttpStatus.FORBIDDEN)
-    public ErrorMessage handleTokenRefreshException(TokenRefreshException ex, WebRequest request) {
+public class PermissionControllerAdvice {
+    @ExceptionHandler(value = PermissionException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorMessage handlePermissionException(PermissionException ex, WebRequest request) {
         return new ErrorMessage(
-                HttpStatus.FORBIDDEN.value(),
+                HttpStatus.BAD_REQUEST.value(),
                 new Date(),
                 ex.getMessage(),
-                ex.getRefreshTokenErrorCode(),
+                ex.getPermissionErrorCode(),
                 request.getDescription(false));
     }
 }
