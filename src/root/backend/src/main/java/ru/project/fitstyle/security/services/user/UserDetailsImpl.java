@@ -1,4 +1,4 @@
-package ru.project.fitstyle.security.services;
+package ru.project.fitstyle.security.services.user;
 
 import java.util.Collection;
 import java.util.List;
