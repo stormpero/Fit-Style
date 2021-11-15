@@ -1,12 +1,8 @@
 import React, { Component } from "react";
-import {Redirect} from "react-router-dom";
 
 import isEmpty from "validator/es/lib/isEmpty";
-
 import Login from "./Login";
-
 import AuthService from "../../services/AuthService";
-import LStorageUser from "../../services/LStorageUser";
 
 export default class LoginContainer extends Component {
 
@@ -16,12 +12,7 @@ export default class LoginContainer extends Component {
       password: "",
     },
     isLoading: false,
-    errorMsg: "",
-    redirect: null
-  }
-  componentDidMount() {
-    const currentUser = LStorageUser.getUser();
-    if (currentUser) this.setState({ redirect: "/user" });
+    errorMsg: ""
   }
 
   handleInputChange = (event) => {
@@ -52,11 +43,10 @@ export default class LoginContainer extends Component {
     });
     
     //TODO: Проверить данные на ошибки
-
     AuthService.login(this.state.userInfo).then(
       () => {
-        this.props.history.push("/user");
-        window.location.reload();
+        //this.props.history.push("/user");
+        //window.location.reload();
         this.setState({
           isLoading: false,
         });
@@ -73,9 +63,6 @@ export default class LoginContainer extends Component {
   }
 
   render() {
-    if (this.state.redirect) {
-      return <Redirect to={this.state.redirect} />
-    }
     return (
     <Login
       handleFunc={{

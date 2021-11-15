@@ -15,7 +15,7 @@ const Routes = () => {
             <Route exact path={["/", "/login"]} component={LoginContainer} />
             <PrivateRoute role={"ROLE_MODERATOR"} path="/register" component={RegisterContainer} />
             <PrivateRoute role={"ROLE_USER"} path="/profile" component={ProfileContainer} />
-            <PrivateRoute role={"ROLE_USER"} path="/user" component={UserContent} />
+            <Route path="/user" component={UserContent} />
             <PrivateRoute role={"ROLE_USER"} path="/news" component={NewsBoard} />
         </Switch>
     )

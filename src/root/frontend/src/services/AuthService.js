@@ -4,30 +4,36 @@ import LStorageUser from "./LStorageUser";
 class AuthService {
     login(userInfo) {
         return api
-            .post('auth/signin', userInfo)
+            .post('auth/signin', userInfo, {
+                withCredentials: true,
+                headers: {
+                    'Access-Control-Allow-Origin': 'http://localhost:8080',
+                    'Access-Control-Allow-Credentials': true,
+                }
+            })
             .then(response => {
-                console.log(response.data)
-                if (response.data.accessToken) {
+                if (response.data.token) {
                     LStorageUser.setUser(response.data);
                 }
                 return response.data;
             }).catch(error => {
-                console.error(error)
+                console.error('login', error)
             });
     }
 
     logout() {
-        const userId = LStorageUser.getId();
-        api.post('auth/logout', {userId: userId})
-           .then(response => {
-                console.log(response)
-                LStorageUser.remove();
-           })
-           .catch(error =>{
-                console.error(error)
-                LStorageUser.remove();
-           })
-        window.location.reload();
+        // const userId = LStorageUser.getId();
+        // api.post('auth/logout', {userId: userId})
+        //    .then(response => {
+        //         console.log(response)
+        //         LStorageUser.remove();
+        //    })
+        //    .catch(error =>{
+        //         console.error(error)
+        //         LStorageUser.remove();
+        //    })
+        // window.location.reload();
+        LStorageUser.remove();
     }
 
     register(userInfo) {
