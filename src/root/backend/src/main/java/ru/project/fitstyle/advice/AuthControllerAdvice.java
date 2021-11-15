@@ -11,7 +11,7 @@ import ru.project.fitstyle.exception.auth.RefreshTokenException;
 import java.util.Date;
 
 @RestControllerAdvice
-public class RefreshTokenControllerAdvice {
+public class AuthControllerAdvice {
 
     @ExceptionHandler(value = RefreshTokenException.class)
     @ResponseStatus(HttpStatus.FORBIDDEN)
