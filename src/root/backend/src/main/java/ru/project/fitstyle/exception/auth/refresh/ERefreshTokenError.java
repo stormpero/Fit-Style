@@ -1,4 +1,4 @@
-package ru.project.fitstyle.exception.auth.token.refresh;
+package ru.project.fitstyle.exception.auth.refresh;
 
 public enum ERefreshTokenError {
     NOT_FOUND(1, "Refresh token is not found!"),

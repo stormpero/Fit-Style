@@ -1,8 +1,7 @@
-package ru.project.fitstyle.exception.auth.token.refresh;
+package ru.project.fitstyle.exception.auth.refresh;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import ru.project.fitstyle.exception.auth.token.refresh.ERefreshTokenError;
 
 @ResponseStatus(HttpStatus.FORBIDDEN)
 public class RefreshTokenException extends RuntimeException {

@@ -2,8 +2,8 @@ package ru.project.fitstyle.controllers;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import ru.project.fitstyle.exception.auth.token.refresh.ERefreshTokenError;
-import ru.project.fitstyle.exception.auth.token.refresh.RefreshTokenException;
+import ru.project.fitstyle.exception.auth.refresh.ERefreshTokenError;
+import ru.project.fitstyle.exception.auth.refresh.RefreshTokenException;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController

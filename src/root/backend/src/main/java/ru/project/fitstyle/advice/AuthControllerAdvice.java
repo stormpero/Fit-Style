@@ -8,7 +8,7 @@ import org.springframework.web.context.request.WebRequest;
 import ru.project.fitstyle.advice.message.ErrorMessage;
 import ru.project.fitstyle.exception.auth.email.EmailException;
 import ru.project.fitstyle.exception.auth.role.RoleException;
-import ru.project.fitstyle.exception.auth.token.refresh.RefreshTokenException;
+import ru.project.fitstyle.exception.auth.refresh.RefreshTokenException;
 
 import java.util.Date;
 
