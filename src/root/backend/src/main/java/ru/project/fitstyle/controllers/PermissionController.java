@@ -9,7 +9,6 @@ import ru.project.fitstyle.exception.permission.EPermissionError;
 import ru.project.fitstyle.exception.permission.PermissionException;
 import ru.project.fitstyle.models.user.User;
 import ru.project.fitstyle.payload.response.permission.PermissionResponse;
-import ru.project.fitstyle.payload.response.utils.MessageResponse;
 import ru.project.fitstyle.repository.UserRepository;
 
 import java.util.Optional;
