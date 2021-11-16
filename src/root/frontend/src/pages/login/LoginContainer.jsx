@@ -28,6 +28,7 @@ export default class LoginContainer extends Component {
 
   handleLogin = (event) => {
     event.preventDefault();
+    console.log(this.state.userInfo)
     if (isEmpty(this.state.userInfo.email) || isEmpty(this.state.userInfo.password)) {
       const errorMsg = "Заполните поля";
 
@@ -41,18 +42,18 @@ export default class LoginContainer extends Component {
     this.setState({
       isLoading: true
     });
-    
+
     //TODO: Проверить данные на ошибки
     AuthService.login(this.state.userInfo).then(
       () => {
-        //this.props.history.push("/user");
-        //window.location.reload();
+        this.props.Auth.setIsAuth(true);
+        this.props.history.push("/user");
         this.setState({
           isLoading: false,
         });
       }).catch((error)=> {
         let errorMsg =  error.response?.data?.message || error.message;
-
+        console.log(error.message)
         errorMsg = errorMsg === "Bad credentials" ? "Неверные данные" : "Заполните поля"; //TODO: Проверка на ошибки
        
         this.setState({
@@ -63,6 +64,7 @@ export default class LoginContainer extends Component {
   }
 
   render() {
+    console.log(this.props)
     return (
     <Login
       handleFunc={{

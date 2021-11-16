@@ -9,13 +9,13 @@ import ProfileContainer from "../profile/ProfileContainer";
 import UserContent from "../../components/UserContent";
 import NewsBoard from "../news/NewsBoard";
 
-const Routes = () => {
+const Routes = (props) => {
     return (
         <Switch>
             <Route exact path={["/", "/login"]} component={LoginContainer} />
-            <PrivateRoute role={"ROLE_MODERATOR"} path="/register" component={RegisterContainer} />
+            <PrivateRoute role={"ROLE_MODERATOR"} path="/register" component={RegisterContainer}/>
             <PrivateRoute role={"ROLE_USER"} path="/profile" component={ProfileContainer} />
-            <Route path="/user" component={UserContent} />
+            <PrivateRoute role={"ROLE_USER"} path="/user" component={UserContent} />
             <PrivateRoute role={"ROLE_USER"} path="/news" component={NewsBoard} />
         </Switch>
     )

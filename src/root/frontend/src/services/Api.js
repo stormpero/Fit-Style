@@ -25,21 +25,17 @@ instance.interceptors.response.use(
     },
     async error => {
         const config = error.config;
-        console.log('error.response', error.response)
+
         if (config.url !== "auth/signin" && error.response) {
             if (error?.response?.status === 401 && !config._retry) {
                 config._retry = true;
 
                 try {
-                    instance.post("/auth/refreshtoken", {}, {
-                        withCredentials: true,
-                        headers: {
-                            'Access-Control-Allow-Origin': 'http://localhost:8080',
-                            'Access-Control-Allow-Credentials': true,
-                        },
+                    await instance.post("/auth/refreshtoken", {}, {
+                        withCredentials: true
                     })
                     .then(response => {
-                        console.log('response.data', response.data)
+                        console.error(response);
                         const {accessToken} = response.data;
                         JwtService.updateAccessToken(accessToken);
                     })

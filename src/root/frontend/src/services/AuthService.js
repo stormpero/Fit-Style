@@ -6,10 +6,6 @@ class AuthService {
         return api
             .post('auth/signin', userInfo, {
                 withCredentials: true,
-                headers: {
-                    'Access-Control-Allow-Origin': 'http://localhost:8080',
-                    'Access-Control-Allow-Credentials': true,
-                }
             })
             .then(response => {
                 if (response.data.token) {

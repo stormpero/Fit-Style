@@ -23,10 +23,7 @@ export default class Navbar extends Component {
 
     logOut() {
         AuthService.logout();
-        this.setState({
-            isAdmin: false,
-            currentUser: undefined,
-        });
+        console.log('Выполнился')
     }
 
     render() {
@@ -76,9 +73,9 @@ export default class Navbar extends Component {
                     { currentUser && (
                         <div className="navbar-nav ml-auto">
                             <li className="nav-item">
-                                <a href="/login" className="nav-link" onClick={this.logOut}>
+                                <Link to={"/login"} className="nav-link" onClick={this.logOut}>
                                     Выйти
-                                </a>
+                                </Link>
                             </li>
                         </div>
                     )}
