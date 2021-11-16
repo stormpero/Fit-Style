@@ -12,3 +12,6 @@
 .form-control._error {
     box-shadow: 0 0 25px red;
 }
+.non-margin{
+    margin: 0 auto 25px;
+}

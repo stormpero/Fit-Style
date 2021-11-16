@@ -1,3 +1,7 @@
+html, body {
+    margin:0;
+    padding:0;
+}
 body {
     background: linear-gradient(-45deg, #00E8FC,  #27FB6B);
     background-size: 400% 400%;
@@ -5,6 +9,8 @@ body {
 }
 
 .profile-info{
+    position: fixed;
+    margin-left: 50vh;
     margin-top: 20vh;
     border-radius: 30px;
     color: rgba(41, 31, 30, 1);
@@ -39,4 +45,8 @@ body {
     100% {
         background-position: 0% 50%;
     }
+}
+
+@keyframes fadeIn {
+    100% { opacity:1 }
 }
