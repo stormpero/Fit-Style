@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import ru.project.fitstyle.exception.profile.EProfileError;
 import ru.project.fitstyle.exception.profile.ProfileException;
 import ru.project.fitstyle.models.user.User;
-import ru.project.fitstyle.payload.response.utils.MessageResponse;
 import ru.project.fitstyle.payload.response.user.UserProfileResponse;
 import ru.project.fitstyle.repository.UserRepository;
 
@@ -33,28 +32,19 @@ public class ProfileController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepository
                 .findByEmail(authentication.getName())
-                .orElse(null);
-        if(user != null) {
-            return ResponseEntity.ok(
-                    new UserProfileResponse(user));
-        }
-        else {
-            throw new ProfileException(EProfileError.MISSED);
-        }
+                .orElseThrow(() ->
+                        new ProfileException(EProfileError.NOT_FOUND));
+        return ResponseEntity.ok(
+                new UserProfileResponse(user));
     }
 
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('MODERATOR')")
     public ResponseEntity<UserProfileResponse> getUserProfileInfoById(@PathVariable("id") Long id) {
         Optional<User> user = userRepository.findById(id);
-        User returnUser = user
-                .orElse(null);
-        if(returnUser != null) {
-            return ResponseEntity.ok(
-                    new UserProfileResponse(returnUser));
-        }
-        else {
-            throw new ProfileException(EProfileError.MISSED);
-        }
+        User returnUser = user.orElseThrow(() ->
+                new ProfileException(EProfileError.NOT_FOUND));
+        return ResponseEntity.ok(
+                new UserProfileResponse(returnUser));
     }
 }

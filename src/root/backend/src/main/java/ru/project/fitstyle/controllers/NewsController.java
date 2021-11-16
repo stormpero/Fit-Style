@@ -6,8 +6,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import ru.project.fitstyle.exception.news.ENewsError;
-import ru.project.fitstyle.exception.news.NewsException;
+import ru.project.fitstyle.exception.news.page.ENewsPageError;
+import ru.project.fitstyle.exception.news.page.NewsPageException;
+import ru.project.fitstyle.exception.news.story.ENewsStoryError;
+import ru.project.fitstyle.exception.news.story.NewsStoryException;
 import ru.project.fitstyle.models.news.News;
 import ru.project.fitstyle.payload.request.news.AddEditNewsRequest;
 import ru.project.fitstyle.payload.response.news.NewsInfoResponse;
@@ -48,11 +50,11 @@ public class NewsController {
                 return ResponseEntity.ok(
                         new NewsShowPageResponse(news));
             } else {
-                throw new NewsException(ENewsError.OUT_OF_NEWS_PAGES);
+                throw new NewsPageException(ENewsPageError.OVER);
             }
         }
         else {
-            throw new NewsException(ENewsError.PAGE_NUMBER_LESS_THAN_ZERO);
+            throw new NewsPageException(ENewsPageError.NUMBER_LESS_THAN_ZERO);
         }
     }
 
@@ -60,13 +62,9 @@ public class NewsController {
     public ResponseEntity<NewsShowResponse> show(@PathVariable("id") Long id) {
         //Find news by given id
         News news = newsRepository.findById(id)
-                .orElse(null);
-        if(news != null) {
-            return ResponseEntity.ok(new NewsShowResponse(news));
-        }
-        else {
-            throw new NewsException(ENewsError.MISSED_NEWS_WITH_ID);
-        }
+                .orElseThrow(() ->
+                        new NewsStoryException(ENewsStoryError.NOT_FOUND));
+        return ResponseEntity.ok(new NewsShowResponse(news));
     }
 
     @PostMapping()
@@ -95,21 +93,17 @@ public class NewsController {
                          @PathVariable("id") Long id) {
     //Update news. It currently updates all fields of the DB object instead of updating only those which are changed
         News news = newsRepository.findById(id)
-                .orElse(null);
-        if(news != null) {
-            news.setHeader(addEditNewsRequest.getHeader());
-            news.setContent(addEditNewsRequest.getContent());
-            news.setDateTime(addEditNewsRequest.getDateTime());
-            news.setImgURL(addEditNewsRequest.getImgURL());
+                .orElseThrow(() ->
+                        new NewsStoryException(ENewsStoryError.NOT_FOUND));
+        news.setHeader(addEditNewsRequest.getHeader());
+        news.setContent(addEditNewsRequest.getContent());
+        news.setDateTime(addEditNewsRequest.getDateTime());
+        news.setImgURL(addEditNewsRequest.getImgURL());
 
-            newsRepository.save(news);
-            return ResponseEntity.ok(
-                    new MessageResponse("Success! News updated!")
-            );
-        }
-        else {
-            throw new NewsException(ENewsError.MISSED_NEWS_WITH_ID);
-        }
+        newsRepository.save(news);
+        return ResponseEntity.ok(
+                new MessageResponse("Success! News updated!")
+        );
     }
 
     @DeleteMapping("/{id}")
@@ -117,16 +111,12 @@ public class NewsController {
     public ResponseEntity<MessageResponse> delete(@PathVariable("id") Long id) {
         //Delete news
         News news = newsRepository.findById(id)
-                .orElse(null);
-        if(news != null) {
-            newsRepository.delete(news);
-            return ResponseEntity.ok(
-                    new MessageResponse("Success! News deleted!")
-            );
-        }
-        else {
-            throw new NewsException(ENewsError.MISSED_NEWS_WITH_ID);
-        }
+                .orElseThrow(() ->
+                        new NewsStoryException(ENewsStoryError.NOT_FOUND));
+        newsRepository.delete(news);
+        return ResponseEntity.ok(
+                new MessageResponse("Success! News deleted!")
+        );
     }
 
     @GetMapping("/info")

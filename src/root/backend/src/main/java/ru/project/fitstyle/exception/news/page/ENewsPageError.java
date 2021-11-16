@@ -1,12 +1,13 @@
-package ru.project.fitstyle.exception.profile;
+package ru.project.fitstyle.exception.news.page;
 
-public enum EProfileError {
-    NOT_FOUND(1, "User with that id has been deleted or never been created!");
+public enum ENewsPageError {
+    NUMBER_LESS_THAN_ZERO(1, "Page number cannot be less than zero!"),
+    OVER(2, "No more news pages!");
 
     private final int code;
     private final String message;
 
-    EProfileError(int code, String message)
+    ENewsPageError(int code, String message)
     {
         this.code = code;
         this.message = message;

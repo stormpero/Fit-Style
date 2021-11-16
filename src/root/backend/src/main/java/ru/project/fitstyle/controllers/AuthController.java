@@ -20,8 +20,12 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import ru.project.fitstyle.exception.auth.ERefreshTokenError;
-import ru.project.fitstyle.exception.auth.RefreshTokenException;
+import ru.project.fitstyle.exception.auth.email.EEmailError;
+import ru.project.fitstyle.exception.auth.email.EmailException;
+import ru.project.fitstyle.exception.auth.role.ERoleError;
+import ru.project.fitstyle.exception.auth.role.RoleException;
+import ru.project.fitstyle.exception.auth.token.refresh.ERefreshTokenError;
+import ru.project.fitstyle.exception.auth.token.refresh.RefreshTokenException;
 import ru.project.fitstyle.models.user.ERole;
 import ru.project.fitstyle.models.user.RefreshToken;
 import ru.project.fitstyle.models.user.Role;
@@ -100,9 +104,7 @@ public class AuthController {
     public ResponseEntity<MessageResponse> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
         if (userRepository
                 .existsByEmail(signUpRequest.getEmail())) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Error: Email is already in use!"));
+            throw new EmailException(EEmailError.OCCUPIED);
         }
         // Create new user's account
         User user = new User(
@@ -126,13 +128,13 @@ public class AuthController {
                 switch (role) {
                     case "coach":
                         Role adminRole = roleRepository.findByName(ERole.ROLE_COACH)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                                .orElseThrow(() -> new RoleException(ERoleError.NOT_FOUND));
                         roles.add(adminRole);
 
                         break;
                     case "mod":
                         Role modRole = roleRepository.findByName(ERole.ROLE_MODERATOR)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                                .orElseThrow(() -> new RoleException(ERoleError.NOT_FOUND));
                         roles.add(modRole);
 
                         break;
@@ -140,7 +142,7 @@ public class AuthController {
             });
         }
         Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                .orElseThrow(() -> new RoleException(ERoleError.NOT_FOUND));
         roles.add(userRole);
 
         user.setRoles(roles);
@@ -150,7 +152,7 @@ public class AuthController {
                 new MessageResponse("User registered successfully!"));
     }
 
-    @PostMapping("/refreshtoken")
+    @GetMapping("/refreshtoken")
     public ResponseEntity<RefreshTokenResponse> refreshToken(@CookieValue(value = "refreshToken")
                                                       String requestRefreshToken) {
         return refreshTokenService
@@ -168,7 +170,7 @@ public class AuthController {
                 })
                 .orElseThrow(() ->
                         new RefreshTokenException(requestRefreshToken,
-                                ERefreshTokenError.MISSED));
+                                ERefreshTokenError.NOT_FOUND));
     }
 
     @PostMapping("/logout")

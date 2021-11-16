@@ -1,12 +1,12 @@
-package ru.project.fitstyle.exception.profile;
+package ru.project.fitstyle.exception.auth.email;
 
-public enum EProfileError {
-    NOT_FOUND(1, "User with that id has been deleted or never been created!");
+public enum EEmailError {
+    OCCUPIED(1, "Email is already in use!");
 
     private final int code;
     private final String message;
 
-    EProfileError(int code, String message)
+    EEmailError(int code, String message)
     {
         this.code = code;
         this.message = message;

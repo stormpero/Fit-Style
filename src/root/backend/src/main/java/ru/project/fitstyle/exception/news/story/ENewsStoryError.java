@@ -1,12 +1,12 @@
-package ru.project.fitstyle.exception.profile;
+package ru.project.fitstyle.exception.news.story;
 
-public enum EProfileError {
-    NOT_FOUND(1, "User with that id has been deleted or never been created!");
+public enum ENewsStoryError {
+    NOT_FOUND(3, "News with that id has been deleted or never been created!");
 
     private final int code;
     private final String message;
 
-    EProfileError(int code, String message)
+    ENewsStoryError(int code, String message)
     {
         this.code = code;
         this.message = message;
