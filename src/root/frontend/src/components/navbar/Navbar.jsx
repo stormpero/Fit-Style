@@ -1,90 +1,60 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {Link} from "react-router-dom";
-import LStorageUser from "../../services/LStorageUser";
-import AuthService from "../../services/AuthService";
+
 import "./Navbar.css"
 
-export default class Navbar extends Component {
-    state = {
-        currentUser: null,
-        isAdmin: false
-    }
+import logo from "../../assets/logo3.png";
+import search from "../../assets/search.png";
+import news from "../../assets/newspaper.png";
+import register from "../../assets/voting.png";
+import exit from "../../assets/exit.png";
+import user from "../../assets/user.png";
 
-    componentDidMount() {
-        const user = LStorageUser.getUser();
-
-        if (user) {
-            this.setState({
-                currentUser: user,
-                isAdmin: user?.roles.includes("ROLE_MODERATOR"),
-            });
-        }
-    }
-
-    logOut() {
-        AuthService.logout();
-        this.setState({
-            isAdmin: false,
-            currentUser: undefined,
-        });
-    }
-
-    render() {
-        const { currentUser, isAdmin } = this.state;
-
-        return (
-            <div className="navbar-nav mr-auto">
-                <div className="header-main">
-                    <nav className="navbar navbar-expand-lg navbar-dark bg-dark ">
-                    { currentUser && (
-                        <div className="navbar-nav ml-auto">
-                            <li className="nav-item">
-                                <Link to={"/profile"} className="nav-link">
-                                    Профиль
-                                </Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link to={{
-                                    pathname: "/user",
-                                    state: {
-                                        username: currentUser.username
-                                    }
-                                }} className="nav-link">
-                                    Контент
-                                </Link>
-                            </li>
-                        </div>
-                    )}
-                        { currentUser && (
-                            <div className="navbar-nav ml-auto">
-                                <li className="nav-item">
-                                    <Link to={"/news"} className="nav-link">
-                                        Новости
-                                    </Link>
-                                </li>
-                            </div>
-                        )}
-                    { isAdmin && (
-                        <div className="navbar-nav ml-auto">
-                            <li className="nav-item">
-                                <Link to={"/register"} className="nav-link">
-                                    Регистрация клиента
-                                </Link>
-                            </li>
-                        </div>
-                    )}
-                    { currentUser && (
-                        <div className="navbar-nav ml-auto">
-                            <li className="nav-item">
-                                <a href="/login" className="nav-link" onClick={this.logOut}>
-                                    Выйти
-                                </a>
-                            </li>
-                        </div>
-                    )}
-                    </nav>
+const Navbar = (props) => {
+    return (
+        <div className="menu">
+            <Link to={"/"} className="menu-link-logo">
+                <img className="svg-logo" src={logo} alt="Fit-Style"/>
+                <span className="menu-link-logo-name">Fit-Style</span>
+            </Link>
+            <div className="menu-user">
+                <div className="menu-user-container">
+                    <Link to={ "/user"} className="menu-link">
+                        <img className="svg-icon" src={search} alt="Fit-Style"/>
+                        <span className="menu-link-name">Контент</span>
+                    </Link>
                 </div>
             </div>
-        );
-    }
-}
+            <div className="menu-user">
+                <Link to={"/news"} className="menu-link">
+                    <img className="svg-icon" src={news} alt="Fit-Style"/>
+                    <span className="menu-link-name">Новости</span>
+                </Link>
+            </div>
+            { props.isAdmin && (
+                <div className="menu-user">
+                    <div className="menu-user-container">
+                        <Link to={"/register"} className="menu-link">
+                            <img className="svg-icon" src={register} alt="Fit-Style"/>
+                            <span className="menu-link-name">Регистрация</span>
+                        </Link>
+                    </div>
+                </div>
+            )}
+            <div className="menu-user">
+                <div className="menu-user-container">
+                    <a href="/login" className="menu-link-exit" onClick={props.logOut}>
+                        <img className="svg-icon" src={exit} alt="Fit-Style"/>
+                        <span className="menu-link-name">Выход</span>
+                    </a>
+                </div>
+            </div>
+            <Link to={"/profile"} className="menu-link-profile">
+                <img className="svg-icon" src={user} alt="Fit-Style"/>
+                <span className="menu-link-name">Профиль</span>
+            </Link>
+        </div>
+    );
+};
+
+export default Navbar;

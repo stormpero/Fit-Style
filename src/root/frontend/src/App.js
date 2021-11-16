@@ -1,36 +1,17 @@
-import React, { Component } from "react";
+import React from "react";
+import {BrowserRouter} from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
-import { Routes } from "./pages/routes/routes";
-import Navbar from "./components/navbar/Navbar";
-import LStorageUser from "./services/LStorageUser";
+import AppRouter from "./components/AppRouter";
 
-
-class App extends Component {
-  state = {
-    currentUser: undefined,
-  }
-
-  componentDidMount() {
-    if (LStorageUser.isExist()) {
-      const user = LStorageUser.getUser();
-      this.setState({
-        currentUser: user
-      });
-    }
-  }
-
-  render() {
-    const currentUser  = this.state.currentUser;
+const App = () => {
     return (
-      <div>
-        { currentUser && <Navbar/> }
-        <Routes/>
-      </div>
-    );
-  }
+        <BrowserRouter>
+            <AppRouter/>
+        </BrowserRouter>
+    )
 }
 
 export default App;

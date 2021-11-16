@@ -1,12 +1,8 @@
 import React, { Component } from "react";
-import {Redirect} from "react-router-dom";
 
 import isEmpty from "validator/es/lib/isEmpty";
-
 import Login from "./Login";
-
 import AuthService from "../../services/AuthService";
-import LStorageUser from "../../services/LStorageUser";
 
 export default class LoginContainer extends Component {
 
@@ -16,12 +12,7 @@ export default class LoginContainer extends Component {
       password: "",
     },
     isLoading: false,
-    errorMsg: "",
-    redirect: null
-  }
-  componentDidMount() {
-    const currentUser = LStorageUser.getUser();
-    if (currentUser) this.setState({ redirect: "/user" });
+    errorMsg: ""
   }
 
   handleInputChange = (event) => {
@@ -50,19 +41,18 @@ export default class LoginContainer extends Component {
     this.setState({
       isLoading: true
     });
-    
-    //TODO: Проверить данные на ошибки
 
+    //TODO: Проверить данные на ошибки
     AuthService.login(this.state.userInfo).then(
       () => {
+        this.props.Auth.setIsAuth(true);
         this.props.history.push("/user");
-        window.location.reload();
         this.setState({
           isLoading: false,
         });
       }).catch((error)=> {
         let errorMsg =  error.response?.data?.message || error.message;
-
+        console.log(error.message)
         errorMsg = errorMsg === "Bad credentials" ? "Неверные данные" : "Заполните поля"; //TODO: Проверка на ошибки
        
         this.setState({
@@ -73,9 +63,6 @@ export default class LoginContainer extends Component {
   }
 
   render() {
-    if (this.state.redirect) {
-      return <Redirect to={this.state.redirect} />
-    }
     return (
     <Login
       handleFunc={{

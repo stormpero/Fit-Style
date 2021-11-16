@@ -3,7 +3,7 @@ import JwtService from "./jwt/JwtService";
 import LStorageUser from "./LStorageUser";
 
 const instance = axios.create({
-    baseURL: "http://localhost:8080/api"
+    baseURL: "http://localhost:8080/api",
 });
 
 instance.interceptors.request.use(
@@ -25,18 +25,19 @@ instance.interceptors.response.use(
     },
     async error => {
         const config = error.config;
-        if ((config.url !== "auth/signin" || config.url !== "auth/logout") && error.response) {
-            if (error.response.status === 401 && !config._retry) {
+
+        if (config.url !== "auth/signin" && error.response) {
+            if (error?.response?.status === 401 && !config._retry) {
                 config._retry = true;
 
                 try {
-                    instance.post("/auth/refreshtoken", {
-                        refreshToken: JwtService.getRefreshToken()
+                    await instance.post("/auth/refreshtoken", {}, {
+                        withCredentials: true
                     })
                     .then(response => {
-                        const {accessToken, refreshToken} = response.data;
+                        console.error(response);
+                        const {accessToken} = response.data;
                         JwtService.updateAccessToken(accessToken);
-                        JwtService.updateRefreshToken(refreshToken);
                     })
                     .catch((_error) => {
                         console.error(_error);

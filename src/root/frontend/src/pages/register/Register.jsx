@@ -4,12 +4,13 @@ import "./Register.css"
 
 import {AddressSuggestions} from "react-dadata";
 import 'react-dadata/dist/react-dadata.css';
-import {DADATA_TOKEN} from "../../services/utils/Dadata";
+import {DADATA_TOKEN} from "../../services/utils/consts/Dadata";
 
 const Register = (props) => {
     return (
         <div className="col-md-12">
-            <div className="card card-container">
+
+            <div className="card card-container non-margin">
                 <h3 className="text-muted">Регистрация</h3>
                 <form>
                     <div className="form-group">

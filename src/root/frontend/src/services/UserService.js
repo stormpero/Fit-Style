@@ -7,7 +7,7 @@ class UserService {
   }
 
   getProfileInfo(id) {
-    return api.get('profile', { params: { id: id} });
+    return api.get('profile');
   }
 
   getRoles(id) {
