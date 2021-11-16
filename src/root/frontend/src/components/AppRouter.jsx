@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {Switch, Route, Redirect} from "react-router-dom";
 import LStorageUser from "../services/LStorageUser";
-import Navbar from "./navbar/Navbar";
-import {loginRoute, routes} from "../pages/routes/routesConst";
+import NavbarContainer from "./navbar/NavbarContainer";
+import {routes} from "../pages/routes/routes";
 import LoginContainer from "../pages/login/LoginContainer";
+import {URL_LOGIN, URL_NEWS} from "../services/utils/consts/urlsPages";
 
 const AppRouter = () => {
 
@@ -12,20 +13,19 @@ const AppRouter = () => {
 
     useEffect( () => {
         setIsAuth(LStorageUser.isExist())
-        console.log('useEffect, isAuth: ', isAuth);
     }, [isAuth])
 
     return (
         <div>
-            { isAuth && <Navbar /> }
+            { isAuth && <NavbarContainer /> }
             <Switch>
                 {isAuth && routes.map(({path, Component, role})=>
                     <Route key={path} path={path} component={Component} />
                 )}
-                {!isAuth && <Route path={loginRoute.path} render={props => <LoginContainer
+                {!isAuth && <Route path={URL_LOGIN} render={props => <LoginContainer
                         Auth={{isAuth: isAuth, setIsAuth: setIsAuth}} {...props}/>}/>
                 }
-                <Redirect to={isAuth ? '/news' : '/login'} />
+                <Redirect to={isAuth ? URL_NEWS : URL_LOGIN} />
             </Switch>
         </div>
     );

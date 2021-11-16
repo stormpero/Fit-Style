@@ -1,34 +1,33 @@
-import LoginContainer from "../login/LoginContainer";
 import RegisterContainer from "../register/RegisterContainer";
 import ProfileContainer from "../profile/ProfileContainer";
 import UserContent from "../../components/UserContent";
 import NewsBoard from "../news/NewsBoard";
+import {
+    URL_NEWS,
+    URL_PROFILE,
+    URL_REGISTER,
+    URL_USER
+} from "../../services/utils/consts/urlsPages";
 
 export const routes = [
     {
-        path: '/register',
+        path: URL_REGISTER,
         Component: RegisterContainer,
         role: ['ROLE_MODERATOR']
     },
     {
-        path: '/profile',
+        path: URL_PROFILE,
         Component: ProfileContainer,
         role: ['ROLE_USER']
     },
     {
-        path: '/user',
+        path: URL_USER,
         Component: UserContent,
         role: ['ROLE_USER']
     },
     {
-        path: '/news',
+        path: URL_NEWS,
         Component: NewsBoard,
         role: ['ROLE_USER']
     },
 ]
-
-export const loginRoute = {
-    path: '/login',
-    Component: LoginContainer,
-    role: ['ROLE_NONE']
-}
