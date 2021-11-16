@@ -1,10 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {Switch, Route, Redirect} from "react-router-dom";
-import LStorageUser from "../services/LStorageUser";
+
 import NavbarContainer from "./navbar/NavbarContainer";
-import {routes} from "../pages/routes/routes";
 import LoginContainer from "../pages/login/LoginContainer";
+
+import {routes} from "../pages/routes/routes";
 import {URL_LOGIN, URL_NEWS} from "../services/utils/consts/urlsPages";
+
+import LStorageUser from "../services/LStorageUser";
 
 const AppRouter = () => {
 
