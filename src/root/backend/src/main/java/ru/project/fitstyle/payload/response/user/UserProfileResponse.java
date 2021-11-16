@@ -6,25 +6,25 @@ import java.sql.Date;
 
 public class UserProfileResponse {
 
-    private String name;
+    private final String name;
 
-    private String surname;
+    private final String surname;
 
-    private String patronymic;
+    private final String patronymic;
 
-    private String email;
+    private final String email;
 
-    private String age;
+    private final String age;
 
-    private String gender;
+    private final String gender;
 
-    private java.sql.Date birthdate;
+    private final Date birthdate;
 
-    private String telephone;
+    private final String telephone;
 
-    private String passport;
+    private final String passport;
 
-    private String address;
+    private final String address;
 
     public UserProfileResponse(
                                String name,
@@ -62,88 +62,43 @@ public class UserProfileResponse {
         this.address = user.getAddress();
     }
 
-    public UserProfileResponse() {
-
-    }
-
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getSurname() {
         return surname;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
     public String getPatronymic() {
         return patronymic;
-    }
-
-    public void setPatronymic(String patronymic) {
-        this.patronymic = patronymic;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getAge() {
         return age;
-    }
-
-    public void setAge(String age) {
-        this.age = age;
     }
 
     public String getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
     public Date getBirthdate() {
         return birthdate;
-    }
-
-    public void setBirthdate(Date birthdate) {
-        this.birthdate = birthdate;
     }
 
     public String getTelephone() {
         return telephone;
     }
 
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
-    }
-
     public String getPassport() {
         return passport;
     }
 
-    public void setPassport(String passport) {
-        this.passport = passport;
-    }
-
     public String getAddress() {
         return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 }

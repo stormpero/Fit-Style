@@ -1,4 +1,4 @@
-package ru.project.fitstyle.security.jwt;
+package ru.project.fitstyle.security.auth;
 
 import java.io.IOException;
 import java.util.HashMap;

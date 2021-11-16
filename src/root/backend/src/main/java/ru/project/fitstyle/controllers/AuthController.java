@@ -1,18 +1,11 @@
 package ru.project.fitstyle.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
@@ -27,8 +20,12 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import ru.project.fitstyle.exception.ERefreshTokenError;
-import ru.project.fitstyle.exception.TokenRefreshException;
+import ru.project.fitstyle.exception.auth.email.EEmailError;
+import ru.project.fitstyle.exception.auth.email.EmailException;
+import ru.project.fitstyle.exception.auth.role.ERoleError;
+import ru.project.fitstyle.exception.auth.role.RoleException;
+import ru.project.fitstyle.exception.auth.token.refresh.ERefreshTokenError;
+import ru.project.fitstyle.exception.auth.token.refresh.RefreshTokenException;
 import ru.project.fitstyle.models.user.ERole;
 import ru.project.fitstyle.models.user.RefreshToken;
 import ru.project.fitstyle.models.user.Role;
@@ -36,15 +33,15 @@ import ru.project.fitstyle.models.user.User;
 import ru.project.fitstyle.payload.request.auth.LogOutRequest;
 import ru.project.fitstyle.payload.request.auth.LoginRequest;
 import ru.project.fitstyle.payload.request.auth.SignupRequest;
-import ru.project.fitstyle.payload.request.auth.TokenRefreshRequest;
-import ru.project.fitstyle.payload.response.auth.JwtResponse;
-import ru.project.fitstyle.payload.response.auth.TokenRefreshResponse;
+import ru.project.fitstyle.payload.response.auth.LoginResponse;
+import ru.project.fitstyle.payload.response.auth.RefreshTokenResponse;
 import ru.project.fitstyle.payload.response.utils.MessageResponse;
 import ru.project.fitstyle.repository.RoleRepository;
 import ru.project.fitstyle.repository.UserRepository;
-import ru.project.fitstyle.security.jwt.JwtUtils;
-import ru.project.fitstyle.security.services.RefreshTokenService;
-import ru.project.fitstyle.security.services.UserDetailsImpl;
+import ru.project.fitstyle.security.services.token.AccessTokenService;
+import ru.project.fitstyle.security.services.token.RefreshTokenService;
+import ru.project.fitstyle.security.services.user.UserDetailsImpl;
+import ru.project.fitstyle.security.util.CookieUtil;
 
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -60,68 +57,54 @@ public class AuthController {
 
     private final PasswordEncoder encoder;
 
-    private final JwtUtils jwtUtils;
+    private final AccessTokenService accessTokenService;
 
     private final RefreshTokenService refreshTokenService;
 
+    private final CookieUtil cookieUtil;
+
     @Autowired
     public AuthController(AuthenticationManager authenticationManager, UserRepository userRepository,
-                          RoleRepository roleRepository, PasswordEncoder encoder, JwtUtils jwtUtils,
-                          RefreshTokenService refreshTokenService) {
+                          RoleRepository roleRepository, PasswordEncoder encoder, AccessTokenService accessTokenService,
+                          RefreshTokenService refreshTokenService, CookieUtil cookieUtil) {
         this.authenticationManager = authenticationManager;
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.encoder = encoder;
-        this.jwtUtils = jwtUtils;
+        this.accessTokenService = accessTokenService;
         this.refreshTokenService = refreshTokenService;
+        this.cookieUtil = cookieUtil;
     }
 
     @PostMapping("/signin")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest,
-                                              HttpServletResponse httpServletResponse) {
+    public ResponseEntity<LoginResponse> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(
                         loginRequest.getEmail(), loginRequest.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        String jwt = jwtUtils
-                .generateJwtToken(authentication);
-
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         List<String> roles = userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
 
+        String accessToken = accessTokenService
+                .generateToken(authentication);
+        String refreshToken = refreshTokenService
+                .generateToken(userDetails.getId()).getToken();
 
-        refreshTokenService.deleteByUserId(userDetails.getId());
-        RefreshToken refreshToken = refreshTokenService
-                .createRefreshToken(userDetails.getId());
-
-//        Cookie jwtTokenCookie = new Cookie("JSON Web Token", jwt);
-//        jwtTokenCookie.setSecure(true);
-//        jwtTokenCookie.setHttpOnly(true);
-//
-//        Cookie refreshTokenCookie = new Cookie("Refresh Token", refreshToken.getToken());
-//        refreshTokenCookie.setSecure(true);
-//        refreshTokenCookie.setHttpOnly(true);
-//
-//        httpServletResponse.addCookie(jwtTokenCookie);
-//        httpServletResponse.addCookie(refreshTokenCookie);
-        return ResponseEntity.ok(
-                new JwtResponse(
-                        jwt, refreshToken.getToken(), userDetails.getId(),
-                        userDetails.getUsername(), roles));
+        return ResponseEntity.ok().headers(createRefreshTokenCookie(refreshToken)).body(
+                new LoginResponse(userDetails.getId(),
+                        userDetails.getUsername(), accessToken, roles));
     }
 
     @PostMapping("/signup")
     @PreAuthorize("hasRole('MODERATOR')")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
+    public ResponseEntity<MessageResponse> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
         if (userRepository
                 .existsByEmail(signUpRequest.getEmail())) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Error: Email is already in use!"));
+            throw new EmailException(EEmailError.OCCUPIED);
         }
         // Create new user's account
         User user = new User(
@@ -137,35 +120,30 @@ public class AuthController {
 						signUpRequest.getPassport(),
 						signUpRequest.getAddress());
 
-        Set<String> strRoles = signUpRequest.getRole();
+        Set<String> strRoles = signUpRequest.getRoles();
         Set<Role> roles = new HashSet<>();
 
         if (strRoles != null) {
             strRoles.forEach(role -> {
                 switch (role) {
-                    case "admin":
+                    case "coach":
                         Role adminRole = roleRepository.findByName(ERole.ROLE_COACH)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                                .orElseThrow(() -> new RoleException(ERoleError.NOT_FOUND));
                         roles.add(adminRole);
 
                         break;
                     case "mod":
                         Role modRole = roleRepository.findByName(ERole.ROLE_MODERATOR)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                                .orElseThrow(() -> new RoleException(ERoleError.NOT_FOUND));
                         roles.add(modRole);
 
                         break;
-                    default:
-                        Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(userRole);
                 }
             });
-        } else {
-            Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-            roles.add(userRole);
         }
+        Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+                .orElseThrow(() -> new RoleException(ERoleError.NOT_FOUND));
+        roles.add(userRole);
 
         user.setRoles(roles);
         userRepository.save(user);
@@ -174,37 +152,41 @@ public class AuthController {
                 new MessageResponse("User registered successfully!"));
     }
 
-    @PostMapping("/refreshtoken")
-    public ResponseEntity<?> refreshToken(@Valid @RequestBody TokenRefreshRequest request) {
-        String requestRefreshToken = request.getRefreshToken();
-
+    @GetMapping("/refreshtoken")
+    public ResponseEntity<RefreshTokenResponse> refreshToken(@CookieValue(value = "refreshToken")
+                                                      String requestRefreshToken) {
         return refreshTokenService
                 .findByToken(requestRefreshToken)
                 .map(refreshTokenService::verifyExpiration)
                 .map(RefreshToken::getUser)
                 .map(user -> {
-                    String token = jwtUtils
+                    String jwtToken = accessTokenService
                             .generateTokenFromUsername(user.getEmail());
-                    refreshTokenService.deleteByUserId(user.getId());
-                    return ResponseEntity.ok(
-                            new TokenRefreshResponse(token,
-                                    refreshTokenService.save(
-                                            refreshTokenService.createRefreshToken(user.getId())
-                                    ).getToken()));
+                    String refreshToken = refreshTokenService
+                            .generateTokenFromUser(user).getToken();
+
+                    return ResponseEntity.ok().headers(createRefreshTokenCookie(refreshToken)).body(
+                            new RefreshTokenResponse(jwtToken));
                 })
                 .orElseThrow(() ->
-                        new TokenRefreshException(requestRefreshToken,
-                                ERefreshTokenError.MISSED));
+                        new RefreshTokenException(requestRefreshToken,
+                                ERefreshTokenError.NOT_FOUND));
     }
 
-    //TODO Frontend: post logout request every time user logouts
     @PostMapping("/logout")
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<?> logoutUser(@Valid @RequestBody LogOutRequest logOutRequest) {
+    public ResponseEntity<MessageResponse> logoutUser(@Valid @RequestBody LogOutRequest logOutRequest) {
         refreshTokenService
                 .deleteByUserId(logOutRequest.getUserId());
         return ResponseEntity.ok(
                 new MessageResponse("Log out successful!"));
     }
 
+
+    HttpHeaders createRefreshTokenCookie(String refreshToken) {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add(HttpHeaders.SET_COOKIE, cookieUtil.createRefreshTokenCookie(refreshToken,
+                refreshTokenService.getRefreshTokenExpirationMs()).toString());
+        return httpHeaders;
+    }
 }

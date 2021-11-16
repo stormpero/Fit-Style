@@ -1,4 +1,4 @@
-package ru.project.fitstyle.security.services;
+package ru.project.fitstyle.security.services.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,7 +13,7 @@ import ru.project.fitstyle.repository.UserRepository;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-  UserRepository userRepository;
+  private final UserRepository userRepository;
 
   @Autowired
   public UserDetailsServiceImpl(UserRepository userRepository) {

@@ -2,8 +2,8 @@ package ru.project.fitstyle.controllers;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import ru.project.fitstyle.exception.ERefreshTokenError;
-import ru.project.fitstyle.exception.TokenRefreshException;
+import ru.project.fitstyle.exception.auth.token.refresh.ERefreshTokenError;
+import ru.project.fitstyle.exception.auth.token.refresh.RefreshTokenException;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -35,6 +35,6 @@ public class TestController {
     @GetMapping("/exception_check")
     public void exceptionCheck()
     {
-        throw new TokenRefreshException("f3tdrgsdfgsd", ERefreshTokenError.MISSED);
+        throw new RefreshTokenException("f3tdrgsdfgsd", ERefreshTokenError.NOT_FOUND);
     }
 }

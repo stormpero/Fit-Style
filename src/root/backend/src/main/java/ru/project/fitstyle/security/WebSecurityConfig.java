@@ -13,9 +13,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import ru.project.fitstyle.security.jwt.AuthEntryPointJwt;
-import ru.project.fitstyle.security.jwt.AuthTokenFilter;
-import ru.project.fitstyle.security.services.UserDetailsServiceImpl;
+import ru.project.fitstyle.security.auth.AuthEntryPointJwt;
+import ru.project.fitstyle.security.auth.AuthTokenFilter;
+import ru.project.fitstyle.security.services.user.UserDetailsServiceImpl;
 
 
 @Configuration

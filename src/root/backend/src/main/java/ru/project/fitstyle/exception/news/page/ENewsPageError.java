@@ -1,0 +1,23 @@
+package ru.project.fitstyle.exception.news.page;
+
+public enum ENewsPageError {
+    NUMBER_LESS_THAN_ZERO(1, "Page number cannot be less than zero!"),
+    OVER(2, "No more news pages!");
+
+    private final int code;
+    private final String message;
+
+    ENewsPageError(int code, String message)
+    {
+        this.code = code;
+        this.message = message;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+}

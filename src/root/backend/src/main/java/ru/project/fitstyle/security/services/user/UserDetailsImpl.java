@@ -1,4 +1,4 @@
-package ru.project.fitstyle.security.services;
+package ru.project.fitstyle.security.services.user;
 
 import java.util.Collection;
 import java.util.List;
@@ -16,14 +16,14 @@ import ru.project.fitstyle.models.user.User;
 public class UserDetailsImpl implements UserDetails {
 	private static final long serialVersionUID = 1L;
 
-	private Long id;
+	private final Long id;
 
-	private String username;
+	private final String username;
 
 	@JsonIgnore
-	private String password;
+	private final String password;
 
-	private Collection<? extends GrantedAuthority> authorities;
+	private final Collection<? extends GrantedAuthority> authorities;
 
 	public UserDetailsImpl(Long id, String username, String password,
 			Collection<? extends GrantedAuthority> authorities) {
