@@ -28,7 +28,6 @@ export default class LoginContainer extends Component {
 
   handleLogin = (event) => {
     event.preventDefault();
-    console.log(this.state.userInfo)
     if (isEmpty(this.state.userInfo.email) || isEmpty(this.state.userInfo.password)) {
       const errorMsg = "Заполните поля";
 
@@ -64,7 +63,6 @@ export default class LoginContainer extends Component {
   }
 
   render() {
-    console.log(this.props)
     return (
     <Login
       handleFunc={{

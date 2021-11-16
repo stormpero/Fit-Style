@@ -4,7 +4,7 @@ import "./Register.css"
 
 import {AddressSuggestions} from "react-dadata";
 import 'react-dadata/dist/react-dadata.css';
-import {DADATA_TOKEN} from "../../services/utils/Dadata";
+import {DADATA_TOKEN} from "../../services/utils/consts/Dadata";
 
 const Register = (props) => {
     return (
