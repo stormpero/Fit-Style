@@ -45,9 +45,9 @@ public class AccessTokenService {
 
     public boolean validateToken(String token) {
         try {
-            Jwts.parser()
-                    .setSigningKey(accessTokenSecret)
-                    .parseClaimsJws(token);
+            Jwts.parserBuilder()
+                    .setSigningKey(JwtTokenHandler.getSigningKey(accessTokenSecret))
+                    .build().parseClaimsJws(token);
             return true;
         } catch (SignatureException ex) {
             ex.printStackTrace();

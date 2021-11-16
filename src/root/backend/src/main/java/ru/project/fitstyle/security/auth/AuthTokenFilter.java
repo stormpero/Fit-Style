@@ -18,7 +18,6 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import ru.project.fitstyle.security.services.token.AccessTokenService;
-import ru.project.fitstyle.security.services.token.jwt.JwtTokenHandler;
 import ru.project.fitstyle.security.services.user.UserDetailsServiceImpl;
 
 public class AuthTokenFilter extends OncePerRequestFilter {

@@ -10,3 +10,5 @@ public class FitStyleApplication {
         SpringApplication.run(FitStyleApplication.class, args);
     }
 }
+
+
