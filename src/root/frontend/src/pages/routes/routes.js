@@ -26,7 +26,7 @@ export const routes = [
         role: ['ROLE_USER']
     },
     {
-        path: URL_NEWS,
+        path: [URL_NEWS, '/'],
         Component: NewsBoard,
         role: ['ROLE_USER']
     },
