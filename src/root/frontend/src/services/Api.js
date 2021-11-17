@@ -31,11 +31,11 @@ instance.interceptors.response.use(
                 config._retry = true;
 
                 try {
-                    await instance.post("/auth/refreshtoken", {}, {
+                    await instance.get("/auth/refreshtoken", {
                         withCredentials: true
                     })
                     .then(response => {
-                        console.error(response);
+                        console.log(response);
                         const {accessToken} = response.data;
                         JwtService.updateAccessToken(accessToken);
                     })
