@@ -35,14 +35,6 @@ public class AccessTokenService {
                 generateTokenFromUsername(username, accessTokenExpirationMs, accessTokenSecret);
     }
 
-    public String getAccessTokenSecret() {
-        return accessTokenSecret;
-    }
-
-    public Long getAccessTokenExpirationMs() {
-        return accessTokenExpirationMs;
-    }
-
     public boolean validateToken(String token) {
         try {
             Jwts.parserBuilder()
@@ -53,5 +45,16 @@ public class AccessTokenService {
             ex.printStackTrace();
         }
         return false;
+    }
+
+
+
+
+    public String getAccessTokenSecret() {
+        return accessTokenSecret;
+    }
+
+    public Long getAccessTokenExpirationMs() {
+        return accessTokenExpirationMs;
     }
 }
