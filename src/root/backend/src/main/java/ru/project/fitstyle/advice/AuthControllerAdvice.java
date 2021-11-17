@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
-import ru.project.fitstyle.advice.message.ErrorMessage;
+import ru.project.fitstyle.payload.message.ErrorMessage;
 import ru.project.fitstyle.exception.auth.email.EmailException;
 import ru.project.fitstyle.exception.auth.role.RoleException;
 import ru.project.fitstyle.exception.auth.refresh.RefreshTokenException;

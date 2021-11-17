@@ -1,4 +1,4 @@
-package ru.project.fitstyle.services.token.jwt;
+package ru.project.fitstyle.security.jwt;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;

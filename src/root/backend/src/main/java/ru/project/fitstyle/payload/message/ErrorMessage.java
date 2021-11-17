@@ -1,4 +1,4 @@
-package ru.project.fitstyle.advice.message;
+package ru.project.fitstyle.payload.message;
 
 import java.util.Date;
 

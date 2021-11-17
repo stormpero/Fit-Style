@@ -15,7 +15,7 @@ import ru.project.fitstyle.payload.request.news.AddEditNewsRequest;
 import ru.project.fitstyle.payload.response.news.NewsInfoResponse;
 import ru.project.fitstyle.payload.response.news.NewsShowPageResponse;
 import ru.project.fitstyle.payload.response.news.NewsShowResponse;
-import ru.project.fitstyle.payload.response.utils.MessageResponse;
+import ru.project.fitstyle.payload.message.SuccessMessage;
 import ru.project.fitstyle.repository.NewsRepository;
 
 import javax.validation.Valid;
@@ -69,7 +69,7 @@ public class NewsController {
 
     @PostMapping()
     @PreAuthorize("hasRole('MODERATOR')")
-    public ResponseEntity<MessageResponse> add(@Valid @RequestBody AddEditNewsRequest addEditNewsRequest) {
+    public ResponseEntity<SuccessMessage> add(@Valid @RequestBody AddEditNewsRequest addEditNewsRequest) {
         //Add News
         News news = new News(
                 addEditNewsRequest.getHeader(),
@@ -80,7 +80,7 @@ public class NewsController {
 
         newsRepository.save(news);
         return ResponseEntity.ok(
-                new MessageResponse("Success! News created!")
+                new SuccessMessage("Success! News created!")
         );
     }
 
@@ -89,8 +89,8 @@ public class NewsController {
 
     @PatchMapping("/{id}")
     @PreAuthorize("hasRole('MODERATOR')")
-    public ResponseEntity<MessageResponse> update(@Valid @RequestBody AddEditNewsRequest addEditNewsRequest,
-                         @PathVariable("id") Long id) {
+    public ResponseEntity<SuccessMessage> update(@Valid @RequestBody AddEditNewsRequest addEditNewsRequest,
+                                                 @PathVariable("id") Long id) {
     //Update news. It currently updates all fields of the DB object instead of updating only those which are changed
         News news = newsRepository.findById(id)
                 .orElseThrow(() ->
@@ -102,20 +102,20 @@ public class NewsController {
 
         newsRepository.save(news);
         return ResponseEntity.ok(
-                new MessageResponse("Success! News updated!")
+                new SuccessMessage("Success! News updated!")
         );
     }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('MODERATOR')")
-    public ResponseEntity<MessageResponse> delete(@PathVariable("id") Long id) {
+    public ResponseEntity<SuccessMessage> delete(@PathVariable("id") Long id) {
         //Delete news
         News news = newsRepository.findById(id)
                 .orElseThrow(() ->
                         new NewsStoryException(ENewsStoryError.NOT_FOUND));
         newsRepository.delete(news);
         return ResponseEntity.ok(
-                new MessageResponse("Success! News deleted!")
+                new SuccessMessage("Success! News deleted!")
         );
     }
 

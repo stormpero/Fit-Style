@@ -35,7 +35,7 @@ import ru.project.fitstyle.payload.request.auth.LoginRequest;
 import ru.project.fitstyle.payload.request.auth.SignupRequest;
 import ru.project.fitstyle.payload.response.auth.LoginResponse;
 import ru.project.fitstyle.payload.response.auth.RefreshTokenResponse;
-import ru.project.fitstyle.payload.response.utils.MessageResponse;
+import ru.project.fitstyle.payload.message.SuccessMessage;
 import ru.project.fitstyle.repository.RoleRepository;
 import ru.project.fitstyle.repository.UserRepository;
 import ru.project.fitstyle.services.token.AccessTokenService;
@@ -101,7 +101,7 @@ public class AuthController {
 
     @PostMapping("/signup")
     @PreAuthorize("hasRole('MODERATOR')")
-    public ResponseEntity<MessageResponse> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
+    public ResponseEntity<SuccessMessage> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
         if (userRepository
                 .existsByEmail(signUpRequest.getEmail())) {
             throw new EmailException(EEmailError.OCCUPIED);
@@ -149,7 +149,7 @@ public class AuthController {
         userRepository.save(user);
 
         return ResponseEntity.ok(
-                new MessageResponse("User registered successfully!"));
+                new SuccessMessage("User registered successfully!"));
     }
 
     @GetMapping("/refreshtoken")
@@ -175,11 +175,11 @@ public class AuthController {
 
     @PostMapping("/logout")
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<MessageResponse> logoutUser(@Valid @RequestBody LogOutRequest logOutRequest) {
+    public ResponseEntity<SuccessMessage> logoutUser(@Valid @RequestBody LogOutRequest logOutRequest) {
         refreshTokenService
                 .deleteByUserId(logOutRequest.getUserId());
         return ResponseEntity.ok(
-                new MessageResponse("Log out successful!"));
+                new SuccessMessage("Log out successful!"));
     }
 
 

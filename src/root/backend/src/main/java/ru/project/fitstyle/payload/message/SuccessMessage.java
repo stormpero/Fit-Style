@@ -1,9 +1,9 @@
-package ru.project.fitstyle.payload.response.utils;
+package ru.project.fitstyle.payload.message;
 
-public class MessageResponse {
+public class SuccessMessage {
     private final String message;
 
-    public MessageResponse(String message) {
+    public SuccessMessage(String message) {
         this.message = message;
     }
 
