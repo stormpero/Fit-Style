@@ -1,8 +1,5 @@
 package ru.project.fitstyle.payload.request.news;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.sql.Timestamp;
@@ -13,7 +10,7 @@ public class AddEditNewsRequest {
     private String header;
 
     @NotBlank(message = "content should not be blank")
-    @Size(max = 500, message = "content size should be less or equal then 500 chars")
+    @Size(max = 1500, message = "content size should be less or equal then 500 chars")
     private String content;
 
     private Timestamp dateTime;
