@@ -1,6 +1,7 @@
 package ru.project.fitstyle.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.GrantedAuthority;
@@ -153,8 +154,9 @@ public class AuthController {
     }
 
     @GetMapping("/refreshtoken")
-    public ResponseEntity<RefreshTokenResponse> refreshToken(@CookieValue(value = "refreshToken", required = false)
-                                                      String requestRefreshToken) {
+    public ResponseEntity<RefreshTokenResponse> refreshToken(@Value("${authentication.auth.authRefreshTokenCookieName}")
+                                                                 @CookieValue(required = false)
+                                                                         String requestRefreshToken) {
         return refreshTokenService
                 .findByToken(requestRefreshToken)
                 .map(refreshTokenService::verifyExpiration)
