@@ -153,8 +153,9 @@ public class AuthController {
     }
 
     @GetMapping("/refreshtoken")
-    public ResponseEntity<RefreshTokenResponse> refreshToken(@CookieValue(value = "refreshToken", required = false)
+    public ResponseEntity<RefreshTokenResponse> refreshToken(@CookieValue(value="${authentication.auth.authRefreshTokenCookieName}",required = false)
                                                       String requestRefreshToken) {
+        System.out.println(requestRefreshToken);
         return refreshTokenService
                 .findByToken(requestRefreshToken)
                 .map(refreshTokenService::verifyExpiration)
