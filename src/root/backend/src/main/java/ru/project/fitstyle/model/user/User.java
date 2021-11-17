@@ -1,7 +1,7 @@
-package ru.project.fitstyle.models.user;
+package ru.project.fitstyle.model.user;
 
-import ru.project.fitstyle.models.training.Training;
-import ru.project.fitstyle.models.subscription.Subscription;
+import ru.project.fitstyle.model.training.Training;
+import ru.project.fitstyle.model.subscription.Subscription;
 
 import java.sql.Date;
 import java.util.HashSet;

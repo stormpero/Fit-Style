@@ -1,7 +1,5 @@
-package ru.project.fitstyle.models.training;
+package ru.project.fitstyle.model.training;
 
-
-import ru.project.fitstyle.models.training.Training;
 
 import javax.persistence.*;
 import java.util.Collection;

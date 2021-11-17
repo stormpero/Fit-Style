@@ -1,4 +1,4 @@
-package ru.project.fitstyle.models.user;
+package ru.project.fitstyle.model.user;
 
 public enum ERole {
     ROLE_USER,

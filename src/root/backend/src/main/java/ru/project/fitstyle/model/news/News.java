@@ -1,4 +1,4 @@
-package ru.project.fitstyle.models.news;
+package ru.project.fitstyle.model.news;
 
 
 import javax.persistence.*;

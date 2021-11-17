@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import ru.project.fitstyle.models.user.User;
+import ru.project.fitstyle.model.user.User;
 
 
 @Repository

@@ -1,4 +1,4 @@
-package ru.project.fitstyle.controllers;
+package ru.project.fitstyle.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -26,10 +26,10 @@ import ru.project.fitstyle.exception.auth.role.ERoleError;
 import ru.project.fitstyle.exception.auth.role.RoleException;
 import ru.project.fitstyle.exception.auth.refresh.ERefreshTokenError;
 import ru.project.fitstyle.exception.auth.refresh.RefreshTokenException;
-import ru.project.fitstyle.models.user.ERole;
-import ru.project.fitstyle.models.user.RefreshToken;
-import ru.project.fitstyle.models.user.Role;
-import ru.project.fitstyle.models.user.User;
+import ru.project.fitstyle.model.user.ERole;
+import ru.project.fitstyle.model.user.RefreshToken;
+import ru.project.fitstyle.model.user.Role;
+import ru.project.fitstyle.model.user.User;
 import ru.project.fitstyle.payload.request.auth.LogOutRequest;
 import ru.project.fitstyle.payload.request.auth.LoginRequest;
 import ru.project.fitstyle.payload.request.auth.SignupRequest;
@@ -38,9 +38,9 @@ import ru.project.fitstyle.payload.response.auth.RefreshTokenResponse;
 import ru.project.fitstyle.payload.message.SuccessMessage;
 import ru.project.fitstyle.repository.RoleRepository;
 import ru.project.fitstyle.repository.UserRepository;
-import ru.project.fitstyle.services.token.AccessTokenService;
-import ru.project.fitstyle.services.token.RefreshTokenService;
-import ru.project.fitstyle.services.user.UserDetailsImpl;
+import ru.project.fitstyle.service.token.AccessTokenService;
+import ru.project.fitstyle.service.token.RefreshTokenService;
+import ru.project.fitstyle.service.user.UserDetailsImpl;
 import ru.project.fitstyle.security.util.CookieUtil;
 
 

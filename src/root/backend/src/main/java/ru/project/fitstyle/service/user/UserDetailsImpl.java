@@ -1,4 +1,4 @@
-package ru.project.fitstyle.services.user;
+package ru.project.fitstyle.service.user;
 
 import java.util.Collection;
 import java.util.List;
@@ -11,7 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import ru.project.fitstyle.models.user.User;
+import ru.project.fitstyle.model.user.User;
 
 public class UserDetailsImpl implements UserDetails {
 	private static final long serialVersionUID = 1L;

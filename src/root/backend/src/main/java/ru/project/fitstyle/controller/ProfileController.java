@@ -1,4 +1,4 @@
-package ru.project.fitstyle.controllers;
+package ru.project.fitstyle.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -8,7 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import ru.project.fitstyle.exception.profile.EProfileError;
 import ru.project.fitstyle.exception.profile.ProfileException;
-import ru.project.fitstyle.models.user.User;
+import ru.project.fitstyle.model.user.User;
 import ru.project.fitstyle.payload.response.user.UserProfileResponse;
 import ru.project.fitstyle.repository.UserRepository;
 

@@ -1,4 +1,4 @@
-package ru.project.fitstyle.controllers;
+package ru.project.fitstyle.controller;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;

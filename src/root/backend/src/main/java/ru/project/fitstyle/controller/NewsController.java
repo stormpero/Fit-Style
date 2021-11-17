@@ -1,4 +1,4 @@
-package ru.project.fitstyle.controllers;
+package ru.project.fitstyle.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -10,7 +10,7 @@ import ru.project.fitstyle.exception.news.page.ENewsPageError;
 import ru.project.fitstyle.exception.news.page.NewsPageException;
 import ru.project.fitstyle.exception.news.story.ENewsStoryError;
 import ru.project.fitstyle.exception.news.story.NewsStoryException;
-import ru.project.fitstyle.models.news.News;
+import ru.project.fitstyle.model.news.News;
 import ru.project.fitstyle.payload.request.news.AddEditNewsRequest;
 import ru.project.fitstyle.payload.response.news.NewsInfoResponse;
 import ru.project.fitstyle.payload.response.news.NewsShowPageResponse;

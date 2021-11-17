@@ -1,4 +1,4 @@
-package ru.project.fitstyle.models.training;
+package ru.project.fitstyle.model.training;
 
 public enum ETrainingStatus {
     LOGGED,

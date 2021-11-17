@@ -1,6 +1,6 @@
 package ru.project.fitstyle.payload.response.news;
 
-import ru.project.fitstyle.models.news.News;
+import ru.project.fitstyle.model.news.News;
 
 import java.sql.Timestamp;
 

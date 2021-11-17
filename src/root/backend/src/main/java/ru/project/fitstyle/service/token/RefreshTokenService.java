@@ -1,4 +1,4 @@
-package ru.project.fitstyle.services.token;
+package ru.project.fitstyle.service.token;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.project.fitstyle.exception.auth.refresh.ERefreshTokenError;
 import ru.project.fitstyle.exception.auth.refresh.RefreshTokenException;
-import ru.project.fitstyle.models.user.RefreshToken;
-import ru.project.fitstyle.models.user.User;
+import ru.project.fitstyle.model.user.RefreshToken;
+import ru.project.fitstyle.model.user.User;
 import ru.project.fitstyle.repository.RefreshTokenRepository;
 import ru.project.fitstyle.repository.UserRepository;
 import ru.project.fitstyle.security.jwt.JwtTokenHandler;

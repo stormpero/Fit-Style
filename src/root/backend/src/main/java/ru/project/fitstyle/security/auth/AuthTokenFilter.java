@@ -17,8 +17,8 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import ru.project.fitstyle.services.token.AccessTokenService;
-import ru.project.fitstyle.services.user.UserDetailsServiceImpl;
+import ru.project.fitstyle.service.token.AccessTokenService;
+import ru.project.fitstyle.service.user.UserDetailsServiceImpl;
 
 public class AuthTokenFilter extends OncePerRequestFilter {
     @Autowired

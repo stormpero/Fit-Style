@@ -1,4 +1,4 @@
-package ru.project.fitstyle.services.user;
+package ru.project.fitstyle.service.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.project.fitstyle.models.user.User;
+import ru.project.fitstyle.model.user.User;
 import ru.project.fitstyle.repository.UserRepository;
 
 
