@@ -153,7 +153,7 @@ public class AuthController {
     }
 
     @GetMapping("/refreshtoken")
-    public ResponseEntity<RefreshTokenResponse> refreshToken(@CookieValue(value = "refreshToken")
+    public ResponseEntity<RefreshTokenResponse> refreshToken(@CookieValue(value = "refreshToken", required = false)
                                                       String requestRefreshToken) {
         return refreshTokenService
                 .findByToken(requestRefreshToken)

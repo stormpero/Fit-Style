@@ -1,7 +1,7 @@
 package ru.project.fitstyle.exception.auth.refresh;
 
 public enum ERefreshTokenError {
-    NOT_FOUND(1, "Refresh token is not found!"),
+    NOT_FOUND(1, "Refresh token not found!"),
     EXPIRED(2, "Refresh token was expired. Please make a new signin request");
 
     private final int code;

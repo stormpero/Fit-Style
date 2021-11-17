@@ -1,7 +1,7 @@
 package ru.project.fitstyle.exception.auth.role;
 
 public enum ERoleError {
-    NOT_FOUND(1, "Role is not found!");
+    NOT_FOUND(1, "Role not found!");
 
     private final int code;
     private final String message;

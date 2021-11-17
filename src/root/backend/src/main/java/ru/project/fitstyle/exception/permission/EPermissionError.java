@@ -1,7 +1,7 @@
 package ru.project.fitstyle.exception.permission;
 
 public enum EPermissionError {
-    NOT_FOUND(1, "User with that id has been deleted or never been created!");
+    NOT_FOUND(1, "User not found!");
 
     private final int code;
     private final String message;

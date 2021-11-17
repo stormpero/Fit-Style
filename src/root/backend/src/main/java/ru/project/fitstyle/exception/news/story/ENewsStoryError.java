@@ -1,7 +1,7 @@
 package ru.project.fitstyle.exception.news.story;
 
 public enum ENewsStoryError {
-    NOT_FOUND(1, "News with that id has been deleted or never been created!");
+    NOT_FOUND(1, "News not found!");
 
     private final int code;
     private final String message;
