@@ -1,4 +1,4 @@
-package ru.project.fitstyle.security.services.user;
+package ru.project.fitstyle.services.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

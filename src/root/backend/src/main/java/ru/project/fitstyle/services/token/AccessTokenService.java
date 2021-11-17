@@ -1,11 +1,11 @@
-package ru.project.fitstyle.security.services.token;
+package ru.project.fitstyle.services.token;
 
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
-import ru.project.fitstyle.security.services.token.jwt.JwtTokenHandler;
-import ru.project.fitstyle.security.services.user.UserDetailsImpl;
+import ru.project.fitstyle.services.token.jwt.JwtTokenHandler;
+import ru.project.fitstyle.services.user.UserDetailsImpl;
 
 import java.util.Date;
 

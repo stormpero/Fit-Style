@@ -1,4 +1,4 @@
-package ru.project.fitstyle.security.services.token;
+package ru.project.fitstyle.services.token;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,7 +10,7 @@ import ru.project.fitstyle.models.user.RefreshToken;
 import ru.project.fitstyle.models.user.User;
 import ru.project.fitstyle.repository.RefreshTokenRepository;
 import ru.project.fitstyle.repository.UserRepository;
-import ru.project.fitstyle.security.services.token.jwt.JwtTokenHandler;
+import ru.project.fitstyle.services.token.jwt.JwtTokenHandler;
 
 import java.time.Instant;
 import java.util.Date;

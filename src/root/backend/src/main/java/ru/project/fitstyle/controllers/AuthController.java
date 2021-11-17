@@ -38,9 +38,9 @@ import ru.project.fitstyle.payload.response.auth.RefreshTokenResponse;
 import ru.project.fitstyle.payload.response.utils.MessageResponse;
 import ru.project.fitstyle.repository.RoleRepository;
 import ru.project.fitstyle.repository.UserRepository;
-import ru.project.fitstyle.security.services.token.AccessTokenService;
-import ru.project.fitstyle.security.services.token.RefreshTokenService;
-import ru.project.fitstyle.security.services.user.UserDetailsImpl;
+import ru.project.fitstyle.services.token.AccessTokenService;
+import ru.project.fitstyle.services.token.RefreshTokenService;
+import ru.project.fitstyle.services.user.UserDetailsImpl;
 import ru.project.fitstyle.security.util.CookieUtil;
 
 

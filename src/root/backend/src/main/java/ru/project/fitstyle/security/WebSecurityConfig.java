@@ -15,7 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import ru.project.fitstyle.security.auth.AuthEntryPointJwt;
 import ru.project.fitstyle.security.auth.AuthTokenFilter;
-import ru.project.fitstyle.security.services.user.UserDetailsServiceImpl;
+import ru.project.fitstyle.services.user.UserDetailsServiceImpl;
 
 
 @Configuration
