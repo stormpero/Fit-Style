@@ -1,10 +1,11 @@
 import api from "./Api";
 import LStorageUser from "./LStorageUser";
+import {URL_AUTH, URL_REGISTER} from "./utils/consts/urlsApi";
 
 class AuthService {
     login(userInfo) {
         return api
-            .post('auth/signin', userInfo, {
+            .post(URL_AUTH, userInfo, {
                 withCredentials: true,
             })
             .then(response => {
@@ -34,7 +35,7 @@ class AuthService {
     }
 
     register(userInfo) {
-        return api.post('auth/signup', userInfo);
+        return api.post(URL_REGISTER, userInfo);
     }
 }
 
