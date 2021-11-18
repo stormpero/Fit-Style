@@ -13,21 +13,21 @@ export const routes = [
     {
         path: URL_REGISTER,
         Component: RegisterContainer,
-        role: ['ROLE_MODERATOR']
+        reqRole: "ROLE_MODERATOR"
     },
     {
         path: URL_PROFILE,
         Component: ProfileContainer,
-        role: ['ROLE_USER']
+        reqRole: "ROLE_USER"
     },
     {
         path: URL_USER,
         Component: UserContent,
-        role: ['ROLE_USER']
+        reqRole: "ROLE_USER"
     },
     {
         path: [URL_NEWS, '/'],
         Component: NewsBoard,
-        role: ['ROLE_USER']
+        reqRole: "ROLE_USER"
     },
 ]

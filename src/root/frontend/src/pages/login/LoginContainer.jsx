@@ -45,7 +45,7 @@ export default class LoginContainer extends Component {
     //TODO: Проверить данные на ошибки
     AuthService.login(this.state.userInfo).then(
       () => {
-        this.props.Auth.setIsAuth(true);
+        this.props.setIsAuth(true);
         this.props.history.push("/user");
         this.setState({
           isLoading: false,
