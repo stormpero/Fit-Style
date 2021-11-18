@@ -19,21 +19,6 @@ class AuthService {
             });
     }
 
-    logout() {
-        // const userId = LStorageUser.getId();
-        // api.post('auth/logout', {userId: userId})
-        //    .then(response => {
-        //         console.log(response)
-        //         LStorageUser.remove();
-        //    })
-        //    .catch(error =>{
-        //         console.error(error)
-        //         LStorageUser.remove();
-        //    })
-        // window.location.reload();
-        LStorageUser.remove();
-    }
-
     register(userInfo) {
         return api.post(URL_REGISTER, userInfo);
     }

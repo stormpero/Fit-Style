@@ -28,7 +28,7 @@ const AppRouter = () => {
 
     return (
         <div>
-            { isAuth &&  <NavbarContainer /> }
+            { isAuth &&  <NavbarContainer setIsAuth={setIsAuth}/> }
             <Switch>
                 {isAuth && isLoad && routes.map(({path, Component, reqRole}) =>
                         !!(roles.indexOf(reqRole) + 1) ? <Route key={path} path={path} component={Component}/> : null

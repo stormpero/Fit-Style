@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import LStorageUser from "../../services/LStorageUser";
-import AuthService from "../../services/AuthService";
-
+import api from "../../services/Api";
 
 import Navbar from "./Navbar";
 
@@ -20,7 +19,15 @@ export default class NavbarContainer extends Component {
     }
 
     logOut() {
-        AuthService.logout();
+        api.get('auth/logout')
+        .then(response => {
+            console.log(response)
+        }).catch(error =>{
+            console.error(error)
+        }).finally(() => {
+            LStorageUser.remove();
+            window.location.reload();
+        })
     }
 
     render() {
