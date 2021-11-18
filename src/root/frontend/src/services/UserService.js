@@ -10,8 +10,8 @@ class UserService {
     return api.get('profile');
   }
 
-  getRoles(id) {
-    return api.get('permission/roles', { params: { id: id} });
+  getRoles() {
+    return api.get('permission/roles');
   }
 
   getNews(pageNumber) {

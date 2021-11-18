@@ -12,8 +12,6 @@ class AuthService {
                     LStorageUser.setUser(response.data);
                 }
                 return response.data;
-            }).catch(error => {
-                console.error('login', error)
             });
     }
 

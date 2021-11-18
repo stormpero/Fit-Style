@@ -18,7 +18,7 @@ const AppRouter = () => {
     useEffect( () => {
         setIsAuth(LStorageUser.isExist())
         if (isAuth) {
-            UserService.getRoles(LStorageUser.getId())
+            UserService.getRoles()
             .then(roles => {
                 setRoles(roles.data?.roles.map(res => res.name));
             }).finally(() => setIsLoad(true));
