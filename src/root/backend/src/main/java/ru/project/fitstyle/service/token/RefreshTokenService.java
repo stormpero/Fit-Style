@@ -71,7 +71,7 @@ public class RefreshTokenService {
         deleteByUser(userRepository.findById(userId).get());
     }
     public void deleteByUsername(String username) {
-        refreshTokenRepository.deleteByUser(userRepository.findByEmail(username).get());
+        deleteByUser(userRepository.findByEmail(username).get());
     }
     @Transactional
     public void deleteByUser(User user) {
