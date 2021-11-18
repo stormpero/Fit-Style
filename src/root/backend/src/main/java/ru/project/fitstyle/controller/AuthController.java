@@ -174,11 +174,12 @@ public class AuthController {
                                 ERefreshTokenError.NOT_FOUND));
     }
 
-    @PostMapping("/logout")
+    @GetMapping("/logout")
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<SuccessMessage> logoutUser(@Valid @RequestBody LogOutRequest logOutRequest) {
+    public ResponseEntity<SuccessMessage> logoutUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         refreshTokenService
-                .deleteByUserId(logOutRequest.getUserId());
+                .deleteByUsername(authentication.getName());
         return ResponseEntity.ok(
                 new SuccessMessage("Log out successful!"));
     }
