@@ -92,7 +92,7 @@ public class AuthController {
         String accessToken = accessTokenService
                 .generateToken(authentication);
         String refreshToken = refreshTokenService
-                .generateToken(userDetails.getId()).getToken();
+                .generateToken(userDetails.getId());
 
         return ResponseEntity.ok().headers(createRefreshTokenCookie(refreshToken)).body(
                 new LoginResponse(userDetails.getId(),
@@ -163,10 +163,11 @@ public class AuthController {
                     String jwtToken = accessTokenService
                             .generateTokenFromUsername(user.getEmail());
                     String refreshToken = refreshTokenService
-                            .generateTokenFromUser(user).getToken();
+                            .generateTokenFromUser(user);
 
-                    return ResponseEntity.ok().headers(createRefreshTokenCookie(refreshToken)).body(
-                            new RefreshTokenResponse(jwtToken));
+                    return ResponseEntity.ok()
+                            .headers(createRefreshTokenCookie(refreshToken))
+                            .body(new RefreshTokenResponse(jwtToken));
                 })
                 .orElseThrow(() ->
                         new RefreshTokenException(requestRefreshToken,

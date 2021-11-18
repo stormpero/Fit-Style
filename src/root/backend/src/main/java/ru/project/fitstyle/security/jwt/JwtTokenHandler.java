@@ -17,13 +17,6 @@ public class JwtTokenHandler {
                 .compact();
     }
 
-    public static String generateTokenFromUsername(String username, Long jwtExpirationMs, String jwtTokenSecret) {
-        return Jwts.builder().setSubject(username).setIssuedAt(new Date())
-                .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
-                .signWith(getSigningKey(jwtTokenSecret))
-                .compact();
-    }
-
     public static String getUserNameFromJwtToken(String token, String jwtTokenSecret) {
         return Jwts.parserBuilder()
                 .setSigningKey(jwtTokenSecret)
@@ -34,5 +27,17 @@ public class JwtTokenHandler {
     public static Key getSigningKey(String secret) {
         byte[] keyBytes = Decoders.BASE64.decode(secret);
         return Keys.hmacShaKeyFor(keyBytes);
+    }
+
+    public static boolean validateToken(String token, String jwtTokenSecret) {
+        try {
+            Jwts.parserBuilder()
+                    .setSigningKey(JwtTokenHandler.getSigningKey(jwtTokenSecret))
+                    .build().parseClaimsJws(token);
+            return true;
+        } catch (JwtException ex) {
+            ex.printStackTrace();
+        }
+        return false;
     }
 }

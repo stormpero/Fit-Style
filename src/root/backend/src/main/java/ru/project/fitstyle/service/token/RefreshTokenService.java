@@ -34,15 +34,14 @@ public class RefreshTokenService {
         this.refreshTokenRepository = refreshTokenRepository;
     }
 
-    public RefreshToken generateToken(Long userId) {
+    public String generateToken(Long userId) {
         User user = userRepository.findById(userId).get();
         return generateTokenFromUser(user);
     }
 
-    public RefreshToken generateTokenFromUser(User user) {
+    public String generateTokenFromUser(User user) {
         deleteByUser(user);
-        long now = new Date().getTime();
-        Date validity = new Date(now + refreshTokenExpirationMs);
+        Date validity = new Date(new Date().getTime() + refreshTokenExpirationMs);
 
         RefreshToken refreshToken = new RefreshToken();
         refreshToken.setUser(user);
@@ -52,7 +51,7 @@ public class RefreshTokenService {
         );
 
         refreshToken = refreshTokenRepository.save(refreshToken);
-        return refreshToken;
+        return refreshToken.getToken();
     }
 
     public RefreshToken verifyExpiration(RefreshToken token) {
