@@ -35,7 +35,6 @@ instance.interceptors.response.use(
                         withCredentials: true
                     })
                     .then(response => {
-                        console.log(response);
                         const {accessToken} = response.data;
                         JwtService.updateAccessToken(accessToken);
                     })

@@ -13,7 +13,7 @@ import user from "../../assets/user.png";
 const Navbar = (props) => {
     return (
         <div className="menu">
-            <Link to={"/"} className="menu-link-logo">
+            <Link to={"/news"} className="menu-link-logo">
                 <img className="svg-logo" src={logo} alt="Fit-Style"/>
                 <span className="menu-link-logo-name">Fit-Style</span>
             </Link>

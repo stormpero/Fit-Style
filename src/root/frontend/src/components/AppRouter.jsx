@@ -1,34 +1,41 @@
 import React, {useEffect, useState} from 'react';
-import {Switch, Route, Redirect} from "react-router-dom";
+import {Switch, Route} from "react-router-dom";
 
 import NavbarContainer from "./navbar/NavbarContainer";
 import LoginContainer from "../pages/login/LoginContainer";
 
 import {routes} from "../pages/routes/routes";
-import {URL_LOGIN, URL_NEWS} from "../services/utils/consts/urlsPages";
+import {URL_LOGIN} from "../services/utils/consts/urlsPages";
 
 import LStorageUser from "../services/LStorageUser";
+import UserService from "../services/UserService";
 
 const AppRouter = () => {
-
     const [isAuth, setIsAuth] = useState(false);
-    //ROLES
+    const [roles, setRoles] = useState([]);
+    const [isLoad, setIsLoad] = useState(false)
 
     useEffect( () => {
         setIsAuth(LStorageUser.isExist())
+        if (isAuth) {
+            UserService.getRoles(LStorageUser.getId())
+            .then(roles => {
+                setRoles(roles.data?.roles.map(res => res.name));
+            }).finally(() => setIsLoad(true));
+        }
+
     }, [isAuth])
 
     return (
         <div>
-            { isAuth && <NavbarContainer /> }
+            { isAuth &&  <NavbarContainer /> }
             <Switch>
-                {isAuth && routes.map(({path, Component, role})=>
-                    <Route key={path} path={path} component={Component} />
+                {isAuth && isLoad && routes.map(({path, Component, reqRole}) =>
+                        !!(roles.indexOf(reqRole) + 1) ? <Route key={path} path={path} component={Component}/> : null
                 )}
-                {!isAuth && <Route path={URL_LOGIN} render={props => <LoginContainer
-                        Auth={{isAuth: isAuth, setIsAuth: setIsAuth}} {...props}/>}/>
+                {!isAuth && <Route path={[URL_LOGIN, '/']} render={ props =>
+                    <LoginContainer setIsAuth={setIsAuth} {...props}/>}/>
                 }
-                <Redirect to={isAuth ? URL_NEWS : URL_LOGIN} />
             </Switch>
         </div>
     );
