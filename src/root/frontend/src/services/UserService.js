@@ -1,17 +1,18 @@
 import api from "./Api";
+import {URL_PROFILE, URL_ROLES, URL_USERTEST} from "./utils/consts/urlsApi";
 
 class UserService {
 
   getUserBoard() {
-    return api.get('test/user');
+    return api.get(URL_USERTEST);
   }
 
   getProfileInfo(id) {
-    return api.get('profile');
+    return api.get(URL_PROFILE);
   }
 
   getRoles() {
-    return api.get('permission/roles');
+    return api.get(URL_ROLES);
   }
 
   getNews(pageNumber) {
