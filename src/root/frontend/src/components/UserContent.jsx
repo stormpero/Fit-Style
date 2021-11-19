@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import UserService from "../services/UserService";
+import UserService from "../services/api/UserService";
 import LStorageUser from "../services/LStorageUser";
 
 export default class UserContent extends Component {

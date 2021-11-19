@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import Register from "./Register";
 
-import AuthService from "../../services/AuthService";
+import AuthService from "../../services/api/AuthService";
 import isEmpty from "validator/es/lib/isEmpty";
 
 export default class RegisterContainer extends Component {

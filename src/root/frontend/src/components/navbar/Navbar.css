@@ -19,6 +19,7 @@ a{
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
     transition: 0.3s ease-in;
+    z-index: 100;
 }
 .menu:hover{
     border-top-right-radius: 0px;
