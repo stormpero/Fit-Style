@@ -1,4 +1,4 @@
-import api from "./Api";
+import api from "./api/Api";
 import {URL_PROFILE, URL_ROLES, URL_USERTEST} from "./utils/consts/urlsApi";
 
 class UserService {
