@@ -1,7 +1,7 @@
 import axios from 'axios';
-import JwtService from "./jwt/JwtService";
-import LStorageUser from "./LStorageUser";
-import {URL_AUTH, URL_REFRESHTOKEN, URL_ROOT} from "./utils/consts/urlsApi";
+import JwtService from "../jwt/JwtService";
+import LStorageUser from "../LStorageUser";
+import {URL_AUTH, URL_REFRESHTOKEN, URL_ROOT} from "../utils/consts/urlsApi";
 
 const instance = axios.create({
     baseURL: URL_ROOT,

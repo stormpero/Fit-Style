@@ -1,6 +1,6 @@
-import api from "./api/Api";
-import LStorageUser from "./LStorageUser";
-import {URL_AUTH, URL_REGISTER} from "./utils/consts/urlsApi";
+import api from "./Api";
+import LStorageUser from "../LStorageUser";
+import {URL_AUTH, URL_REGISTER} from "../utils/consts/urlsApi";
 
 class AuthService {
     login(userInfo) {
