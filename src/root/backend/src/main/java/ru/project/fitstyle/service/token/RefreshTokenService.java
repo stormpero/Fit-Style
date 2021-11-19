@@ -18,10 +18,10 @@ import java.util.Optional;
 
 @Service
 public class RefreshTokenService {
-    @Value("${authentication.auth.refreshTokenSecret}")
+    @Value("${authentication.token.refreshTokenSecret}")
     public String refreshTokenSecret;
 
-    @Value("${authentication.auth.refreshTokenExpirationMs}")
+    @Value("${authentication.token.refreshTokenExpirationMs}")
     public Long refreshTokenExpirationMs;
 
     private final UserRepository userRepository;

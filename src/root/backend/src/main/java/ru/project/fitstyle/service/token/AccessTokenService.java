@@ -10,10 +10,10 @@ import java.util.Date;
 
 @Service
 public class AccessTokenService {
-    @Value("${authentication.auth.accessTokenSecret}")
+    @Value("${authentication.token.accessTokenSecret}")
     private String accessTokenSecret;
 
-    @Value("${authentication.auth.accessTokenExpirationMs}")
+    @Value("${authentication.token.accessTokenExpirationMs}")
     private Long accessTokenExpirationMs;
 
     public String generateToken(Authentication authentication) {

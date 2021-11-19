@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import ru.project.fitstyle.config.properties.AuthenticationProperties;
 import ru.project.fitstyle.exception.auth.email.EEmailError;
 import ru.project.fitstyle.exception.auth.email.EmailException;
 import ru.project.fitstyle.exception.auth.role.ERoleError;
@@ -30,7 +31,6 @@ import ru.project.fitstyle.model.user.ERole;
 import ru.project.fitstyle.model.user.RefreshToken;
 import ru.project.fitstyle.model.user.Role;
 import ru.project.fitstyle.model.user.User;
-import ru.project.fitstyle.payload.request.auth.LogOutRequest;
 import ru.project.fitstyle.payload.request.auth.LoginRequest;
 import ru.project.fitstyle.payload.request.auth.SignupRequest;
 import ru.project.fitstyle.payload.response.auth.LoginResponse;
@@ -48,6 +48,9 @@ import ru.project.fitstyle.security.util.CookieUtil;
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
+
+    @Autowired
+    AuthenticationProperties authenticationProperties;
 
     private final AuthenticationManager authenticationManager;
 
@@ -153,7 +156,7 @@ public class AuthController {
     }
 
     @GetMapping("/refreshtoken")
-    public ResponseEntity<RefreshTokenResponse> refreshToken(@CookieValue(value=("${authentication.auth.authRefreshTokenCookieName}"), required = false)
+    public ResponseEntity<RefreshTokenResponse> refreshToken(@CookieValue(value=("${authentication.token.authRefreshTokenCookieName}"), required = false)
                                                       String requestRefreshToken) {
         return refreshTokenService
                 .findByToken(requestRefreshToken)
