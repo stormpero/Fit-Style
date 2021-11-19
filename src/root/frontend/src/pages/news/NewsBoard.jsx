@@ -1,10 +1,17 @@
 import React, {useEffect, useState} from "react";
 import NewsRow from "./NewsRow";
-import UserService from "../../services/UserService";
 import DateFormat from "../../services/utils/DateFormat";
 import ArrayHelper from "../../services/utils/ArrayHelper";
+import Modal from "../../components/modal/Modal";
+import NewsFormContainer from "./form/NewsFormContainer";
+import NewsService from "../../services/api/NewsService";
+import LStorageUser from "../../services/LStorageUser";
 
 export const NewsBoard = () => {
+
+    const isAdmin = LStorageUser.getUser().roles.includes("ROLE_MODERATOR");
+
+    const [modalActive, setModalActive] = useState(false);
 
     const [rowNews, setRowNews] = useState([]);
     const [rowNum, setRowNum] = useState(1);
@@ -12,7 +19,7 @@ export const NewsBoard = () => {
 
     useEffect(() => {
         const loadNews = () => {
-            UserService.getNews(rowNum).then(
+            NewsService.getNews(rowNum).then(
                 response => {
                     let rowNewsData = response.data.news;
                     rowNewsData.map(value => value.dateTime = DateFormat.convertDataTimeToData(value.dateTime))
@@ -32,9 +39,15 @@ export const NewsBoard = () => {
     return(
         <div className="d-flex justify-content-center">
             <div className="news-board">
+                {isAdmin && <button className="btn-primary" onClick={() => setModalActive(true)}>Добавить Новость</button>}
                 {rowNews && rowNews.map((param, index) => <NewsRow key={index} news={param}/>)}
-                {hasNews && <button onClick={() => setRowNum(rowNum + 1)}>Ещё</button> }
+                {hasNews && <button className="btn-primary" onClick={() => setRowNum(rowNum + 1)}>Ещё</button> }
             </div>
+            { isAdmin &&
+                <Modal active={modalActive} setActive={setModalActive}>
+                    <NewsFormContainer setActive={setModalActive}/>
+                </Modal>
+            }
         </div>
     );
 }

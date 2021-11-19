@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import Login from "./Login";
 
-import AuthService from "../../services/AuthService";
+import AuthService from "../../services/api/AuthService";
 import isEmpty from "validator/es/lib/isEmpty";
 
 
