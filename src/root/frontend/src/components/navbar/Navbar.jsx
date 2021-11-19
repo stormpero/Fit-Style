@@ -43,10 +43,10 @@ const Navbar = (props) => {
             )}
             <div className="menu-user">
                 <div className="menu-user-container">
-                    <a href="/login" className="menu-link-exit" onClick={props.logOut}>
+                    <Link to={"/login"} className="menu-link-exit" onClick={props.logOut}>
                         <img className="svg-icon" src={exit} alt="Fit-Style"/>
                         <span className="menu-link-name">Выход</span>
-                    </a>
+                    </Link>
                 </div>
             </div>
             <Link to={"/profile"} className="menu-link-profile">

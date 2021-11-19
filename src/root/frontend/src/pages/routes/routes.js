@@ -1,7 +1,7 @@
 import RegisterContainer from "../register/RegisterContainer";
 import ProfileContainer from "../profile/ProfileContainer";
 import UserContent from "../../components/UserContent";
-import NewsBoard from "../news/NewsBoard";
+import {NewsBoard} from "../news/NewsBoard";
 import {
     URL_NEWS,
     URL_PROFILE,

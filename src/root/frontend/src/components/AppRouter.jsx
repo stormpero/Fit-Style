@@ -8,7 +8,7 @@ import {routes} from "../pages/routes/routes";
 import {URL_LOGIN} from "../services/utils/consts/urlsPages";
 
 import LStorageUser from "../services/LStorageUser";
-import UserService from "../services/UserService";
+import UserService from "../services/api/UserService";
 
 const AppRouter = () => {
     const [isAuth, setIsAuth] = useState(false);
@@ -18,7 +18,7 @@ const AppRouter = () => {
     useEffect( () => {
         setIsAuth(LStorageUser.isExist())
         if (isAuth) {
-            UserService.getRoles(LStorageUser.getId())
+            UserService.getRoles()
             .then(roles => {
                 setRoles(roles.data?.roles.map(res => res.name));
             }).finally(() => setIsLoad(true));
@@ -28,7 +28,7 @@ const AppRouter = () => {
 
     return (
         <div>
-            { isAuth &&  <NavbarContainer /> }
+            { isAuth &&  <NavbarContainer setIsAuth={setIsAuth}/> }
             <Switch>
                 {isAuth && isLoad && routes.map(({path, Component, reqRole}) =>
                         !!(roles.indexOf(reqRole) + 1) ? <Route key={path} path={path} component={Component}/> : null

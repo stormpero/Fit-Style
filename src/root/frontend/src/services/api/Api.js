@@ -1,9 +1,10 @@
 import axios from 'axios';
-import JwtService from "./jwt/JwtService";
-import LStorageUser from "./LStorageUser";
+import JwtService from "../jwt/JwtService";
+import LStorageUser from "../LStorageUser";
+import {URL_AUTH, URL_REFRESHTOKEN, URL_ROOT} from "../utils/consts/urlsApi";
 
 const instance = axios.create({
-    baseURL: "http://localhost:8080/api",
+    baseURL: URL_ROOT,
 });
 
 instance.interceptors.request.use(
@@ -26,34 +27,34 @@ instance.interceptors.response.use(
     async error => {
         const config = error.config;
 
-        if (config.url !== "auth/signin" && error.response) {
-            if (error?.response?.status === 401 && !config._retry) {
-                config._retry = true;
+        if (config.url !== URL_AUTH && error?.response?.status === 401  && !config._retry) {
+            config._retry = true;
 
-                try {
-                    await instance.get("/auth/refreshtoken", {
-                        withCredentials: true
-                    })
+            try {
+                await instance.get(URL_REFRESHTOKEN, {
+                    withCredentials: true
+                })
                     .then(response => {
                         const {accessToken} = response.data;
                         JwtService.updateAccessToken(accessToken);
                     })
                     .catch((_error) => {
-                        console.error(_error);
                         if (_error.response.status === 403 ) {
                             LStorageUser.remove();
                             window.location.reload();
                         }
                     });
 
-                    return instance(config);
-                } catch (err) {
-                    return Promise.reject(err);
-                }
+                return instance(config);
+            } catch (err) {
+                return Promise.reject(err);
             }
+        } else {
             return Promise.reject(error);
         }
     }
 );
 
 export default instance;
+
+

@@ -159,8 +159,7 @@ const Register = (props) => {
                         <div className="form-group">
                             <p style={{color: 'red'}}>{props.message}</p>
                         </div>
-                    )
-                    }
+                    )}
                 </form>
             </div>
         </div>

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import LStorageUser from "../../services/LStorageUser";
-import UserService from "../../services/UserService";
+import UserService from "../../services/api/UserService";
 import DateFormat from "../../services/utils/DateFormat";
 import Profile from "./Profile";
 
