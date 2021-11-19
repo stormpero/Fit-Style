@@ -7,3 +7,5 @@ export const URL_PROFILE = "profile";
 export const URL_ROLES = "permission/roles";
 
 export const URL_REFRESHTOKEN = "auth/refreshtoken";
+
+export const URL_NEWSADD = "news";
