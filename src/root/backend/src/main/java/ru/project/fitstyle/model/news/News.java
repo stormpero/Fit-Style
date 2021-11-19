@@ -79,5 +79,4 @@ public class News {
     public void setImgURL(String imgURL) {
         this.imgURL = imgURL;
     }
-
 }
