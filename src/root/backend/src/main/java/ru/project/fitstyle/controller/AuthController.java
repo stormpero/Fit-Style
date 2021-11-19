@@ -20,7 +20,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import ru.project.fitstyle.config.properties.AuthenticationProperties;
 import ru.project.fitstyle.exception.auth.email.EEmailError;
 import ru.project.fitstyle.exception.auth.email.EmailException;
 import ru.project.fitstyle.exception.auth.role.ERoleError;
@@ -48,9 +47,6 @@ import ru.project.fitstyle.security.util.CookieUtil;
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
-
-    @Autowired
-    AuthenticationProperties authenticationProperties;
 
     private final AuthenticationManager authenticationManager;
 
