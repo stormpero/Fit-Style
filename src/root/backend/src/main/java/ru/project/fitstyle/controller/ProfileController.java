@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.project.fitstyle.exception.profile.EProfileError;
 import ru.project.fitstyle.exception.profile.ProfileException;
 import ru.project.fitstyle.model.user.User;
-import ru.project.fitstyle.payload.response.user.UserProfileResponse;
+import ru.project.fitstyle.payload.response.profile.UserProfileResponse;
 import ru.project.fitstyle.repository.UserRepository;
 
 import java.util.Optional;

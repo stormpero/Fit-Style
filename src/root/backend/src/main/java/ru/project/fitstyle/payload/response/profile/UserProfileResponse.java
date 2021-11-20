@@ -1,4 +1,4 @@
-package ru.project.fitstyle.payload.response.user;
+package ru.project.fitstyle.payload.response.profile;
 
 import ru.project.fitstyle.model.user.User;
 
