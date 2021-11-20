@@ -40,7 +40,7 @@ import ru.project.fitstyle.repository.UserRepository;
 import ru.project.fitstyle.service.token.AccessTokenService;
 import ru.project.fitstyle.service.token.RefreshTokenService;
 import ru.project.fitstyle.service.user.UserDetailsImpl;
-import ru.project.fitstyle.security.util.CookieUtil;
+import ru.project.fitstyle.service.CookieService;
 
 
 @CrossOrigin(origins = "http://localhost:3000", maxAge = 3600, allowCredentials = "true")
@@ -60,19 +60,19 @@ public class AuthController {
 
     private final RefreshTokenService refreshTokenService;
 
-    private final CookieUtil cookieUtil;
+    private final CookieService cookieService;
 
     @Autowired
     public AuthController(AuthenticationManager authenticationManager, UserRepository userRepository,
                           RoleRepository roleRepository, PasswordEncoder encoder, AccessTokenService accessTokenService,
-                          RefreshTokenService refreshTokenService, CookieUtil cookieUtil) {
+                          RefreshTokenService refreshTokenService, CookieService cookieService) {
         this.authenticationManager = authenticationManager;
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.encoder = encoder;
         this.accessTokenService = accessTokenService;
         this.refreshTokenService = refreshTokenService;
-        this.cookieUtil = cookieUtil;
+        this.cookieService = cookieService;
     }
 
     @PostMapping("/signin")
@@ -186,7 +186,7 @@ public class AuthController {
 
     HttpHeaders createRefreshTokenCookie(String refreshToken) {
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add(HttpHeaders.SET_COOKIE, cookieUtil.createRefreshTokenCookie(refreshToken,
+        httpHeaders.add(HttpHeaders.SET_COOKIE, cookieService.createRefreshTokenCookie(refreshToken,
                 refreshTokenService.getRefreshTokenExpirationMs()).toString());
         return httpHeaders;
     }

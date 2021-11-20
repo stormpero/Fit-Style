@@ -1,13 +1,13 @@
-package ru.project.fitstyle.security.util;
+package ru.project.fitstyle.service;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpCookie;
 import org.springframework.http.ResponseCookie;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 
-@Component
-public class CookieUtil {
+@Service
+public class CookieService {
     @Value("${authentication.token.authRefreshTokenCookieName}")
     private String refreshTokenCookieName;
 
