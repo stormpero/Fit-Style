@@ -36,11 +36,22 @@ export const NewsBoard = () => {
         loadNews();
     },[rowNum])
 
+    const deleteNews = (id) => {
+        NewsService.deleteNews(id).then(
+            response => {
+                window.location.reload()
+            },
+            error => {
+                console.log(error.response)
+            }
+        )
+    }
+
     return(
         <div className="d-flex justify-content-center">
             <div className="news-board">
                 {isAdmin && <button className="btn-primary" onClick={() => setModalActive(true)}>Добавить Новость</button>}
-                {rowNews && rowNews.map((param, index) => <NewsRow key={index} news={param}/>)}
+                {rowNews && rowNews.map((param, index) => <NewsRow key={index} news={param} delete={deleteNews} />)}
                 {hasNews && <button className="btn-primary" onClick={() => setRowNum(rowNum + 1)}>Ещё</button> }
             </div>
             { isAdmin &&

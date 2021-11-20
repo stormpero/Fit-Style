@@ -71,7 +71,6 @@ class NewsFormContainer extends Component {
                         header: "",
                         content: "",
                     },
-                    message: response.data.message,
                 })
                 this.props.setActive(false);
                 window.location.reload();

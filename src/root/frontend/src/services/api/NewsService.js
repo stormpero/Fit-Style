@@ -7,8 +7,10 @@ class NewsService {
     }
 
     addNews(newsData) {
-        console.log(newsData)
         return api.post(URL_NEWSADD, newsData);
+    }
+    deleteNews(id) {
+        return api.delete(`news/${id}`, {data: { id: id} });
     }
 }
 
