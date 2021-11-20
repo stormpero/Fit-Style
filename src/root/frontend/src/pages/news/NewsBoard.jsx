@@ -27,9 +27,9 @@ export const NewsBoard = () => {
                     setRowNews(prevNews => prevNews.concat(rowNewsData))
                 },
                 error => {
-                    if (error.response.data.statusCode === 400 &&
-                        error.response.data.message === "Failed. Page not found!") {
-                        setHasNews(false);
+                    setHasNews(false);
+                    if (error?.response?.data?.statusCode === 400 &&
+                        error.response.data?.message === "Failed. Page not found!") {
                     }
                 }
             )}

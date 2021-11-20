@@ -4,7 +4,6 @@ import "./News.css";
 import Gym from "../../assets/gym.jpg";
 
 const News = (props) => {
-
     return(
         <div className="container-fluid block-news" style={{
             background: `linear-gradient(rgba(41, 31, 30, 1), rgba(41, 31, 30, 0.4)), url("${Gym}"), center`,

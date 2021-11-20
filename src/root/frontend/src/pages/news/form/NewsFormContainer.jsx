@@ -17,6 +17,7 @@ class NewsFormContainer extends Component {
 
     handleInputChange = (event) => {
         const {name, value} = event.target;
+
         this.setState({
             newsData: {
                 ...this.state.newsData,
@@ -37,6 +38,21 @@ class NewsFormContainer extends Component {
             return;
         }
 
+        if (this.state.newsData.content.length > 1500) {
+            this.setState({
+                message: "В описании должно быть меньше 1500 символов"
+            });
+            return;
+        }
+
+        if (this.state.newsData.header.length > 50) {
+            this.setState({
+                message: "В заголовке должно быть меньше 50 символов"
+            });
+            return;
+        }
+
+
         const igmURL = "../../assets/gym.jpg";
         const date = new Date();
 
@@ -47,7 +63,6 @@ class NewsFormContainer extends Component {
                 imgURL: igmURL
             }
         });
-        console.log(this.state.newsData);
 
         NewsService.addNews(this.state.newsData).then(
             response => {
@@ -59,6 +74,7 @@ class NewsFormContainer extends Component {
                     message: response.data.message,
                 })
                 this.props.setActive(false);
+                window.location.reload();
             }
         ).catch(
             error => {
