@@ -11,21 +11,26 @@ import java.sql.Timestamp;
 public class News {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @NotBlank(message = "header should not be blank")
     @Size(max = 50, message = "header size should be less or equal than 50 chars")
+    @Column(name = "header")
     private String header;
 
     @NotBlank(message = "content should not be blank")
     @Size(max = 1500, message = "content size should be less or equal then 500 chars")
+    @Column(name = "content")
     private String content;
 
     //TODO Make another Timestamp for last news update??
+    @Column(name = "date_time")
     private Timestamp dateTime;
 
     @NotBlank(message = "imgUrl should not be blank")
     @Size(max = 100, message = "imgUrl should be less or equal than 100 chars")
+    @Column(name = "img_URL")
     private String imgURL;
 
     public News() {

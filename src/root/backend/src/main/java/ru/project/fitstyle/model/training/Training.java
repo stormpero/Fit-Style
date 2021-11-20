@@ -11,30 +11,35 @@ import javax.validation.constraints.Size;
 public class Training {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @NotBlank(message = "coachId should not be blank")
+    @Column(name = "coach_id")
     private Long coachId;
 
+    @Column(name = "user_id")
     private Long userId;
 
     @NotBlank(message = "trainingDate should not be blank")
+    @Column(name = "training_date")
     private Timestamp trainingDate;
 
     @NotBlank(message = "trainingName should not be blank")
     @Size(max = 30, message = "trainingName should be less or equal than 30 chars")
+    @Column(name = "training_name")
     private String trainingName;
 
     @Enumerated(EnumType.STRING)
-    @Column(length = 10)
+    @Column(name = "training_type", length = 10)
     private ETrainingType trainingType;
 
     @Enumerated(EnumType.STRING)
-    @Column(length = 10)
+    @Column(name = "training_status", length = 10)
     private ETrainingStatus trainingStatus;
 
     @ManyToOne(optional=false, cascade = CascadeType.ALL)
-    @JoinColumn(name = "trainingUser_id")
+    @JoinColumn(name = "training_user_id")
     private TrainingUser trainingUser;
 
     public Training() {

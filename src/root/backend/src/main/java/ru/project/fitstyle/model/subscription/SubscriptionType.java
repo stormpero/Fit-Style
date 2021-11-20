@@ -7,22 +7,25 @@ import javax.validation.constraints.Size;
 import java.util.Collection;
 
 @Entity
-@Table(name = "subscriptionType")
+@Table(name = "subscription_type")
 public class SubscriptionType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @NotBlank(message = "validity should not be empty")
     @Size(max = 3, message = "validity should be less or equal than 3 chars")
+    @Column(name = "validity")
     private String validity;
 
     @Enumerated(EnumType.STRING)
-    @Column(length = 10)
+    @Column(name = "placement_time", length = 10)
     private ESubsPlacementTime placementTime;
 
     @NotBlank(message = "cost should not be blank")
     @Size(max = 5, message = "cost should be less or equal than 5 chars")
+    @Column(name = "cost")
     private String cost;
 
     @OneToMany(mappedBy = "subscriptionType", fetch = FetchType.EAGER)

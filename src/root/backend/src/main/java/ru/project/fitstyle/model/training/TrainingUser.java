@@ -5,12 +5,14 @@ import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
-@Table(name = "trainingUser")
+@Table(name = "training_user")
 public class TrainingUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
+    @Column(name = "user_id")
     private Long userId;
 
     @OneToMany(mappedBy = "trainingUser", fetch = FetchType.EAGER)

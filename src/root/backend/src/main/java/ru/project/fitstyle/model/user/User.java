@@ -20,50 +20,62 @@ import javax.validation.constraints.Size;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @NotBlank(message = "name should not be blank")
     @Size(max = 20, message = "name size should be less or equal than 20 chars")
+    @Column(name = "name")
     private String name;
 
     @NotBlank(message = "surname should not be blank")
     @Size(max = 20, message = "surname size should be less or equal than 20 chars")
+    @Column(name = "surname")
     private String surname;
 
 
     @NotBlank(message = "patronymic should not be blank")
     @Size(max = 20, message = "patronymic should be less or equal than 20 chars")
+    @Column(name = "patronymic")
     private String patronymic;
 
     @NotBlank(message = "email should not be blank")
     @Size(max = 50, message = "email should be less or equal than 50 chars")
     @Email(message = "email should have syntax like: email@email.com ")
+    @Column(name = "email")
     private String email;
 
     @NotBlank(message = "password should not be blank")
     @Size(max = 120, message = "password should be less or equal than 120 chars")
+    @Column(name = "password")
     private String password;
 
     @NotBlank(message = "age should not be blank")
     @Size(max = 3, message = "age should be less or equal than 3 chars")
+    @Column(name = "age")
     private String age;
 
     @NotBlank(message = "gender should not be blank")
     @Size(max = 6, message = "gender should be less or equal than 6 chars")
+    @Column(name = "gender")
     private String gender;
 
+    @Column(name = "birthdate")
     private Date birthdate;
 
     @NotBlank(message = "telephone should not be blank")
     @Size(max = 20, message = "telephone should be less or equal than 20 chars")
+    @Column(name = "telephone")
     private String telephone;
 
     @NotBlank(message = "passport should not be blank")
     @Size(max = 16, message = "passport should be less or equal than 16 chars")
+    @Column(name = "passport")
     private String passport;
 
     @NotBlank(message = "address should not be blank")
     @Size(max = 150, message = "address should be less or equal than 150 chars")
+    @Column(name = "address")
     private String address;
 
     @ManyToMany(fetch = FetchType.LAZY)

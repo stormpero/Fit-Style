@@ -11,20 +11,24 @@ import java.sql.Date;
 public class Subscription {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @ManyToOne(optional=false, cascade = CascadeType.ALL)
-    @JoinColumn(name = "subscriptionType_id")
+    @JoinColumn(name = "subscription_type_id")
     private SubscriptionType subscriptionType;
 
     @NotBlank(message = "beginDate should not be blank")
+    @Column(name = "begin_date")
     private Date beginDate;
 
     @NotBlank(message = "endDate should not be blank")
+    @Column(name = "end_date")
     private Date endDate;
 
     @NotBlank(message = "contract should not be blank")
     @Size(max = 16, message = "contract should be less or equal than 16 chars")
+    @Column(name = "contract")
     private String contract;
 
     public Subscription() {

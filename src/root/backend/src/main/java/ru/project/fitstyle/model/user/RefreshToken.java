@@ -8,16 +8,18 @@ import javax.persistence.*;
 public class RefreshToken {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private long id;
 
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id", unique = true)
     private User user;
 
-    @Column(nullable = false, unique = true)
+    @Column(name = "token", nullable = false,
+            unique = true)
     private String token;
 
-    @Column(nullable = false)
+    @Column(name = "expiry_date", nullable = false)
     private Instant expiryDate;
 
     public RefreshToken() {
