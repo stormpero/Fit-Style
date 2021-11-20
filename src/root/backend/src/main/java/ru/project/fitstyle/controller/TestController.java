@@ -31,10 +31,10 @@ public class TestController {
     public String adminAccess() {
         return "Admin Board.";
     }
-
-    @GetMapping("/exception_check")
-    public void exceptionCheck()
-    {
-        throw new RefreshTokenException("f3tdrgsdfgsd", ERefreshTokenError.NOT_FOUND);
-    }
+//
+//    @GetMapping("/exception_check")
+//    public void exceptionCheck()
+//    {
+//        throw new RefreshTokenException("f3tdrgsdfgsd", ERefreshTokenError.NOT_FOUND);
+//    }
 }

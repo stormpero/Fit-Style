@@ -13,8 +13,9 @@ import java.util.Date;
 
 @RestControllerAdvice
 public class NewsControllerAdvice {
-    @ExceptionHandler(value = NewsPageException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+
+    @ExceptionHandler(NewsPageException.class)
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public ErrorMessage handleNewsPageException(NewsPageException ex, WebRequest request) {
         return new ErrorMessage(
                 HttpStatus.BAD_REQUEST.value(),
@@ -24,8 +25,8 @@ public class NewsControllerAdvice {
                 request.getDescription(false));
     }
 
-    @ExceptionHandler(value = NewsStoryException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(NewsStoryException.class)
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public ErrorMessage handleNewsStoryException(NewsStoryException ex, WebRequest request) {
         return new ErrorMessage(
                 HttpStatus.BAD_REQUEST.value(),

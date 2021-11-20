@@ -21,9 +21,9 @@ import java.util.Optional;
 @PreAuthorize("hasRole('USER')")
 public class ProfileController {
 
-    UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    AuthService authService;
+    private final AuthService authService;
 
     @Autowired
     public ProfileController (UserRepository userRepository, AuthService authService) {

@@ -12,6 +12,7 @@ import ru.project.fitstyle.exception.permission.PermissionException;
 import ru.project.fitstyle.model.user.User;
 import ru.project.fitstyle.payload.response.permission.PermissionResponse;
 import ru.project.fitstyle.repository.UserRepository;
+import ru.project.fitstyle.service.AuthService;
 
 import java.util.Optional;
 
@@ -21,17 +22,19 @@ import java.util.Optional;
 @PreAuthorize("hasRole('USER')")
 public class PermissionController {
 
-    UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    private final AuthService authService;
 
     @Autowired
-    public PermissionController(UserRepository userRepository) {
+    public PermissionController(UserRepository userRepository , AuthService authService) {
         this.userRepository = userRepository;
+        this.authService = authService;
     }
 
     @GetMapping("/roles")
-    public ResponseEntity<PermissionResponse> getUserRoles() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Optional<User> user = userRepository.findByEmail(authentication.getName());
+    public ResponseEntity<?> getUserRoles() {
+        Optional<User> user = userRepository.findByEmail(authService.getAuthentication().getName());
         User returnUser = user.orElseThrow(() ->
                 new PermissionException(EPermissionError.NOT_FOUND));
         return ResponseEntity.ok(

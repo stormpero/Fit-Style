@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConfigurationProperties(prefix = "authentication")
 public class AuthenticationProperties {
-    Token token;
+    private Token token;
 
     public Token getToken() {
         return token;

@@ -1,7 +1,7 @@
 package ru.project.fitstyle.exception.news.page;
 
 public enum ENewsPageError {
-    NUMBER_LESS_THAN_ZERO(1, "Page number cannot be less than zero!"),
+    LESS_THAN_ZERO(1, "Page number cannot be less than zero!"),
     OVER(2, "Page not found!");
 
     private final int code;
