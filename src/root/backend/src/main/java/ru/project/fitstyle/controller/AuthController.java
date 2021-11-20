@@ -37,6 +37,7 @@ import ru.project.fitstyle.payload.response.auth.RefreshTokenResponse;
 import ru.project.fitstyle.payload.message.SuccessMessage;
 import ru.project.fitstyle.repository.RoleRepository;
 import ru.project.fitstyle.repository.UserRepository;
+import ru.project.fitstyle.service.AuthService;
 import ru.project.fitstyle.service.token.AccessTokenService;
 import ru.project.fitstyle.service.token.RefreshTokenService;
 import ru.project.fitstyle.service.user.UserDetailsImpl;
@@ -62,10 +63,12 @@ public class AuthController {
 
     private final CookieService cookieService;
 
+    private final AuthService authService;
+
     @Autowired
     public AuthController(AuthenticationManager authenticationManager, UserRepository userRepository,
                           RoleRepository roleRepository, PasswordEncoder encoder, AccessTokenService accessTokenService,
-                          RefreshTokenService refreshTokenService, CookieService cookieService) {
+                          RefreshTokenService refreshTokenService, CookieService cookieService, AuthService authService) {
         this.authenticationManager = authenticationManager;
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
@@ -73,6 +76,7 @@ public class AuthController {
         this.accessTokenService = accessTokenService;
         this.refreshTokenService = refreshTokenService;
         this.cookieService = cookieService;
+        this.authService = authService;
     }
 
     @PostMapping("/signin")
@@ -176,9 +180,8 @@ public class AuthController {
     @GetMapping("/logout")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<SuccessMessage> logoutUser() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         refreshTokenService
-                .deleteByUsername(authentication.getName());
+                .deleteByUsername(authService.getAuthentication().getName());
         return ResponseEntity.ok(
                 new SuccessMessage("Log out successful!"));
     }

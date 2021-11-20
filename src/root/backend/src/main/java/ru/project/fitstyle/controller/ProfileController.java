@@ -11,6 +11,7 @@ import ru.project.fitstyle.exception.profile.ProfileException;
 import ru.project.fitstyle.model.user.User;
 import ru.project.fitstyle.payload.response.profile.UserProfileResponse;
 import ru.project.fitstyle.repository.UserRepository;
+import ru.project.fitstyle.service.AuthService;
 
 import java.util.Optional;
 
@@ -22,6 +23,8 @@ public class ProfileController {
 
     UserRepository userRepository;
 
+    AuthService authService;
+
     @Autowired
     public ProfileController (UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -29,9 +32,8 @@ public class ProfileController {
 
     @GetMapping()
     public ResponseEntity<UserProfileResponse> getUserProfileInfo() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepository
-                .findByEmail(authentication.getName())
+                .findByEmail(authService.getAuthentication().getName())
                 .orElseThrow(() ->
                         new ProfileException(EProfileError.NOT_FOUND));
         return ResponseEntity.ok(
