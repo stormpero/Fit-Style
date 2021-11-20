@@ -12,6 +12,7 @@ export const NewsBoard = () => {
     const isAdmin = LStorageUser.getUser().roles.includes("ROLE_MODERATOR");
 
     const [modalActive, setModalActive] = useState(false);
+    const [deleteActive, setDeleteActive] = useState(false);
 
     const [rowNews, setRowNews] = useState([]);
     const [rowNum, setRowNum] = useState(1);
@@ -50,8 +51,13 @@ export const NewsBoard = () => {
     return(
         <div className="d-flex justify-content-center">
             <div className="news-board">
-                {isAdmin && <button className="btn-primary" onClick={() => setModalActive(true)}>Добавить Новость</button>}
-                {rowNews && rowNews.map((param, index) => <NewsRow key={index} news={param} delete={deleteNews} />)}
+                {isAdmin &&
+                <div>
+                    <button className="btn-primary" onClick={() => setModalActive(true)}>Добавить Новость</button>
+                    <button className={deleteActive ? 'btn-primary' : 'btn-darkgi'} onClick={() => setDeleteActive((prev) => !prev)}>Режим удаления</button>
+                </div>
+                }
+                {rowNews && rowNews.map((param, index) => <NewsRow key={index} news={param} delete={deleteNews} deleteMode={deleteActive}/>)}
                 {hasNews && <button className="btn-primary" onClick={() => setRowNum(rowNum + 1)}>Ещё</button> }
             </div>
             { isAdmin &&
