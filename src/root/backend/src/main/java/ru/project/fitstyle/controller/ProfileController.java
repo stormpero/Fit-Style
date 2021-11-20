@@ -26,8 +26,9 @@ public class ProfileController {
     AuthService authService;
 
     @Autowired
-    public ProfileController (UserRepository userRepository) {
+    public ProfileController (UserRepository userRepository, AuthService authService) {
         this.userRepository = userRepository;
+        this.authService = authService;
     }
 
     @GetMapping()
