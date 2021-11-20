@@ -12,6 +12,7 @@ import java.util.Date;
 
 @RestControllerAdvice
 public class PermissionControllerAdvice {
+
     @ExceptionHandler(value = PermissionException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorMessage handlePermissionException(PermissionException ex, WebRequest request) {

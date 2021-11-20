@@ -54,7 +54,7 @@ public class NewsController {
             }
         }
         else {
-            throw new NewsPageException(ENewsPageError.NUMBER_LESS_THAN_ZERO);
+            throw new NewsPageException(ENewsPageError.LESS_THAN_ZERO);
         }
     }
 

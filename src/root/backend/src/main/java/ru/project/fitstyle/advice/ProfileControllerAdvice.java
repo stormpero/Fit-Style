@@ -10,6 +10,7 @@ import ru.project.fitstyle.exception.profile.ProfileException;
 import java.util.Date;
 
 public class ProfileControllerAdvice {
+
     @ExceptionHandler(value = ProfileException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorMessage handleProfileException(ProfileException ex, WebRequest request) {
