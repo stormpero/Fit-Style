@@ -19,8 +19,8 @@ class Validation {
 
     validatePhone(obj) {
         //Should work for different countries
-        let regex = /^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){10,14}(\s*)?$/;
-        return regex.test(obj);
+        let reg = /^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){10,14}(\s*)?$/;
+        return reg.test(obj);
     }
 
     validateNumbers(obj) {
@@ -33,7 +33,7 @@ class Validation {
         let reg = /[A-Za-zA-Яа-яЁё]/;
         return reg.test(String(obj).toLowerCase());
     }
-    //
+
     validateSumCount(str, count) {
         if (str.length > count)
             return false;
@@ -41,31 +41,79 @@ class Validation {
     }
 
     validateSingUp(obj) {
-        //true - ошибка
-        // false - Хорошо
-    // Проверка на пустоту
-    // Проверка на корректность
-        /// name surname patronymic
+        //true - error
+        // false - good
+
         if (this.validateNull(obj)) {
-            return { msg: "Заполните поля", result: false }
+            return { msg: "Заполните поля", result: true }
         }
 
         for(let i in obj) {
-            console.log(obj.i)
+
             switch (i) {
-                case "email":
-                    if (this.validateEmail(i)) {
 
-                    }
-                break;
-                case "name": {
-                    if (this.validateSumCount(obj.i, 20)) {
-
-                    }
+                case "email":{
+                    if (!this.validateEmail(obj.i))
+                        return {msg: "Некорректный email", result: true}
+                    if (!this.validateSumCount(obj.i, 50))
+                        return {msg: "Превышено колличество символов email", result: true}
+                    break;
                 }
+
+                case "name": {
+                    if (!this.validateLetters(obj.i))
+                        return {msg: "Имя может состоять только из букв латинского и русского алфавитов", result: true}
+                    if (this.validateSumCount(obj.i, 20))
+                        return{msg: "Превышено колличество символов name", result: true}
+                    break;
+                }
+
+                case "surname":{
+                    if (this.validateLetters(obj.i))
+                        return {msg: "Фамилия может состоять только из букв латинского и русского алфавитов", result: true}
+                    if (this.validateSumCount(obj.i, 20))
+                        return{msg: "Превышено колличество символов surname", result: true}
+                    break;
+                }
+
+                case "patronymic":{
+                    if (this.validateLetters(obj.i))
+                        return {msg: "Фамилия может состоять только из букв латинского и русского алфавитов", result: true}
+                    if (this.validateSumCount(obj.i, 20))
+                        return{msg: "Превышено колличество символов surname", result: true}
+                    break;
+                }
+
+                case "telephone":{
+                    if (this.validateLetters(obj.i))
+                        return {msg: "Фамилия может состоять только из букв латинского и русского алфавитов", result: true}
+                    if (this.validateSumCount(obj.i, 20))
+                        return{msg: "Превышено колличество символов surname", result: true}
+                    break;
+                }
+
+                /*case "passport":{
+                    if (this.validateLetters(obj.i))
+                        return {msg: "Фамилия может состоять только из букв латинского и русского алфавитов", result: true}
+                    if (this.validateSumCount(obj.i, 20))
+                        return{msg: "Превышено колличество символов surname", result: true}
+                    break;
+                }
+
+                case "address":{
+                    if (this.validateLetters(obj.i))
+                        return {msg: "Фамилия может состоять только из букв латинского и русского алфавитов", result: true}
+                    if (this.validateSumCount(obj.i, 20))
+                        return{msg: "Превышено колличество символов surname", result: true}
+                    break;
+                }*/
+
             }
         }
+
+        return {msg: "", result: false}
     }
+
 
 }
 
