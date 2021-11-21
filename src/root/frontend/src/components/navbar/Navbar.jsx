@@ -10,6 +10,8 @@ import register from "../../assets/voting.png";
 import exit from "../../assets/exit.png";
 import user from "../../assets/user.png";
 import map from "../../assets/map.png";
+import info from "../../assets/info.png";
+
 
 const Navbar = (props) => {
     return (
@@ -36,6 +38,12 @@ const Navbar = (props) => {
                 <Link to={"/map"} className="menu-link">
                     <img className="svg-icon" src={map} alt="Fit-Style"/>
                     <span className="menu-link-name">Карта</span>
+                </Link>
+            </div>
+            <div className="menu-user">
+                <Link to={"/info"} className="menu-link">
+                    <img className="svg-icon" src={info} alt="Fit-Style"/>
+                    <span className="menu-link-name">О нас</span>
                 </Link>
             </div>
             { props.isAdmin && (
