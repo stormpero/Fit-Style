@@ -13,12 +13,18 @@ class Validation {
         return reg.test(String(obj).toLowerCase());
     }
 
-    validatePhone(obj){
+    validatePhone(obj) {
         //Should work for different countries
         let regex = /^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){10,14}(\s*)?$/;
         return regex.test(obj);
     }
 
+    validateNumbers(obj) {
+        let reg = /[0-9]/;
+        return reg.test(String(obj).toLowerCase());
+    }
+
+    
 
 }
 
