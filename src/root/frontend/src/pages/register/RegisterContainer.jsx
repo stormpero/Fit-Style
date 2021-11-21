@@ -3,7 +3,6 @@ import React, { Component } from "react";
 import Register from "./Register";
 
 import AuthService from "../../services/api/AuthService";
-import isEmpty from "validator/es/lib/isEmpty";
 import Validation from "../../services/utils/Validation";
 
 export default class RegisterContainer extends Component {
@@ -23,7 +22,6 @@ export default class RegisterContainer extends Component {
             address: "",
             imageData: null
         },
-        successful: false,
         message: ""
     }
 
@@ -74,11 +72,11 @@ export default class RegisterContainer extends Component {
                 message: "Всё Хорошо!",
             });
         }
-        return;
 
         //TODO: Проверить данные на ошибки + на пустоту
         AuthService.register(this.state.userInfo).then(
             (response) => {
+                let msg = response.data.message === 'User registered successfully!' ? 'Пользователь успешно зарегистрирован' : "-_-";
                 this.setState({
                     userInfo: {
                         email: "",
@@ -93,17 +91,15 @@ export default class RegisterContainer extends Component {
                         passport: "",
                         address: ""
                     },
-                    message: response.data.message,
-                    successful: true
+                    message: msg
                 });
             }).catch((error)=> {
-            let errorMsg =  error.response?.data?.message || error.message;
+                let errorMsg = error.response.data.errorCode === 1 ? 'Ошибка. Пользователь с таким Email уже существует!' : 'Ошибка';
 
-            this.setState({
-                successful: false,
-                message: errorMsg
+                this.setState({
+                    message: errorMsg
+                });
             });
-        });
     }
 
     render() {
