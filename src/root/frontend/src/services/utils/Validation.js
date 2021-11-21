@@ -1,5 +1,5 @@
 class Validation {
-    validIsNull(obj) {
+    validateNull(obj) {
         for (let i in obj) {
             if (obj.hasOwnProperty(i)) {
                 return true;
@@ -13,6 +13,11 @@ class Validation {
         return reg.test(String(obj).toLowerCase());
     }
 
+    validatePhone(obj){
+        //Should work for different countries
+        let regex = /^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){10,14}(\s*)?$/;
+        return regex.test(obj);
+    }
 
 
 }
