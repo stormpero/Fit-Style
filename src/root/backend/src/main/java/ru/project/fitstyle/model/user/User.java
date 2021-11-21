@@ -23,6 +23,21 @@ public class User {
     @Column(name = "id")
     private Long id;
 
+    @NotBlank(message = "email should not be blank")
+    @Size(max = 50, message = "email should be less or equal than 50 chars")
+    @Email(message = "email should have syntax like: email@email.com ")
+    @Column(name = "email")
+    private String email;
+
+
+
+    @NotBlank(message = "password should not be blank")
+    @Size(max = 120, message = "password should be less or equal than 120 chars")
+    @Column(name = "password")
+    private String password;
+
+
+
     @NotBlank(message = "name should not be blank")
     @Size(max = 20, message = "name size should be less or equal than 20 chars")
     @Column(name = "name")
@@ -33,22 +48,12 @@ public class User {
     @Column(name = "surname")
     private String surname;
 
-
     @NotBlank(message = "patronymic should not be blank")
     @Size(max = 20, message = "patronymic should be less or equal than 20 chars")
     @Column(name = "patronymic")
     private String patronymic;
 
-    @NotBlank(message = "email should not be blank")
-    @Size(max = 50, message = "email should be less or equal than 50 chars")
-    @Email(message = "email should have syntax like: email@email.com ")
-    @Column(name = "email")
-    private String email;
 
-    @NotBlank(message = "password should not be blank")
-    @Size(max = 120, message = "password should be less or equal than 120 chars")
-    @Column(name = "password")
-    private String password;
 
     @NotBlank(message = "age should not be blank")
     @Size(max = 3, message = "age should be less or equal than 3 chars")
@@ -78,6 +83,8 @@ public class User {
     @Column(name = "address")
     private String address;
 
+
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(	name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -93,6 +100,8 @@ public class User {
     @OneToOne(fetch = FetchType.LAZY)
     @PrimaryKeyJoinColumn//(name = "subscription_id")
     private Subscription subscription;
+
+
 
     public User() {
     }
@@ -130,6 +139,26 @@ public class User {
         this.id = id;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+
+
     public String getName() {
         return name;
     }
@@ -154,21 +183,8 @@ public class User {
         this.patronymic = patronymic;
     }
 
-    public String getEmail() {
-        return email;
-    }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
     public String getAge() {
         return age;
     }

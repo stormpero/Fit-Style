@@ -17,7 +17,7 @@
     <maven.compiler.source>1.7</maven.compiler.source>
     <maven.compiler.target>1.7</maven.compiler.target>
 
-    <springframework.boot.version>2.5.7</springframework.boot.version>
+    <springframework.boot.version>2.5.5</springframework.boot.version>
     <io.jsonwebtoken>0.11.2</io.jsonwebtoken>
   </properties>
 
