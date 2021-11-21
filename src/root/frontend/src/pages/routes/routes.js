@@ -1,12 +1,14 @@
 import RegisterContainer from "../register/RegisterContainer";
 import ProfileContainer from "../profile/ProfileContainer";
 import UserContent from "../../components/UserContent";
+import MapContainer from "../map/MapContainer";
 import {NewsBoard} from "../news/NewsBoard";
 import {
     URL_NEWS,
     URL_PROFILE,
     URL_REGISTER,
-    URL_USER
+    URL_USER,
+    URL_MAP
 } from "../../services/utils/consts/urlsPages";
 
 export const routes = [
@@ -23,6 +25,11 @@ export const routes = [
     {
         path: URL_USER,
         Component: UserContent,
+        reqRole: "ROLE_USER"
+    },
+    {
+        path: URL_MAP,
+        Component: MapContainer,
         reqRole: "ROLE_USER"
     },
     {
