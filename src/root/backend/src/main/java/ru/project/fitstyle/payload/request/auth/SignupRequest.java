@@ -51,7 +51,7 @@ public class SignupRequest {
     private String passport;
 
     @NotBlank(message = "address should not be blank")
-    @Size(max = 40, message = "address should be less or equal than 40 chars")
+    @Size(max = 150, message = "address should be less or equal than 150 chars")
     private String address;
 
     private Set<String> roles;
