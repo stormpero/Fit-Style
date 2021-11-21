@@ -39,13 +39,15 @@
 }
 
 .grid-wrapper {
+    background: gray;
     display: grid;
     width: 1000px;
-    grid-gap: 4px;
+    grid-gap: 5px;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     grid-auto-rows: 200px;
     grid-auto-flow: dense;
     margin-bottom: 10px;
+    border: 6px solid gray;
 }
 .grid-wrapper .wide {
     grid-column: span 2;
@@ -69,16 +71,16 @@
     opacity: 0;
 }
 .right{
-    border-right: white solid 6px;
+    border-right: #fff solid 4px;
 }
 .bottom{
-    border-bottom: white solid 6px;
+    border-bottom: #fff solid 4px;
 }
 .left{
-    border-left: white solid 6px;
+    border-left: #fff solid 4px;
 }
 .top{
-    border-top: white solid 6px;
+    border-top: #fff solid 4px;
 }
 .help{
     margin-bottom: 10px;

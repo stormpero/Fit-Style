@@ -148,6 +148,15 @@ const Register = (props) => {
                             count={5}
                         />
                     </div>
+                    <div className="form-group">
+                        <label htmlFor="img">Фотография</label>
+                        <input className="form-control mb-2"
+                               required
+                               name="img"
+                               type="file"
+                               onChange={props.handleFunc.inputImg}
+                        />
+                    </div>
                     <br/>
                     <div className="form-group d-flex justify-content-between">
                         <button className="btn btn-primary btn-block"

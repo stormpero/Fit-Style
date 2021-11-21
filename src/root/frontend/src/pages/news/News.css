@@ -28,6 +28,7 @@
     -ms-align-items: center;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
 }
 .content-news-text{
     padding: 1rem;
