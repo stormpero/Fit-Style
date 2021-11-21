@@ -12,6 +12,7 @@ export const NewsBoard = () => {
     const isAdmin = LStorageUser.getUser().roles.includes("ROLE_MODERATOR");
 
     const [modalActive, setModalActive] = useState(false);
+    const [deleteActive, setDeleteActive] = useState(false);
 
     const [rowNews, setRowNews] = useState([]);
     const [rowNum, setRowNum] = useState(1);
@@ -27,20 +28,36 @@ export const NewsBoard = () => {
                     setRowNews(prevNews => prevNews.concat(rowNewsData))
                 },
                 error => {
-                    if (error.response.data.statusCode === 400 &&
-                        error.response.data.message === "Failed. Page not found!") {
-                        setHasNews(false);
+                    setHasNews(false);
+                    if (error?.response?.data?.statusCode === 400 &&
+                        error.response.data?.message === "Failed. Page not found!") {
                     }
                 }
             )}
         loadNews();
     },[rowNum])
 
+    const deleteNews = (id) => {
+        NewsService.deleteNews(id).then(
+            response => {
+                window.location.reload()
+            },
+            error => {
+                console.log(error.response)
+            }
+        )
+    }
+
     return(
         <div className="d-flex justify-content-center">
             <div className="news-board">
-                {isAdmin && <button className="btn-primary" onClick={() => setModalActive(true)}>Добавить Новость</button>}
-                {rowNews && rowNews.map((param, index) => <NewsRow key={index} news={param}/>)}
+                {isAdmin &&
+                <div>
+                    <button className="btn-primary" onClick={() => setModalActive(true)}>Добавить Новость</button>
+                    <button className={deleteActive ? 'btn-primary' : 'btn-darkgi'} onClick={() => setDeleteActive((prev) => !prev)}>Режим удаления</button>
+                </div>
+                }
+                {rowNews && rowNews.map((param, index) => <NewsRow key={index} news={param} delete={deleteNews} deleteMode={deleteActive}/>)}
                 {hasNews && <button className="btn-primary" onClick={() => setRowNum(rowNum + 1)}>Ещё</button> }
             </div>
             { isAdmin &&
