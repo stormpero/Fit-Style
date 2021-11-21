@@ -24,7 +24,13 @@ class Validation {
         return reg.test(String(obj).toLowerCase());
     }
 
-    
+    validateLetters(obj) {
+        //Works for English and Russian lang
+        let reg = /[A-Za-zA-Яа-яЁё]/;
+        return reg.test(String(obj).toLowerCase());
+    }
+
+
 
 }
 
