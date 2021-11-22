@@ -3,7 +3,7 @@ package ru.project.fitstyle.model.training;
 import ru.project.fitstyle.model.user.FitUser;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 
 @Entity
 @Table(	name = "personal_training")

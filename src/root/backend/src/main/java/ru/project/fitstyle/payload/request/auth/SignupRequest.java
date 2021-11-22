@@ -1,8 +1,6 @@
 package ru.project.fitstyle.payload.request.auth;
 
-import ru.project.fitstyle.model.subscription.SubscriptionType;
-
-import java.sql.Date;
+import java.util.Date;
 import java.util.Set;
 
 import javax.validation.constraints.*;
@@ -52,10 +50,11 @@ public class SignupRequest {
     @Size(min = 5, max = 40, message = "address should be more or equal than 5 and less or equal than 40 characters")
     private String address;
 
-    private SubscriptionType subscriptionType;
-
     private Set<String> roles;
 
+    private Long subscriptionTypeId;
+
+    private String contractNumber;
 
 
     public String getName() {
@@ -146,19 +145,27 @@ public class SignupRequest {
         this.address = address;
     }
 
-    public SubscriptionType getSubscriptionType() {
-        return subscriptionType;
-    }
-
-    public void setSubscriptionType(SubscriptionType subscriptionType) {
-        this.subscriptionType = subscriptionType;
-    }
-
     public Set<String> getRoles() {
       return this.roles;
     }
     
     public void setRoles(Set<String> roles) {
       this.roles = roles;
+    }
+
+    public Long getSubscriptionTypeId() {
+        return subscriptionTypeId;
+    }
+
+    public void setSubscriptionTypeId(Long subscriptionTypeId) {
+        this.subscriptionTypeId = subscriptionTypeId;
+    }
+
+    public String getContractNumber() {
+        return contractNumber;
+    }
+
+    public void setContractNumber(String contractNumber) {
+        this.contractNumber = contractNumber;
     }
 }

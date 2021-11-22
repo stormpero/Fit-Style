@@ -1,10 +1,9 @@
 package ru.project.fitstyle.payload.response.profile;
 
 import ru.project.fitstyle.model.subscription.ESubsPlacementTime;
-import ru.project.fitstyle.model.subscription.Subscription;
 import ru.project.fitstyle.model.user.FitUser;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class UserProfileResponse {
 
@@ -28,11 +27,11 @@ public class UserProfileResponse {
 
     private final String address;
 
-    private final Date validity;
+    private final Date subscriptionValidity;
 
-    private final ESubsPlacementTime subsPlacementTime;
+    private final ESubsPlacementTime subscriptionPlacementTime;
 
-    private final String cost;
+    private final String subscriptionCost;
 
     public UserProfileResponse(
                                String name,
@@ -45,9 +44,9 @@ public class UserProfileResponse {
                                String telephone,
                                String passport,
                                String address,
-                               ESubsPlacementTime subsPlacementTime,
-                               Date validity,
-                               String cost) {
+                               ESubsPlacementTime subscriptionPlacementTime,
+                               Date subscriptionValidity,
+                               String subscriptionCost) {
         this.name = name;
         this.surname = surname;
         this.patronymic = patronymic;
@@ -58,9 +57,9 @@ public class UserProfileResponse {
         this.telephone = telephone;
         this.passport = passport;
         this.address = address;
-        this.subsPlacementTime = subsPlacementTime;
-        this.validity = validity;
-        this.cost = cost;
+        this.subscriptionPlacementTime = subscriptionPlacementTime;
+        this.subscriptionValidity = subscriptionValidity;
+        this.subscriptionCost = subscriptionCost;
     }
 
     public UserProfileResponse(FitUser fitUser) {
@@ -75,14 +74,14 @@ public class UserProfileResponse {
         this.passport = fitUser.getPassport();
         this.address = fitUser.getAddress();
         if(fitUser.getSubscription() != null) {
-            this.subsPlacementTime = fitUser.getSubscription().getSubscriptionType().getPlacementTime();
-            this.validity = fitUser.getSubscription().getSubscriptionType().getValidity();
-            this.cost = fitUser.getSubscription().getSubscriptionType().getCost();
+            this.subscriptionPlacementTime = fitUser.getSubscription().getSubscriptionType().getPlacementTime();
+            this.subscriptionValidity = fitUser.getSubscription().getSubscriptionType().getValidity();
+            this.subscriptionCost = fitUser.getSubscription().getSubscriptionType().getCost();
         }
         else {
-            this.subsPlacementTime = null;
-            this.validity = null;
-            this.cost = null;
+            this.subscriptionPlacementTime = null;
+            this.subscriptionValidity = null;
+            this.subscriptionCost = null;
         }
     }
 
@@ -126,15 +125,15 @@ public class UserProfileResponse {
         return address;
     }
 
-    public Date getValidity() {
-        return validity;
+    public Date getSubscriptionValidity() {
+        return subscriptionValidity;
     }
 
-    public ESubsPlacementTime getSubsPlacementTime() {
-        return subsPlacementTime;
+    public ESubsPlacementTime getSubscriptionPlacementTime() {
+        return subscriptionPlacementTime;
     }
 
-    public String getCost() {
-        return cost;
+    public String getSubscriptionCost() {
+        return subscriptionCost;
     }
 }

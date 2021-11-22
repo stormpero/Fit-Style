@@ -4,7 +4,7 @@ import ru.project.fitstyle.model.subscription.Subscription;
 import ru.project.fitstyle.model.training.GroupTraining;
 import ru.project.fitstyle.model.training.PersonalTraining;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -89,7 +89,7 @@ public class FitUser {
     @OneToMany(mappedBy = "fitUser", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Set<PersonalTraining> personalTrainings = new HashSet<>();
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.REMOVE, CascadeType.PERSIST})
     @PrimaryKeyJoinColumn
     private Subscription subscription;
 

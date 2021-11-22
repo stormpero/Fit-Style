@@ -3,6 +3,7 @@ package ru.project.fitstyle.payload.response.news;
 import ru.project.fitstyle.model.news.News;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 public class NewsShowResponse {
 
@@ -10,7 +11,7 @@ public class NewsShowResponse {
 
     private final String content;
 
-    private final Timestamp dateTime;
+    private final Date dateTime;
 
     private final String imgURL;
 
@@ -36,7 +37,7 @@ public class NewsShowResponse {
         return content;
     }
 
-    public Timestamp getDateTime() {
+    public Date getDateTime() {
         return dateTime;
     }
 

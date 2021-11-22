@@ -2,7 +2,7 @@ package ru.project.fitstyle.payload.request.news;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.sql.Timestamp;
+import java.util.Date;
 
 public class AddEditNewsRequest {
     @NotBlank(message = "header should not be blank")
@@ -13,13 +13,13 @@ public class AddEditNewsRequest {
     @Size(max = 1500, message = "content size should be less or equal then 500 chars")
     private String content;
 
-    private Timestamp dateTime;
+    private Date dateTime;
 
     @NotBlank(message = "imgURL should not be blank")
     @Size(min=1, max = 100, message = "imgURL should be more or equal than 1 and less or equal than 100 characters")
     private String imgURL;
 
-    public AddEditNewsRequest(String header, String content, Timestamp dateTime, String imgURL) {
+    public AddEditNewsRequest(String header, String content, Date dateTime, String imgURL) {
         this.header = header;
         this.content = content;
         this.dateTime = dateTime;
@@ -45,11 +45,11 @@ public class AddEditNewsRequest {
         this.content = content;
     }
 
-    public Timestamp getDateTime() {
+    public Date getDateTime() {
         return dateTime;
     }
 
-    public void setDateTime(Timestamp dateTime) {
+    public void setDateTime(Date dateTime) {
         this.dateTime = dateTime;
     }
 

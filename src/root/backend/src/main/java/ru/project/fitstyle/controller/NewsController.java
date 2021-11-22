@@ -15,7 +15,7 @@ import ru.project.fitstyle.payload.request.news.AddEditNewsRequest;
 import ru.project.fitstyle.payload.response.news.NewsInfoResponse;
 import ru.project.fitstyle.payload.response.news.NewsShowPageResponse;
 import ru.project.fitstyle.payload.response.news.NewsShowResponse;
-import ru.project.fitstyle.payload.message.SuccessMessage;
+import ru.project.fitstyle.payload.responsemessage.SuccessMessage;
 import ru.project.fitstyle.repository.NewsRepository;
 
 import javax.validation.Valid;

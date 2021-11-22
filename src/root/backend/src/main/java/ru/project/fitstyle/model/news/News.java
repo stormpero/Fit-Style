@@ -1,9 +1,7 @@
 package ru.project.fitstyle.model.news;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.util.Date;
 
 @Entity
 @Table(name = "news")
@@ -28,7 +26,8 @@ public class News {
     //@CreatedDate
     @Column(name = "date_time",
             nullable = false)
-    private Timestamp dateTime;
+    private Date dateTime;
+
 
     @Column(name = "img_URL", length = 100,
             nullable = false)
@@ -37,7 +36,7 @@ public class News {
     public News() {
     }
 
-    public News(String header, String content, Timestamp dateTime, String imgURL) {
+    public News(String header, String content, Date dateTime, String imgURL) {
         this.header = header;
         this.content = content;
         this.dateTime=dateTime;
@@ -69,11 +68,11 @@ public class News {
         this.content = content;
     }
 
-    public java.sql.Timestamp getDateTime() {
+    public Date getDateTime() {
         return dateTime;
     }
 
-    public void setDateTime(java.sql.Timestamp dateTime) {
+    public void setDateTime(Date dateTime) {
         this.dateTime = dateTime;
     }
 

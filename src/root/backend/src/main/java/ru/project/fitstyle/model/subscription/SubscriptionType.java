@@ -1,10 +1,7 @@
 package ru.project.fitstyle.model.subscription;
 
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -16,7 +13,6 @@ public class SubscriptionType {
             nullable = false, updatable = false, unique = true)
     private Long id;
 
-    @JsonIgnore
     @Column(name = "validity",
             nullable = false)
     private Date validity;

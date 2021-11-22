@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import ru.project.fitstyle.exception.subscriptionType.SubscriptionTypeException;
-import ru.project.fitstyle.payload.message.ErrorMessage;
+import ru.project.fitstyle.payload.responsemessage.ErrorMessage;
 
 import java.util.Date;
 

@@ -15,9 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import ru.project.fitstyle.exception.auth.email.EEmailError;
@@ -26,6 +24,10 @@ import ru.project.fitstyle.exception.auth.role.ERoleError;
 import ru.project.fitstyle.exception.auth.role.RoleException;
 import ru.project.fitstyle.exception.auth.refresh.ERefreshTokenError;
 import ru.project.fitstyle.exception.auth.refresh.RefreshTokenException;
+import ru.project.fitstyle.exception.auth.subType.ESubTypeError;
+import ru.project.fitstyle.exception.auth.subType.SubTypeException;
+import ru.project.fitstyle.model.subscription.Subscription;
+import ru.project.fitstyle.model.subscription.SubscriptionType;
 import ru.project.fitstyle.model.user.ERole;
 import ru.project.fitstyle.model.user.RefreshToken;
 import ru.project.fitstyle.model.user.Role;
@@ -34,8 +36,9 @@ import ru.project.fitstyle.payload.request.auth.LoginRequest;
 import ru.project.fitstyle.payload.request.auth.SignupRequest;
 import ru.project.fitstyle.payload.response.auth.LoginResponse;
 import ru.project.fitstyle.payload.response.auth.RefreshTokenResponse;
-import ru.project.fitstyle.payload.message.SuccessMessage;
+import ru.project.fitstyle.payload.responsemessage.SuccessMessage;
 import ru.project.fitstyle.repository.RoleRepository;
+import ru.project.fitstyle.repository.SubscriptionTypeRepository;
 import ru.project.fitstyle.repository.UserRepository;
 import ru.project.fitstyle.service.AuthService;
 import ru.project.fitstyle.service.token.AccessTokenService;
@@ -55,6 +58,8 @@ public class AuthController {
 
     private final RoleRepository roleRepository;
 
+    private final SubscriptionTypeRepository subscriptionTypeRepository;
+
     private final PasswordEncoder encoder;
 
     private final AccessTokenService accessTokenService;
@@ -68,7 +73,8 @@ public class AuthController {
     @Autowired
     public AuthController(AuthenticationManager authenticationManager, UserRepository userRepository,
                           RoleRepository roleRepository, PasswordEncoder encoder, AccessTokenService accessTokenService,
-                          RefreshTokenService refreshTokenService, CookieService cookieService, AuthService authService) {
+                          RefreshTokenService refreshTokenService, CookieService cookieService, AuthService authService,
+                          SubscriptionTypeRepository subscriptionTypeRepository) {
         this.authenticationManager = authenticationManager;
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
@@ -77,6 +83,7 @@ public class AuthController {
         this.refreshTokenService = refreshTokenService;
         this.cookieService = cookieService;
         this.authService = authService;
+        this.subscriptionTypeRepository = subscriptionTypeRepository;
     }
 
     @PostMapping("/signin")
@@ -148,7 +155,20 @@ public class AuthController {
                 .orElseThrow(() -> new RoleException(ERoleError.NOT_FOUND));
         roles.add(userRole);
 
+        SubscriptionType subscriptionType = subscriptionTypeRepository.findById(signUpRequest.getSubscriptionTypeId())
+                .orElseThrow(() -> new SubTypeException(ESubTypeError.NOT_FOUND));
+
+        Subscription subscription = new Subscription();
+        Date beginDate = new Date(new Date().getTime());
+        Date endDate = new Date(beginDate.getTime() + subscription.getSubscriptionType().getValidity().getTime());
+        subscription.setBeginDate(beginDate);
+        subscription.setEndDate(endDate);
+        subscription.setSubscriptionType(subscriptionType);
+        subscription.setContractNumber(signUpRequest.getContractNumber());
+
         fitUser.setRoles(roles);
+        fitUser.setSubscription(subscription);
+
         userRepository.save(fitUser);
 
         return ResponseEntity.ok(
