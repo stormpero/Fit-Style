@@ -12,7 +12,13 @@
     padding-left: 0px;
     margin-right: 1.2rem;
     margin-left: 1.2rem;
-    transition: 0.5s ease-in;
+    transition: 0.5s all ease-in;
+    max-width: 30%;
+}
+.block-news:hover{
+    max-width: 40%;
+    height: 26rem;
+    width: 31rem;
 }
 .content-news {
     border-radius: 30px;
@@ -41,10 +47,7 @@
     padding-top: 0.8rem;
     padding-bottom: 0.8rem;
 }
-.block-news:hover{
-    height: 26rem;
-    width: 31rem;
-}
+
 .block-news:hover .content-news {
     opacity: 1;
     transition: 0.6s all ease-in;
