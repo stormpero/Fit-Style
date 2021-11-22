@@ -1,6 +1,6 @@
 package ru.project.fitstyle.exception.profile;
 
-public class ProfileException extends RuntimeException{
+public class ProfileException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
 

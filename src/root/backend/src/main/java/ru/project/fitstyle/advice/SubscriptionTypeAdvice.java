@@ -5,22 +5,23 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
+import ru.project.fitstyle.exception.subscriptionType.SubscriptionTypeException;
 import ru.project.fitstyle.payload.message.ErrorMessage;
-import ru.project.fitstyle.exception.profile.ProfileException;
 
 import java.util.Date;
 
 @RestControllerAdvice
-public class ProfileControllerAdvice {
+public class SubscriptionTypeAdvice {
 
-    @ExceptionHandler(value = ProfileException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorMessage handleProfileException(ProfileException ex, WebRequest request) {
+    @ExceptionHandler(value = SubscriptionTypeException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorMessage handleProfileException(SubscriptionTypeException ex, WebRequest request) {
         return new ErrorMessage(
-                HttpStatus.BAD_REQUEST.value(),
+                HttpStatus.NOT_FOUND.value(),
                 new Date(),
                 ex.getMessage(),
                 ex.getErrorCode(),
                 request.getDescription(false));
     }
 }
+

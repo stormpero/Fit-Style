@@ -1,6 +1,6 @@
 package ru.project.fitstyle.exception.news.page;
 
-public class NewsPageException extends RuntimeException{
+public class NewsPageException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
 
