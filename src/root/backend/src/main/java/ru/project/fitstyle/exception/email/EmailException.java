@@ -1,4 +1,4 @@
-package ru.project.fitstyle.exception.auth.email;
+package ru.project.fitstyle.exception.email;
 
 public class EmailException extends RuntimeException{
 

@@ -5,11 +5,12 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
-import ru.project.fitstyle.exception.auth.subType.SubTypeException;
+import ru.project.fitstyle.exception.subscriptionType.SubscriptionTypeException;
+import ru.project.fitstyle.model.subscription.SubscriptionType;
 import ru.project.fitstyle.payload.responsemessage.ErrorMessage;
-import ru.project.fitstyle.exception.auth.email.EmailException;
-import ru.project.fitstyle.exception.auth.role.RoleException;
-import ru.project.fitstyle.exception.auth.refresh.RefreshTokenException;
+import ru.project.fitstyle.exception.email.EmailException;
+import ru.project.fitstyle.exception.role.RoleException;
+import ru.project.fitstyle.exception.refresh.RefreshTokenException;
 
 import java.util.Date;
 
@@ -27,7 +28,7 @@ public class AuthControllerAdvice {
                 request.getDescription(false));
     }
 
-    @ExceptionHandler(value = {RoleException.class, EmailException.class, SubTypeException.class})
+    @ExceptionHandler(value = {RoleException.class, EmailException.class, SubscriptionTypeException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorMessage handleRoleException(RoleException ex, WebRequest request) {
         return new ErrorMessage(

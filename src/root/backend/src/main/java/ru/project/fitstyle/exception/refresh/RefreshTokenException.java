@@ -1,4 +1,4 @@
-package ru.project.fitstyle.exception.auth.refresh;
+package ru.project.fitstyle.exception.refresh;
 
 public class RefreshTokenException extends RuntimeException {
 

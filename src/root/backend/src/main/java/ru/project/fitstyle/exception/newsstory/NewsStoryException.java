@@ -1,4 +1,4 @@
-package ru.project.fitstyle.exception.news.story;
+package ru.project.fitstyle.exception.newsstory;
 
 public class NewsStoryException extends RuntimeException {
 

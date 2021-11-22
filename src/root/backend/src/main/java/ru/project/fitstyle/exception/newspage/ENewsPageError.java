@@ -1,12 +1,13 @@
-package ru.project.fitstyle.exception.auth.subType;
+package ru.project.fitstyle.exception.newspage;
 
-public enum ESubTypeError {
-    NOT_FOUND(1, "SubscriptionType not found!");
+public enum ENewsPageError {
+    LESS_THAN_ZERO(1, "Page number cannot be less than zero!"),
+    OVER(2, "Page not found!");
 
     private final int code;
     private final String message;
 
-    ESubTypeError(int code, String message)
+    ENewsPageError(int code, String message)
     {
         this.code = code;
         this.message = message;

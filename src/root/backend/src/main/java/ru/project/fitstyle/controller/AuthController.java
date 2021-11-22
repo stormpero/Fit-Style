@@ -2,7 +2,6 @@ package ru.project.fitstyle.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.GrantedAuthority;
@@ -21,15 +20,14 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import org.springframework.web.multipart.MultipartFile;
-import ru.project.fitstyle.config.properties.cookie.RefreshTokenCookieProperties;
-import ru.project.fitstyle.exception.auth.email.EEmailError;
-import ru.project.fitstyle.exception.auth.email.EmailException;
-import ru.project.fitstyle.exception.auth.role.ERoleError;
-import ru.project.fitstyle.exception.auth.role.RoleException;
-import ru.project.fitstyle.exception.auth.refresh.ERefreshTokenError;
-import ru.project.fitstyle.exception.auth.refresh.RefreshTokenException;
-import ru.project.fitstyle.exception.auth.subType.ESubTypeError;
-import ru.project.fitstyle.exception.auth.subType.SubTypeException;
+import ru.project.fitstyle.exception.email.EEmailError;
+import ru.project.fitstyle.exception.email.EmailException;
+import ru.project.fitstyle.exception.role.ERoleError;
+import ru.project.fitstyle.exception.role.RoleException;
+import ru.project.fitstyle.exception.refresh.ERefreshTokenError;
+import ru.project.fitstyle.exception.refresh.RefreshTokenException;
+import ru.project.fitstyle.exception.subscriptionType.ESubscriptionTypeError;
+import ru.project.fitstyle.exception.subscriptionType.SubscriptionTypeException;
 import ru.project.fitstyle.model.subscription.Subscription;
 import ru.project.fitstyle.model.subscription.SubscriptionType;
 import ru.project.fitstyle.model.user.ERole;
@@ -47,8 +45,6 @@ import ru.project.fitstyle.repository.SubscriptionTypeRepository;
 import ru.project.fitstyle.repository.UserRepository;
 import ru.project.fitstyle.service.auth.AuthService;
 import ru.project.fitstyle.service.cookie.CookieService;
-import ru.project.fitstyle.service.token.AccessTokenService;
-import ru.project.fitstyle.service.token.RefreshTokenService;
 import ru.project.fitstyle.service.token.TokenService;
 import ru.project.fitstyle.service.user.UserDetailsImpl;
 
@@ -170,7 +166,7 @@ public class AuthController {
         roles.add(userRole);
 
         SubscriptionType subscriptionType = subscriptionTypeRepository.findById(signUpRequest.getSubscriptionTypeId())
-                .orElseThrow(() -> new SubTypeException(ESubTypeError.NOT_FOUND));
+                .orElseThrow(() -> new SubscriptionTypeException(ESubscriptionTypeError.NOT_FOUND));
 
         Subscription subscription = new Subscription();
         Date beginDate = new Date(new Date().getTime());

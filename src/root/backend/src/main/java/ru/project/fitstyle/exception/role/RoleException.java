@@ -1,4 +1,4 @@
-package ru.project.fitstyle.exception.auth.role;
+package ru.project.fitstyle.exception.role;
 
 public class RoleException extends RuntimeException{
 

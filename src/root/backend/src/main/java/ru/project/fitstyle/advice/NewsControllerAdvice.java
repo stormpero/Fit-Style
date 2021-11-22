@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import ru.project.fitstyle.payload.responsemessage.ErrorMessage;
-import ru.project.fitstyle.exception.news.page.NewsPageException;
-import ru.project.fitstyle.exception.news.story.NewsStoryException;
+import ru.project.fitstyle.exception.newspage.NewsPageException;
+import ru.project.fitstyle.exception.newsstory.NewsStoryException;
 
 import java.util.Date;
 

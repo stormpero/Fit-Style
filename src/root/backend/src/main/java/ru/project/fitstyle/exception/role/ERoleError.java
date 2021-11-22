@@ -1,13 +1,12 @@
-package ru.project.fitstyle.exception.news.page;
+package ru.project.fitstyle.exception.role;
 
-public enum ENewsPageError {
-    LESS_THAN_ZERO(1, "Page number cannot be less than zero!"),
-    OVER(2, "Page not found!");
+public enum ERoleError {
+    NOT_FOUND(1, "Role not found!");
 
     private final int code;
     private final String message;
 
-    ENewsPageError(int code, String message)
+    ERoleError(int code, String message)
     {
         this.code = code;
         this.message = message;

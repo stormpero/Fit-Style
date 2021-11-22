@@ -1,7 +1,8 @@
 package ru.project.fitstyle.exception.subscriptionType;
 
 public enum ESubscriptionTypeError {
-    NOTHING(1, "There are no SubscriptionTypes!");
+    NOTHING(1, "There are no SubscriptionTypes!"),
+    NOT_FOUND(2, "SubscriptionType not found!");
 
     private final int code;
     private final String message;

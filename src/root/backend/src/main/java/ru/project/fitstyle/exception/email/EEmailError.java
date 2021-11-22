@@ -1,12 +1,12 @@
-package ru.project.fitstyle.exception.news.story;
+package ru.project.fitstyle.exception.email;
 
-public enum ENewsStoryError {
-    NOT_FOUND(1, "News not found!");
+public enum EEmailError {
+    OCCUPIED(1, "Email is already in use!");
 
     private final int code;
     private final String message;
 
-    ENewsStoryError(int code, String message)
+    EEmailError(int code, String message)
     {
         this.code = code;
         this.message = message;

@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import ru.project.fitstyle.exception.auth.refresh.ERefreshTokenError;
-import ru.project.fitstyle.exception.auth.refresh.RefreshTokenException;
+import ru.project.fitstyle.exception.refresh.ERefreshTokenError;
+import ru.project.fitstyle.exception.refresh.RefreshTokenException;
 import ru.project.fitstyle.model.user.FitUser;
 import ru.project.fitstyle.repository.UserRepository;
 

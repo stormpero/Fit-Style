@@ -1,12 +1,13 @@
-package ru.project.fitstyle.exception.auth.email;
+package ru.project.fitstyle.exception.refresh;
 
-public enum EEmailError {
-    OCCUPIED(1, "Email is already in use!");
+public enum ERefreshTokenError {
+    NOT_FOUND(1, "Refresh token not found!"),
+    EXPIRED(2, "Refresh token was expired. Please make a new signin request");
 
     private final int code;
     private final String message;
 
-    EEmailError(int code, String message)
+    ERefreshTokenError(int code, String message)
     {
         this.code = code;
         this.message = message;

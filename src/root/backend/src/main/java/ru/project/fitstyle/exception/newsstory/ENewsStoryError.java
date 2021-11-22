@@ -1,12 +1,12 @@
-package ru.project.fitstyle.exception.auth.role;
+package ru.project.fitstyle.exception.newsstory;
 
-public enum ERoleError {
-    NOT_FOUND(1, "Role not found!");
+public enum ENewsStoryError {
+    NOT_FOUND(1, "News not found!");
 
     private final int code;
     private final String message;
 
-    ERoleError(int code, String message)
+    ENewsStoryError(int code, String message)
     {
         this.code = code;
         this.message = message;
