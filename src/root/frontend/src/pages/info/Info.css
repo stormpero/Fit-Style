@@ -43,6 +43,12 @@
     line-height: 26px;
 }
 
+.story-info{
+    width: 190px;
+    border-bottom: 2px solid white;
+
+}
+
 @media (max-width: 600px) {
     .episode__content {
         grid-template-columns: 1fr;

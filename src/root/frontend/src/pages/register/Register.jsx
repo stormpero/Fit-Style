@@ -9,7 +9,6 @@ import {DADATA_TOKEN} from "../../services/utils/consts/Dadata";
 const Register = (props) => {
     return (
         <div className="col-md-12">
-
             <div className="card card-container non-margin">
                 <h3 className="text-muted">Регистрация</h3>
                 <form>
@@ -171,6 +170,7 @@ const Register = (props) => {
                     )}
                 </form>
             </div>
+
         </div>
     );
 };
