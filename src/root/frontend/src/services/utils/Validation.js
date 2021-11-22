@@ -92,15 +92,15 @@ class Validation {
                 }
 
                 case "passport":{
-                    if (this.validateNumbers(obj[i]))
+                    if (!this.validateNumbers(obj[i]))
                         return {msg: "Паспорт должен состоять только из цифр", result: true}
-                    if (this.validateSumCount(obj[i], 16))
+                    if (!this.validateSumCount(obj[i], 16))
                         return{msg: "Превышено колличество символов в паспорте", result: true}
                     break;
                 }
 
                 case "address":{
-                    if (this.validateSumCount(obj[i], 150))
+                    if (!this.validateSumCount(obj[i], 150))
                         return{msg: "Превышено колличество символов в адресе", result: true}
                     break;
                 }
