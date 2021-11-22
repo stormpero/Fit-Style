@@ -1,7 +1,8 @@
 package ru.project.fitstyle.model.user;
 
-import ru.project.fitstyle.model.training.Training;
 import ru.project.fitstyle.model.subscription.Subscription;
+import ru.project.fitstyle.model.training.GroupTraining;
+import ru.project.fitstyle.model.training.PersonalTraining;
 
 import java.sql.Date;
 import java.util.HashSet;
@@ -9,107 +10,102 @@ import java.util.Set;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(	name = "users",
+@Table(name="fit_user",
         uniqueConstraints = {
                 @UniqueConstraint(columnNames = "email")
         })
-public class User {
+public class FitUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id",
+            nullable = false, updatable = false, unique = true)
     private Long id;
 
-    @NotBlank(message = "email should not be blank")
-    @Size(max = 50, message = "email should be less or equal than 50 chars")
     @Email(message = "email should have syntax like: email@email.com ")
-    @Column(name = "email")
+    @Column(name = "email", length = 50,
+            nullable = false, unique = true)
     private String email;
 
 
 
-    @NotBlank(message = "password should not be blank")
-    @Size(max = 120, message = "password should be less or equal than 120 chars")
-    @Column(name = "password")
+    @Column(name = "password", length = 120,
+            nullable = false)
     private String password;
 
 
 
-    @NotBlank(message = "name should not be blank")
-    @Size(max = 20, message = "name size should be less or equal than 20 chars")
-    @Column(name = "name")
+    @Column(name = "name", length = 20,
+            nullable = false)
     private String name;
 
-    @NotBlank(message = "surname should not be blank")
-    @Size(max = 20, message = "surname size should be less or equal than 20 chars")
-    @Column(name = "surname")
+    @Column(name = "surname", length = 20,
+            nullable = false)
     private String surname;
 
-    @NotBlank(message = "patronymic should not be blank")
-    @Size(max = 20, message = "patronymic should be less or equal than 20 chars")
-    @Column(name = "patronymic")
+    @Column(name = "patronymic", length = 20,
+            nullable = false)
     private String patronymic;
 
 
 
-    @NotBlank(message = "age should not be blank")
-    @Size(max = 3, message = "age should be less or equal than 3 chars")
-    @Column(name = "age")
+    @Column(name = "age", length = 3,
+            nullable = false)
     private String age;
 
-    @NotBlank(message = "gender should not be blank")
-    @Size(max = 6, message = "gender should be less or equal than 6 chars")
-    @Column(name = "gender")
+    @Column(name = "gender", length = 6,
+            nullable = false)
     private String gender;
 
-    @Column(name = "birthdate")
+    @Column(name = "birthdate",
+            nullable = false)
     private Date birthdate;
 
-    @NotBlank(message = "telephone should not be blank")
     @Size(max = 20, message = "telephone should be less or equal than 20 chars")
-    @Column(name = "telephone")
+    @Column(name = "telephone", length = 20,
+            nullable = false)
     private String telephone;
 
-    @NotBlank(message = "passport should not be blank")
     @Size(max = 16, message = "passport should be less or equal than 16 chars")
-    @Column(name = "passport")
+    @Column(name = "passport", length = 16,
+            nullable = false)
     private String passport;
 
-    @NotBlank(message = "address should not be blank")
     @Size(max = 150, message = "address should be less or equal than 150 chars")
-    @Column(name = "address")
+    @Column(name = "address", length = 150,
+            nullable = false)
     private String address;
 
 
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(	name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @JoinTable(name = "fit_user_roles",
+            joinColumns = @JoinColumn(name = "fit_user_id", referencedColumnName = "id", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false))
     private Set<Role> roles = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(	name = "user_training",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "training_id"))
-    private Set<Training> trainings = new HashSet<>();
+    @JoinTable(name = "fit_user_group_training",
+            joinColumns = @JoinColumn(name = "fit_user_id", referencedColumnName = "id", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "group_training_id", referencedColumnName = "id", nullable = false))
+    private Set<GroupTraining> groupTrainings = new HashSet<>();
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @PrimaryKeyJoinColumn//(name = "subscription_id")
+    @OneToMany(mappedBy = "fitUser", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private Set<PersonalTraining> personalTrainings = new HashSet<>();
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @PrimaryKeyJoinColumn
     private Subscription subscription;
 
-
-
-    public User() {
+    public FitUser() {
     }
 
-    public User(String name, String surname, String patronymic,
-                String email, String password, String age,
-                String gender, Date birthdate, String telephone,
-                String passport, String address) {
+    public FitUser(String name, String surname, String patronymic,
+                   String email, String password, String age,
+                   String gender, Date birthdate, String telephone,
+                   String passport, String address) {
         this.name = name;
         this.surname=surname;
         this.patronymic=patronymic;
@@ -121,14 +117,6 @@ public class User {
         this.telephone = telephone;
         this.passport = passport;
         this.address = address;
-    }
-
-    public Subscription getSubscription() {
-        return subscription;
-    }
-
-    public void setSubscription(Subscription subscription) {
-        this.subscription = subscription;
     }
 
     public Long getId() {
@@ -147,8 +135,6 @@ public class User {
         this.email = email;
     }
 
-
-
     public String getPassword() {
         return password;
     }
@@ -156,8 +142,6 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
-
 
     public String getName() {
         return name;
@@ -183,8 +167,6 @@ public class User {
         this.patronymic = patronymic;
     }
 
-
-
     public String getAge() {
         return age;
     }
@@ -198,14 +180,14 @@ public class User {
     }
 
     public void setGender(String gender) {
-        this.password = gender;
+        this.gender = gender;
     }
 
-    public java.sql.Date getBirthdate() {
+    public Date getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(java.sql.Date birthdate) {
+    public void setBirthdate(Date birthdate) {
         this.birthdate = birthdate;
     }
 
@@ -241,12 +223,27 @@ public class User {
         this.roles = roles;
     }
 
-    public Set<Training> getTrainings() {
-        return trainings;
+    public Set<GroupTraining> getGroupTrainings() {
+        return groupTrainings;
     }
 
-    public void setTrainings(Set<Training> trainings) {
-        this.trainings = trainings;
+    public void setGroupTrainings(Set<GroupTraining> groupTrainings) {
+        this.groupTrainings = groupTrainings;
     }
 
+    public Set<PersonalTraining> getPersonalTrainings() {
+        return personalTrainings;
+    }
+
+    public void setPersonalTrainings(Set<PersonalTraining> personalTrainings) {
+        this.personalTrainings = personalTrainings;
+    }
+
+    public Subscription getSubscription() {
+        return subscription;
+    }
+
+    public void setSubscription(Subscription subscription) {
+        this.subscription = subscription;
+    }
 }

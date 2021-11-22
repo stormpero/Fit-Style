@@ -1,9 +1,6 @@
 package ru.project.fitstyle.model.news;
 
-
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 import java.sql.Timestamp;
 
 @Entity
@@ -11,30 +8,31 @@ import java.sql.Timestamp;
 public class News {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id",
+            nullable = false, updatable = false, unique = true)
     private Long id;
 
-    @NotBlank(message = "header should not be blank")
-    @Size(max = 50, message = "header size should be less or equal than 50 chars")
-    @Column(name = "header")
+    @Column(name = "header", length = 50,
+            nullable = false)
     private String header;
 
-    @NotBlank(message = "content should not be blank")
-    @Size(max = 1500, message = "content size should be less or equal then 500 chars")
-    @Column(name = "content")
+    @Column(name = "content", length = 1500,
+            nullable = false)
     private String content;
 
     //TODO Make another Timestamp for last news update??
-    @Column(name = "date_time")
+
+    //TODO Make date with @CreatedDate annotation
+    //@CreatedDate
+    @Column(name = "date_time",
+            nullable = false)
     private Timestamp dateTime;
 
-    @NotBlank(message = "imgUrl should not be blank")
-    @Size(max = 100, message = "imgUrl should be less or equal than 100 chars")
-    @Column(name = "img_URL")
+    @Column(name = "img_URL", length = 100,
+            nullable = false)
     private String imgURL;
 
     public News() {
-
     }
 
     public News(String header, String content, Timestamp dateTime, String imgURL) {

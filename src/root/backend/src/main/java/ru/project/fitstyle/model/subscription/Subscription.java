@@ -2,8 +2,6 @@ package ru.project.fitstyle.model.subscription;
 
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 import java.sql.Date;
 
 @Entity
@@ -11,25 +9,25 @@ import java.sql.Date;
 public class Subscription {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id",
+            nullable = false, updatable = false, unique = true)
     private Long id;
 
-    @ManyToOne(optional=false, cascade = CascadeType.ALL)
-    @JoinColumn(name = "subscription_type_id")
-    private SubscriptionType subscriptionType;
-
-    @NotBlank(message = "beginDate should not be blank")
-    @Column(name = "begin_date")
+    @Column(name = "begin_date",
+            nullable = false)
     private Date beginDate;
 
-    @NotBlank(message = "endDate should not be blank")
-    @Column(name = "end_date")
+    @Column(name = "end_date",
+            nullable = false)
     private Date endDate;
 
-    @NotBlank(message = "contract should not be blank")
-    @Size(max = 16, message = "contract should be less or equal than 16 chars")
-    @Column(name = "contract")
-    private String contract;
+    @Column(name = "contract_number", length = 16,
+            nullable = false)
+    private String contractNumber;
+
+    @ManyToOne(optional=false)
+    @JoinColumn(name = "subscription_type_id", nullable = false)
+    private SubscriptionType subscriptionType;
 
     public Subscription() {
 
@@ -65,11 +63,11 @@ public class Subscription {
         this.endDate = endDate;
     }
 
-    public String getContract() {
-        return contract;
+    public String getContractNumber() {
+        return contractNumber;
     }
 
-    public void setContract(String contract) {
-        this.contract = contract;
+    public void setContractNumber(String contractNumber) {
+        this.contractNumber = contractNumber;
     }
 }

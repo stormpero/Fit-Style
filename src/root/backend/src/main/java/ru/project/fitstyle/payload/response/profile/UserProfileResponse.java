@@ -1,6 +1,6 @@
 package ru.project.fitstyle.payload.response.profile;
 
-import ru.project.fitstyle.model.user.User;
+import ru.project.fitstyle.model.user.FitUser;
 
 import java.sql.Date;
 
@@ -49,17 +49,17 @@ public class UserProfileResponse {
         this.address = address;
     }
 
-    public UserProfileResponse(User user) {
-        this.name = user.getName();
-        this.surname = user.getSurname();
-        this.patronymic = user.getPatronymic();
-        this.email = user.getEmail();
-        this.age = user.getAge();
-        this.gender = user.getGender();
-        this.birthdate = user.getBirthdate();
-        this.telephone = user.getTelephone();
-        this.passport = user.getPassport();
-        this.address = user.getAddress();
+    public UserProfileResponse(FitUser fitUser) {
+        this.name = fitUser.getName();
+        this.surname = fitUser.getSurname();
+        this.patronymic = fitUser.getPatronymic();
+        this.email = fitUser.getEmail();
+        this.age = fitUser.getAge();
+        this.gender = fitUser.getGender();
+        this.birthdate = fitUser.getBirthdate();
+        this.telephone = fitUser.getTelephone();
+        this.passport = fitUser.getPassport();
+        this.address = fitUser.getAddress();
     }
 
     public String getName() {

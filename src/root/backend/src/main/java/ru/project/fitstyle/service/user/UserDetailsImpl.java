@@ -11,7 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import ru.project.fitstyle.model.user.User;
+import ru.project.fitstyle.model.user.FitUser;
 
 public class UserDetailsImpl implements UserDetails {
 	private static final long serialVersionUID = 1L;
@@ -33,15 +33,15 @@ public class UserDetailsImpl implements UserDetails {
 		this.authorities = authorities;
 	}
 
-	public static UserDetailsImpl build(User user) {
-		List<GrantedAuthority> authorities = user.getRoles().stream()
+	public static UserDetailsImpl build(FitUser fitUser) {
+		List<GrantedAuthority> authorities = fitUser.getRoles().stream()
 				.map(role -> new SimpleGrantedAuthority(role.getName().name()))
 				.collect(Collectors.toList());
 
 		return new UserDetailsImpl(
-				user.getId(),
-				user.getEmail(),
-				user.getPassword(), 
+				fitUser.getId(),
+				fitUser.getEmail(),
+				fitUser.getPassword(),
 				authorities);
 	}
 

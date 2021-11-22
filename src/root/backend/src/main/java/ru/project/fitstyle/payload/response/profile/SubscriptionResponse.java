@@ -23,7 +23,7 @@ public class SubscriptionResponse {
     public SubscriptionResponse(Subscription subscription) {
         this.beginDate = subscription.getBeginDate();
         this.endDate = subscription.getEndDate();
-        this.contract = subscription.getContract();
+        this.contract = subscription.getContractNumber();
     }
 
     public Date getBeginDate() {

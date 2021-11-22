@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.project.fitstyle.exception.auth.refresh.ERefreshTokenError;
 import ru.project.fitstyle.exception.auth.refresh.RefreshTokenException;
 import ru.project.fitstyle.model.user.RefreshToken;
-import ru.project.fitstyle.model.user.User;
+import ru.project.fitstyle.model.user.FitUser;
 import ru.project.fitstyle.repository.RefreshTokenRepository;
 import ru.project.fitstyle.repository.UserRepository;
 import ru.project.fitstyle.security.jwt.JwtTokenHandler;
@@ -35,19 +35,19 @@ public class RefreshTokenService {
     }
 
     public String generateToken(Long userId) {
-        User user = userRepository.findById(userId).get();
-        return generateTokenFromUser(user);
+        FitUser fitUser = userRepository.findById(userId).get();
+        return generateTokenFromUser(fitUser);
     }
 
-    public String generateTokenFromUser(User user) {
-        deleteByUser(user);
+    public String generateTokenFromUser(FitUser fitUser) {
+        deleteByUser(fitUser);
         Date validity = new Date(new Date().getTime() + refreshTokenExpirationMs);
 
         RefreshToken refreshToken = new RefreshToken();
-        refreshToken.setUser(user);
+        refreshToken.setUser(fitUser);
         refreshToken.setExpiryDate(validity.toInstant());
         refreshToken.setToken(
-                JwtTokenHandler.generateJwtToken(user.getEmail(), validity, refreshTokenSecret)
+                JwtTokenHandler.generateJwtToken(fitUser.getEmail(), validity, refreshTokenSecret)
         );
 
         refreshToken = refreshTokenRepository.save(refreshToken);
@@ -74,8 +74,8 @@ public class RefreshTokenService {
         deleteByUser(userRepository.findByEmail(username).get());
     }
     @Transactional
-    public void deleteByUser(User user) {
-        refreshTokenRepository.deleteByUser(user);
+    public void deleteByUser(FitUser fitUser) {
+        refreshTokenRepository.deleteByFitUser(fitUser);
     }
     @Transactional
     public RefreshToken save(RefreshToken refreshToken)

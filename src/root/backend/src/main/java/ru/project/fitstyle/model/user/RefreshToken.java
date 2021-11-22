@@ -4,23 +4,28 @@ import java.time.Instant;
 
 import javax.persistence.*;
 
-@Entity(name = "refreshtoken")
+
+@Entity
+@Table(name = "refresh_token")
 public class RefreshToken {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+    @Column(name = "id",
+            nullable = false, updatable = false, unique = true)
     private long id;
 
-    @OneToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id", unique = true)
-    private User user;
-
-    @Column(name = "token", nullable = false,
-            unique = true)
+    @Column(name = "token", length = 200,
+            nullable = false, updatable = false, unique = true)
     private String token;
 
-    @Column(name = "expiry_date", nullable = false)
+    @Column(name = "expiry_date",
+            nullable = false, updatable = false)
     private Instant expiryDate;
+
+    @OneToOne
+    @JoinColumn(name = "fit_user_id", referencedColumnName = "id",
+            nullable = false, updatable = false, unique = true)
+    private FitUser fitUser;
 
     public RefreshToken() {
     }
@@ -33,12 +38,12 @@ public class RefreshToken {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public FitUser getUser() {
+        return fitUser;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(FitUser fitUser) {
+        this.fitUser = fitUser;
     }
 
     public String getToken() {

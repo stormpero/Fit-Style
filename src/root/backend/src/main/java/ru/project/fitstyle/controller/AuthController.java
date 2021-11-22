@@ -29,7 +29,7 @@ import ru.project.fitstyle.exception.auth.refresh.RefreshTokenException;
 import ru.project.fitstyle.model.user.ERole;
 import ru.project.fitstyle.model.user.RefreshToken;
 import ru.project.fitstyle.model.user.Role;
-import ru.project.fitstyle.model.user.User;
+import ru.project.fitstyle.model.user.FitUser;
 import ru.project.fitstyle.payload.request.auth.LoginRequest;
 import ru.project.fitstyle.payload.request.auth.SignupRequest;
 import ru.project.fitstyle.payload.response.auth.LoginResponse;
@@ -110,7 +110,7 @@ public class AuthController {
             throw new EmailException(EEmailError.OCCUPIED);
         }
         // Create new user's account
-        User user = new User(
+        FitUser fitUser = new FitUser(
 						signUpRequest.getName(),
 						signUpRequest.getSurname(),
 						signUpRequest.getPatronymic(),
@@ -148,8 +148,8 @@ public class AuthController {
                 .orElseThrow(() -> new RoleException(ERoleError.NOT_FOUND));
         roles.add(userRole);
 
-        user.setRoles(roles);
-        userRepository.save(user);
+        fitUser.setRoles(roles);
+        userRepository.save(fitUser);
 
         return ResponseEntity.ok(
                 new SuccessMessage("User registered successfully!"));

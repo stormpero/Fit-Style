@@ -1,49 +1,21 @@
 package ru.project.fitstyle.model.training;
 
-import java.sql.Timestamp;
-
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "training")
 public class Training {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id",
+            nullable = false, updatable = false, unique = true)
     private Long id;
 
-    @NotBlank(message = "coachId should not be blank")
-    @Column(name = "coach_id")
-    private Long coachId;
-
-    @Column(name = "user_id")
-    private Long userId;
-
-    @NotBlank(message = "trainingDate should not be blank")
-    @Column(name = "training_date")
-    private Timestamp trainingDate;
-
-    @NotBlank(message = "trainingName should not be blank")
-    @Size(max = 30, message = "trainingName should be less or equal than 30 chars")
-    @Column(name = "training_name")
-    private String trainingName;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "training_type", length = 10)
-    private ETrainingType trainingType;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "training_status", length = 10)
-    private ETrainingStatus trainingStatus;
-
-    @ManyToOne(optional=false, cascade = CascadeType.ALL)
-    @JoinColumn(name = "training_user_id")
-    private TrainingUser trainingUser;
+    @Column(name = "name", length = 50,
+            nullable = false, unique = true)
+    private String name;
 
     public Training() {
-
     }
 
     public Long getId() {
@@ -54,57 +26,11 @@ public class Training {
         this.id = id;
     }
 
-    public Long getCoachId() {
-        return coachId;
+    public String getName() {
+        return name;
     }
 
-    public void setCoachId(Long coachId) {
-        this.coachId = coachId;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public java.sql.Timestamp getTrainingDate() { return trainingDate; }
-
-    public void setTrainingDate(java.sql.Timestamp trainingDate) {
-        this.trainingDate = trainingDate;
-    }
-
-    public String getTrainingName() {
-        return trainingName;
-    }
-
-    public void setTrainingName(String trainingName) {
-        this.trainingName = trainingName;
-    }
-
-    public ETrainingType getTrainingType() {
-        return trainingType;
-    }
-
-    public void setTrainingType(ETrainingType trainingType) {
-        this.trainingType = trainingType;
-    }
-
-    public ETrainingStatus getTrainingStatus() {
-        return trainingStatus;
-    }
-
-    public void setTrainingStatus(ETrainingStatus trainingStatus) {
-        this.trainingStatus = trainingStatus;
-    }
-
-    public TrainingUser getTrainingUser() {
-        return trainingUser;
-    }
-
-    public void setTrainingUser(TrainingUser trainingUser) {
-        this.trainingUser = trainingUser;
+    public void setName(String name) {
+        this.name = name;
     }
 }

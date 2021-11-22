@@ -4,12 +4,10 @@ package ru.project.fitstyle.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import ru.project.fitstyle.exception.permission.EPermissionError;
 import ru.project.fitstyle.exception.permission.PermissionException;
-import ru.project.fitstyle.model.user.User;
+import ru.project.fitstyle.model.user.FitUser;
 import ru.project.fitstyle.payload.response.permission.PermissionResponse;
 import ru.project.fitstyle.repository.UserRepository;
 import ru.project.fitstyle.service.AuthService;
@@ -34,10 +32,10 @@ public class PermissionController {
 
     @GetMapping("/roles")
     public ResponseEntity<?> getUserRoles() {
-        Optional<User> user = userRepository.findByEmail(authService.getAuthentication().getName());
-        User returnUser = user.orElseThrow(() ->
+        Optional<FitUser> user = userRepository.findByEmail(authService.getAuthentication().getName());
+        FitUser returnFitUser = user.orElseThrow(() ->
                 new PermissionException(EPermissionError.NOT_FOUND));
         return ResponseEntity.ok(
-                new PermissionResponse(returnUser.getRoles()));
+                new PermissionResponse(returnFitUser.getRoles()));
     }
 }

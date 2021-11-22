@@ -4,16 +4,17 @@ package ru.project.fitstyle.model.user;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "roles")
+@Table(name = "role")
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id",
+            nullable = false, updatable = false, unique = true)
     private Long id;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "name", length = 20,
-            unique = true)
+            nullable = false, unique = true)
     private ERole name;
 
     public Role() {

@@ -2,8 +2,7 @@ package ru.project.fitstyle.model.subscription;
 
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import java.sql.Date;
 import java.util.Collection;
 
 @Entity
@@ -11,28 +10,27 @@ import java.util.Collection;
 public class SubscriptionType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id",
+            nullable = false, updatable = false, unique = true)
     private Long id;
 
-    @NotBlank(message = "validity should not be empty")
-    @Size(max = 3, message = "validity should be less or equal than 3 chars")
-    @Column(name = "validity")
-    private String validity;
+    @Column(name = "validity",
+            nullable = false)
+    private Date validity;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "placement_time", length = 10)
+    @Column(name = "placement_time", length = 10,
+            nullable = false)
     private ESubsPlacementTime placementTime;
 
-    @NotBlank(message = "cost should not be blank")
-    @Size(max = 5, message = "cost should be less or equal than 5 chars")
-    @Column(name = "cost")
+    @Column(name = "cost", length = 5,
+            nullable = false)
     private String cost;
 
-    @OneToMany(mappedBy = "subscriptionType", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "subscriptionType", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Collection<Subscription> owner;
 
     public SubscriptionType() {
-
     }
 
     public SubscriptionType(ESubsPlacementTime placementTime) {
@@ -45,14 +43,6 @@ public class SubscriptionType {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getValidity() {
-        return validity;
-    }
-
-    public void setValidity(String validity) {
-        this.validity = validity;
     }
 
     public ESubsPlacementTime getPlacementTime() {
@@ -77,5 +67,13 @@ public class SubscriptionType {
 
     public void setOwner(Collection<Subscription> owner) {
         this.owner = owner;
+    }
+
+    public Date getValidity() {
+        return validity;
+    }
+
+    public void setValidity(Date validity) {
+        this.validity = validity;
     }
 }
