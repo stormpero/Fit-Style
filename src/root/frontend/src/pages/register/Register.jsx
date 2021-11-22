@@ -70,14 +70,14 @@ const Register = (props) => {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="age">Age</label>
+                        <label htmlFor="age">Возраст</label>
                         <input className="form-control mb-2"
                                required
                                name="age"
                                type="number"
                                onChange={props.handleFunc.input}
                                value={props.value.age}
-                               placeholder="Age"
+                               placeholder="Возраст"
                         />
                     </div>
                     <div className="form-group">
@@ -113,7 +113,6 @@ const Register = (props) => {
                                type="date"
                                onChange={props.handleFunc.input}
                                value={props.value.birthdate}
-                               placeholder="Birthdate"
                         />
                     </div>
                     <div className="form-group">
@@ -124,7 +123,7 @@ const Register = (props) => {
                                type="tel"
                                onChange={props.handleFunc.input}
                                value={props.value.telephone}
-                               placeholder="Telephone"
+                               placeholder="Телефон"
                         />
                     </div>
                     {/*TODO: Добавить поля для паспортных данных */}
@@ -146,6 +145,8 @@ const Register = (props) => {
                             value={props.value.address | ''}
                             onChange={props.handleFunc.inputAddress}
                             count={5}
+                            inputProps={{placeholder: "Адрес"}}
+
                         />
                     </div>
                     <div className="form-group">
@@ -171,6 +172,7 @@ const Register = (props) => {
                     )}
                 </form>
             </div>
+            <br/>
         </div>
     );
 };

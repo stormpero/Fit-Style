@@ -59,6 +59,10 @@ export const NewsBoard = () => {
                 }
                 {rowNews && rowNews.map((param, index) => <NewsRow key={index} news={param} delete={deleteNews} deleteMode={deleteActive}/>)}
                 {hasNews && <button className="btn-primary" onClick={() => setRowNum(rowNum + 1)}>Ещё</button> }
+                <br/>
+                <br/>
+                <br/>
+                <br/>
             </div>
             { isAdmin &&
                 <Modal active={modalActive} setActive={setModalActive}>
