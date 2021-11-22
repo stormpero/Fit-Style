@@ -9,8 +9,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="fit_user",
@@ -24,7 +22,6 @@ public class FitUser {
             nullable = false, updatable = false, unique = true)
     private Long id;
 
-    @Email(message = "email should have syntax like: email@email.com ")
     @Column(name = "email", length = 50,
             nullable = false, unique = true)
     private String email;
@@ -63,17 +60,14 @@ public class FitUser {
             nullable = false)
     private Date birthdate;
 
-    @Size(max = 20, message = "telephone should be less or equal than 20 chars")
     @Column(name = "telephone", length = 20,
             nullable = false)
     private String telephone;
 
-    @Size(max = 16, message = "passport should be less or equal than 16 chars")
     @Column(name = "passport", length = 16,
             nullable = false)
     private String passport;
 
-    @Size(max = 150, message = "address should be less or equal than 150 chars")
     @Column(name = "address", length = 150,
             nullable = false)
     private String address;
