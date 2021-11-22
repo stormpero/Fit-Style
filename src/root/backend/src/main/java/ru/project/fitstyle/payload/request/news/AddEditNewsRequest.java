@@ -6,7 +6,7 @@ import java.sql.Timestamp;
 
 public class AddEditNewsRequest {
     @NotBlank(message = "header should not be blank")
-    @Size(max = 50, message = "header size should be less or equal than 50 chars")
+    @Size(min = 3, max = 50, message = "name should be more or equal than 3 and less or equal than 50 characters")
     private String header;
 
     @NotBlank(message = "content should not be blank")
@@ -15,8 +15,8 @@ public class AddEditNewsRequest {
 
     private Timestamp dateTime;
 
-    @NotBlank(message = "imgUrl should not be blank")
-    @Size(max = 100, message = "imgUrl should be less or equal than 100 chars")
+    @NotBlank(message = "imgURL should not be blank")
+    @Size(min=1, max = 100, message = "imgURL should be more or equal than 1 and less or equal than 100 characters")
     private String imgURL;
 
     public AddEditNewsRequest(String header, String content, Timestamp dateTime, String imgURL) {

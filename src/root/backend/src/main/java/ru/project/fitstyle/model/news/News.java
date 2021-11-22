@@ -1,5 +1,7 @@
 package ru.project.fitstyle.model.news;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 

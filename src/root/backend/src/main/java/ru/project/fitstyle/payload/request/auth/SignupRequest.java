@@ -1,58 +1,58 @@
 package ru.project.fitstyle.payload.request.auth;
 
+import ru.project.fitstyle.model.subscription.SubscriptionType;
+
 import java.sql.Date;
 import java.util.Set;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.validation.constraints.*;
 
 
 public class SignupRequest {
-
     @NotBlank(message = "name should not be blank")
-    @Size(max = 20, message = "name size should be less or equal than 20 chars")
+    @Size(min = 2, max = 20, message = "name should be more or equal than 2 and less or equal than 20 characters")
     private String name;
 
     @NotBlank(message = "surname should not be blank")
-    @Size(max = 20, message = "surname size should be less or equal than 20 chars")
+    @Size(min = 2, max = 20, message = "surname should be more or equal than 2 and less or equal than 20 characters")
     private String surname;
 
     @NotBlank(message = "patronymic should not be blank")
-    @Size(max = 20, message = "patronymic should be less or equal than 20 chars")
+    @Size(min = 2, max = 20, message = "patronymic should be more or equal than 2 and less or equal than 20 characters")
     private String patronymic;
 
     @NotBlank(message = "email should not be blank")
-    @Size(max = 50, message = "email should be less or equal than 50 chars")
-    @Email(message = "email should have syntax like: email@email.com ")
+    @Size(min = 5, max = 50, message = "email should be more or equal than 5 and less or equal than 50 characters")
+    @Email(message = "email should have syntax like: email@email.com")
     private String email;
 
     @NotBlank(message = "password should not be blank")
-    @Size(max = 120, message = "password should be less or equal than 120 chars")
+    @Size(min = 6, max = 120, message = "password should be more or equal than 6 and less or equal than 120 characters")
     private String password;
 
     @NotBlank(message = "age should not be blank")
-    @Size(max = 3, message = "age should be less or equal than 3 chars")
+    @Size(min = 1, max = 3, message = "age should be more or equal than 1 and less or equal than 3 characters")
     private String age;
 
     @NotBlank(message = "gender should not be blank")
-    @Size(max = 6, message = "gender should be less or equal than 6 chars")
+    @Size(min = 1, max = 6, message = "gender should be more or equal than 1 and less or equal than 6 characters")
     private String gender;
 
     private Date birthdate;
 
     @NotBlank(message = "telephone should not be blank")
-    @Size(max = 20, message = "telephone should be less or equal than 20 chars")
+    @Size(min = 5, max = 20, message = "telephone should be more or equal than 5 and less or equal than 20 characters")
     private String telephone;
 
     @NotBlank(message = "passport should not be blank")
-    @Size(max = 16, message = "passport should be less or equal than 16 chars")
+    @Size(min = 5, max = 16, message = "passport should be more or equal than 5 and less or equal than 16 characters")
     private String passport;
 
     @NotBlank(message = "address should not be blank")
-    @Size(max = 40, message = "address should be less or equal than 40 chars")
+    @Size(min = 5, max = 40, message = "address should be more or equal than 5 and less or equal than 40 characters")
     private String address;
+
+    private SubscriptionType subscriptionType;
 
     private Set<String> roles;
 
@@ -144,6 +144,14 @@ public class SignupRequest {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public SubscriptionType getSubscriptionType() {
+        return subscriptionType;
+    }
+
+    public void setSubscriptionType(SubscriptionType subscriptionType) {
+        this.subscriptionType = subscriptionType;
     }
 
     public Set<String> getRoles() {

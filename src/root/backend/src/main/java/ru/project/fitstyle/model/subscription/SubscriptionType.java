@@ -1,9 +1,11 @@
 package ru.project.fitstyle.model.subscription;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.sql.Date;
-import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "subscription_type")
@@ -14,6 +16,7 @@ public class SubscriptionType {
             nullable = false, updatable = false, unique = true)
     private Long id;
 
+    @JsonIgnore
     @Column(name = "validity",
             nullable = false)
     private Date validity;
@@ -28,7 +31,7 @@ public class SubscriptionType {
     private String cost;
 
     @OneToMany(mappedBy = "subscriptionType", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    private Collection<Subscription> owner;
+    private List<Subscription> owner;
 
     public SubscriptionType() {
     }
@@ -61,11 +64,11 @@ public class SubscriptionType {
         this.cost = cost;
     }
 
-    public Collection<Subscription> getOwner() {
+    public List<Subscription> getOwner() {
         return owner;
     }
 
-    public void setOwner(Collection<Subscription> owner) {
+    public void setOwner(List<Subscription> owner) {
         this.owner = owner;
     }
 

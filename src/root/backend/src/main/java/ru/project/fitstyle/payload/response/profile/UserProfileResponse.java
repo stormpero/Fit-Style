@@ -1,5 +1,7 @@
 package ru.project.fitstyle.payload.response.profile;
 
+import ru.project.fitstyle.model.subscription.ESubsPlacementTime;
+import ru.project.fitstyle.model.subscription.Subscription;
 import ru.project.fitstyle.model.user.FitUser;
 
 import java.sql.Date;
@@ -26,6 +28,12 @@ public class UserProfileResponse {
 
     private final String address;
 
+    private final Date validity;
+
+    private final ESubsPlacementTime subsPlacementTime;
+
+    private final String cost;
+
     public UserProfileResponse(
                                String name,
                                String surname,
@@ -36,7 +44,10 @@ public class UserProfileResponse {
                                Date birthdate,
                                String telephone,
                                String passport,
-                               String address) {
+                               String address,
+                               ESubsPlacementTime subsPlacementTime,
+                               Date validity,
+                               String cost) {
         this.name = name;
         this.surname = surname;
         this.patronymic = patronymic;
@@ -47,6 +58,9 @@ public class UserProfileResponse {
         this.telephone = telephone;
         this.passport = passport;
         this.address = address;
+        this.subsPlacementTime = subsPlacementTime;
+        this.validity = validity;
+        this.cost = cost;
     }
 
     public UserProfileResponse(FitUser fitUser) {
@@ -60,6 +74,16 @@ public class UserProfileResponse {
         this.telephone = fitUser.getTelephone();
         this.passport = fitUser.getPassport();
         this.address = fitUser.getAddress();
+        if(fitUser.getSubscription() != null) {
+            this.subsPlacementTime = fitUser.getSubscription().getSubscriptionType().getPlacementTime();
+            this.validity = fitUser.getSubscription().getSubscriptionType().getValidity();
+            this.cost = fitUser.getSubscription().getSubscriptionType().getCost();
+        }
+        else {
+            this.subsPlacementTime = null;
+            this.validity = null;
+            this.cost = null;
+        }
     }
 
     public String getName() {
@@ -100,5 +124,17 @@ public class UserProfileResponse {
 
     public String getAddress() {
         return address;
+    }
+
+    public Date getValidity() {
+        return validity;
+    }
+
+    public ESubsPlacementTime getSubsPlacementTime() {
+        return subsPlacementTime;
+    }
+
+    public String getCost() {
+        return cost;
     }
 }
