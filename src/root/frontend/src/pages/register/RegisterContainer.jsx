@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import Register from "./Register";
 
 import AuthService from "../../services/api/AuthService";
-import isEmpty from "validator/es/lib/isEmpty";
+import Validation from "../../services/utils/Validation";
 
 export default class RegisterContainer extends Component {
 
@@ -20,8 +20,8 @@ export default class RegisterContainer extends Component {
             telephone: "",
             passport: "",
             address: "",
+            imageData: null
         },
-        successful: false,
         message: ""
     }
 
@@ -31,6 +31,18 @@ export default class RegisterContainer extends Component {
             userInfo: {
                 ...this.state.userInfo,
                 [name]: value
+            }
+        });
+    }
+
+    handleImgInputChange = (event) => {
+        const {files} = event.target;
+        let formData = new FormData();
+        formData.append('file', files[0]);
+        this.setState({
+            userInfo: {
+                ...this.state.userInfo,
+                imageData: files[0]
             }
         });
     }
@@ -47,29 +59,21 @@ export default class RegisterContainer extends Component {
 
     handleRegister = (event) => {
         event.preventDefault();
-        if (isEmpty(this.state.userInfo.name) ||
-            isEmpty(this.state.userInfo.password) ||
-            isEmpty(this.state.userInfo.email) ||
-            isEmpty(this.state.userInfo.surname) ||
-            isEmpty(this.state.userInfo.patronymic) ||
-            isEmpty(this.state.userInfo.age) ||
-            isEmpty(this.state.userInfo.gender) ||
-            isEmpty(this.state.userInfo.birthdate) ||
-            isEmpty(this.state.userInfo.telephone) ||
-            isEmpty(this.state.userInfo.passport) ||
-            isEmpty(this.state.userInfo.address)){
-            const errorMsg = "Заполните поля";
+
+        let res = Validation.validateSingUp(this.state.userInfo);
+        if (res.result) {
+            const errorMsg = res.msg;
 
             this.setState({
-                successful: false,
                 message: errorMsg,
             });
+
             return;
         }
 
-        //TODO: Проверить данные на ошибки + на пустоту
         AuthService.register(this.state.userInfo).then(
             (response) => {
+                let msg = response.data.message === 'User registered successfully!' ? 'Пользователь успешно зарегистрирован' : "-_-";
                 this.setState({
                     userInfo: {
                         email: "",
@@ -84,17 +88,15 @@ export default class RegisterContainer extends Component {
                         passport: "",
                         address: ""
                     },
-                    message: response.data.message,
-                    successful: true
+                    message: msg
                 });
             }).catch((error)=> {
-            let errorMsg =  error.response?.data?.message || error.message;
+                let errorMsg = error.response.data.errorCode === 1 ? 'Ошибка. Пользователь с таким Email уже существует!' : 'Ошибка';
 
-            this.setState({
-                successful: false,
-                message: errorMsg
+                this.setState({
+                    message: errorMsg
+                });
             });
-        });
     }
 
     render() {
@@ -104,6 +106,7 @@ export default class RegisterContainer extends Component {
             registering: this.handleRegister,
             input: this.handleInputChange,
             inputAddress: this.handleAddressInputChange,
+            inputImg: this.handleImgInputChange,
         }}
         value={this.state.userInfo}
         message={this.state.message}

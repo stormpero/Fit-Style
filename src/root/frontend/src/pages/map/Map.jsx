@@ -13,14 +13,10 @@ const Map = (props) => {
     return (
         <div className="map">
             <h1 className="map-title">Карта зала</h1>
-            <div className="help d-flex justify-content-center">
-                <h2 className="helpicon"></h2>
-                <h2 className="help-title">- Проход</h2>
-            </div>
             <div className="map-picture-container">
                 <center>
                 <div className="grid-wrapper">
-                    <div className="reception right left">
+                    <div className="reception right bottom">
                         <img className="map-block-logo" src={reception} alt="Fit-Style"/>
                         <div className="map-content">
                             <h4>Reception</h4>
@@ -87,6 +83,8 @@ const Map = (props) => {
                 </div>
                 </center>
             </div>
+            <br/>
+            <br/>
         </div>
     );
 };

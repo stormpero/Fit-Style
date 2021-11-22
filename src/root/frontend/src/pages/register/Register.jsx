@@ -9,7 +9,6 @@ import {DADATA_TOKEN} from "../../services/utils/consts/Dadata";
 const Register = (props) => {
     return (
         <div className="col-md-12">
-
             <div className="card card-container non-margin">
                 <h3 className="text-muted">Регистрация</h3>
                 <form>
@@ -70,14 +69,14 @@ const Register = (props) => {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="age">Age</label>
+                        <label htmlFor="age">Возраст</label>
                         <input className="form-control mb-2"
                                required
                                name="age"
                                type="number"
                                onChange={props.handleFunc.input}
                                value={props.value.age}
-                               placeholder="Age"
+                               placeholder="Возраст"
                         />
                     </div>
                     <div className="form-group">
@@ -113,7 +112,6 @@ const Register = (props) => {
                                type="date"
                                onChange={props.handleFunc.input}
                                value={props.value.birthdate}
-                               placeholder="Birthdate"
                         />
                     </div>
                     <div className="form-group">
@@ -124,10 +122,9 @@ const Register = (props) => {
                                type="tel"
                                onChange={props.handleFunc.input}
                                value={props.value.telephone}
-                               placeholder="Telephone"
+                               placeholder="Телефон"
                         />
                     </div>
-                    {/*TODO: Добавить поля для паспортных данных */}
                     <div className="form-group">
                         <label htmlFor="passport">Паспортные данные</label>
                         <input className="form-control mb-2"
@@ -146,6 +143,17 @@ const Register = (props) => {
                             value={props.value.address | ''}
                             onChange={props.handleFunc.inputAddress}
                             count={5}
+                            inputProps={{placeholder: "Адрес"}}
+
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="img">Фотография</label>
+                        <input className="form-control mb-2"
+                               required
+                               name="img"
+                               type="file"
+                               onChange={props.handleFunc.inputImg}
                         />
                     </div>
                     <br/>
@@ -162,6 +170,7 @@ const Register = (props) => {
                     )}
                 </form>
             </div>
+            <br/>
         </div>
     );
 };

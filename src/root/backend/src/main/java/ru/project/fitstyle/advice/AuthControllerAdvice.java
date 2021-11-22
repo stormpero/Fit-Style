@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import ru.project.fitstyle.exception.subscriptionType.SubscriptionTypeException;
-import ru.project.fitstyle.model.subscription.SubscriptionType;
 import ru.project.fitstyle.payload.responsemessage.ErrorMessage;
 import ru.project.fitstyle.exception.email.EmailException;
 import ru.project.fitstyle.exception.role.RoleException;

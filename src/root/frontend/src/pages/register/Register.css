@@ -15,3 +15,7 @@
 .non-margin{
     margin: 0 auto 25px;
 }
+.card-container.card {
+    max-width: 367px !important;
+    padding: 40px 40px;
+}

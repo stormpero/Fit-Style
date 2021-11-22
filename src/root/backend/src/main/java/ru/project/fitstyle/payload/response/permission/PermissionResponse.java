@@ -1,6 +1,5 @@
 package ru.project.fitstyle.payload.response.permission;
 
-
 import ru.project.fitstyle.model.user.Role;
 
 import java.util.Set;
