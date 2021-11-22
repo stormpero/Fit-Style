@@ -1,0 +1,176 @@
+
+.noselect {
+    margin-top: 35px;
+    width: 150px;
+    height: 50px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    background: red;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.15);
+    background: #e62222;
+}
+
+.noselect, .noselect span {
+    transition: 300ms;
+}
+
+.noselect .text {
+    transform: translateX(10px);
+    color: white;
+    font-weight: bold;
+}
+.noselect .icon {
+    position: absolute;
+    border-left: 1px solid #c41b1b;
+    transform: translateX(110px);
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.noselect svg {
+    width: 15px;
+    fill: #eee;
+
+}
+
+.noselect:hover {
+    background: #ff3636;
+}
+
+.noselect:hover .text {
+    display: none;
+}
+
+.noselect:hover .icon {
+    width: 140px;
+    border-left: none;
+    transform: translateX(0);
+}
+
+
+.select {
+    margin-top: 35px;
+    width: 150px;
+    height: 50px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.15);
+    background: black;
+}
+
+.select, .select span {
+    transition: 200ms;
+}
+
+.select .text {
+    display: none;
+}
+.select .icon {
+    width: 150px;
+    border-left: none;
+    transform: translateX(0);
+}
+
+.select svg {
+    width: 15px;
+    fill: #eee;
+}
+
+
+.add-news {
+    margin-top: 35px;
+    width: 150px;
+    height: 50px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.15);
+    background: #41d7de;
+}
+
+.add-news,
+.add-news span {
+    transition: 300ms;
+}
+
+.add-news .text {
+    transform: translateX(10px);
+    color: white;
+    font-weight: bold;
+}
+.add-news .icon {
+    position: absolute;
+    border-left: 1px solid #3ac0c7;
+    transform: translateX(110px);
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.add-news svg {
+    width: 15px;
+    fill: #eee;
+
+}
+
+.add-news:hover {
+    background: #00E8FC;
+}
+
+.add-news:hover .text {
+    display: none;
+}
+
+.add-news:hover .icon {
+    width: 140px;
+    border-left: none;
+    transform: translateX(0);
+}
+.news-more {
+    margin-top: 35px;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border: none;
+    border-radius: 50%;
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.15);
+    background: #41d7de;
+}
+
+.more-news-icon{
+    position: absolute;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.news-more svg {
+    width: 15px;
+    fill: #eee;
+
+}
+.news-more:hover {
+    transition: 0.3s all ease-in;
+    background: #00E8FC;
+}
+.news-more:not(:hover) {
+    transition: 0.3s all ease-in;
+    background: #41d7de;
+}
+
