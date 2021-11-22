@@ -1,6 +1,7 @@
 package ru.project.fitstyle.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -9,7 +10,7 @@ import ru.project.fitstyle.exception.profile.ProfileException;
 import ru.project.fitstyle.model.user.FitUser;
 import ru.project.fitstyle.payload.response.profile.UserProfileResponse;
 import ru.project.fitstyle.repository.UserRepository;
-import ru.project.fitstyle.service.AuthService;
+import ru.project.fitstyle.service.auth.AuthService;
 
 import java.util.Optional;
 
@@ -21,18 +22,19 @@ public class ProfileController {
 
     private final UserRepository userRepository;
 
-    private final AuthService authService;
+    private final AuthService authServiceImpl;
 
     @Autowired
-    public ProfileController (UserRepository userRepository, AuthService authService) {
+    public ProfileController (UserRepository userRepository,
+                              @Qualifier("authServiceImpl") AuthService authServiceImpl) {
         this.userRepository = userRepository;
-        this.authService = authService;
+        this.authServiceImpl = authServiceImpl;
     }
 
     @GetMapping()
     public ResponseEntity<UserProfileResponse> getUserProfileInfo() {
         FitUser fitUser = userRepository
-                .findByEmail(authService.getAuthentication().getName())
+                .findByEmail(authServiceImpl.getAuthentication().getName())
                 .orElseThrow(() ->
                         new ProfileException(EProfileError.NOT_FOUND));
         return ResponseEntity.ok(

@@ -1,6 +1,8 @@
 package ru.project.fitstyle.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.GrantedAuthority;
@@ -18,6 +20,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import java.util.*;
 import java.util.stream.Collectors;
 
+import org.springframework.web.multipart.MultipartFile;
+import ru.project.fitstyle.config.properties.cookie.RefreshTokenCookieProperties;
 import ru.project.fitstyle.exception.auth.email.EEmailError;
 import ru.project.fitstyle.exception.auth.email.EmailException;
 import ru.project.fitstyle.exception.auth.role.ERoleError;
@@ -37,14 +41,16 @@ import ru.project.fitstyle.payload.request.auth.SignupRequest;
 import ru.project.fitstyle.payload.response.auth.LoginResponse;
 import ru.project.fitstyle.payload.response.auth.RefreshTokenResponse;
 import ru.project.fitstyle.payload.responsemessage.SuccessMessage;
+import ru.project.fitstyle.repository.RefreshTokenRepository;
 import ru.project.fitstyle.repository.RoleRepository;
 import ru.project.fitstyle.repository.SubscriptionTypeRepository;
 import ru.project.fitstyle.repository.UserRepository;
-import ru.project.fitstyle.service.AuthService;
+import ru.project.fitstyle.service.auth.AuthService;
+import ru.project.fitstyle.service.cookie.CookieService;
 import ru.project.fitstyle.service.token.AccessTokenService;
 import ru.project.fitstyle.service.token.RefreshTokenService;
+import ru.project.fitstyle.service.token.TokenService;
 import ru.project.fitstyle.service.user.UserDetailsImpl;
-import ru.project.fitstyle.service.CookieService;
 
 
 @CrossOrigin(origins = "http://localhost:3000", maxAge = 3600, allowCredentials = "true")
@@ -56,34 +62,41 @@ public class AuthController {
 
     private final UserRepository userRepository;
 
+    private final RefreshTokenRepository refreshTokenRepository;
+
     private final RoleRepository roleRepository;
 
     private final SubscriptionTypeRepository subscriptionTypeRepository;
 
     private final PasswordEncoder encoder;
 
-    private final AccessTokenService accessTokenService;
+    private final TokenService accessTokenService;
 
-    private final RefreshTokenService refreshTokenService;
+    private final TokenService refreshTokenService;
 
-    private final CookieService cookieService;
+    private final CookieService refreshTokenCookieService;
 
-    private final AuthService authService;
+    private final AuthService authServiceImpl;
 
     @Autowired
     public AuthController(AuthenticationManager authenticationManager, UserRepository userRepository,
-                          RoleRepository roleRepository, PasswordEncoder encoder, AccessTokenService accessTokenService,
-                          RefreshTokenService refreshTokenService, CookieService cookieService, AuthService authService,
-                          SubscriptionTypeRepository subscriptionTypeRepository) {
+                          RefreshTokenRepository refreshTokenRepository, RoleRepository roleRepository,
+                          SubscriptionTypeRepository subscriptionTypeRepository,
+                          PasswordEncoder encoder,
+                          @Qualifier("accessTokenService") TokenService accessTokenService,
+                          @Qualifier("refreshTokenService") TokenService refreshTokenService,
+                          @Qualifier("refreshTokenCookieService") CookieService refreshTokenCookieService,
+                          @Qualifier("authServiceImpl") AuthService authServiceImpl) {
         this.authenticationManager = authenticationManager;
         this.userRepository = userRepository;
+        this.refreshTokenRepository = refreshTokenRepository;
         this.roleRepository = roleRepository;
+        this.subscriptionTypeRepository = subscriptionTypeRepository;
         this.encoder = encoder;
         this.accessTokenService = accessTokenService;
         this.refreshTokenService = refreshTokenService;
-        this.cookieService = cookieService;
-        this.authService = authService;
-        this.subscriptionTypeRepository = subscriptionTypeRepository;
+        this.refreshTokenCookieService = refreshTokenCookieService;
+        this.authServiceImpl = authServiceImpl;
     }
 
     @PostMapping("/signin")
@@ -100,9 +113,9 @@ public class AuthController {
                 .collect(Collectors.toList());
 
         String accessToken = accessTokenService
-                .generateToken(authentication);
+                .generateTokenFromUsername(userDetails.getUsername());
         String refreshToken = refreshTokenService
-                .generateToken(userDetails.getId());
+                .generateTokenFromUsername(userDetails.getUsername());
 
         return ResponseEntity.ok().headers(createRefreshTokenCookie(refreshToken)).body(
                 new LoginResponse(userDetails.getId(),
@@ -111,7 +124,8 @@ public class AuthController {
 
     @PostMapping("/signup")
     @PreAuthorize("hasRole('MODERATOR')")
-    public ResponseEntity<SuccessMessage> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
+    public ResponseEntity<SuccessMessage> registerUser(@Valid @RequestBody SignupRequest signUpRequest,
+                                                       @RequestParam("file") MultipartFile file) {
         if (userRepository
                 .existsByEmail(signUpRequest.getEmail())) {
             throw new EmailException(EEmailError.OCCUPIED);
@@ -176,32 +190,36 @@ public class AuthController {
     }
 
     @GetMapping("/refreshtoken")
-    public ResponseEntity<RefreshTokenResponse> refreshToken(@CookieValue(value=("${authentication.token.authRefreshTokenCookieName}"), required = false)
+    public ResponseEntity<RefreshTokenResponse> refreshToken(@CookieValue(value="refreshToken", required = false)
                                                       String requestRefreshToken) {
-        return refreshTokenService
-                .findByToken(requestRefreshToken)
-                .map(refreshTokenService::verifyExpiration)
-                .map(RefreshToken::getUser)
-                .map(user -> {
-                    String jwtToken = accessTokenService
-                            .generateTokenFromUsername(user.getEmail());
-                    String refreshToken = refreshTokenService
-                            .generateTokenFromUser(user);
-
-                    return ResponseEntity.ok()
-                            .headers(createRefreshTokenCookie(refreshToken))
-                            .body(new RefreshTokenResponse(jwtToken));
-                })
+        RefreshToken rt = refreshTokenRepository.findByToken(requestRefreshToken)
                 .orElseThrow(() ->
                         new RefreshTokenException(requestRefreshToken,
                                 ERefreshTokenError.NOT_FOUND));
+        if(refreshTokenService.validate(rt)) {
+            FitUser user = rt.getUser();
+            String jwtToken = accessTokenService
+                    .generateTokenFromUser(user);
+            String refreshToken = refreshTokenService
+                    .generateTokenFromUser(user);
+
+            return ResponseEntity.ok()
+                    .headers(createRefreshTokenCookie(refreshToken))
+                    .body(new RefreshTokenResponse(jwtToken));
+        }
+        else {
+            throw new RefreshTokenException(rt.getToken(),
+                    ERefreshTokenError.EXPIRED);
+        }
     }
 
     @GetMapping("/logout")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<SuccessMessage> logoutUser() {
-        refreshTokenService
-                .deleteByUsername(authService.getAuthentication().getName());
+        refreshTokenRepository
+                .deleteByFitUser(userRepository
+                        .findByEmail(authServiceImpl
+                                .getAuthentication().getName()).get());
         return ResponseEntity.ok(
                 new SuccessMessage("Log out successful!"));
     }
@@ -209,8 +227,8 @@ public class AuthController {
 
     HttpHeaders createRefreshTokenCookie(String refreshToken) {
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add(HttpHeaders.SET_COOKIE, cookieService.createRefreshTokenCookie(refreshToken,
-                refreshTokenService.getRefreshTokenExpirationMs()).toString());
+        httpHeaders.add(HttpHeaders.SET_COOKIE, refreshTokenCookieService.getCookie(refreshToken,
+                refreshTokenService.getExpirationMs()).toString());
         return httpHeaders;
     }
 }

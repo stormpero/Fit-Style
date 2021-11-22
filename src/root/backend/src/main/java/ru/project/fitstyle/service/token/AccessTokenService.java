@@ -1,41 +1,63 @@
 package ru.project.fitstyle.service.token;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.Authentication;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.project.fitstyle.config.properties.token.AccessTokenProperties;
+import ru.project.fitstyle.model.user.FitUser;
+import ru.project.fitstyle.repository.UserRepository;
 import ru.project.fitstyle.security.jwt.JwtTokenHandler;
-import ru.project.fitstyle.service.user.UserDetailsImpl;
 
 import java.util.Date;
 
 @Service
-public class AccessTokenService {
-    @Value("${authentication.token.accessTokenSecret}")
-    private String accessTokenSecret;
+public class AccessTokenService implements TokenService{
 
-    @Value("${authentication.token.accessTokenExpirationMs}")
-    private Long accessTokenExpirationMs;
+    private final String secret;
 
-    public String generateToken(Authentication authentication) {
-        UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
+    private final Long expirationMs;
 
-        return generateTokenFromUsername(userPrincipal.getUsername());
+    private final UserRepository userRepository;
+
+    @Autowired
+    public AccessTokenService(UserRepository userRepository, AccessTokenProperties accessTokenProperties) {
+        this.userRepository = userRepository;
+        this.secret = accessTokenProperties.getSecret();
+        this.expirationMs = accessTokenProperties.getExpirationMs();
     }
 
-    public String generateTokenFromUsername(String username) {
+    @Override
+    public String generateTokenFromUser(FitUser user) {
         return JwtTokenHandler
-                .generateJwtToken(username,
-                new Date((new Date()).getTime() + accessTokenExpirationMs),
-                accessTokenSecret);
+                .generateJwtToken(user.getEmail(),
+                new Date((new Date()).getTime() + expirationMs),
+                secret);
     }
 
+    @Override
+    public String generateTokenFromUsername(String username) {
+        FitUser user = userRepository.findByEmail(username).get();
+        return generateTokenFromUser(user);
+    }
+
+    @Override
     public String getUsernameFromToken(String token) {
         return JwtTokenHandler
-                .getUserNameFromJwtToken(token, accessTokenSecret);
+                .getUserNameFromJwtToken(token, secret);
     }
 
-    public boolean validateToken(String token) {
+    @Override
+    public boolean validate(Object token) {
         return JwtTokenHandler
-                .validateToken(token, accessTokenSecret);
+                .validateToken((String)token, secret);
+    }
+
+    @Override
+    public String getSecret() {
+        return secret;
+    }
+
+    @Override
+    public Long getExpirationMs() {
+        return expirationMs;
     }
 }

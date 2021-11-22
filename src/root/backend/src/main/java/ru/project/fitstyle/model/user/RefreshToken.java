@@ -61,5 +61,4 @@ public class RefreshToken {
     public void setExpiryDate(Instant expiryDate) {
         this.expiryDate = expiryDate;
     }
-
 }

@@ -13,7 +13,7 @@ import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/subscription_type")
+@RequestMapping("/api/subscriptiontype")
 @PreAuthorize("hasRole('MODERATOR')")
 public class SubscriptionTypeController {
 
