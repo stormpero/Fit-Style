@@ -59,7 +59,7 @@ const Navbar = (props) => {
             <div className="menu-user">
                 <Link to={URL_INFO} className="menu-link">
                     <img className="svg-icon" src={info} alt="Fit-Style"/>
-                    <span className="menu-link-name">О нас</span>
+                    <span className="menu-link-name">Контакты</span>
                 </Link>
             </div>
             { props.isAdmin && (
