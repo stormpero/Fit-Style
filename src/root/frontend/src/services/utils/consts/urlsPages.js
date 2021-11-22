@@ -5,3 +5,4 @@ export const URL_USER = '/user';
 export const URL_NEWS = '/news';
 export const URL_MAP = '/map';
 export const URL_INFO = '/info';
+export const URL_CALENDAR = '/calendar';

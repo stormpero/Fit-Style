@@ -11,6 +11,16 @@ import exit from "../../assets/exit.png";
 import user from "../../assets/user.png";
 import map from "../../assets/map.png";
 import info from "../../assets/info.png";
+import {
+    URL_CALENDAR,
+    URL_INFO,
+    URL_LOGIN,
+    URL_MAP,
+    URL_NEWS,
+    URL_USER,
+    URL_PROFILE,
+    URL_REGISTER
+} from "../../services/utils/consts/urlsPages";
 
 
 const Navbar = (props) => {
@@ -22,26 +32,32 @@ const Navbar = (props) => {
             </Link>
             <div className="menu-user">
                 <div className="menu-user-container">
-                    <Link to={ "/user"} className="menu-link">
+                    <Link to={URL_USER} className="menu-link">
                         <img className="svg-icon" src={search} alt="Fit-Style"/>
                         <span className="menu-link-name">Контент</span>
                     </Link>
                 </div>
             </div>
             <div className="menu-user">
-                <Link to={"/news"} className="menu-link">
+                <Link to={URL_NEWS} className="menu-link">
                     <img className="svg-icon" src={news} alt="Fit-Style"/>
                     <span className="menu-link-name">Новости</span>
                 </Link>
             </div>
             <div className="menu-user">
-                <Link to={"/map"} className="menu-link">
+                <Link to={URL_CALENDAR} className="menu-link">
+                    <img className="svg-icon" src={news} alt="Fit-Style"/>
+                    <span className="menu-link-name">Календарь</span>
+                </Link>
+            </div>
+            <div className="menu-user">
+                <Link to={URL_MAP} className="menu-link">
                     <img className="svg-icon" src={map} alt="Fit-Style"/>
                     <span className="menu-link-name">Карта</span>
                 </Link>
             </div>
             <div className="menu-user">
-                <Link to={"/info"} className="menu-link">
+                <Link to={URL_INFO} className="menu-link">
                     <img className="svg-icon" src={info} alt="Fit-Style"/>
                     <span className="menu-link-name">О нас</span>
                 </Link>
@@ -49,7 +65,7 @@ const Navbar = (props) => {
             { props.isAdmin && (
                 <div className="menu-user">
                     <div className="menu-user-container">
-                        <Link to={"/register"} className="menu-link">
+                        <Link to={URL_REGISTER} className="menu-link">
                             <img className="svg-icon" src={register} alt="Fit-Style"/>
                             <span className="menu-link-name">Регистрация</span>
                         </Link>
@@ -58,13 +74,13 @@ const Navbar = (props) => {
             )}
             <div className="menu-user">
                 <div className="menu-user-container">
-                    <Link to={"/login"} className="menu-link-exit" onClick={props.logOut}>
+                    <Link to={URL_LOGIN} className="menu-link-exit" onClick={props.logOut}>
                         <img className="svg-icon" src={exit} alt="Fit-Style"/>
                         <span className="menu-link-name">Выход</span>
                     </Link>
                 </div>
             </div>
-            <Link to={"/profile"} className="menu-link-profile">
+            <Link to={URL_PROFILE} className="menu-link-profile">
                 <img className="svg-icon" src={user} alt="Fit-Style"/>
                 <span className="menu-link-name">Профиль</span>
             </Link>
