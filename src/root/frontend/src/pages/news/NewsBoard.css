@@ -27,7 +27,7 @@
     border-left: 1px solid #c41b1b;
     transform: translateX(110px);
     height: 40px;
-    width: 40px;
+    width: 33px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -36,7 +36,6 @@
 .noselect svg {
     width: 15px;
     fill: #eee;
-
 }
 
 .noselect:hover {
@@ -52,7 +51,6 @@
     border-left: none;
     transform: translateX(0);
 }
-
 
 .select {
     margin-top: 35px;
@@ -96,7 +94,7 @@
     border: none;
     border-radius: 5px;
     box-shadow: 1px 1px 3px rgba(0,0,0,0.15);
-    background: #41d7de;
+    background: #2cdbe7;
 }
 
 .add-news,
@@ -114,7 +112,7 @@
     border-left: 1px solid #3ac0c7;
     transform: translateX(110px);
     height: 40px;
-    width: 40px;
+    width: 35px;
     display: flex;
     align-items: center;
     justify-content: center;
