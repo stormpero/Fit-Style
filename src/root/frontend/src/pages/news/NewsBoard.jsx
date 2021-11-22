@@ -7,6 +7,8 @@ import NewsFormContainer from "./form/NewsFormContainer";
 import NewsService from "../../services/api/NewsService";
 import LStorageUser from "../../services/LStorageUser";
 import "./NewsBoard.css";
+import ToastMessages from "../../services/utils/ToastMessages";
+import {TOP_RIGHT} from "../../services/utils/consts/ToastPosition";
 
 export const NewsBoard = () => {
 
@@ -41,7 +43,8 @@ export const NewsBoard = () => {
     const deleteNews = (id) => {
         NewsService.deleteNews(id).then(
             response => {
-                window.location.reload()
+                window.location.reload();
+                ToastMessages.success("Новость удалена!", TOP_RIGHT);
             },
             error => {
                 console.log(error.response)
@@ -52,43 +55,44 @@ export const NewsBoard = () => {
     return(
         <div className="d-flex justify-content-center">
             <div className="news-board">
-
-
                 <div className="d-flex justify-content-around">
                     {isAdmin &&
-                    <button className={deleteActive ? 'select' : 'noselect'}
-                            onClick={() => setDeleteActive((prev) => !prev)}><span className='text'>Удалить</span><span
-                        className="icon"><svg
-                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path
-                        d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"/></svg></span>
-                    </button>
+                        <button className={deleteActive ? 'select' : 'noselect'}
+                                onClick={() => setDeleteActive((prev) => !prev)}>
+                            <span className='text'>Удалить</span>
+                            <span className="icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                    <path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"/>
+                                </svg>
+                            </span>
+                        </button>
                     }
                     <h1 className="map-title">Новостная лента</h1>
                     {isAdmin &&
-                    <button className="add-news" onClick={() => setModalActive(true)}><span
-                        className='text'>Добавить</span><span className="icon"><svg
-                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" transform="rotate(45)"
-                        viewBox="0 0 24 24"><path
-                        d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"/></svg></span>
-                    </button>
+                        <button className="add-news" onClick={() => setModalActive(true)}>
+                            <span className='text'>Добавить</span>
+                            <span className="icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" transform="rotate(45)" viewBox="0 0 24 24">
+                                    <path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"/>
+                                </svg>
+                            </span>
+                        </button>
                     }
                 </div>
                 {rowNews && rowNews.map((param, index) => <NewsRow key={index} news={param} delete={deleteNews} deleteMode={deleteActive}/>)}
                 {hasNews &&
-                <div className="d-flex justify-content-center">
-                    <div className="align-content-center">
-                        <button className="news-more" onClick={() => setRowNum(rowNum + 1)}>
-                                Больше
-                        </button>
+                    <div className="d-flex justify-content-center">
+                        <div className="align-content-center">
+                            <button className="news-more" onClick={() => setRowNum(rowNum + 1)}>Больше</button>
+                        </div>
                     </div>
-                </div>
                 }
                 <br/>
                 <br/>
                 <br/>
                 <br/>
             </div>
-            { isAdmin &&
+            {isAdmin &&
                 <Modal active={modalActive} setActive={setModalActive}>
                     <NewsFormContainer setActive={setModalActive}/>
                 </Modal>
