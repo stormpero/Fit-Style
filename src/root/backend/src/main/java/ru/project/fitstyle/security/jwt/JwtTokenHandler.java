@@ -32,7 +32,7 @@ public class JwtTokenHandler {
     public static boolean validateToken(String token, String jwtTokenSecret) {
         try {
             Jwts.parserBuilder()
-                    .setSigningKey(JwtTokenHandler.getSigningKey(jwtTokenSecret))
+                    .setSigningKey(getSigningKey(jwtTokenSecret))
                     .build().parseClaimsJws(token);
             return true;
         } catch (JwtException ex) {

@@ -14,10 +14,10 @@ import java.util.Date;
 public class PermissionControllerAdvice {
 
     @ExceptionHandler(value = PermissionException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorMessage handlePermissionException(PermissionException ex, WebRequest request) {
         return new ErrorMessage(
-                HttpStatus.BAD_REQUEST.value(),
+                HttpStatus.NOT_FOUND.value(),
                 new Date(),
                 ex.getMessage(),
                 ex.getErrorCode(),

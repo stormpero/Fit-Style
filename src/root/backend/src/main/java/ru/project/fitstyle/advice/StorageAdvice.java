@@ -5,19 +5,18 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
+import ru.project.fitstyle.exception.storage.StorageException;
 import ru.project.fitstyle.payload.responsemessage.ErrorMessage;
-import ru.project.fitstyle.exception.profile.ProfileException;
 
 import java.util.Date;
 
 @RestControllerAdvice
-public class ProfileControllerAdvice {
-
-    @ExceptionHandler(value = ProfileException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ErrorMessage handleProfileException(ProfileException ex, WebRequest request) {
+public class StorageAdvice {
+    @ExceptionHandler(value = StorageException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorMessage handleProfileException(StorageException ex, WebRequest request) {
         return new ErrorMessage(
-                HttpStatus.NOT_FOUND.value(),
+                HttpStatus.BAD_REQUEST.value(),
                 new Date(),
                 ex.getMessage(),
                 ex.getErrorCode(),

@@ -27,7 +27,7 @@ public class AuthControllerAdvice {
                 request.getDescription(false));
     }
 
-    @ExceptionHandler(value = {RoleException.class, EmailException.class, SubscriptionTypeException.class})
+    @ExceptionHandler(value = {RoleException.class, EmailException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorMessage handleRoleException(RoleException ex, WebRequest request) {
         return new ErrorMessage(
