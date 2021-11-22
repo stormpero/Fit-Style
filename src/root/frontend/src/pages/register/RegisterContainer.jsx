@@ -67,13 +67,10 @@ export default class RegisterContainer extends Component {
             this.setState({
                 message: errorMsg,
             });
-        } else {
-            this.setState({
-                message: "Всё Хорошо!",
-            });
+
+            return;
         }
 
-        //TODO: Проверить данные на ошибки + на пустоту
         AuthService.register(this.state.userInfo).then(
             (response) => {
                 let msg = response.data.message === 'User registered successfully!' ? 'Пользователь успешно зарегистрирован' : "-_-";

@@ -125,7 +125,6 @@ const Register = (props) => {
                                placeholder="Телефон"
                         />
                     </div>
-                    {/*TODO: Добавить поля для паспортных данных */}
                     <div className="form-group">
                         <label htmlFor="passport">Паспортные данные</label>
                         <input className="form-control mb-2"
