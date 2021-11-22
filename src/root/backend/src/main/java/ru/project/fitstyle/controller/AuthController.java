@@ -19,7 +19,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import java.util.*;
 import java.util.stream.Collectors;
 
-import org.springframework.web.multipart.MultipartFile;
 import ru.project.fitstyle.exception.email.EEmailError;
 import ru.project.fitstyle.exception.email.EmailException;
 import ru.project.fitstyle.exception.role.ERoleError;
@@ -120,8 +119,7 @@ public class AuthController {
 
     @PostMapping("/signup")
     @PreAuthorize("hasRole('MODERATOR')")
-    public ResponseEntity<SuccessMessage> registerUser(@Valid @RequestBody SignupRequest signUpRequest,
-                                                       @RequestParam("file") MultipartFile file) {
+    public ResponseEntity<SuccessMessage> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
         if (userRepository
                 .existsByEmail(signUpRequest.getEmail())) {
             throw new EmailException(EEmailError.OCCUPIED);

@@ -1,11 +1,13 @@
 package ru.project.fitstyle.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import ru.project.fitstyle.exception.newspage.ENewsPageError;
 import ru.project.fitstyle.exception.newspage.NewsPageException;
 import ru.project.fitstyle.exception.newsstory.ENewsStoryError;
@@ -17,6 +19,7 @@ import ru.project.fitstyle.payload.response.news.NewsShowPageResponse;
 import ru.project.fitstyle.payload.response.news.NewsShowResponse;
 import ru.project.fitstyle.payload.responsemessage.SuccessMessage;
 import ru.project.fitstyle.repository.NewsRepository;
+import ru.project.fitstyle.service.storage.StorageService;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -27,13 +30,16 @@ import java.util.List;
 @PreAuthorize("hasRole('USER')")
 public class NewsController {
     private final NewsRepository newsRepository;
+    private final StorageService storageService;
 
     //Constant variable that specifies number of news in one page
     final int numberOfNewsInOnePage = 6;
 
     @Autowired
-    public NewsController(NewsRepository newsRepository) {
+    public NewsController(NewsRepository newsRepository,
+                          @Qualifier("fileSystemStorageService") StorageService storageService) {
         this.newsRepository = newsRepository;
+        this.storageService = storageService;
     }
 
     @GetMapping("/{page_number}")
@@ -69,7 +75,8 @@ public class NewsController {
 
     @PostMapping()
     @PreAuthorize("hasRole('MODERATOR')")
-    public ResponseEntity<SuccessMessage> add(@Valid @RequestBody AddEditNewsRequest addEditNewsRequest) {
+    public ResponseEntity<SuccessMessage> add(@Valid @RequestBody AddEditNewsRequest addEditNewsRequest,
+                                              @RequestParam(value = "image", required = false) MultipartFile image) {
         //Add News
         News news = new News(
                 addEditNewsRequest.getHeader(),
@@ -77,6 +84,8 @@ public class NewsController {
                 addEditNewsRequest.getDateTime(),
                 addEditNewsRequest.getImgURL()
         );
+
+        storageService.store(image);
 
         newsRepository.save(news);
         return ResponseEntity.ok(
