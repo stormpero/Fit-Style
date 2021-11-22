@@ -4,6 +4,8 @@ import Register from "./Register";
 
 import AuthService from "../../services/api/AuthService";
 import Validation from "../../services/utils/Validation";
+import ToastMessages from "../../services/utils/ToastMessages";
+import {TOP_RIGHT} from "../../services/utils/consts/ToastPosition";
 
 export default class RegisterContainer extends Component {
 
@@ -21,8 +23,7 @@ export default class RegisterContainer extends Component {
             passport: "",
             address: "",
             imageData: null
-        },
-        message: ""
+        }
     }
 
     handleInputChange = (event) => {
@@ -63,17 +64,14 @@ export default class RegisterContainer extends Component {
         let res = Validation.validateSingUp(this.state.userInfo);
         if (res.result) {
             const errorMsg = res.msg;
-
-            this.setState({
-                message: errorMsg,
-            });
-
+            ToastMessages.error(errorMsg, TOP_RIGHT)
             return;
         }
 
         AuthService.register(this.state.userInfo).then(
             (response) => {
                 let msg = response.data.message === 'User registered successfully!' ? 'Пользователь успешно зарегистрирован' : "-_-";
+                ToastMessages.success(msg, TOP_RIGHT)
                 this.setState({
                     userInfo: {
                         email: "",
@@ -87,16 +85,13 @@ export default class RegisterContainer extends Component {
                         telephone: "",
                         passport: "",
                         address: ""
-                    },
-                    message: msg
+                    }
                 });
             }).catch((error)=> {
                 let errorMsg = error.response.data.errorCode === 1 ? 'Ошибка. Пользователь с таким Email уже существует!' : 'Ошибка';
-
-                this.setState({
-                    message: errorMsg
-                });
-            });
+                ToastMessages.error(errorMsg, TOP_RIGHT)
+            }
+        );
     }
 
     render() {
@@ -109,7 +104,6 @@ export default class RegisterContainer extends Component {
             inputImg: this.handleImgInputChange,
         }}
         value={this.state.userInfo}
-        message={this.state.message}
         />);
     }
 }

@@ -4,7 +4,8 @@ import Login from "./Login";
 
 import AuthService from "../../services/api/AuthService";
 import isEmpty from "validator/es/lib/isEmpty";
-
+import ToastMessages from "../../services/utils/ToastMessages";
+import {TOP_CENTER, TOP_RIGHT} from "../../services/utils/consts/ToastPosition";
 
 export default class LoginContainer extends Component {
 
@@ -12,8 +13,7 @@ export default class LoginContainer extends Component {
         userInfo: {
             email: "",
             password: "",
-        },
-        errorMsg: ""
+        }
     }
 
     handleInputChange = (event) => {
@@ -32,24 +32,18 @@ export default class LoginContainer extends Component {
         if (isEmpty(this.state.userInfo.email) ||
             isEmpty(this.state.userInfo.password)) {
             const errorMsg = "Заполните поля";
-
-            this.setState({
-                errorMsg: errorMsg
-            });
+            ToastMessages.error(errorMsg, TOP_CENTER);
             return;
         }
 
-        //TODO: Проверить данные на ошибки
         AuthService.login(this.state.userInfo).then(
             () => {
+                ToastMessages.success("Добро пожаловать!", TOP_RIGHT);
                 this.props.setIsAuth(true);
                 this.props.history.push("/user");
             }).catch((error)=> {
-            let errorMsg = error?.response?.data?.message === "Bad credentials" ? "Неверные данные" : "Заполните поля";
-
-            this.setState({
-                errorMsg: errorMsg
-            });
+                let errorMsg = error?.response?.data?.message === "Bad credentials" ? "Неверные данные" : "Заполните поля";
+                ToastMessages.error(errorMsg);
         });
     }
 
@@ -61,7 +55,6 @@ export default class LoginContainer extends Component {
                     input: this.handleInputChange,
                 }}
                 value={this.state.userInfo}
-                error={this.state.errorMsg}
             />
         );
     }

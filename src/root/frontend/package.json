@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.22.0",
     "bootstrap": "^5.1.1",
+    "cogo-toast": "^4.2.3",
     "moment": "^2.29.1",
     "react": "^17.0.2",
     "react-big-calendar": "^0.38.1",

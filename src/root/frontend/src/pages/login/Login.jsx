@@ -57,12 +57,6 @@ const Login = (props) => {
                               Войти
                           </button>
                       </div>
-                      {props.error && (
-                          <div className="form-group">
-                              <p style={{color: 'red'}}>{props.error}</p>
-                          </div>
-                      )
-                      }
                   </form>
               </div>
           </div>

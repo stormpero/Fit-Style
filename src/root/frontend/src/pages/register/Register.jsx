@@ -163,11 +163,6 @@ const Register = (props) => {
                             <span>Register</span>
                         </button>
                     </div>
-                    {props.message && (
-                        <div className="form-group">
-                            <p style={{color: 'red'}}>{props.message}</p>
-                        </div>
-                    )}
                 </form>
             </div>
             <br/>
