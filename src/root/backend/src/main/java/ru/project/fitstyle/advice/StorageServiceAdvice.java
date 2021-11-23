@@ -11,7 +11,7 @@ import ru.project.fitstyle.payload.responsemessage.ErrorMessage;
 import java.util.Date;
 
 @RestControllerAdvice
-public class StorageAdvice {
+public class StorageServiceAdvice {
     @ExceptionHandler(value = StorageException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorMessage handleProfileException(StorageException ex, WebRequest request) {

@@ -125,54 +125,16 @@ public class AuthController {
             throw new EmailException(EEmailError.OCCUPIED);
         }
         // Create new user's account
-        FitUser fitUser = new FitUser(
-						signUpRequest.getName(),
-						signUpRequest.getSurname(),
-						signUpRequest.getPatronymic(),
-						signUpRequest.getEmail(),
+        FitUser fitUser = new FitUser(signUpRequest.getName(), signUpRequest.getSurname(),
+						signUpRequest.getPatronymic(), signUpRequest.getEmail(),
 						encoder.encode(signUpRequest.getPassword()),
-						signUpRequest.getAge(),
-						signUpRequest.getGender(),
-						signUpRequest.getBirthdate(),
-						signUpRequest.getTelephone(),
-						signUpRequest.getPassport(),
-						signUpRequest.getAddress());
+						signUpRequest.getAge(), signUpRequest.getGender(),
+						signUpRequest.getBirthdate(), signUpRequest.getTelephone(),
+						signUpRequest.getPassport(), signUpRequest.getAddress());
 
-        Set<String> strRoles = signUpRequest.getRoles();
-        Set<Role> roles = new HashSet<>();
-
-        if (strRoles != null) {
-            strRoles.forEach(role -> {
-                switch (role) {
-                    case "coach":
-                        Role adminRole = roleRepository.findByName(ERole.ROLE_COACH)
-                                .orElseThrow(() -> new RoleException(ERoleError.NOT_FOUND));
-                        roles.add(adminRole);
-
-                        break;
-                    case "mod":
-                        Role modRole = roleRepository.findByName(ERole.ROLE_MODERATOR)
-                                .orElseThrow(() -> new RoleException(ERoleError.NOT_FOUND));
-                        roles.add(modRole);
-
-                        break;
-                }
-            });
-        }
-        Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-                .orElseThrow(() -> new RoleException(ERoleError.NOT_FOUND));
-        roles.add(userRole);
-
-        SubscriptionType subscriptionType = subscriptionTypeRepository.findById(signUpRequest.getSubscriptionTypeId())
-                .orElseThrow(() -> new SubscriptionTypeException(ESubscriptionTypeError.NOT_FOUND));
-
-        Subscription subscription = new Subscription();
-        Date beginDate = new Date(new Date().getTime());
-        Date endDate = new Date(beginDate.getTime() + subscription.getSubscriptionType().getValidity().getTime());
-        subscription.setBeginDate(beginDate);
-        subscription.setEndDate(endDate);
-        subscription.setSubscriptionType(subscriptionType);
-        subscription.setContractNumber(signUpRequest.getContractNumber());
+        Set<Role> roles = createUserRoles(signUpRequest.getRoles());
+        Subscription subscription = getUserSubscription(signUpRequest.getSubscriptionTypeId(),
+                signUpRequest.getContractNumber());
 
         fitUser.setRoles(roles);
         fitUser.setSubscription(subscription);
@@ -219,10 +181,53 @@ public class AuthController {
     }
 
 
-    HttpHeaders createRefreshTokenCookie(String refreshToken) {
+    private HttpHeaders createRefreshTokenCookie(String refreshToken) {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add(HttpHeaders.SET_COOKIE, refreshTokenCookieService.getCookie(refreshToken,
                 refreshTokenService.getExpirationMs()).toString());
         return httpHeaders;
+    }
+
+    private Set<Role> createUserRoles(Set<String> strRoles) {
+        Set<Role> roles = new HashSet<>();
+
+        if (strRoles != null) {
+            strRoles.forEach(role -> {
+                switch (role) {
+                    case "coach":
+                        Role adminRole = roleRepository.findByName(ERole.ROLE_COACH)
+                                .orElseThrow(() -> new RoleException(ERoleError.NOT_FOUND));
+                        roles.add(adminRole);
+
+                        break;
+                    case "mod":
+                        Role modRole = roleRepository.findByName(ERole.ROLE_MODERATOR)
+                                .orElseThrow(() -> new RoleException(ERoleError.NOT_FOUND));
+                        roles.add(modRole);
+
+                        break;
+                }
+            });
+        }
+        Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+                .orElseThrow(() -> new RoleException(ERoleError.NOT_FOUND));
+        roles.add(userRole);
+
+        return roles;
+    }
+
+    private Subscription getUserSubscription(Long subscriptionTypeId, String contractNumber) {
+        SubscriptionType subscriptionType = subscriptionTypeRepository.findById(subscriptionTypeId)
+                .orElseThrow(() -> new SubscriptionTypeException(ESubscriptionTypeError.NOT_FOUND));
+
+        Subscription subscription = new Subscription();
+        Date beginDate = new Date(new Date().getTime());
+        Date endDate = new Date(beginDate.getTime() + subscription.getSubscriptionType().getValidity().getTime());
+        subscription.setBeginDate(beginDate);
+        subscription.setEndDate(endDate);
+        subscription.setSubscriptionType(subscriptionType);
+        subscription.setContractNumber(contractNumber);
+
+        return subscription;
     }
 }
