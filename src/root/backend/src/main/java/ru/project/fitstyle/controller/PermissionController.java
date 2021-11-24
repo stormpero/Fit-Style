@@ -6,14 +6,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import ru.project.fitstyle.exception.permission.EPermissionError;
-import ru.project.fitstyle.exception.permission.PermissionException;
-import ru.project.fitstyle.model.user.FitUser;
 import ru.project.fitstyle.payload.response.permission.PermissionResponse;
-import ru.project.fitstyle.repository.UserRepository;
 import ru.project.fitstyle.service.auth.AuthService;
-
-import java.util.Optional;
+import ru.project.fitstyle.service.user.FitUserService;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -21,23 +16,20 @@ import java.util.Optional;
 @PreAuthorize("hasRole('USER')")
 public class PermissionController {
 
-    private final UserRepository userRepository;
+    private final FitUserService fitUserService;
 
     private final AuthService authServiceImpl;
 
     @Autowired
-    public PermissionController(UserRepository userRepository ,
+    public PermissionController(@Qualifier("fitUserServiceImpl") FitUserService fitUserService ,
                                 @Qualifier("authServiceImpl") AuthService authServiceImpl) {
-        this.userRepository = userRepository;
+        this.fitUserService = fitUserService;
         this.authServiceImpl = authServiceImpl;
     }
 
     @GetMapping("/roles")
     public ResponseEntity<?> getUserRoles() {
-        Optional<FitUser> user = userRepository.findByEmail(authServiceImpl.getAuthentication().getName());
-        FitUser returnFitUser = user.orElseThrow(() ->
-                new PermissionException(EPermissionError.NOT_FOUND));
         return ResponseEntity.ok(
-                new PermissionResponse(returnFitUser.getRoles()));
+                new PermissionResponse(fitUserService.getFitUserRolesByEmail(authServiceImpl.getEmail())));
     }
 }

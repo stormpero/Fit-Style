@@ -13,19 +13,19 @@ import ru.project.fitstyle.repository.UserRepository;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-  private final UserRepository userRepository;
+    private final UserRepository userRepository;
 
-  @Autowired
-  public UserDetailsServiceImpl(UserRepository userRepository) {
-    this.userRepository = userRepository;
-  }
+    @Autowired
+    public UserDetailsServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
-  @Override
-  @Transactional
-  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    FitUser fitUser = userRepository.findByEmail(username)
-        .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
+    @Override
+    @Transactional
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        FitUser fitUser = userRepository.findByEmail(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
 
-    return UserDetailsImpl.build(fitUser);
-  }
+        return UserDetailsImpl.build(fitUser);
+    }
 }

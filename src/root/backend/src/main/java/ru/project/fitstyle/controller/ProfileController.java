@@ -34,7 +34,7 @@ public class ProfileController {
     @GetMapping()
     public ResponseEntity<UserProfileResponse> getUserProfileInfo() {
         FitUser fitUser = userRepository
-                .findByEmail(authServiceImpl.getAuthentication().getName())
+                .findByEmail(authServiceImpl.getEmail())
                 .orElseThrow(() ->
                         new ProfileException(EProfileError.NOT_FOUND));
         return ResponseEntity.ok(

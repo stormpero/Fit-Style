@@ -85,7 +85,9 @@ public class NewsController {
                 addEditNewsRequest.getImgURL()
         );
 
-        storageService.store(image);
+        if(image != null) {
+            storageService.store(image);
+        }
 
         newsRepository.save(news);
         return ResponseEntity.ok(

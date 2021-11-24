@@ -22,17 +22,9 @@ import java.util.stream.Collectors;
 import org.springframework.web.multipart.MultipartFile;
 import ru.project.fitstyle.exception.email.EEmailError;
 import ru.project.fitstyle.exception.email.EmailException;
-import ru.project.fitstyle.exception.role.ERoleError;
-import ru.project.fitstyle.exception.role.RoleException;
 import ru.project.fitstyle.exception.refresh.ERefreshTokenError;
 import ru.project.fitstyle.exception.refresh.RefreshTokenException;
-import ru.project.fitstyle.exception.subscriptionType.ESubscriptionTypeError;
-import ru.project.fitstyle.exception.subscriptionType.SubscriptionTypeException;
-import ru.project.fitstyle.model.subscription.Subscription;
-import ru.project.fitstyle.model.subscription.SubscriptionType;
-import ru.project.fitstyle.model.user.ERole;
 import ru.project.fitstyle.model.user.RefreshToken;
-import ru.project.fitstyle.model.user.Role;
 import ru.project.fitstyle.model.user.FitUser;
 import ru.project.fitstyle.payload.request.auth.LoginRequest;
 import ru.project.fitstyle.payload.request.auth.SignupRequest;
@@ -40,13 +32,11 @@ import ru.project.fitstyle.payload.response.auth.LoginResponse;
 import ru.project.fitstyle.payload.response.auth.RefreshTokenResponse;
 import ru.project.fitstyle.payload.responsemessage.SuccessMessage;
 import ru.project.fitstyle.repository.RefreshTokenRepository;
-import ru.project.fitstyle.repository.RoleRepository;
-import ru.project.fitstyle.repository.SubscriptionTypeRepository;
-import ru.project.fitstyle.repository.UserRepository;
 import ru.project.fitstyle.service.auth.AuthService;
 import ru.project.fitstyle.service.cookie.CookieService;
 import ru.project.fitstyle.service.storage.StorageService;
 import ru.project.fitstyle.service.token.TokenService;
+import ru.project.fitstyle.service.user.FitUserService;
 import ru.project.fitstyle.service.user.UserDetailsImpl;
 
 
@@ -57,13 +47,9 @@ public class AuthController {
 
     private final AuthenticationManager authenticationManager;
 
-    private final UserRepository userRepository;
+    private final FitUserService fitUserService;
 
     private final RefreshTokenRepository refreshTokenRepository;
-
-    private final RoleRepository roleRepository;
-
-    private final SubscriptionTypeRepository subscriptionTypeRepository;
 
     private final PasswordEncoder encoder;
 
@@ -78,20 +64,17 @@ public class AuthController {
     private final StorageService fileSystemStorageService;
 
     @Autowired
-    public AuthController(AuthenticationManager authenticationManager, UserRepository userRepository,
-                          RefreshTokenRepository refreshTokenRepository, RoleRepository roleRepository,
-                          SubscriptionTypeRepository subscriptionTypeRepository,
-                          PasswordEncoder encoder,
+    public AuthController(AuthenticationManager authenticationManager,
+                          RefreshTokenRepository refreshTokenRepository, PasswordEncoder encoder,
+                          @Qualifier("fitUserServiceImpl") FitUserService fitUserService,
                           @Qualifier("accessTokenService") TokenService accessTokenService,
                           @Qualifier("refreshTokenService") TokenService refreshTokenService,
                           @Qualifier("refreshTokenCookieService") CookieService refreshTokenCookieService,
                           @Qualifier("authServiceImpl") AuthService authServiceImpl,
                           @Qualifier("fileSystemStorageService") StorageService fileSystemStorageService) {
         this.authenticationManager = authenticationManager;
-        this.userRepository = userRepository;
+        this.fitUserService = fitUserService;
         this.refreshTokenRepository = refreshTokenRepository;
-        this.roleRepository = roleRepository;
-        this.subscriptionTypeRepository = subscriptionTypeRepository;
         this.encoder = encoder;
         this.accessTokenService = accessTokenService;
         this.refreshTokenService = refreshTokenService;
@@ -126,30 +109,25 @@ public class AuthController {
 
     @PostMapping("/signup")
     @PreAuthorize("hasRole('MODERATOR')")
-    public ResponseEntity<SuccessMessage> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
-        if (userRepository
-                .existsByEmail(signUpRequest.getEmail())) {
+    public ResponseEntity<SuccessMessage> registerUser(@Valid @RequestBody SignupRequest signUpRequest,
+                                                       @RequestParam(value = "image", required = false) MultipartFile image) {
+        if (!fitUserService.existsByEmail(signUpRequest.getEmail())) {
+            FitUser fitUser = new FitUser(signUpRequest.getName(), signUpRequest.getSurname(),
+                    signUpRequest.getPatronymic(), signUpRequest.getEmail(),
+                    encoder.encode(signUpRequest.getPassword()),
+                    signUpRequest.getAge(), signUpRequest.getGender(),
+                    signUpRequest.getBirthdate(), signUpRequest.getTelephone(),
+                    signUpRequest.getPassport(), signUpRequest.getAddress());
+
+            fitUserService.saveFitUser(fitUser, signUpRequest.getRoles(),
+                    signUpRequest.getSubscriptionTypeId(), signUpRequest.getContractNumber());
+
+            return ResponseEntity.ok(
+                    new SuccessMessage("User registered successfully!"));
+        }
+        else {
             throw new EmailException(EEmailError.OCCUPIED);
         }
-        // Create new user's account
-        FitUser fitUser = new FitUser(signUpRequest.getName(), signUpRequest.getSurname(),
-						signUpRequest.getPatronymic(), signUpRequest.getEmail(),
-						encoder.encode(signUpRequest.getPassword()),
-						signUpRequest.getAge(), signUpRequest.getGender(),
-						signUpRequest.getBirthdate(), signUpRequest.getTelephone(),
-						signUpRequest.getPassport(), signUpRequest.getAddress());
-
-        Set<Role> roles = createUserRoles(signUpRequest.getRoles());
-        Subscription subscription = getUserSubscription(signUpRequest.getSubscriptionTypeId(),
-                signUpRequest.getContractNumber());
-
-        fitUser.setRoles(roles);
-        fitUser.setSubscription(subscription);
-
-        userRepository.save(fitUser);
-
-        return ResponseEntity.ok(
-                new SuccessMessage("User registered successfully!"));
     }
 
     @GetMapping("/refreshtoken")
@@ -179,10 +157,7 @@ public class AuthController {
     @GetMapping("/logout")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<SuccessMessage> logoutUser() {
-        refreshTokenRepository
-                .deleteByFitUser(userRepository
-                        .findByEmail(authServiceImpl
-                                .getAuthentication().getName()).get());
+        fitUserService.logoutFitUserByEmail(authServiceImpl.getEmail());
         return ResponseEntity.ok(
                 new SuccessMessage("Log out successful!"));
     }
@@ -193,48 +168,5 @@ public class AuthController {
         httpHeaders.add(HttpHeaders.SET_COOKIE, refreshTokenCookieService.getCookie(refreshToken,
                 refreshTokenService.getExpirationMs()).toString());
         return httpHeaders;
-    }
-
-    private Set<Role> createUserRoles(Set<String> strRoles) {
-        Set<Role> roles = new HashSet<>();
-
-        if (strRoles != null) {
-            strRoles.forEach(role -> {
-                switch (role) {
-                    case "coach":
-                        Role adminRole = roleRepository.findByName(ERole.ROLE_COACH)
-                                .orElseThrow(() -> new RoleException(ERoleError.NOT_FOUND));
-                        roles.add(adminRole);
-
-                        break;
-                    case "mod":
-                        Role modRole = roleRepository.findByName(ERole.ROLE_MODERATOR)
-                                .orElseThrow(() -> new RoleException(ERoleError.NOT_FOUND));
-                        roles.add(modRole);
-
-                        break;
-                }
-            });
-        }
-        Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-                .orElseThrow(() -> new RoleException(ERoleError.NOT_FOUND));
-        roles.add(userRole);
-
-        return roles;
-    }
-
-    private Subscription getUserSubscription(Long subscriptionTypeId, String contractNumber) {
-        SubscriptionType subscriptionType = subscriptionTypeRepository.findById(subscriptionTypeId)
-                .orElseThrow(() -> new SubscriptionTypeException(ESubscriptionTypeError.NOT_FOUND));
-
-        Subscription subscription = new Subscription();
-        Date beginDate = new Date(new Date().getTime());
-        Date endDate = new Date(beginDate.getTime() + subscription.getSubscriptionType().getValidity().getTime());
-        subscription.setBeginDate(beginDate);
-        subscription.setEndDate(endDate);
-        subscription.setSubscriptionType(subscriptionType);
-        subscription.setContractNumber(contractNumber);
-
-        return subscription;
     }
 }
