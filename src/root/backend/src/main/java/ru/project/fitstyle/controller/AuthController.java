@@ -19,6 +19,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import java.util.*;
 import java.util.stream.Collectors;
 
+import org.springframework.web.multipart.MultipartFile;
 import ru.project.fitstyle.exception.email.EEmailError;
 import ru.project.fitstyle.exception.email.EmailException;
 import ru.project.fitstyle.exception.role.ERoleError;
@@ -44,6 +45,7 @@ import ru.project.fitstyle.repository.SubscriptionTypeRepository;
 import ru.project.fitstyle.repository.UserRepository;
 import ru.project.fitstyle.service.auth.AuthService;
 import ru.project.fitstyle.service.cookie.CookieService;
+import ru.project.fitstyle.service.storage.StorageService;
 import ru.project.fitstyle.service.token.TokenService;
 import ru.project.fitstyle.service.user.UserDetailsImpl;
 
@@ -73,6 +75,8 @@ public class AuthController {
 
     private final AuthService authServiceImpl;
 
+    private final StorageService fileSystemStorageService;
+
     @Autowired
     public AuthController(AuthenticationManager authenticationManager, UserRepository userRepository,
                           RefreshTokenRepository refreshTokenRepository, RoleRepository roleRepository,
@@ -81,7 +85,8 @@ public class AuthController {
                           @Qualifier("accessTokenService") TokenService accessTokenService,
                           @Qualifier("refreshTokenService") TokenService refreshTokenService,
                           @Qualifier("refreshTokenCookieService") CookieService refreshTokenCookieService,
-                          @Qualifier("authServiceImpl") AuthService authServiceImpl) {
+                          @Qualifier("authServiceImpl") AuthService authServiceImpl,
+                          @Qualifier("fileSystemStorageService") StorageService fileSystemStorageService) {
         this.authenticationManager = authenticationManager;
         this.userRepository = userRepository;
         this.refreshTokenRepository = refreshTokenRepository;
@@ -92,10 +97,12 @@ public class AuthController {
         this.refreshTokenService = refreshTokenService;
         this.refreshTokenCookieService = refreshTokenCookieService;
         this.authServiceImpl = authServiceImpl;
+        this.fileSystemStorageService = fileSystemStorageService;
     }
 
     @PostMapping("/signin")
-    public ResponseEntity<LoginResponse> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<LoginResponse> authenticateUser(@Valid @RequestBody LoginRequest loginRequest,
+                                                          @RequestParam(value = "image", required = false) MultipartFile image) {
         Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(
                         loginRequest.getEmail(), loginRequest.getPassword()));

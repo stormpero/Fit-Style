@@ -13,6 +13,10 @@ public class SubscriptionType {
             nullable = false, updatable = false, unique = true)
     private Long id;
 
+    @Column(name = "name", length = 200,
+            nullable = false)
+    private String name;
+
     @Column(name = "validity",
             nullable = false)
     private Date validity;
