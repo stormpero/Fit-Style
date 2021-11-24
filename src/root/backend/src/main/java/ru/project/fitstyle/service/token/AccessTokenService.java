@@ -46,9 +46,9 @@ public class AccessTokenService implements TokenService{
     }
 
     @Override
-    public boolean validate(Object token) {
+    public Object validate(String token) {
         return JwtTokenHandler
-                .validateToken((String)token, secret);
+                .validateToken(token, secret);
     }
 
     @Override

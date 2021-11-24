@@ -3,6 +3,8 @@ package ru.project.fitstyle.service.token;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.project.fitstyle.config.properties.token.RefreshTokenProperties;
+import ru.project.fitstyle.exception.refresh.ERefreshTokenError;
+import ru.project.fitstyle.exception.refresh.RefreshTokenException;
 import ru.project.fitstyle.model.user.RefreshToken;
 import ru.project.fitstyle.model.user.FitUser;
 import ru.project.fitstyle.repository.RefreshTokenRepository;
@@ -60,13 +62,20 @@ public class RefreshTokenService implements TokenService{
     }
 
     @Override
-    public boolean validate(Object token) {
-        if (((RefreshToken)token).getExpiryDate().compareTo(Instant.now()) < 0) {
-            refreshTokenRepository.delete(((RefreshToken)token));
-            return false;
-        }
+    public Object validate(String token) {
+        RefreshToken refreshToken= refreshTokenRepository.findByToken(token)
+                .orElseThrow(() ->
+                        new RefreshTokenException(token,
+                                ERefreshTokenError.NOT_FOUND));
 
-        return true;
+        if (refreshToken.getExpiryDate().compareTo(Instant.now()) >= 0) {
+            return refreshToken;
+        }
+        else {
+            refreshTokenRepository.delete(refreshToken);
+            throw new RefreshTokenException(refreshToken.getToken(),
+                    ERefreshTokenError.EXPIRED);
+        }
     }
 
     @Override

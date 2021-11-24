@@ -20,7 +20,6 @@ import ru.project.fitstyle.repository.UserRepository;
 
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 @Service

@@ -10,7 +10,7 @@ public interface TokenService {
 
     String getUsernameFromToken(String token);
 
-    boolean validate(Object obj);
+    Object validate(String token);
 
     String getSecret();
 

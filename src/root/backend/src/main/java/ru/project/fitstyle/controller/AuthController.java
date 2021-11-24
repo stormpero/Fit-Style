@@ -22,8 +22,6 @@ import java.util.stream.Collectors;
 import org.springframework.web.multipart.MultipartFile;
 import ru.project.fitstyle.exception.email.EEmailError;
 import ru.project.fitstyle.exception.email.EmailException;
-import ru.project.fitstyle.exception.refresh.ERefreshTokenError;
-import ru.project.fitstyle.exception.refresh.RefreshTokenException;
 import ru.project.fitstyle.model.user.RefreshToken;
 import ru.project.fitstyle.model.user.FitUser;
 import ru.project.fitstyle.payload.request.auth.LoginRequest;
@@ -31,7 +29,6 @@ import ru.project.fitstyle.payload.request.auth.SignupRequest;
 import ru.project.fitstyle.payload.response.auth.LoginResponse;
 import ru.project.fitstyle.payload.response.auth.RefreshTokenResponse;
 import ru.project.fitstyle.payload.responsemessage.SuccessMessage;
-import ru.project.fitstyle.repository.RefreshTokenRepository;
 import ru.project.fitstyle.service.auth.AuthService;
 import ru.project.fitstyle.service.cookie.CookieService;
 import ru.project.fitstyle.service.storage.StorageService;
@@ -49,8 +46,6 @@ public class AuthController {
 
     private final FitUserService fitUserService;
 
-    private final RefreshTokenRepository refreshTokenRepository;
-
     private final PasswordEncoder encoder;
 
     private final TokenService accessTokenService;
@@ -64,8 +59,7 @@ public class AuthController {
     private final StorageService fileSystemStorageService;
 
     @Autowired
-    public AuthController(AuthenticationManager authenticationManager,
-                          RefreshTokenRepository refreshTokenRepository, PasswordEncoder encoder,
+    public AuthController(AuthenticationManager authenticationManager,PasswordEncoder encoder,
                           @Qualifier("fitUserServiceImpl") FitUserService fitUserService,
                           @Qualifier("accessTokenService") TokenService accessTokenService,
                           @Qualifier("refreshTokenService") TokenService refreshTokenService,
@@ -74,7 +68,6 @@ public class AuthController {
                           @Qualifier("fileSystemStorageService") StorageService fileSystemStorageService) {
         this.authenticationManager = authenticationManager;
         this.fitUserService = fitUserService;
-        this.refreshTokenRepository = refreshTokenRepository;
         this.encoder = encoder;
         this.accessTokenService = accessTokenService;
         this.refreshTokenService = refreshTokenService;
@@ -133,25 +126,16 @@ public class AuthController {
     @GetMapping("/refreshtoken")
     public ResponseEntity<RefreshTokenResponse> refreshToken(@CookieValue(value="refreshToken", required = false)
                                                       String requestRefreshToken) {
-        RefreshToken rt = refreshTokenRepository.findByToken(requestRefreshToken)
-                .orElseThrow(() ->
-                        new RefreshTokenException(requestRefreshToken,
-                                ERefreshTokenError.NOT_FOUND));
-        if(refreshTokenService.validate(rt)) {
-            FitUser user = rt.getUser();
-            String jwtToken = accessTokenService
-                    .generateTokenFromUser(user);
-            String refreshToken = refreshTokenService
-                    .generateTokenFromUser(user);
+        RefreshToken rToken = (RefreshToken) refreshTokenService.validate(requestRefreshToken);
+        FitUser user = rToken.getUser();
+        String jwtToken = accessTokenService
+                .generateTokenFromUser(user);
+        String refreshToken = refreshTokenService
+                .generateTokenFromUser(user);
 
-            return ResponseEntity.ok()
-                    .headers(createRefreshTokenCookie(refreshToken))
-                    .body(new RefreshTokenResponse(jwtToken));
-        }
-        else {
-            throw new RefreshTokenException(rt.getToken(),
-                    ERefreshTokenError.EXPIRED);
-        }
+        return ResponseEntity.ok()
+                .headers(createRefreshTokenCookie(refreshToken))
+                .body(new RefreshTokenResponse(jwtToken));
     }
 
     @GetMapping("/logout")
