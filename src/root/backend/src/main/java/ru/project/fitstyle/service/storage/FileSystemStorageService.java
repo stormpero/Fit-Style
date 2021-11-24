@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
-import ru.project.fitstyle.config.properties.storage.StorageProperties;
+import ru.project.fitstyle.config.properties.StorageProperties;
 import ru.project.fitstyle.exception.storage.EStorageError;
 import ru.project.fitstyle.exception.storage.StorageException;
 

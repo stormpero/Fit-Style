@@ -2,7 +2,7 @@ package ru.project.fitstyle.service.token;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.project.fitstyle.config.properties.token.RefreshTokenProperties;
+import ru.project.fitstyle.config.properties.RefreshTokenProperties;
 import ru.project.fitstyle.exception.refresh.ERefreshTokenError;
 import ru.project.fitstyle.exception.refresh.RefreshTokenException;
 import ru.project.fitstyle.model.user.RefreshToken;

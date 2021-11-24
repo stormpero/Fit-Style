@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import ru.project.fitstyle.config.properties.News.NewsProperties;
+import ru.project.fitstyle.config.properties.NewsProperties;
 import ru.project.fitstyle.exception.newsstory.ENewsStoryError;
 import ru.project.fitstyle.exception.newsstory.NewsStoryException;
 import ru.project.fitstyle.model.news.News;
@@ -47,10 +47,5 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public void delete(News news) {
         newsRepository.delete(news);
-    }
-
-    @Override
-    public long getCount() {
-        return newsRepository.count();
     }
 }

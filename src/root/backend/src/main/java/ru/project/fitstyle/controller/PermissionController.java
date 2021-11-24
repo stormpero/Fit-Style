@@ -28,7 +28,7 @@ public class PermissionController {
     }
 
     @GetMapping("/roles")
-    public ResponseEntity<?> getUserRoles() {
+    public ResponseEntity<PermissionResponse> getUserRoles() {
         return ResponseEntity.ok(
                 new PermissionResponse(fitUserService.getFitUserRolesByEmail(authServiceImpl.getEmail())));
     }

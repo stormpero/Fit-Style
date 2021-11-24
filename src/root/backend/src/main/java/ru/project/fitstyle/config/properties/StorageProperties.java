@@ -1,4 +1,4 @@
-package ru.project.fitstyle.config.properties.storage;
+package ru.project.fitstyle.config.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
@@ -7,6 +7,9 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix = "storage")
 public class StorageProperties {
 
+    /**
+     * Location where our file will be stored
+     */
     private String location;
 
     public String getLocation() {

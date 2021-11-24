@@ -10,6 +10,10 @@ public interface FitUserService {
 
     boolean existsByEmail(String email);
 
+    FitUser getUserByEmail(String email);
+
+    FitUser getUserById(Long id);
+
     void saveFitUser(FitUser fitUser,
                      Set<String> strRoles, Long subscriptionTypeId, String contractNumber);
 

@@ -2,24 +2,16 @@ package ru.project.fitstyle.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import ru.project.fitstyle.config.properties.News.NewsProperties;
 import ru.project.fitstyle.exception.newspage.ENewsPageError;
 import ru.project.fitstyle.exception.newspage.NewsPageException;
-import ru.project.fitstyle.exception.newsstory.ENewsStoryError;
-import ru.project.fitstyle.exception.newsstory.NewsStoryException;
 import ru.project.fitstyle.model.news.News;
 import ru.project.fitstyle.payload.request.news.AddEditNewsRequest;
-import ru.project.fitstyle.payload.response.news.NewsInfoResponse;
 import ru.project.fitstyle.payload.response.news.NewsShowPageResponse;
-import ru.project.fitstyle.payload.response.news.NewsShowResponse;
 import ru.project.fitstyle.payload.responsemessage.SuccessMessage;
-import ru.project.fitstyle.repository.NewsRepository;
 import ru.project.fitstyle.service.news.NewsService;
 import ru.project.fitstyle.service.storage.StorageService;
 

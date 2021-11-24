@@ -1,4 +1,4 @@
-package ru.project.fitstyle.config.properties.cookie;
+package ru.project.fitstyle.config.properties;
 
 
 import org.springframework.boot.context.properties.ConfigurationProperties;

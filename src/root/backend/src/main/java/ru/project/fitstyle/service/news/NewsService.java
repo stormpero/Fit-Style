@@ -13,6 +13,4 @@ public interface NewsService {
     void save(News news);
 
     void delete(News news);
-
-    long getCount();
 }

@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.project.fitstyle.exception.permission.EPermissionError;
 import ru.project.fitstyle.exception.permission.PermissionException;
+import ru.project.fitstyle.exception.profile.EProfileError;
+import ru.project.fitstyle.exception.profile.ProfileException;
 import ru.project.fitstyle.exception.role.ERoleError;
 import ru.project.fitstyle.exception.role.RoleException;
 import ru.project.fitstyle.exception.subscriptionType.ESubscriptionTypeError;
@@ -42,6 +44,18 @@ public class FitUserServiceImpl implements  FitUserService {
     @Override
     public boolean existsByEmail(String email) {
         return userRepository.existsByEmail(email);
+    }
+
+    @Override
+    public FitUser getUserByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new ProfileException(EProfileError.NOT_FOUND));
+    }
+
+    @Override
+    public FitUser getUserById(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new ProfileException(EProfileError.NOT_FOUND));
     }
 
     @Override

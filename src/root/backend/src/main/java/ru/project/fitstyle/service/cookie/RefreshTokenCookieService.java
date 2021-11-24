@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpCookie;
 import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Service;
-import ru.project.fitstyle.config.properties.cookie.RefreshTokenCookieProperties;
+import ru.project.fitstyle.config.properties.RefreshTokenCookieProperties;
 
 @Service
 public class RefreshTokenCookieService implements CookieService {
