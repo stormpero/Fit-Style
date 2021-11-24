@@ -8,8 +8,7 @@ import ru.project.fitstyle.exception.subscriptionType.ESubscriptionTypeError;
 import ru.project.fitstyle.exception.subscriptionType.SubscriptionTypeException;
 import ru.project.fitstyle.model.subscription.SubscriptionType;
 import ru.project.fitstyle.payload.response.subscriptiontype.SubscriptionTypeResponse;
-import ru.project.fitstyle.repository.SubscriptionTypeRepository;
-import ru.project.fitstyle.service.Subscription.SubscriptionTypeService;
+import ru.project.fitstyle.service.subscription.SubscriptionTypeService;
 
 import java.util.List;
 

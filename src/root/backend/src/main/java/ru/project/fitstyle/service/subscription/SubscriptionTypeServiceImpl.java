@@ -1,4 +1,4 @@
-package ru.project.fitstyle.service.Subscription;
+package ru.project.fitstyle.service.subscription;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
