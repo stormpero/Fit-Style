@@ -34,7 +34,7 @@ import ru.project.fitstyle.service.cookie.CookieService;
 import ru.project.fitstyle.service.storage.StorageService;
 import ru.project.fitstyle.service.token.TokenService;
 import ru.project.fitstyle.service.user.FitUserService;
-import ru.project.fitstyle.service.user.UserDetailsImpl;
+import ru.project.fitstyle.service.user.details.UserDetailsImpl;
 
 
 @CrossOrigin(origins = "http://localhost:3000", maxAge = 3600, allowCredentials = "true")
@@ -54,7 +54,7 @@ public class AuthController {
 
     private final CookieService refreshTokenCookieService;
 
-    private final AuthService authServiceImpl;
+    private final AuthService authService;
 
     private final StorageService fileSystemStorageService;
 
@@ -64,7 +64,7 @@ public class AuthController {
                           @Qualifier("accessTokenService") TokenService accessTokenService,
                           @Qualifier("refreshTokenService") TokenService refreshTokenService,
                           @Qualifier("refreshTokenCookieService") CookieService refreshTokenCookieService,
-                          @Qualifier("authServiceImpl") AuthService authServiceImpl,
+                          @Qualifier("authServiceImpl") AuthService authService,
                           @Qualifier("fileSystemStorageService") StorageService fileSystemStorageService) {
         this.authenticationManager = authenticationManager;
         this.fitUserService = fitUserService;
@@ -72,7 +72,7 @@ public class AuthController {
         this.accessTokenService = accessTokenService;
         this.refreshTokenService = refreshTokenService;
         this.refreshTokenCookieService = refreshTokenCookieService;
-        this.authServiceImpl = authServiceImpl;
+        this.authService = authService;
         this.fileSystemStorageService = fileSystemStorageService;
     }
 
@@ -141,7 +141,7 @@ public class AuthController {
     @GetMapping("/logout")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<SuccessMessage> logoutUser() {
-        fitUserService.logoutFitUserByEmail(authServiceImpl.getEmail());
+        fitUserService.logoutFitUserByEmail(authService.getEmail());
         return ResponseEntity.ok(
                 new SuccessMessage("Log out successful!"));
     }
@@ -149,7 +149,7 @@ public class AuthController {
 
     private HttpHeaders createRefreshTokenCookie(String refreshToken) {
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add(HttpHeaders.SET_COOKIE, refreshTokenCookieService.getCookie(refreshToken,
+        httpHeaders.add(HttpHeaders.SET_COOKIE, refreshTokenCookieService.createCookie(refreshToken,
                 refreshTokenService.getExpirationMs()).toString());
         return httpHeaders;
     }

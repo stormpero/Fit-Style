@@ -4,5 +4,5 @@ import org.springframework.http.HttpCookie;
 
 public interface CookieService {
 
-    HttpCookie getCookie (String data, Long duration);
+    HttpCookie createCookie(String data, Long duration);
 }

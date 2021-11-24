@@ -1,4 +1,4 @@
-package ru.project.fitstyle.service.user;
+package ru.project.fitstyle.service.user.details;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.project.fitstyle.model.user.FitUser;
 import ru.project.fitstyle.repository.UserRepository;
+import ru.project.fitstyle.service.user.details.UserDetailsImpl;
 
 
 @Service

@@ -1,5 +1,6 @@
 package ru.project.fitstyle.controller;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -8,6 +9,7 @@ import ru.project.fitstyle.exception.subscriptionType.SubscriptionTypeException;
 import ru.project.fitstyle.model.subscription.SubscriptionType;
 import ru.project.fitstyle.payload.response.subscriptiontype.SubscriptionTypeResponse;
 import ru.project.fitstyle.repository.SubscriptionTypeRepository;
+import ru.project.fitstyle.service.Subscription.SubscriptionTypeService;
 
 import java.util.List;
 
@@ -17,15 +19,15 @@ import java.util.List;
 @PreAuthorize("hasRole('MODERATOR')")
 public class SubscriptionTypeController {
 
-    private final SubscriptionTypeRepository subscriptionTypeRepository;
+    private final SubscriptionTypeService subscriptionTypeService;
 
-    public SubscriptionTypeController(SubscriptionTypeRepository subscriptionTypeRepository) {
-        this.subscriptionTypeRepository = subscriptionTypeRepository;
+    public SubscriptionTypeController(@Qualifier("subscriptionTypeServiceImpl") SubscriptionTypeService subscriptionTypeService) {
+        this.subscriptionTypeService = subscriptionTypeService;
     }
 
     @GetMapping()
     public ResponseEntity<SubscriptionTypeResponse> show() {
-        List<SubscriptionType> subscriptionTypes = subscriptionTypeRepository.findAll();
+        List<SubscriptionType> subscriptionTypes = subscriptionTypeService.getAllSubscriptionTypes();
         if(subscriptionTypes.size() != 0) {
             return ResponseEntity.ok(new SubscriptionTypeResponse(subscriptionTypes));
         }

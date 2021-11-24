@@ -33,35 +33,6 @@ public class UserProfileResponse {
 
     private final String subscriptionCost;
 
-    public UserProfileResponse(
-                               String name,
-                               String surname,
-                               String patronymic,
-                               String email,
-                               String age,
-                               String gender,
-                               Date birthdate,
-                               String telephone,
-                               String passport,
-                               String address,
-                               ESubsPlacementTime subscriptionPlacementTime,
-                               Date subscriptionValidity,
-                               String subscriptionCost) {
-        this.name = name;
-        this.surname = surname;
-        this.patronymic = patronymic;
-        this.email = email;
-        this.age = age;
-        this.gender = gender;
-        this.birthdate = birthdate;
-        this.telephone = telephone;
-        this.passport = passport;
-        this.address = address;
-        this.subscriptionPlacementTime = subscriptionPlacementTime;
-        this.subscriptionValidity = subscriptionValidity;
-        this.subscriptionCost = subscriptionCost;
-    }
-
     public UserProfileResponse(FitUser fitUser) {
         this.name = fitUser.getName();
         this.surname = fitUser.getSurname();

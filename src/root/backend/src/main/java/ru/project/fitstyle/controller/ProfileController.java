@@ -11,6 +11,7 @@ import ru.project.fitstyle.model.user.FitUser;
 import ru.project.fitstyle.payload.response.profile.UserProfileResponse;
 import ru.project.fitstyle.repository.UserRepository;
 import ru.project.fitstyle.service.auth.AuthService;
+import ru.project.fitstyle.service.profile.ProfileService;
 
 import java.util.Optional;
 
@@ -20,23 +21,20 @@ import java.util.Optional;
 @PreAuthorize("hasRole('USER')")
 public class ProfileController {
 
-    private final UserRepository userRepository;
+    private final ProfileService profileService;
 
-    private final AuthService authServiceImpl;
+    private final AuthService authService;
 
     @Autowired
-    public ProfileController (UserRepository userRepository,
-                              @Qualifier("authServiceImpl") AuthService authServiceImpl) {
-        this.userRepository = userRepository;
-        this.authServiceImpl = authServiceImpl;
+    public ProfileController (@Qualifier("profileServiceImpl") ProfileService profileService,
+                              @Qualifier("authServiceImpl") AuthService authService) {
+        this.profileService = profileService;
+        this.authService = authService;
     }
 
     @GetMapping()
     public ResponseEntity<UserProfileResponse> getUserProfileInfo() {
-        FitUser fitUser = userRepository
-                .findByEmail(authServiceImpl.getEmail())
-                .orElseThrow(() ->
-                        new ProfileException(EProfileError.NOT_FOUND));
+        FitUser fitUser = profileService.getUserByEmail(authService.getEmail());
         return ResponseEntity.ok(
                 new UserProfileResponse(fitUser));
     }
@@ -44,10 +42,8 @@ public class ProfileController {
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('MODERATOR')")
     public ResponseEntity<UserProfileResponse> getUserProfileInfoById(@PathVariable("id") Long id) {
-        Optional<FitUser> user = userRepository.findById(id);
-        FitUser returnFitUser = user.orElseThrow(() ->
-                new ProfileException(EProfileError.NOT_FOUND));
+        FitUser fitUser = profileService.getUserById(id);
         return ResponseEntity.ok(
-                new UserProfileResponse(returnFitUser));
+                new UserProfileResponse(fitUser));
     }
 }

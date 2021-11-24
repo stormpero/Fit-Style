@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import ru.project.fitstyle.config.properties.News.NewsProperties;
 import ru.project.fitstyle.exception.newspage.ENewsPageError;
 import ru.project.fitstyle.exception.newspage.NewsPageException;
 import ru.project.fitstyle.exception.newsstory.ENewsStoryError;
@@ -19,6 +20,7 @@ import ru.project.fitstyle.payload.response.news.NewsShowPageResponse;
 import ru.project.fitstyle.payload.response.news.NewsShowResponse;
 import ru.project.fitstyle.payload.responsemessage.SuccessMessage;
 import ru.project.fitstyle.repository.NewsRepository;
+import ru.project.fitstyle.service.news.NewsService;
 import ru.project.fitstyle.service.storage.StorageService;
 
 import javax.validation.Valid;
@@ -29,48 +31,27 @@ import java.util.List;
 @RequestMapping("/api/news")
 @PreAuthorize("hasRole('USER')")
 public class NewsController {
-    private final NewsRepository newsRepository;
+    private final NewsService newsService;
     private final StorageService storageService;
 
-    //Constant variable that specifies number of news in one page
-    final int numberOfNewsInOnePage = 6;
-
     @Autowired
-    public NewsController(NewsRepository newsRepository,
+    public NewsController(@Qualifier("newsServiceImpl") NewsService newsService,
                           @Qualifier("fileSystemStorageService") StorageService storageService) {
-        this.newsRepository = newsRepository;
+        this.newsService = newsService;
         this.storageService = storageService;
     }
 
     @GetMapping("/{page_number}")
     public ResponseEntity<NewsShowPageResponse> showPage(@PathVariable("page_number") int pageNumber) {
         //Here we get first 6 (can be specified) recently added news
+        List<News> news = newsService.getNewsPage(pageNumber);
 
-        if(pageNumber > 0) {
-            List<News> news =
-                    newsRepository
-                            .findAll(PageRequest.of(pageNumber - 1, numberOfNewsInOnePage,
-                    Sort.by(Sort.Direction.DESC, "dateTime"))).toList();
-
-            if (news.size() != 0) {
-                return ResponseEntity.ok(
-                        new NewsShowPageResponse(news));
-            } else {
-                throw new NewsPageException(ENewsPageError.OVER);
-            }
+        if (news.size() != 0) {
+            return ResponseEntity.ok(
+                    new NewsShowPageResponse(news));
+        } else {
+            throw new NewsPageException(ENewsPageError.OVER);
         }
-        else {
-            throw new NewsPageException(ENewsPageError.LESS_THAN_ZERO);
-        }
-    }
-
-    @GetMapping("/story/{id}")
-    public ResponseEntity<NewsShowResponse> show(@PathVariable("id") Long id) {
-        //Find news by given id
-        News news = newsRepository.findById(id)
-                .orElseThrow(() ->
-                        new NewsStoryException(ENewsStoryError.NOT_FOUND));
-        return ResponseEntity.ok(new NewsShowResponse(news));
     }
 
     @PostMapping()
@@ -85,11 +66,9 @@ public class NewsController {
                 addEditNewsRequest.getImgURL()
         );
 
-        if(image != null) {
-            storageService.store(image);
-        }
+        storageService.store(image);
+        newsService.save(news);
 
-        newsRepository.save(news);
         return ResponseEntity.ok(
                 new SuccessMessage("Success! News created!")
         );
@@ -103,15 +82,13 @@ public class NewsController {
     public ResponseEntity<SuccessMessage> update(@Valid @RequestBody AddEditNewsRequest addEditNewsRequest,
                                                  @PathVariable("id") Long id) {
     //Update news. It currently updates all fields of the DB object instead of updating only those which are changed
-        News news = newsRepository.findById(id)
-                .orElseThrow(() ->
-                        new NewsStoryException(ENewsStoryError.NOT_FOUND));
+        News news = newsService.getNewsById(id);
         news.setHeader(addEditNewsRequest.getHeader());
         news.setContent(addEditNewsRequest.getContent());
         news.setDateTime(addEditNewsRequest.getDateTime());
         news.setImgURL(addEditNewsRequest.getImgURL());
 
-        newsRepository.save(news);
+        newsService.save(news);
         return ResponseEntity.ok(
                 new SuccessMessage("Success! News updated!")
         );
@@ -121,22 +98,10 @@ public class NewsController {
     @PreAuthorize("hasRole('MODERATOR')")
     public ResponseEntity<SuccessMessage> delete(@PathVariable("id") Long id) {
         //Delete news
-        News news = newsRepository.findById(id)
-                .orElseThrow(() ->
-                        new NewsStoryException(ENewsStoryError.NOT_FOUND));
-        newsRepository.delete(news);
+        News news = newsService.getNewsById(id);
+        newsService.delete(news);
         return ResponseEntity.ok(
                 new SuccessMessage("Success! News deleted!")
         );
-    }
-
-    @GetMapping("/info")
-    public ResponseEntity<NewsInfoResponse> getInfo() {
-        long numberOfNews = newsRepository.count();
-        long numberOfPages =
-                (long)Math.ceil((double)numberOfNews/numberOfNewsInOnePage);
-        NewsInfoResponse newsInfoResponse =
-                new NewsInfoResponse(numberOfPages, numberOfNews, numberOfNewsInOnePage);
-        return ResponseEntity.ok(newsInfoResponse);
     }
 }

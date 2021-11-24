@@ -1,4 +1,4 @@
-package ru.project.fitstyle.service.user;
+package ru.project.fitstyle.service.user.details;
 
 import java.util.Collection;
 import java.util.List;
