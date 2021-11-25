@@ -48,17 +48,18 @@ public class NewsController {
 
     @PostMapping()
     @PreAuthorize("hasRole('MODERATOR')")
-    public ResponseEntity<SuccessMessage> add(@Valid @RequestPart(value = "request") AddEditNewsRequest request,
-                                              @RequestPart(value = "image", required = false) MultipartFile image) {
+    public ResponseEntity<SuccessMessage> add(@Valid @RequestPart(value = "request") AddEditNewsRequest request
+                                              /*@RequestPart(value = "image", required = false) MultipartFile image*/) {
         //Add News
         News news = new News(
                 request.getHeader(),
                 request.getContent(),
                 request.getDateTime(),
-                image.getOriginalFilename()
+                //image.getOriginalFilename()
+                "testfilename"
         );
 
-        storageService.store(image);
+        //storageService.store(image);
         newsService.save(news);
 
         return ResponseEntity.ok(
@@ -78,7 +79,6 @@ public class NewsController {
         news.setHeader(addEditNewsRequest.getHeader());
         news.setContent(addEditNewsRequest.getContent());
         news.setDateTime(addEditNewsRequest.getDateTime());
-        news.setImgURL(addEditNewsRequest.getImgURL());
 
         newsService.save(news);
         return ResponseEntity.ok(

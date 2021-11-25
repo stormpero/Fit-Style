@@ -15,15 +15,10 @@ public class AddEditNewsRequest {
 
     private Date dateTime;
 
-    @NotBlank(message = "imgURL should not be blank")
-    @Size(min=1, max = 100, message = "imgURL should be more or equal than 1 and less or equal than 100 characters")
-    private String imgURL;
-
-    public AddEditNewsRequest(String header, String content, Date dateTime, String imgURL) {
+    public AddEditNewsRequest(String header, String content, Date dateTime) {
         this.header = header;
         this.content = content;
         this.dateTime = dateTime;
-        this.imgURL = imgURL;
     }
 
     public AddEditNewsRequest() {
@@ -51,13 +46,5 @@ public class AddEditNewsRequest {
 
     public void setDateTime(Date dateTime) {
         this.dateTime = dateTime;
-    }
-
-    public String getImgURL() {
-        return imgURL;
-    }
-
-    public void setImgURL(String imgURL) {
-        this.imgURL = imgURL;
     }
 }
