@@ -115,8 +115,7 @@ public class AuthController {
             userService.saveFitUser(fitUser, request.getRoles(),
                     request.getSubscriptionTypeId(), request.getContractNumber());
 
-            if(image != null)
-            {
+            if(image != null) {
                 imageStorageService.store(image);
             }
 

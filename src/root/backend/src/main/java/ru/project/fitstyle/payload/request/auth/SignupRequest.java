@@ -53,7 +53,7 @@ public class SignupRequest {
     @Size(min=3, max=5, message = "roles should be more or equal than 3 and less or equal than 5 characters")
     private Set<String> roles;
 
-    @NotBlank(message = "subscriptionTypeId should not be blank")
+    @NotNull(message = "subscriptionTypeId should not be blank")
     private Long subscriptionTypeId;
 
     @NotBlank(message = "contractNumber should not be blank")
