@@ -80,6 +80,15 @@ const Register = (props) => {
                         />
                     </div>
                     <div className="form-group">
+                        <label htmlFor="age">Вид абонемента</label>
+                        <select className="form-control" name="subscriptionTypeId"
+                                onChange={props.handleFunc.input} value={props.subscriptionTypes[props.value.subscriptionTypeId]}
+                                defaultValue={"DEFAULT"}>
+                            <option value="DEFAULT">Выберите абонемент</option>
+                            {props.subscriptionTypes.map((param, index) => <option value={param.id} key={index}>{param.name}</option>)}
+                        </select>
+                    </div>
+                    <div className="form-group">
                         <label htmlFor="gender">Пол</label>
                         <div>
                             <div className="form-check">
@@ -134,6 +143,17 @@ const Register = (props) => {
                                onChange={props.handleFunc.input}
                                value={props.value.passport}
                                placeholder="Passport"
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="contractNumber">Номер договора</label>
+                        <input className="form-control mb-2"
+                               required
+                               name="contractNumber"
+                               type="text"
+                               onChange={props.handleFunc.input}
+                               value={props.value.contractNumber}
+                               placeholder="Номер договора"
                         />
                     </div>
                     <div className="form-group">

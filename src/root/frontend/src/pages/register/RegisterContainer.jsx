@@ -6,24 +6,41 @@ import AuthService from "../../services/api/AuthService";
 import Validation from "../../services/utils/Validation";
 import ToastMessages from "../../services/utils/ToastMessages";
 import {TOP_RIGHT} from "../../services/utils/consts/ToastPosition";
+import UserService from "../../services/api/UserService";
 
 export default class RegisterContainer extends Component {
 
     state = {
         userInfo: {
-            email: "",
-            password: "",
-            name: "",
-            surname: "",
-            patronymic: "",
-            age: "",
-            gender: "",
+            email: "UserProfile123@gmail.com",
+            password: "123123",
+            name: "Даня",
+            surname: "Чиганов",
+            patronymic: "Ренатович",
+            age: "15",
+            subscriptionTypeId: "",
+            gender: "M",
             birthdate: "",
-            telephone: "",
-            passport: "",
-            address: "",
-            imageData: null
-        }
+            telephone: "89219290135",
+            passport: "2313333342",
+            address: "г Санкт-Петербург, г Колпино, Заводской пр-кт",
+            contractNumber: "",
+        },
+        imageData: null,
+        subscriptionTypes: [],
+    }
+
+    componentDidMount() {
+        UserService.getSubscriptionType().then(
+            response => {
+                this.setState({
+                    subscriptionTypes: response.data?.subscriptionTypes
+                })
+            },
+            error => {
+                ToastMessages.error(error.response);
+            }
+        );
     }
 
     handleInputChange = (event) => {
@@ -38,13 +55,8 @@ export default class RegisterContainer extends Component {
 
     handleImgInputChange = (event) => {
         const {files} = event.target;
-        let formData = new FormData();
-        formData.append('file', files[0]);
         this.setState({
-            userInfo: {
-                ...this.state.userInfo,
-                imageData: files[0]
-            }
+            imageData: files[0]
         });
     }
 
@@ -60,6 +72,7 @@ export default class RegisterContainer extends Component {
 
     handleRegister = (event) => {
         event.preventDefault();
+        console.log(this.state)
 
         let res = Validation.validateSingUp(this.state.userInfo);
         if (res.result) {
@@ -68,7 +81,17 @@ export default class RegisterContainer extends Component {
             return;
         }
 
-        AuthService.register(this.state.userInfo).then(
+        const userData = this.state.userInfo;
+
+        const blob = new Blob([JSON.stringify(userData)], {
+            type: 'application/json',
+        })
+
+        const formData = new FormData();
+        formData.append('request', blob);
+        formData.append('image', this.state.imageData);
+
+        AuthService.register(formData).then(
             (response) => {
                 let msg = response.data.message === 'User registered successfully!' ? 'Пользователь успешно зарегистрирован' : "-_-";
                 ToastMessages.success(msg, TOP_RIGHT)
@@ -84,7 +107,8 @@ export default class RegisterContainer extends Component {
                         birthdate: "",
                         telephone: "",
                         passport: "",
-                        address: ""
+                        address: "",
+                        contractNumber: "",
                     }
                 });
             }).catch((error)=> {
@@ -104,6 +128,7 @@ export default class RegisterContainer extends Component {
             inputImg: this.handleImgInputChange,
         }}
         value={this.state.userInfo}
+        subscriptionTypes={this.state.subscriptionTypes}
         />);
     }
 }
