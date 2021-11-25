@@ -114,7 +114,7 @@ public class AuthController {
             if(image != null) {
                 imageStorageService.store(image);
                 System.out.println(image.getOriginalFilename());
-                fitUser.setImg_URL(image.getOriginalFilename());
+                fitUser.setImgURL(image.getOriginalFilename());
             }
 
             userService.saveFitUser(fitUser, request.getRoles(),

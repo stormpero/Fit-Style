@@ -1,6 +1,5 @@
 package ru.project.fitstyle.model.training;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import ru.project.fitstyle.model.user.FitUser;
 
