@@ -1,5 +1,7 @@
 package ru.project.fitstyle.model.subscription;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -30,6 +32,7 @@ public class SubscriptionType {
             nullable = false)
     private String cost;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "subscriptionType", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<Subscription> owner;
 
@@ -46,6 +49,14 @@ public class SubscriptionType {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public ESubsPlacementTime getPlacementTime() {
