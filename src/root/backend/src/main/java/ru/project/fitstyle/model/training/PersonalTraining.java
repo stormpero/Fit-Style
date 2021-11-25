@@ -1,5 +1,6 @@
 package ru.project.fitstyle.model.training;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import ru.project.fitstyle.model.user.FitUser;
 
@@ -61,10 +62,11 @@ public class PersonalTraining {
         this.status = status;
     }
 
+    @JsonIgnore
     public FitUser getUser() {
         return fitUser;
     }
-
+    @JsonIgnore
     public void setUser(FitUser fitUser) {
         this.fitUser = fitUser;
     }
