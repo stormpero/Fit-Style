@@ -1,5 +1,5 @@
 import api from "./Api";
-import {URL_PROFILE, URL_ROLES, URL_SUBSCRIPTIONTYPE, URL_USERTEST} from "../utils/consts/urlsApi";
+import {URL_PROFILE, URL_ROLES, URL_SUBSCRIPTIONTYPE, URL_TRAINING, URL_USERTEST} from "../utils/consts/urlsApi";
 
 class UserService {
     getUserBoard() {
@@ -18,7 +18,9 @@ class UserService {
         return api.get(URL_SUBSCRIPTIONTYPE);
     }
 
-    get
+    getTrainings() {
+        return api.get(URL_TRAINING);
+    }
 }
 
 export default new UserService();

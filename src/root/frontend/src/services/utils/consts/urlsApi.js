@@ -7,3 +7,4 @@ export const URL_PROFILE = "profile";
 export const URL_ROLES = "permission/roles";
 export const URL_NEWSADD = "news";
 export const URL_SUBSCRIPTIONTYPE= "subscriptiontype";
+export const URL_TRAINING= "training";
