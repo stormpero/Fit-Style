@@ -18,14 +18,14 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import ru.project.fitstyle.service.token.AccessTokenService;
-import ru.project.fitstyle.service.user.details.UserDetailsServiceImpl;
+import ru.project.fitstyle.service.user.details.FitUserDetailsService;
 
 public class AuthTokenFilter extends OncePerRequestFilter {
     @Autowired
     private AccessTokenService accessTokenService;
 
     @Autowired
-    private UserDetailsServiceImpl userDetailsService;
+    private FitUserDetailsService userDetailsService;
 
     private static final Logger logger = LoggerFactory.getLogger(AuthTokenFilter.class);
 

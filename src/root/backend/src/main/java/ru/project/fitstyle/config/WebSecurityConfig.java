@@ -15,7 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import ru.project.fitstyle.security.auth.AuthEntryPointJwt;
 import ru.project.fitstyle.security.auth.AuthTokenFilter;
-import ru.project.fitstyle.service.user.details.UserDetailsServiceImpl;
+import ru.project.fitstyle.service.user.details.FitUserDetailsService;
 
 
 @Configuration
@@ -26,13 +26,13 @@ import ru.project.fitstyle.service.user.details.UserDetailsServiceImpl;
         prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final UserDetailsServiceImpl userDetailsService;
+    private final FitUserDetailsService userDetailsService;
 
     private final AuthEntryPointJwt unauthorizedHandler;
 
     @Autowired
     public WebSecurityConfig(
-            UserDetailsServiceImpl userDetailsService, AuthEntryPointJwt unauthorizedHandler) {
+            FitUserDetailsService userDetailsService, AuthEntryPointJwt unauthorizedHandler) {
         this.userDetailsService = userDetailsService;
         this.unauthorizedHandler = unauthorizedHandler;
     }

@@ -1,5 +1,6 @@
 package ru.project.fitstyle.model.training;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import ru.project.fitstyle.model.user.FitUser;
 
 import javax.persistence.*;
@@ -29,6 +30,7 @@ public class GroupTraining {
             nullable = false)
     private Long coachId;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "groupTrainings",
             fetch = FetchType.LAZY)
     private Set<FitUser> fitUsers = new HashSet<>();

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.project.fitstyle.model.user.FitUser;
 import ru.project.fitstyle.payload.response.training.TrainingsResponse;
 import ru.project.fitstyle.service.auth.AuthService;
-import ru.project.fitstyle.service.user.FitUserService;
+import ru.project.fitstyle.service.user.UserService;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -19,18 +19,18 @@ import ru.project.fitstyle.service.user.FitUserService;
 @PreAuthorize("hasRole('USER')")
 public class TrainingController {
     private final AuthService authService;
-    private final FitUserService fitUserService;
+    private final UserService userService;
 
     @Autowired
-    public TrainingController(@Qualifier("authServiceImpl") AuthService authService,
-                              @Qualifier("fitUserServiceImpl") FitUserService fitUserService) {
+    public TrainingController(@Qualifier("fitAuthService") AuthService authService,
+                              @Qualifier("fitUserService") UserService userService) {
         this.authService = authService;
-        this.fitUserService = fitUserService;
+        this.userService = userService;
     }
 
     @GetMapping()
     public ResponseEntity<TrainingsResponse> getFitUserTrainings() {
-        FitUser fitUser = fitUserService.getUserByEmail(authService.getEmail());
+        FitUser fitUser = userService.getUserByEmail(authService.getEmail());
         return ResponseEntity.ok(
                 new TrainingsResponse(fitUser.getGroupTrainings(), fitUser.getPersonalTrainings())
         );

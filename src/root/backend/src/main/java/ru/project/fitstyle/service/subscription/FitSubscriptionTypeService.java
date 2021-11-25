@@ -8,12 +8,12 @@ import ru.project.fitstyle.repository.SubscriptionTypeRepository;
 import java.util.List;
 
 @Service
-public class SubscriptionTypeServiceImpl implements SubscriptionTypeService {
+public class FitSubscriptionTypeService implements SubscriptionTypeService {
 
     private final SubscriptionTypeRepository subscriptionTypeRepository;
 
     @Autowired
-    public SubscriptionTypeServiceImpl(SubscriptionTypeRepository subscriptionTypeRepository) {
+    public FitSubscriptionTypeService(SubscriptionTypeRepository subscriptionTypeRepository) {
         this.subscriptionTypeRepository = subscriptionTypeRepository;
     }
 

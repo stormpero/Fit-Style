@@ -13,7 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import ru.project.fitstyle.model.user.FitUser;
 
-public class UserDetailsImpl implements UserDetails {
+public class FitUserDetails implements UserDetails {
 	private static final long serialVersionUID = 1L;
 
 	private final Long id;
@@ -25,20 +25,20 @@ public class UserDetailsImpl implements UserDetails {
 
 	private final Collection<? extends GrantedAuthority> authorities;
 
-	public UserDetailsImpl(Long id, String username, String password,
-			Collection<? extends GrantedAuthority> authorities) {
+	public FitUserDetails(Long id, String username, String password,
+                          Collection<? extends GrantedAuthority> authorities) {
 		this.id = id;
 		this.username = username;
 		this.password = password;
 		this.authorities = authorities;
 	}
 
-	public static UserDetailsImpl build(FitUser fitUser) {
+	public static FitUserDetails build(FitUser fitUser) {
 		List<GrantedAuthority> authorities = fitUser.getRoles().stream()
 				.map(role -> new SimpleGrantedAuthority(role.getName().name()))
 				.collect(Collectors.toList());
 
-		return new UserDetailsImpl(
+		return new FitUserDetails(
 				fitUser.getId(),
 				fitUser.getEmail(),
 				fitUser.getPassword(),
@@ -90,7 +90,7 @@ public class UserDetailsImpl implements UserDetails {
 			return true;
 		if (o == null || getClass() != o.getClass())
 			return false;
-		UserDetailsImpl user = (UserDetailsImpl) o;
+		FitUserDetails user = (FitUserDetails) o;
 		return Objects.equals(id, user.id);
 	}
 }

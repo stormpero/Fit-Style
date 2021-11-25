@@ -33,8 +33,8 @@ import ru.project.fitstyle.service.auth.AuthService;
 import ru.project.fitstyle.service.cookie.CookieService;
 import ru.project.fitstyle.service.storage.StorageService;
 import ru.project.fitstyle.service.token.TokenService;
-import ru.project.fitstyle.service.user.FitUserService;
-import ru.project.fitstyle.service.user.details.UserDetailsImpl;
+import ru.project.fitstyle.service.user.UserService;
+import ru.project.fitstyle.service.user.details.FitUserDetails;
 
 
 @CrossOrigin(origins = "http://localhost:3000", maxAge = 3600, allowCredentials = "true")
@@ -44,9 +44,9 @@ public class AuthController {
 
     private final AuthenticationManager authenticationManager;
 
-    private final FitUserService fitUserService;
-
     private final PasswordEncoder encoder;
+
+    private final UserService userService;
 
     private final TokenService accessTokenService;
 
@@ -56,24 +56,24 @@ public class AuthController {
 
     private final AuthService authService;
 
-    private final StorageService fileSystemStorageService;
+    private final StorageService imageStorageService;
 
     @Autowired
     public AuthController(AuthenticationManager authenticationManager,PasswordEncoder encoder,
-                          @Qualifier("fitUserServiceImpl") FitUserService fitUserService,
+                          @Qualifier("fitUserService") UserService userService,
                           @Qualifier("accessTokenService") TokenService accessTokenService,
                           @Qualifier("refreshTokenService") TokenService refreshTokenService,
                           @Qualifier("refreshTokenCookieService") CookieService refreshTokenCookieService,
-                          @Qualifier("authServiceImpl") AuthService authService,
-                          @Qualifier("fileSystemStorageService") StorageService fileSystemStorageService) {
+                          @Qualifier("fitAuthService") AuthService authService,
+                          @Qualifier("imageStorageService") StorageService imageStorageService) {
         this.authenticationManager = authenticationManager;
-        this.fitUserService = fitUserService;
+        this.userService = userService;
         this.encoder = encoder;
         this.accessTokenService = accessTokenService;
         this.refreshTokenService = refreshTokenService;
         this.refreshTokenCookieService = refreshTokenCookieService;
         this.authService = authService;
-        this.fileSystemStorageService = fileSystemStorageService;
+        this.imageStorageService = imageStorageService;
     }
 
     @PostMapping("/signin")
@@ -85,7 +85,7 @@ public class AuthController {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        FitUserDetails userDetails = (FitUserDetails) authentication.getPrincipal();
         List<String> roles = userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
@@ -104,7 +104,7 @@ public class AuthController {
     @PreAuthorize("hasRole('MODERATOR')")
     public ResponseEntity<SuccessMessage> registerUser(@Valid @RequestBody SignupRequest signUpRequest,
                                                        @RequestParam(value = "image", required = false) MultipartFile image) {
-        if (!fitUserService.existsByEmail(signUpRequest.getEmail())) {
+        if (!userService.existsByEmail(signUpRequest.getEmail())) {
             FitUser fitUser = new FitUser(signUpRequest.getName(), signUpRequest.getSurname(),
                     signUpRequest.getPatronymic(), signUpRequest.getEmail(),
                     encoder.encode(signUpRequest.getPassword()),
@@ -112,8 +112,13 @@ public class AuthController {
                     signUpRequest.getBirthdate(), signUpRequest.getTelephone(),
                     signUpRequest.getPassport(), signUpRequest.getAddress());
 
-            fitUserService.saveFitUser(fitUser, signUpRequest.getRoles(),
+            userService.saveFitUser(fitUser, signUpRequest.getRoles(),
                     signUpRequest.getSubscriptionTypeId(), signUpRequest.getContractNumber());
+
+            if(image != null)
+            {
+                imageStorageService.store(image);
+            }
 
             return ResponseEntity.ok(
                     new SuccessMessage("User registered successfully!"));
@@ -141,7 +146,7 @@ public class AuthController {
     @GetMapping("/logout")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<SuccessMessage> logoutUser() {
-        fitUserService.logoutFitUserByEmail(authService.getEmail());
+        userService.logoutFitUserByEmail(authService.getEmail());
         return ResponseEntity.ok(
                 new SuccessMessage("Log out successful!"));
     }

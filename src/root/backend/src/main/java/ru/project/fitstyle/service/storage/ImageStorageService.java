@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
-import ru.project.fitstyle.config.properties.StorageProperties;
+import ru.project.fitstyle.config.properties.ImageStorageProperties;
 import ru.project.fitstyle.exception.storage.EStorageError;
 import ru.project.fitstyle.exception.storage.StorageException;
 
@@ -19,16 +19,20 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 @Service
-public class FileSystemStorageService implements StorageService {
+public class ImageStorageService implements StorageService {
 
     private final Path rootLocation;
 
+    private final String defaultFileName;
+
     @Autowired
-    public FileSystemStorageService(StorageProperties properties) {
+    public ImageStorageService(ImageStorageProperties properties) {
         this.rootLocation = Paths.get(properties.getLocation());
+        this.defaultFileName = properties.getDefaultImageName();
     }
 
     @Override
@@ -43,7 +47,13 @@ public class FileSystemStorageService implements StorageService {
 
     @Override
     public String store(MultipartFile file) {
-        String filename = StringUtils.cleanPath(file.getOriginalFilename());
+        String filename;
+        if(file != null) {
+            filename = StringUtils.cleanPath(file.getOriginalFilename());
+        }
+        else {
+            filename = defaultFileName;
+        }
         try {
             if (file.isEmpty()) {
                 throw new StorageException(EStorageError.STORE);
@@ -74,7 +84,6 @@ public class FileSystemStorageService implements StorageService {
         catch (IOException e) {
             throw new StorageException(EStorageError.READ);
         }
-
     }
 
     @Override
