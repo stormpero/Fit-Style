@@ -1,5 +1,6 @@
 package ru.project.fitstyle.model.training;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import ru.project.fitstyle.model.user.FitUser;
 
 import javax.persistence.*;
@@ -27,6 +28,7 @@ public class PersonalTraining {
             nullable = false)
     private Long coachId;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "fit_user_id", referencedColumnName = "id",
             nullable = false)
