@@ -82,7 +82,8 @@ const Register = (props) => {
                     <div className="form-group">
                         <label htmlFor="age">Вид абонемента</label>
                         <select className="form-control" name="subscriptionTypeId"
-                                onChange={props.handleFunc.input} value={props.subscriptionTypes[props.value.subscriptionTypeId]}
+                                onChange={props.handleFunc.input} value={props.value.subscriptionTypeId}
+
                                 defaultValue={"DEFAULT"}>
                             <option value="DEFAULT">Выберите абонемент</option>
                             {props.subscriptionTypes.map((param, index) => <option value={param.id} key={index}>{param.name}</option>)}
