@@ -121,13 +121,12 @@ public class FitUserService implements UserService {
 
         Subscription subscription = new Subscription();
         Date beginDate = new Date(new Date().getTime());
-        Date endDate = (Date) beginDate.clone();
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(endDate);
+        calendar.setTime(beginDate);
         calendar.add(Calendar.MONTH, subscriptionType.getValidityMonths());
 
         subscription.setBeginDate(beginDate);
-        subscription.setEndDate(endDate);
+        subscription.setEndDate(calendar.getTime());
         subscription.setSubscriptionType(subscriptionType);
         subscription.setContractNumber(contractNumber);
 
