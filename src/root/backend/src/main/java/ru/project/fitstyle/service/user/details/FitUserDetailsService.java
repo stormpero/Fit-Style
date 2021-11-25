@@ -8,16 +8,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.project.fitstyle.model.user.FitUser;
 import ru.project.fitstyle.repository.UserRepository;
-import ru.project.fitstyle.service.user.details.UserDetailsImpl;
 
 
 @Service
-public class UserDetailsServiceImpl implements UserDetailsService {
+public class FitUserDetailsService implements UserDetailsService {
 
     private final UserRepository userRepository;
 
     @Autowired
-    public UserDetailsServiceImpl(UserRepository userRepository) {
+    public FitUserDetailsService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
@@ -27,6 +26,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         FitUser fitUser = userRepository.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
 
-        return UserDetailsImpl.build(fitUser);
+        return FitUserDetails.build(fitUser);
     }
 }

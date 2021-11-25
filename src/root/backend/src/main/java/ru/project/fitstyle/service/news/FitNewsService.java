@@ -13,14 +13,14 @@ import ru.project.fitstyle.repository.NewsRepository;
 import java.util.List;
 
 @Service
-public class NewsServiceImpl implements NewsService {
+public class FitNewsService implements NewsService {
 
     private final NewsRepository newsRepository;
 
     private final int pageNumber;
 
     @Autowired
-    public NewsServiceImpl(NewsRepository newsRepository, NewsProperties newsProperties) {
+    public FitNewsService(NewsRepository newsRepository, NewsProperties newsProperties) {
         this.newsRepository = newsRepository;
         this.pageNumber = newsProperties.getPageNumber();
     }
