@@ -64,10 +64,9 @@ public class FitUserService implements UserService {
                             Long subscriptionTypeId, String contractNumber) {
 
         Subscription subscription = createFitUserSubscription(subscriptionTypeId, contractNumber);
-
         fitUser.setRoles(createFitUserRoles(strRoles));
         fitUser.setSubscription(subscription);
-
+        System.out.println("1");
         userRepository.save(fitUser);
     }
 
