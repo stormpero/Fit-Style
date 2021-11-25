@@ -77,8 +77,7 @@ public class AuthController {
     }
 
     @PostMapping("/signin")
-    public ResponseEntity<LoginResponse> authenticateUser(@Valid @RequestBody LoginRequest loginRequest,
-                                                          @RequestParam(value = "image", required = false) MultipartFile image) {
+    public ResponseEntity<LoginResponse> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(
                         loginRequest.getEmail(), loginRequest.getPassword()));
@@ -112,12 +111,14 @@ public class AuthController {
                     request.getBirthdate(), request.getTelephone(),
                     request.getPassport(), request.getAddress());
 
-            userService.saveFitUser(fitUser, request.getRoles(),
-                    request.getSubscriptionTypeId(), request.getContractNumber());
-
             if(image != null) {
                 imageStorageService.store(image);
+                System.out.println(image.getOriginalFilename());
+                fitUser.setImgURL(image.getOriginalFilename());
             }
+
+            userService.saveFitUser(fitUser, request.getRoles(),
+                    request.getSubscriptionTypeId(), request.getContractNumber());
 
             return ResponseEntity.ok(
                     new SuccessMessage("User registered successfully!"));

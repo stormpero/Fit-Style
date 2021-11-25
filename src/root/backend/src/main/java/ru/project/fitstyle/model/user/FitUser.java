@@ -72,6 +72,8 @@ public class FitUser {
             nullable = false)
     private String address;
 
+    @Column(name = "img_URL", length = 100)
+    private String imgURL;
 
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -207,6 +209,14 @@ public class FitUser {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getImgURL() {
+        return imgURL;
+    }
+
+    public void setImgURL(String imgURL) {
+        this.imgURL = imgURL;
     }
 
     public Set<Role> getRoles() {
