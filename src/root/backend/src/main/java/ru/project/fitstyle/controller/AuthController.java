@@ -102,18 +102,18 @@ public class AuthController {
 
     @PostMapping("/signup")
     @PreAuthorize("hasRole('MODERATOR')")
-    public ResponseEntity<SuccessMessage> registerUser(@Valid @RequestBody SignupRequest signUpRequest,
-                                                       @RequestParam(value = "image", required = false) MultipartFile image) {
-        if (!userService.existsByEmail(signUpRequest.getEmail())) {
-            FitUser fitUser = new FitUser(signUpRequest.getName(), signUpRequest.getSurname(),
-                    signUpRequest.getPatronymic(), signUpRequest.getEmail(),
-                    encoder.encode(signUpRequest.getPassword()),
-                    signUpRequest.getAge(), signUpRequest.getGender(),
-                    signUpRequest.getBirthdate(), signUpRequest.getTelephone(),
-                    signUpRequest.getPassport(), signUpRequest.getAddress());
+    public ResponseEntity<SuccessMessage> registerUser(@Valid @RequestPart(value = "request") SignupRequest request,
+                                                       @RequestPart(value = "image", required = false) MultipartFile image) {
+        if (!userService.existsByEmail(request.getEmail())) {
+            FitUser fitUser = new FitUser(request.getName(), request.getSurname(),
+                    request.getPatronymic(), request.getEmail(),
+                    encoder.encode(request.getPassword()),
+                    request.getAge(), request.getGender(),
+                    request.getBirthdate(), request.getTelephone(),
+                    request.getPassport(), request.getAddress());
 
-            userService.saveFitUser(fitUser, signUpRequest.getRoles(),
-                    signUpRequest.getSubscriptionTypeId(), signUpRequest.getContractNumber());
+            userService.saveFitUser(fitUser, request.getRoles(),
+                    request.getSubscriptionTypeId(), request.getContractNumber());
 
             if(image != null)
             {
