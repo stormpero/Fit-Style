@@ -48,7 +48,7 @@ public class NewsController {
 
     @PostMapping()
     @PreAuthorize("hasRole('MODERATOR')")
-    public ResponseEntity<SuccessMessage> add(@Valid @RequestPart(value = "request") AddEditNewsRequest request
+    public ResponseEntity<SuccessMessage> add(@Valid @RequestBody AddEditNewsRequest request
                                               /*@RequestPart(value = "image", required = false) MultipartFile image*/) {
         //Add News
         News news = new News(
