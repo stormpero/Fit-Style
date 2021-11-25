@@ -50,10 +50,14 @@ public class SignupRequest {
     @Size(min = 5, max = 150, message = "address should be more or equal than 5 and less or equal than 150 characters")
     private String address;
 
+    @Size(min=3, max=5, message = "roles should be more or equal than 3 and less or equal than 5 characters")
     private Set<String> roles;
 
+    @NotBlank(message = "subscriptionTypeId should not be blank")
     private Long subscriptionTypeId;
 
+    @NotBlank(message = "contractNumber should not be blank")
+    @Size(min = 1, max = 15, message = "contractNumber should be more or equal than 1 and less or equal than 15 characters")
     private String contractNumber;
 
 

@@ -3,7 +3,6 @@ package ru.project.fitstyle.model.subscription;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -21,7 +20,7 @@ public class SubscriptionType {
 
     @Column(name = "validity",
             nullable = false)
-    private Date validity;
+    private int validityMonths;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "placement_time", length = 10,
@@ -83,11 +82,11 @@ public class SubscriptionType {
         this.owner = owner;
     }
 
-    public Date getValidity() {
-        return validity;
+    public int getValidityMonths() {
+        return validityMonths;
     }
 
-    public void setValidity(Date validity) {
-        this.validity = validity;
+    public void setValidityMonths(int validityMonths) {
+        this.validityMonths = validityMonths;
     }
 }

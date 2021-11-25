@@ -20,6 +20,7 @@ import ru.project.fitstyle.repository.RoleRepository;
 import ru.project.fitstyle.repository.SubscriptionTypeRepository;
 import ru.project.fitstyle.repository.UserRepository;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -59,12 +60,12 @@ public class FitUserService implements UserService {
     }
 
     @Override
-    public void saveFitUser(FitUser fitUser,
-                            Set<String> strRoles, Long subscriptionTypeId, String contractNumber) {
-        Set<Role> roles = createFitUserRoles(strRoles);
+    public void saveFitUser(FitUser fitUser, Set<String> strRoles,
+                            Long subscriptionTypeId, String contractNumber) {
+
         Subscription subscription = createFitUserSubscription(subscriptionTypeId, contractNumber);
 
-        fitUser.setRoles(roles);
+        fitUser.setRoles(createFitUserRoles(strRoles));
         fitUser.setSubscription(subscription);
 
         userRepository.save(fitUser);
@@ -120,7 +121,11 @@ public class FitUserService implements UserService {
 
         Subscription subscription = new Subscription();
         Date beginDate = new Date(new Date().getTime());
-        Date endDate = new Date(beginDate.getTime() + subscription.getSubscriptionType().getValidity().getTime());
+        Date endDate = (Date) beginDate.clone();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(endDate);
+        calendar.add(Calendar.MONTH, subscriptionType.getValidityMonths());
+
         subscription.setBeginDate(beginDate);
         subscription.setEndDate(endDate);
         subscription.setSubscriptionType(subscriptionType);

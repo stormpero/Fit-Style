@@ -20,7 +20,7 @@ public class Subscription {
             nullable = false)
     private Date endDate;
 
-    @Column(name = "contract_number", length = 16,
+    @Column(name = "contract_number", length = 15,
             nullable = false)
     private String contractNumber;
 

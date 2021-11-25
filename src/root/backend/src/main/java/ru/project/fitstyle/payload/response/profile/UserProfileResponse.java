@@ -27,7 +27,7 @@ public class UserProfileResponse {
 
     private final String address;
 
-    private final Date subscriptionValidity;
+    private final int subscriptionValidityMonths;
 
     private final ESubsPlacementTime subscriptionPlacementTime;
 
@@ -46,13 +46,13 @@ public class UserProfileResponse {
         this.address = fitUser.getAddress();
         if(fitUser.getSubscription() != null) {
             this.subscriptionPlacementTime = fitUser.getSubscription().getSubscriptionType().getPlacementTime();
-            this.subscriptionValidity = fitUser.getSubscription().getSubscriptionType().getValidity();
+            this.subscriptionValidityMonths = fitUser.getSubscription().getSubscriptionType().getValidityMonths();
             this.subscriptionCost = fitUser.getSubscription().getSubscriptionType().getCost();
         }
         else {
             this.subscriptionPlacementTime = null;
-            this.subscriptionValidity = null;
             this.subscriptionCost = null;
+            subscriptionValidityMonths = 0;
         }
     }
 
@@ -96,8 +96,8 @@ public class UserProfileResponse {
         return address;
     }
 
-    public Date getSubscriptionValidity() {
-        return subscriptionValidity;
+    public int getSubscriptionValidityMonths() {
+        return subscriptionValidityMonths;
     }
 
     public ESubsPlacementTime getSubscriptionPlacementTime() {
