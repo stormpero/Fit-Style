@@ -56,7 +56,7 @@ public class AuthController {
 
     private final AuthService authService;
 
-    private final StorageService fileSystemStorageService;
+    private final StorageService imageStorageService;
 
     @Autowired
     public AuthController(AuthenticationManager authenticationManager,PasswordEncoder encoder,
@@ -65,7 +65,7 @@ public class AuthController {
                           @Qualifier("refreshTokenService") TokenService refreshTokenService,
                           @Qualifier("refreshTokenCookieService") CookieService refreshTokenCookieService,
                           @Qualifier("fitAuthService") AuthService authService,
-                          @Qualifier("imageStorageService") StorageService fileSystemStorageService) {
+                          @Qualifier("imageStorageService") StorageService imageStorageService) {
         this.authenticationManager = authenticationManager;
         this.userService = userService;
         this.encoder = encoder;
@@ -73,7 +73,7 @@ public class AuthController {
         this.refreshTokenService = refreshTokenService;
         this.refreshTokenCookieService = refreshTokenCookieService;
         this.authService = authService;
-        this.fileSystemStorageService = fileSystemStorageService;
+        this.imageStorageService = imageStorageService;
     }
 
     @PostMapping("/signin")
@@ -114,6 +114,11 @@ public class AuthController {
 
             userService.saveFitUser(fitUser, signUpRequest.getRoles(),
                     signUpRequest.getSubscriptionTypeId(), signUpRequest.getContractNumber());
+
+            if(image != null)
+            {
+                imageStorageService.store(image);
+            }
 
             return ResponseEntity.ok(
                     new SuccessMessage("User registered successfully!"));

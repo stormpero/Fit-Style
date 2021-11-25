@@ -48,14 +48,14 @@ public class NewsController {
 
     @PostMapping()
     @PreAuthorize("hasRole('MODERATOR')")
-    public ResponseEntity<SuccessMessage> add(@Valid @RequestBody AddEditNewsRequest addEditNewsRequest,
-                                              @RequestParam(value = "image", required = false) MultipartFile image) {
+    public ResponseEntity<SuccessMessage> add(@Valid @RequestPart(value = "request") AddEditNewsRequest request,
+                                              @RequestPart(value = "image", required = false) MultipartFile image) {
         //Add News
         News news = new News(
-                addEditNewsRequest.getHeader(),
-                addEditNewsRequest.getContent(),
-                addEditNewsRequest.getDateTime(),
-                addEditNewsRequest.getImgURL()
+                request.getHeader(),
+                request.getContent(),
+                request.getDateTime(),
+                image.getOriginalFilename()
         );
 
         storageService.store(image);
