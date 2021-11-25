@@ -11,6 +11,7 @@ import exit from "../../assets/exit.png";
 import user from "../../assets/user.png";
 import map from "../../assets/map.png";
 import info from "../../assets/info.png";
+import calendar from "../../assets/calendar.png"
 import {
     URL_CALENDAR,
     URL_INFO,
@@ -46,7 +47,7 @@ const Navbar = (props) => {
             </div>
             <div className="menu-user">
                 <Link to={URL_CALENDAR} className="menu-link">
-                    <img className="svg-icon" src={news} alt="Fit-Style"/>
+                    <img className="svg-icon" src={calendar} alt="Fit-Style"/>
                     <span className="menu-link-name">Календарь</span>
                 </Link>
             </div>

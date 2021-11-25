@@ -9,6 +9,7 @@ import LStorageUser from "../../services/LStorageUser";
 import "./NewsBoard.css";
 import ToastMessages from "../../services/utils/ToastMessages";
 import {TOP_RIGHT} from "../../services/utils/consts/ToastPosition";
+import arrow from "../../assets/arrow.png";
 
 export const NewsBoard = () => {
 
@@ -82,8 +83,8 @@ export const NewsBoard = () => {
                 {rowNews && rowNews.map((param, index) => <NewsRow key={index} news={param} delete={deleteNews} deleteMode={deleteActive}/>)}
                 {hasNews &&
                     <div className="d-flex justify-content-center">
-                        <div className="align-content-center">
-                            <button className="news-more" onClick={() => setRowNum(rowNum + 1)}>Больше</button>
+                        <div>
+                            <button className="news-more" onClick={() => setRowNum(rowNum + 1)}><img className="more-news-icon" src={arrow} alt="Fit-Style"/></button>
                         </div>
                     </div>
                 }
