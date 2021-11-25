@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import CalendarView from "./CalendarView";
+import UserService from "../../services/api/UserService";
 
 const myEvents = [
     {
@@ -29,12 +30,45 @@ class CalendarContainer extends Component {
     }
 
     componentDidMount() {
+        UserService.getTrainings().then(
+            response => {
+                console.log(response.data)
+                let trainingsListTemp = [];
+                response.data?.personalTrainings.forEach((element) => {
+                    let date = new Date(element.date);
+                    date.setHours(date.getHours() + 1);
+                    trainingsListTemp.push({
+                        id: element.id +" ",
+                        title: "Тренер: " + element?.coachId,
+                        start: new Date(element.date),
+                        end: date,
+                    })
+                })
 
+                response.data?.groupTrainings.forEach((element, index) => {
+                    let date = new Date(element.date);
+                    date.setHours(date.getHours() + 1);
+                    trainingsListTemp.push({
+                        id: element.id +" ",
+                        title: "Тренер: " + element?.coachId,
+                        start: new Date(element.date),
+                        end: date,
+                    })
+                })
+
+                this.setState({
+                    trainingsList: trainingsListTemp,
+                })
+            },
+            error => {
+
+            }
+        )
     }
 
     render() {
         return (
-            <CalendarView events={myEvents}/>
+            <CalendarView events={this.state.trainingsList}/>
         );
     }
 }

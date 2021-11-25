@@ -9,8 +9,7 @@ class NewsFormContainer extends Component {
         newsData: {
             header: "",
             content: "",
-            dateTime: "",
-            imgURL: "",
+            dateTime: ""
         },
         message: ""
     }
@@ -53,14 +52,12 @@ class NewsFormContainer extends Component {
         }
 
 
-        const igmURL = "../../assets/gym.jpg";
         const date = new Date();
 
         await this.setState({
             newsData: {
                 ...this.state.newsData,
-                dateTime: date,
-                imgURL: igmURL
+                dateTime: date
             }
         });
 
