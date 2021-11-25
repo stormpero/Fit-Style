@@ -13,7 +13,7 @@ import java.util.Date;
 @RestControllerAdvice
 public class ProfileControllerAdvice {
 
-    @ExceptionHandler(value = ProfileException.class)
+    @ExceptionHandler(value = {ProfileException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorMessage handleProfileException(ProfileException ex, WebRequest request) {
         return new ErrorMessage(

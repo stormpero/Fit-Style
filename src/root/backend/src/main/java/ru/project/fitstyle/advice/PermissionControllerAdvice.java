@@ -13,7 +13,7 @@ import java.util.Date;
 @RestControllerAdvice
 public class PermissionControllerAdvice {
 
-    @ExceptionHandler(value = PermissionException.class)
+    @ExceptionHandler(value = {PermissionException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorMessage handlePermissionException(PermissionException ex, WebRequest request) {
         return new ErrorMessage(

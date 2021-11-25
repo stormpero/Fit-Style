@@ -13,7 +13,7 @@ import java.util.Date;
 @RestControllerAdvice
 public class SubscriptionTypeAdvice {
 
-    @ExceptionHandler(value = SubscriptionTypeException.class)
+    @ExceptionHandler(value = {SubscriptionTypeException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorMessage handleProfileException(SubscriptionTypeException ex, WebRequest request) {
         return new ErrorMessage(

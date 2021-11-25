@@ -12,7 +12,7 @@ import java.util.Date;
 
 @RestControllerAdvice
 public class StorageServiceAdvice {
-    @ExceptionHandler(value = StorageException.class)
+    @ExceptionHandler(value = {StorageException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorMessage handleProfileException(StorageException ex, WebRequest request) {
         return new ErrorMessage(

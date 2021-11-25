@@ -27,7 +27,7 @@ public class AuthControllerAdvice {
                 request.getDescription(false));
     }
 
-    @ExceptionHandler(value = {RoleException.class, EmailException.class})
+    @ExceptionHandler(value = RoleException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorMessage handleRoleException(RoleException ex, WebRequest request) {
         return new ErrorMessage(
@@ -38,7 +38,7 @@ public class AuthControllerAdvice {
                 request.getDescription(false));
     }
 
-    @ExceptionHandler(value = {EmailException.class})
+    @ExceptionHandler(value = EmailException.class)
     @ResponseStatus(HttpStatus.FORBIDDEN)
     public ErrorMessage handleEmailException(EmailException ex, WebRequest request) {
         return new ErrorMessage(
