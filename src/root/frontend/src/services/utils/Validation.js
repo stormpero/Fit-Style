@@ -105,6 +105,13 @@ class Validation {
                     break;
                 }
 
+                case "subscriptionTypeId": {
+                     if (obj[i] === "DEFAULT") {
+                        return{msg: "Выберите абонемент", result: true}
+                    }
+                    break;
+                }
+
                 default: {
 
                 }
