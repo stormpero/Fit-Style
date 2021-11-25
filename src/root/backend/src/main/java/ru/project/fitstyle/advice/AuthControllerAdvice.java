@@ -37,4 +37,15 @@ public class AuthControllerAdvice {
                 ex.getErrorCode(),
                 request.getDescription(false));
     }
+
+    @ExceptionHandler(value = {EmailException.class})
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public ErrorMessage handleEmailException(EmailException ex, WebRequest request) {
+        return new ErrorMessage(
+                HttpStatus.FORBIDDEN.value(),
+                new Date(),
+                ex.getMessage(),
+                ex.getErrorCode(),
+                request.getDescription(false));
+    }
 }

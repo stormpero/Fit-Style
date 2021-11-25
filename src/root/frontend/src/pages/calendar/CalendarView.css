@@ -1,0 +1,9 @@
+.calendar-container{
+    background-color: white;
+    margin:0 auto;
+    max-width: 1000px;
+}
+.calendar-title{
+    text-align: center;
+    padding-right: 57px;
+}
