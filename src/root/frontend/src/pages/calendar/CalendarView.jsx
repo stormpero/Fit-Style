@@ -5,13 +5,16 @@ import localization from 'moment/locale/ru'
 import "react-big-calendar/lib/css/react-big-calendar.css"
 import {views} from "react-big-calendar/lib/utils/constants";
 import {formats, messagesRu} from "../../services/utils/consts/Calendar";
+import "./CalendarView.css"
 
 const localize = momentLocalizer(moment)
 
 function CalendarView(props) {
     moment.locale(localization.locale);
     return (
-        <div className="container bg-white" >
+        <div className="calendar-container" >
+
+            <h1 className="calendar-title">Календарь</h1>
             <Calendar
                 localizer={localize}
                 events={props.events}
