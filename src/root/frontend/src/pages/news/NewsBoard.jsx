@@ -21,30 +21,38 @@ export const NewsBoard = () => {
     const [rowNews, setRowNews] = useState([]);
     const [rowNum, setRowNum] = useState(1);
     const [hasNews, setHasNews] = useState(true);
+    const [reload, setReload] = useState(false)
+
 
     useEffect(() => {
-        const loadNews = () => {
-            NewsService.getNews(rowNum).then(
-                response => {
-                    let rowNewsData = response.data.news;
-                    rowNewsData.map(value => value.dateTime = DateFormat.convertDataTimeToData(value.dateTime))
-                    rowNewsData = ArrayHelper.sliceArray(rowNewsData, 3);
-                    setRowNews(prevNews => prevNews.concat(rowNewsData))
-                },
-                error => {
-                    setHasNews(false);
-                    if (error?.response?.data?.statusCode === 400 &&
-                        error.response.data?.message === "Failed. Page not found!") {
-                    }
+        console.log('Обновляюсь ', rowNum)
+        NewsService.getNews(rowNum).then(
+            response => {
+                let rowNewsData = response.data.news;
+                rowNewsData.map(value => value.dateTime = DateFormat.convertDataTimeToData(value.dateTime))
+                rowNewsData = ArrayHelper.sliceArray(rowNewsData, 3);
+                setRowNews(prevNews => prevNews.concat(rowNewsData))
+            },
+            error => {
+                setHasNews(false);
+                if (error?.response?.data?.statusCode === 400 &&
+                    error.response.data?.message === "Failed. Page not found!") {
                 }
-            )}
-        loadNews();
-    },[rowNum])
+            }
+        )
+    },[rowNum, reload])
+
+    const updateNews = () => {
+        setRowNews([]);
+        setHasNews(true);
+        if (rowNum === 1) setReload(prevState => !prevState);
+        else setRowNum(1);
+    }
 
     const deleteNews = (id) => {
         NewsService.deleteNews(id).then(
             response => {
-                window.location.reload();
+                updateNews();
                 ToastMessages.success("Новость удалена!", TOP_RIGHT);
             },
             error => {
@@ -95,7 +103,7 @@ export const NewsBoard = () => {
             </div>
             {isAdmin &&
                 <Modal active={modalActive} setActive={setModalActive}>
-                    <NewsFormContainer setActive={setModalActive}/>
+                    <NewsFormContainer setActive={setModalActive} updateNews={updateNews}/>
                 </Modal>
             }
         </div>

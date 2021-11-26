@@ -11,7 +11,7 @@ const NewsForm = (props) => {
                            name="header"
                            type="text"
                            onChange={props.handleFunc.input}
-                           value={props.value.name}
+                           value={props.value.header}
                            placeholder="Заголовок"
                     />
                 </div>
@@ -22,7 +22,7 @@ const NewsForm = (props) => {
                            name="content"
                            type="textarea"
                            onChange={props.handleFunc.input}
-                           value={props.value.name}
+                           value={props.value.content}
                            placeholder="Контент"
                     />
                 </div>
