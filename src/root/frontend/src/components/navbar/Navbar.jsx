@@ -20,7 +20,8 @@ import {
     URL_NEWS,
     URL_USER,
     URL_PROFILE,
-    URL_REGISTER
+    URL_REGISTER,
+    URL_SCHEDULE
 } from "../../services/utils/consts/urlsPages";
 
 
@@ -49,6 +50,12 @@ const Navbar = (props) => {
                 <Link to={URL_CALENDAR} className="menu-link">
                     <img className="svg-icon" src={calendar} alt="Fit-Style"/>
                     <span className="menu-link-name">Календарь</span>
+                </Link>
+            </div>
+            <div className="menu-user">
+                <Link to={URL_SCHEDULE} className="menu-link">
+                    <img className="svg-icon" src={calendar} alt="Fit-Style"/>
+                    <span className="menu-link-name">Расписание тренировок</span>
                 </Link>
             </div>
             <div className="menu-user">

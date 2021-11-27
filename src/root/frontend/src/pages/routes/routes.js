@@ -4,7 +4,7 @@ import {
     URL_REGISTER,
     URL_USER,
     URL_MAP,
-    URL_INFO, URL_CALENDAR
+    URL_INFO, URL_CALENDAR, URL_SCHEDULE
 } from "../../services/utils/consts/urlsPages";
 import RegisterContainer from "../register/RegisterContainer";
 import ProfileContainer from "../profile/ProfileContainer";
@@ -13,6 +13,7 @@ import MapContainer from "../map/MapContainer";
 import {NewsBoard} from "../news/NewsBoard";
 import InfoContainer from "../info/InfoContainer";
 import CalendarContainer from "../calendar/CalendarContainer";
+import ScheduleContainer from "../schedule/ScheduleContainer";
 
 export const routes = [
     {
@@ -43,6 +44,11 @@ export const routes = [
     {
         path: URL_CALENDAR,
         Component: CalendarContainer,
+        reqRole: "ROLE_USER"
+    },
+    {
+        path: URL_SCHEDULE,
+        Component: ScheduleContainer,
         reqRole: "ROLE_USER"
     },
     {
