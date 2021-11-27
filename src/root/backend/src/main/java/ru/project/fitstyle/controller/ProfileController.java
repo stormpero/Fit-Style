@@ -42,7 +42,7 @@ public class ProfileController {
                 new UserProfileResponse(fitUser));
     }
 
-    @GetMapping ("/user_profile_image")
+    @GetMapping ("/user_image")
     public ResponseEntity<Resource> getUserProfileImage() {
         FitUser fitUser = userService.getUserByEmail(authService.getEmail());
         Resource resource = imageStorageService.loadAsResource(fitUser.getImgURL());
