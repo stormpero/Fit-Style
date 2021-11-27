@@ -6,12 +6,12 @@ import javax.validation.constraints.Size;
 
 public class LoginRequest {
     @NotBlank(message = "email should not be blank")
-    @Size(min=5, max=50, message = "email should be more or equal than 5 and less or equal than 50 characters")
+    @Size(max=50, message = "email should be more or equal than 5 and less or equal than 50 characters")
     @Email(message = "email should have syntax like: email@email.com")
     private String email;
 
     @NotBlank(message = "password should not be blank")
-    @Size(min=6, max=120, message = "password should be more or equal than 6 and less or equal than 120 characters")
+    @Size(max=120, message = "password should be more or equal than 6 and less or equal than 120 characters")
     private String password;
 
     public String getEmail() {
