@@ -3,13 +3,12 @@ import React from 'react';
 import "./Profile.css";
 import ProfilePicture from "../../assets/default-profile-picture.jpg";
 
-const Profile = (props) => {
-    const userInfo = props.userInfo;
+const Profile = ({userInfo, img}) => {
     return (
             <div className="container profile-info">
                 <div className="d-flex justify-content-between">
                     <div className="left-image">
-                        <img className="picture-profile" src={ProfilePicture} alt="Fit-Style"/>
+                        <img className="picture-profile" src={img ? img : ProfilePicture} alt={userInfo.name + " photo"}/>
                     </div>
                     <div className="right-info d-flex justify-content-between">
                         <div className="first-column">
