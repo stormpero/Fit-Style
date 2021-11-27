@@ -24,6 +24,16 @@ function CalendarView(props) {
                 messages={messagesRu}
                 formats={formats}
                 min={new Date(0, 0, 0, 7, 0, 0)}
+                eventPropGetter={
+                    (event, start, end, isSelected) => {
+                        return {
+                            style: {
+                                backgroundColor: event.isPersonal ? "#008080" : "#FF8C00",
+                                borderColor: event.isPersonal ? "#008080" : "#FF8C00"
+                            }
+                        }
+                    }
+                }
             />
         </div>
     );
