@@ -181,7 +181,7 @@ const Register = (props) => {
                     <div className="form-group d-flex justify-content-between">
                         <button className="btn btn-primary btn-block"
                                 onClick={props.handleFunc.registering}>
-                            <span>Register</span>
+                            <span>Зарегистрировать</span>
                         </button>
                     </div>
                 </form>
