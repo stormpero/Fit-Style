@@ -13,7 +13,7 @@ public class TestController {
     }
 
     @GetMapping("/user")
-    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('COACH')")
+    @PreAuthorize("hasRole('USER')")
     public String userAccess() {
         return "Добро пожаловать, ";
     }

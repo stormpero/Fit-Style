@@ -8,10 +8,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.project.fitstyle.model.dto.user.FitUser;
-import ru.project.fitstyle.payload.response.profile.UserProfileResponse;
-import ru.project.fitstyle.service.auth.AuthService;
-import ru.project.fitstyle.service.storage.StorageService;
-import ru.project.fitstyle.service.user.UserService;
+import ru.project.fitstyle.controller.response.profile.UserProfileResponse;
+import ru.project.fitstyle.service.AuthService;
+import ru.project.fitstyle.service.StorageService;
+import ru.project.fitstyle.service.UserService;
 
 
 @CrossOrigin(origins = "*", maxAge = 3600)

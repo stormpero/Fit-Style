@@ -5,14 +5,12 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import ru.project.fitstyle.exception.newspage.ENewsPageError;
-import ru.project.fitstyle.exception.newspage.NewsPageException;
 import ru.project.fitstyle.model.dto.news.News;
-import ru.project.fitstyle.payload.request.news.AddEditNewsRequest;
-import ru.project.fitstyle.payload.response.news.NewsShowPageResponse;
-import ru.project.fitstyle.payload.responsemessage.SuccessMessage;
-import ru.project.fitstyle.service.news.NewsService;
-import ru.project.fitstyle.service.storage.StorageService;
+import ru.project.fitstyle.controller.request.news.AddEditNewsRequest;
+import ru.project.fitstyle.controller.response.news.NewsShowPageResponse;
+import ru.project.fitstyle.controller.response.SuccessMessage;
+import ru.project.fitstyle.service.NewsService;
+import ru.project.fitstyle.service.StorageService;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -37,12 +35,7 @@ public class NewsController {
         //Here we get first 6 (can be specified) recently added news
         List<News> news = newsService.getNewsPage(pageNumber);
 
-        if (news.size() != 0) {
-            return ResponseEntity.ok(
-                    new NewsShowPageResponse(news));
-        } else {
-            throw new NewsPageException(ENewsPageError.OVER);
-        }
+        return ResponseEntity.ok(new NewsShowPageResponse(news));
     }
 
     @PostMapping()

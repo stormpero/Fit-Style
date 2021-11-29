@@ -20,21 +20,15 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import org.springframework.web.multipart.MultipartFile;
-import ru.project.fitstyle.exception.email.EEmailError;
-import ru.project.fitstyle.exception.email.EmailException;
 import ru.project.fitstyle.model.dto.user.RefreshToken;
 import ru.project.fitstyle.model.dto.user.FitUser;
-import ru.project.fitstyle.payload.request.auth.LoginRequest;
-import ru.project.fitstyle.payload.request.auth.SignupRequest;
-import ru.project.fitstyle.payload.response.auth.LoginResponse;
-import ru.project.fitstyle.payload.response.auth.RefreshTokenResponse;
-import ru.project.fitstyle.payload.responsemessage.SuccessMessage;
-import ru.project.fitstyle.service.auth.AuthService;
-import ru.project.fitstyle.service.cookie.CookieService;
-import ru.project.fitstyle.service.storage.StorageService;
-import ru.project.fitstyle.service.token.TokenService;
-import ru.project.fitstyle.service.user.UserService;
-import ru.project.fitstyle.service.user.details.FitUserDetails;
+import ru.project.fitstyle.controller.request.auth.LoginRequest;
+import ru.project.fitstyle.controller.request.auth.SignupRequest;
+import ru.project.fitstyle.controller.response.auth.LoginResponse;
+import ru.project.fitstyle.controller.response.auth.RefreshTokenResponse;
+import ru.project.fitstyle.controller.response.SuccessMessage;
+import ru.project.fitstyle.service.*;
+import ru.project.fitstyle.service.impl.details.FitUserDetails;
 
 
 @CrossOrigin(origins = "http://localhost:3000", maxAge = 3600, allowCredentials = "true")
@@ -47,6 +41,8 @@ public class AuthController {
     private final PasswordEncoder encoder;
 
     private final UserService userService;
+
+    private final SubscriptionTypeService subscriptionTypeService;
 
     private final TokenService accessTokenService;
 
@@ -61,6 +57,7 @@ public class AuthController {
     @Autowired
     public AuthController(AuthenticationManager authenticationManager,PasswordEncoder encoder,
                           @Qualifier("fitUserService") UserService userService,
+                          @Qualifier("fitSubscriptionTypeService") SubscriptionTypeService subscriptionTypeService,
                           @Qualifier("accessTokenService") TokenService accessTokenService,
                           @Qualifier("refreshTokenService") TokenService refreshTokenService,
                           @Qualifier("refreshTokenCookieService") CookieService refreshTokenCookieService,
@@ -68,6 +65,7 @@ public class AuthController {
                           @Qualifier("imageStorageService") StorageService imageStorageService) {
         this.authenticationManager = authenticationManager;
         this.userService = userService;
+        this.subscriptionTypeService = subscriptionTypeService;
         this.encoder = encoder;
         this.accessTokenService = accessTokenService;
         this.refreshTokenService = refreshTokenService;
@@ -103,29 +101,26 @@ public class AuthController {
     @PreAuthorize("hasRole('MODERATOR')")
     public ResponseEntity<SuccessMessage> registerUser(@Valid @RequestPart(value = "request") SignupRequest request,
                                                        @RequestPart(value = "image", required = false) MultipartFile image) {
-        if (!userService.existsByEmail(request.getEmail())) {
-            FitUser fitUser = new FitUser(request.getName(), request.getSurname(),
-                    request.getPatronymic(), request.getEmail(),
-                    encoder.encode(request.getPassword()),
-                    request.getAge(), request.getGender(),
-                    request.getBirthdate(), request.getTelephone(),
-                    request.getPassport(), request.getAddress());
+        userService.validateEmail(request.getEmail());
 
-            if(image != null) {
-                imageStorageService.store(image);
-                System.out.println(image.getOriginalFilename());
-                fitUser.setImgURL(image.getOriginalFilename());
-            }
+        FitUser fitUser = new FitUser(request.getName(), request.getSurname(),
+                request.getPatronymic(), request.getEmail(),
+                encoder.encode(request.getPassword()),
+                request.getAge(), request.getGender(),
+                request.getBirthdate(), request.getTelephone(),
+                request.getPassport(), request.getAddress());
 
-            userService.saveFitUser(fitUser, request.getRoles(),
-                    request.getSubscriptionTypeId(), request.getContractNumber());
-
-            return ResponseEntity.ok(
-                    new SuccessMessage("User registered successfully!"));
+        if(image != null) {
+            imageStorageService.store(image);
+            System.out.println(image.getOriginalFilename());
+            fitUser.setImgURL(image.getOriginalFilename());
         }
-        else {
-            throw new EmailException(EEmailError.OCCUPIED);
-        }
+
+        userService.saveFitUser(fitUser, request.getRoles(),
+                subscriptionTypeService.createFitUserSubscription(request.getSubscriptionTypeId(), request.getContractNumber()));
+
+        return ResponseEntity.ok(
+                new SuccessMessage("User registered successfully!"));
     }
 
     @GetMapping("/refreshtoken")
