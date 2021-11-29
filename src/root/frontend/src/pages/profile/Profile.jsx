@@ -18,8 +18,8 @@ const Profile = ({userInfo, img}) => {
                             </p>
                             <p>
                                 <label> ФИО </label>
-                                <strong>{userInfo.name} </strong>
                                 <strong>{userInfo.surname} </strong>
+                                <strong>{userInfo.name} </strong>
                                 <strong>{userInfo.patronymic} </strong>
                             </p>
                             <p>
