@@ -9,8 +9,4 @@ import java.util.Optional;
 
 @Repository
 public interface NewsRepository extends JpaRepository<News, Long> {
-
-    List<News> findAll();
-
-    Optional<News> findById(Long id);
 }
