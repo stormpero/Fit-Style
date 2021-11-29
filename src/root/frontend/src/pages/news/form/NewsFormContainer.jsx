@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import NewsForm from "./NewsForm";
 import isEmpty from "validator/es/lib/isEmpty";
-import NewsService from "../../../services/api/NewsService";
-import ToastMessages from "../../../services/utils/ToastMessages";
-import {TOP_RIGHT} from "../../../services/utils/consts/ToastPosition";
+import NewsService from "../../../services/api/news/NewsService";
+import ToastMessages from "../../../components/toastmessages/ToastMessages";
+import {TOP_RIGHT} from "../../../config/consts/ToastPosition";
 
 class NewsFormContainer extends Component {
 

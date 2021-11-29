@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import {Switch, Route} from "react-router-dom";
 
-import NavbarContainer from "./navbar/NavbarContainer";
-import LoginContainer from "../pages/login/LoginContainer";
+import NavbarContainer from "../navbar/NavbarContainer";
+import LoginContainer from "../../pages/login/LoginContainer";
 
-import {routes} from "../pages/routes/routes";
-import {URL_LOGIN} from "../services/utils/consts/urlsPages";
+import {routes} from "../../pages/routes/routes";
+import {URL_LOGIN} from "../../config/consts/urlsPages";
 
-import LStorageUser from "../services/LStorageUser";
-import UserService from "../services/api/UserService";
+import LStorageUser from "../../services/localstorage/LStorageUser";
+import UserService from "../../services/api/user/UserService";
 
 const AppRouter = () => {
     const [isAuth, setIsAuth] = useState(false);

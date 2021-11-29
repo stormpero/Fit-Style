@@ -1,15 +1,16 @@
 import React, {useState} from 'react';
 import Schedule from "./Schedule";
 import "./Schedule.css"
-import ToastMessages from "../../services/utils/ToastMessages";
+import ToastMessages from "../../components/toastmessages/ToastMessages";
 import Modal from "../../components/modal/Modal";
 import ScheduleModalTraining from "./form/ScheduleModalTraining";
+import PermissionService from "../../services/security/permission/PermissionService";
 
 export const ScheduleContainer = () => {
+    const isCoach = PermissionService.hasRole("COACH");
 
     const [eventList, setEventList] = useState([]);
     const [modalActive, setModalActive] = useState(false);
-    const [isCoach, setIsCoach] = useState(true);
     const [eventInfo, setEventInfo] = useState(null)
 
     const handleSelect = (event) => {

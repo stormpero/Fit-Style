@@ -6,7 +6,9 @@ class TrainingService {
             case "ACTIVE":
                 return "Занята";
             case "COMPLETED":
-                return "Закончена"
+                return "Закончена";
+            default:
+                return "Ошибка";
         }
     }
 }

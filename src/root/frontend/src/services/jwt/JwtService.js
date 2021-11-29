@@ -1,4 +1,4 @@
-import LStorageUser from "../LStorageUser";
+import LStorageUser from "../localstorage/LStorageUser";
 
 class JwtService {
 

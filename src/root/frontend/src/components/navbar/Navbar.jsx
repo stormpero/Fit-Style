@@ -23,7 +23,7 @@ import {
     URL_PROFILE,
     URL_REGISTER,
     URL_SCHEDULE
-} from "../../services/utils/consts/urlsPages";
+} from "../../config/consts/urlsPages";
 
 
 const Navbar = (props) => {

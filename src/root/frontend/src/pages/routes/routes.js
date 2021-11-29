@@ -5,10 +5,10 @@ import {
     URL_USER,
     URL_MAP,
     URL_INFO, URL_CALENDAR, URL_SCHEDULE
-} from "../../services/utils/consts/urlsPages";
+} from "../../config/consts/urlsPages";
 import RegisterContainer from "../register/RegisterContainer";
 import ProfileContainer from "../profile/ProfileContainer";
-import UserContent from "../../components/UserContent";
+import UserContent from "../../components/usercontent/UserContent";
 import MapContainer from "../map/MapContainer";
 import {NewsBoard} from "../news/NewsBoard";
 import InfoContainer from "../info/InfoContainer";

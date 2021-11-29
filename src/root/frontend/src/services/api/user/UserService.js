@@ -1,4 +1,4 @@
-import api from "./Api";
+import api from "../config/Api";
 import {
     URL_PROFILE_IMG,
     URL_PROFILE_INFO,
@@ -6,7 +6,7 @@ import {
     URL_SUBSCRIPTIONTYPE,
     URL_TRAINING,
     URL_USERTEST
-} from "../utils/consts/urlsApi";
+} from "../../../config/consts/urlsApi";
 
 class UserService {
     getUserBoard() {

@@ -1,4 +1,4 @@
-class ArrayHelper {
+class ArrayConvert {
     sliceArray(array, size) {
         return array.reduce((prev,curr)=>{
             if(prev[prev.length-1].length === size) prev.push([]);
@@ -8,4 +8,4 @@ class ArrayHelper {
     }
 }
 
-export default new ArrayHelper();
+export default new ArrayConvert();

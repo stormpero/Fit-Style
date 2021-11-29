@@ -1,4 +1,3 @@
-
 class LStorageUser {
     constructor() {
         this.user = JSON.parse(localStorage.getItem('user'));

@@ -2,10 +2,10 @@ import React, { Component } from "react";
 
 import Login from "./Login";
 
-import AuthService from "../../services/api/AuthService";
+import AuthService from "../../services/api/auth/AuthService";
 import isEmpty from "validator/es/lib/isEmpty";
-import ToastMessages from "../../services/utils/ToastMessages";
-import {TOP_CENTER, TOP_RIGHT} from "../../services/utils/consts/ToastPosition";
+import ToastMessages from "../../components/toastmessages/ToastMessages";
+import {TOP_CENTER, TOP_RIGHT} from "../../config/consts/ToastPosition";
 
 export default class LoginContainer extends Component {
 

@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 
-import LStorageUser from "../../services/LStorageUser";
-import UserService from "../../services/api/UserService";
-import DateFormat from "../../services/utils/DateFormat";
+import LStorageUser from "../../services/localstorage/LStorageUser";
+import UserService from "../../services/api/user/UserService";
+import DateFormat from "../../utils/DateConvert";
 import Profile from "./Profile";
 
 export default class ProfileContainer extends Component {

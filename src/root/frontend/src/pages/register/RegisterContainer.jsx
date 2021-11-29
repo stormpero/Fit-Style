@@ -2,11 +2,11 @@ import React, { Component } from "react";
 
 import Register from "./Register";
 
-import AuthService from "../../services/api/AuthService";
-import Validation from "../../services/utils/Validation";
-import ToastMessages from "../../services/utils/ToastMessages";
-import {TOP_RIGHT} from "../../services/utils/consts/ToastPosition";
-import UserService from "../../services/api/UserService";
+import AuthService from "../../services/api/auth/AuthService";
+import Validation from "../../services/validation/Validation";
+import ToastMessages from "../../components/toastmessages/ToastMessages";
+import {TOP_RIGHT} from "../../config/consts/ToastPosition";
+import UserService from "../../services/api/user/UserService";
 
 export default class RegisterContainer extends Component {
 

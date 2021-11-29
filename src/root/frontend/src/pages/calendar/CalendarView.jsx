@@ -4,7 +4,7 @@ import moment from 'moment'
 import localization from 'moment/locale/ru'
 import "react-big-calendar/lib/css/react-big-calendar.css"
 import {views} from "react-big-calendar/lib/utils/constants";
-import {formats, messagesRu} from "../../services/utils/consts/Calendar";
+import {formats, messagesRu} from "../../config/calendar/Calendar";
 import "./CalendarView.css"
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
 

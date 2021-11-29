@@ -1,5 +1,5 @@
-import api from "./Api";
-import {URL_NEWSADD} from "../utils/consts/urlsApi";
+import api from "../config/Api";
+import {URL_NEWSADD} from "../../../config/consts/urlsApi";
 
 class NewsService {
     getNews(pageNumber) {

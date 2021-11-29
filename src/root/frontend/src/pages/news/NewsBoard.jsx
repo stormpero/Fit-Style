@@ -1,19 +1,18 @@
 import React, {useEffect, useState} from "react";
 import NewsRow from "./NewsRow";
-import DateFormat from "../../services/utils/DateFormat";
-import ArrayHelper from "../../services/utils/ArrayHelper";
+import DateFormat from "../../utils/DateConvert";
+import ArrayHelper from "../../utils/ArrayConvert";
 import Modal from "../../components/modal/Modal";
 import NewsFormContainer from "./form/NewsFormContainer";
-import NewsService from "../../services/api/NewsService";
-import LStorageUser from "../../services/LStorageUser";
+import NewsService from "../../services/api/news/NewsService";
 import "./NewsBoard.css";
-import ToastMessages from "../../services/utils/ToastMessages";
-import {TOP_RIGHT} from "../../services/utils/consts/ToastPosition";
+import ToastMessages from "../../components/toastmessages/ToastMessages";
+import {TOP_RIGHT} from "../../config/consts/ToastPosition";
 import arrow from "../../assets/arrow.png";
+import PermissionService from "../../services/security/permission/PermissionService";
 
 export const NewsBoard = () => {
-
-    const isAdmin = LStorageUser.getUser().roles.includes("ROLE_MODERATOR");
+    const isModer = PermissionService.hasRole("MODERATOR");
 
     const [modalActive, setModalActive] = useState(false);
     const [deleteActive, setDeleteActive] = useState(false);
@@ -64,7 +63,7 @@ export const NewsBoard = () => {
         <div className="d-flex justify-content-center">
             <div className="news-board">
                 <div className="d-flex justify-content-around">
-                    {isAdmin &&
+                    {isModer &&
                         <button className={deleteActive ? 'select' : 'noselect'}
                                 onClick={() => setDeleteActive((prev) => !prev)}>
                             <span className='text'>Удалить</span>
@@ -76,7 +75,7 @@ export const NewsBoard = () => {
                         </button>
                     }
                     <h1 className="map-title">Новостная лента</h1>
-                    {isAdmin &&
+                    {isModer &&
                         <button className="add-news" onClick={() => setModalActive(true)}>
                             <span className='text'>Добавить</span>
                             <span className="icon">
@@ -100,7 +99,7 @@ export const NewsBoard = () => {
                 <br/>
                 <br/>
             </div>
-            {isAdmin &&
+            {isModer &&
                 <Modal active={modalActive} setActive={setModalActive} options={{closeBackground: false}}>
                     <NewsFormContainer setActive={setModalActive} updateNews={updateNews}/>
                 </Modal>

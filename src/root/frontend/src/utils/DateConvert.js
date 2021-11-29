@@ -1,4 +1,4 @@
-class DateFormat {
+class DateConvert {
     convertDataToNormalData(str, time = false) {
         const date = new Date(str);
         const options = {
@@ -29,4 +29,4 @@ class DateFormat {
     }
 }
 
-export default new DateFormat()
+export default new DateConvert()

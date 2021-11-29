@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import CalendarView from "./CalendarView";
-import UserService from "../../services/api/UserService";
-import ToastMessages from "../../services/utils/ToastMessages";
+import UserService from "../../services/api/user/UserService";
+import ToastMessages from "../../components/toastmessages/ToastMessages";
 
 class CalendarContainer extends Component {
 
