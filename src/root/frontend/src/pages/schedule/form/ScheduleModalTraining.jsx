@@ -1,27 +1,31 @@
 import React from 'react';
+import DateFormat from "../../../services/utils/DateFormat";
+import TrainingService from "../../../services/utils/TrainingService";
+function ScheduleModalTraining({setModalActive, eventInfo, deleteTraining}) {
 
-function ScheduleModalTraining({setModalActive, event, deleteTraining}) {
-    return (
+    return (eventInfo ?
         <div>
             <h4 className="title">Информация о тренировке</h4>
             <div className="d-flex justify-content-around">
-                <p>
-                    <label> Время </label>
-                    <strong>20.11.2021</strong>
-                </p>
-                <p>
+                <div>
+                    <label> Время начала </label>
+                    <p><strong>{DateFormat.convertDataToTime(eventInfo.start)}, {DateFormat.convertDataToNormalData(eventInfo.start)}</strong></p>
+                </div>
+                <div>
                     <label> ФИО тренера </label>
-                    <strong>20.11.2021</strong>
-                </p>
-                <p>
+                    <strong>ID</strong>
+                </div>
+                <div>
                     <label> Статус </label>
-                    <strong>20.11.2021</strong>
-                </p>
+                    <strong>{TrainingService.getStatusName(eventInfo.status)}</strong>
+                </div>
             </div>
             <center>
-                    <button className="btn btn-danger mt-5" onClick={() => deleteTraining(event)}>Удалить</button>
+                    <button className="btn btn-danger mt-5" onClick={() => deleteTraining(eventInfo)}>Удалить</button>
             </center>
         </div>
+            :
+            null
     );
 }
 

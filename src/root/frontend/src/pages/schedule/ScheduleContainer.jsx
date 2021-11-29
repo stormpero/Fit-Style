@@ -10,7 +10,7 @@ export const ScheduleContainer = () => {
     const [eventList, setEventList] = useState([]);
     const [modalActive, setModalActive] = useState(false);
     const [isCoach, setIsCoach] = useState(true);
-    const [event, setEvent] = useState(null)
+    const [eventInfo, setEventInfo] = useState(null)
 
     const handleSelect = (event) => {
         if (event.start.getDay() !== event.end.getDay()) {
@@ -58,7 +58,7 @@ export const ScheduleContainer = () => {
 
     const eventSelectHandle = (event) => {
         setModalActive(true);
-        setEvent(event)
+        setEventInfo(event)
     }
 
 
@@ -93,16 +93,16 @@ export const ScheduleContainer = () => {
         return styles;
     }
 
-
     return (
+
         <div>
             { eventList && <Schedule myEvents={eventList}
                                    isCoach={isCoach}
                                    handleSelect={handleSelect}
                                    eventStatusStyle={eventStatusStyle}
                                    eventSelectHandle={eventSelectHandle}/> }
-            <Modal active={modalActive} setActive={setModalActive} options={{closeBackground: true}}>
-                <ScheduleModalTraining setActive={setModalActive} event={event} deleteTraining={deleteTraining}/>
+           <Modal active={modalActive} setActive={setModalActive} options={{closeBackground: true}}>
+                <ScheduleModalTraining setActive={setModalActive} eventInfo={eventInfo} deleteTraining={deleteTraining}/>
             </Modal>
         </div>
     );
