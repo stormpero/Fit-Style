@@ -9,6 +9,7 @@ import ru.project.fitstyle.model.dto.training.GroupTraining;
 import ru.project.fitstyle.model.dto.training.PersonalTraining;
 import ru.project.fitstyle.model.dto.training.Training;
 import ru.project.fitstyle.service.TrainingService;
+import ru.project.fitstyle.service.exception.training.TrainingNotFoundException;
 
 @Service
 public class FitTrainingService implements TrainingService {
@@ -28,6 +29,12 @@ public class FitTrainingService implements TrainingService {
     @Override
     public void saveTraining(Training training) {
         trainingRepository.save(training);
+    }
+
+    @Override
+    public Training getTrainingById(Long id) {
+        return trainingRepository.findById(id)
+                .orElseThrow(() -> new TrainingNotFoundException("Training with that email cannot be found!"));
     }
 
     @Override

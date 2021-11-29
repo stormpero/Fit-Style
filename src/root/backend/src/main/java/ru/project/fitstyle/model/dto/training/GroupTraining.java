@@ -30,6 +30,11 @@ public class GroupTraining {
             nullable = false)
     private Long coachId;
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "training_name", referencedColumnName = "name",
+            nullable = false)
+    private Training training;
+
     @ManyToMany(mappedBy = "groupTrainings",
             fetch = FetchType.LAZY)
     private Set<FitUser> fitUsers = new HashSet<>();
@@ -37,10 +42,11 @@ public class GroupTraining {
     public GroupTraining() {
     }
 
-    public GroupTraining(Date date, ETrainingStatus status, Long coachId) {
+    public GroupTraining(Date date, ETrainingStatus status, Long coachId, Training training) {
         this.date = date;
         this.status = status;
         this.coachId = coachId;
+        this.training = training;
     }
 
     public Long getId() {
@@ -66,14 +72,6 @@ public class GroupTraining {
     public void setStatus(ETrainingStatus status) {
         this.status = status;
     }
-    @JsonIgnore
-    public Set<FitUser> getUsers() {
-        return fitUsers;
-    }
-
-    public void setUsers(Set<FitUser> fitUsers) {
-        this.fitUsers = fitUsers;
-    }
 
     public Long getCoachId() {
         return coachId;
@@ -81,5 +79,22 @@ public class GroupTraining {
 
     public void setCoachId(Long coachId) {
         this.coachId = coachId;
+    }
+
+    public Training getTraining() {
+        return training;
+    }
+
+    public void setTraining(Training training) {
+        this.training = training;
+    }
+
+    @JsonIgnore
+    public Set<FitUser> getFitUsers() {
+        return fitUsers;
+    }
+
+    public void setFitUsers(Set<FitUser> fitUsers) {
+        this.fitUsers = fitUsers;
     }
 }

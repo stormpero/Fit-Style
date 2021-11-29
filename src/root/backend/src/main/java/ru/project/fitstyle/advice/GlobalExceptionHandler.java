@@ -11,6 +11,7 @@ import ru.project.fitstyle.service.exception.storage.StorageException;
 import ru.project.fitstyle.service.exception.subscription.SubscriptionTypeNotFoundException;
 import ru.project.fitstyle.service.exception.token.RefreshTokenExpiredException;
 import ru.project.fitstyle.service.exception.token.RefreshTokenNotFoundException;
+import ru.project.fitstyle.service.exception.training.TrainingNotFoundException;
 import ru.project.fitstyle.service.exception.user.EmailAlreadyExistsException;
 import ru.project.fitstyle.service.exception.user.RoleNotFoundException;
 import ru.project.fitstyle.service.exception.user.UserNotFoundException;
@@ -34,7 +35,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = {NewsPageNotFoundException.class, NewsStoryNotFoundException.class,
             FileNotFoundException.class, SubscriptionTypeNotFoundException.class, RefreshTokenNotFoundException.class,
-            UserNotFoundException.class, RoleNotFoundException.class})
+            UserNotFoundException.class, RoleNotFoundException.class, TrainingNotFoundException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorMessage handleNotFoundException(RuntimeException ex, WebRequest request) {
         return new ErrorMessage(

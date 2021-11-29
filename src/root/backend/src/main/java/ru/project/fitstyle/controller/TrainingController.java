@@ -59,7 +59,7 @@ public class TrainingController {
     @PostMapping("/group")
     public ResponseEntity<SuccessMessage> addGroupTraining(@RequestBody AddEditGroupTrainingRequest request) {
         GroupTraining groupTraining = new GroupTraining(request.getDate(), ETrainingStatus.LOGGED,
-                userService.getUserByEmail(authService.getEmail()).getId());
+                userService.getUserByEmail(authService.getEmail()).getId(), trainingService.getTrainingById(request.getTrainingId()));
         return ResponseEntity.ok(
                 new SuccessMessage("Success! Group training created!")
         );
