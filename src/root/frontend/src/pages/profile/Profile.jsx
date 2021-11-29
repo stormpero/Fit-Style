@@ -1,13 +1,16 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import "./Profile.css";
 import ProfilePicture from "../../assets/default-profile-picture.jpg";
+import Modal from "../../components/modal/Modal";
+import PaymentForm from "../../components/paymentform/PaymentForm"
 
 const Profile = ({userInfo, img}) => {
+    const [modalActive, setModalActive] = useState(false);
     return (
             <div className="container profile-info">
                 <div className="d-flex justify-content-between">
-                    <div className="left-image">
+                    <div className="left-image d-flex flex-column">
                         <img className="picture-profile" src={img ? img : ProfilePicture} alt={userInfo.name + " photo"}/>
                     </div>
                     <div className="right-info d-flex justify-content-between">
@@ -34,6 +37,10 @@ const Profile = ({userInfo, img}) => {
                                 <label> Дата рождения </label>
                                 <strong>{userInfo.birthdate}</strong>
                             </p>
+                            <p>
+                                <label> Роль </label>
+                                <strong>Администратор</strong>
+                            </p>
                         </div>
                         <div className="second-column">
                             <p>
@@ -56,9 +63,20 @@ const Profile = ({userInfo, img}) => {
                                 <label> Дата окончания </label>
                                 <strong>20.11.2021</strong>
                             </p>
+                            <p className="p-button">
+                                <label> Баланс </label>
+                                <strong>2000 рублей</strong>
+                                <button className="button-53" onClick={() => setModalActive(true)}>Пополнить</button>
+                            </p>
+
                         </div>
                     </div>
                 </div>
+                {
+                    <Modal active={modalActive} setActive={setModalActive} options={{closeBackground: false}}>
+                        <PaymentForm></PaymentForm>
+                    </Modal>
+                }
             </div>
     );
 }
