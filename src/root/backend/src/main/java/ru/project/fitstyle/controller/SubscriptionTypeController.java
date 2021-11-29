@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 import ru.project.fitstyle.controller.response.subscriptiontype.SubscriptionTypeResponse;
 import ru.project.fitstyle.service.SubscriptionTypeService;
 
-import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController

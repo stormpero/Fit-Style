@@ -14,7 +14,7 @@ import ru.project.fitstyle.service.StorageService;
 import ru.project.fitstyle.service.UserService;
 
 
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
 @RestController
 @RequestMapping("/api/profile")
 @PreAuthorize("hasRole('USER')")

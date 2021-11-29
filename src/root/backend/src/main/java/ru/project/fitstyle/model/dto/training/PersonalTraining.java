@@ -28,7 +28,6 @@ public class PersonalTraining {
             nullable = false)
     private Long coachId;
 
-    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "fit_user_id", referencedColumnName = "id",
             nullable = false)
@@ -65,7 +64,7 @@ public class PersonalTraining {
     public FitUser getUser() {
         return fitUser;
     }
-    @JsonIgnore
+
     public void setUser(FitUser fitUser) {
         this.fitUser = fitUser;
     }

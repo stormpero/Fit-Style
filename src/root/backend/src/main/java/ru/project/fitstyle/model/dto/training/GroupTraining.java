@@ -30,7 +30,6 @@ public class GroupTraining {
             nullable = false)
     private Long coachId;
 
-    @JsonIgnore
     @ManyToMany(mappedBy = "groupTrainings",
             fetch = FetchType.LAZY)
     private Set<FitUser> fitUsers = new HashSet<>();
@@ -65,7 +64,7 @@ public class GroupTraining {
     public Set<FitUser> getUsers() {
         return fitUsers;
     }
-    @JsonIgnore
+
     public void setUsers(Set<FitUser> fitUsers) {
         this.fitUsers = fitUsers;
     }
