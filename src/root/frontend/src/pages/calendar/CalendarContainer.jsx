@@ -42,9 +42,10 @@ class CalendarContainer extends Component {
     }
 
 
+
     render() {
         return (
-            <CalendarView events={this.state.trainingsList}/>
+            <CalendarView events={this.state.trainingsList} />
         );
     }
 }
