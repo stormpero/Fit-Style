@@ -3,8 +3,6 @@ import {Calendar, momentLocalizer} from "react-big-calendar";
 import {views} from "react-big-calendar/lib/utils/constants";
 import {formats, messagesRu, scheduleStyle} from "../../services/utils/consts/Calendar";
 import moment from "moment";
-import Modal from "../../components/modal/Modal";
-import NewsFormContainer from "../news/form/NewsFormContainer";
 
 const localize = momentLocalizer(moment)
 

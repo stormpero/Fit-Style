@@ -3,7 +3,6 @@ import Schedule from "./Schedule";
 import "./Schedule.css"
 import ToastMessages from "../../services/utils/ToastMessages";
 import Modal from "../../components/modal/Modal";
-import NewsFormContainer from "../news/form/NewsFormContainer";
 import ScheduleModalTraining from "./form/ScheduleModalTraining";
 
 export const ScheduleContainer = () => {
