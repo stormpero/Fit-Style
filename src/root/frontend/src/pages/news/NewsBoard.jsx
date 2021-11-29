@@ -102,7 +102,7 @@ export const NewsBoard = () => {
                 <br/>
             </div>
             {isAdmin &&
-                <Modal active={modalActive} setActive={setModalActive}>
+                <Modal active={modalActive} setActive={setModalActive} options={{closeBackground: false}}>
                     <NewsFormContainer setActive={setModalActive} updateNews={updateNews}/>
                 </Modal>
             }

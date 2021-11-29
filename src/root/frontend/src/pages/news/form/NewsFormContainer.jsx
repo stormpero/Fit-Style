@@ -89,7 +89,6 @@ class NewsFormContainer extends Component {
     }
 
     render() {
-        console.log(this.state)
         return (
             <NewsForm
             handleFunc={{
