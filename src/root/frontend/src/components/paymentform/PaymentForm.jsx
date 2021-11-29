@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import Card from 'react-credit-cards';
 import 'react-credit-cards/es/styles-compiled.css';
 import {
@@ -9,7 +9,7 @@ import {
 } from "./Utils";
 import "./PaymentForm.css"
 
-export default class PaymentForm extends React.Component {
+export default class PaymentForm extends Component {
     state = {
         number: "",
         name: "",
