@@ -25,7 +25,6 @@ export const NewsBoard = () => {
 
 
     useEffect(() => {
-        console.log('Обновляюсь ', rowNum)
         NewsService.getNews(rowNum).then(
             response => {
                 let rowNewsData = response.data.news;

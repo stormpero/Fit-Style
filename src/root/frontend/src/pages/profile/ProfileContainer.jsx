@@ -17,7 +17,6 @@ export default class ProfileContainer extends Component {
         const currentUser = LStorageUser.getUser();
         Promise.allSettled([UserService.getProfileInfo(), UserService.getProfileImg()]).then(
             response => {
-                console.log(response)
                 const [userInfo, img] = response.map(element => element?.status === "fulfilled" ? element?.value.data :null);
 
                 userInfo.id = ('000000' + currentUser.id).slice(Math.log(Number(currentUser.id)) * Math.LOG10E + 1 | 0);
