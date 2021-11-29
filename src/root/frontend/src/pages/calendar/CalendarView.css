@@ -11,3 +11,8 @@
 .rbc-timeslot-group {
     min-height: 80px;
 }
+
+.rbc-btn-group{
+    margin-right: 24px;
+    margin-left: 50px;
+}
