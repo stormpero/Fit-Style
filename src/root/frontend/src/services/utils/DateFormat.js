@@ -10,9 +10,6 @@ class DateFormat {
     convertDataTimeToData(str) {
         return this.convertDataToNormalData(str.split('T')[0]);
     }
-    addHour(date) {
-
-    }
 }
 
 export default new DateFormat()
