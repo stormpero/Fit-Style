@@ -1,15 +1,16 @@
-package ru.project.fitstyle.model.training;
+package ru.project.fitstyle.model.dto.training;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import ru.project.fitstyle.model.user.FitUser;
+import ru.project.fitstyle.model.dto.user.FitUser;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Table(	name = "personal_training")
-public class PersonalTraining {
+@Table(name = "group_training")
+public class GroupTraining {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id",
@@ -30,12 +31,11 @@ public class PersonalTraining {
     private Long coachId;
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "fit_user_id", referencedColumnName = "id",
-            nullable = false)
-    private FitUser fitUser;
+    @ManyToMany(mappedBy = "groupTrainings",
+            fetch = FetchType.LAZY)
+    private Set<FitUser> fitUsers = new HashSet<>();
 
-    public PersonalTraining() {
+    public GroupTraining() {
     }
 
     public Long getId() {
@@ -61,21 +61,20 @@ public class PersonalTraining {
     public void setStatus(ETrainingStatus status) {
         this.status = status;
     }
-
     @JsonIgnore
-    public FitUser getUser() {
-        return fitUser;
+    public Set<FitUser> getUsers() {
+        return fitUsers;
     }
     @JsonIgnore
-    public void setUser(FitUser fitUser) {
-        this.fitUser = fitUser;
+    public void setUsers(Set<FitUser> fitUsers) {
+        this.fitUsers = fitUsers;
     }
 
     public Long getCoachId() {
         return coachId;
     }
 
-    public void setCoach_id(Long coachId) {
+    public void setCoachId(Long coachId) {
         this.coachId = coachId;
     }
 }

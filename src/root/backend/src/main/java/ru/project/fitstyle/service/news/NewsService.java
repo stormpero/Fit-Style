@@ -1,6 +1,6 @@
 package ru.project.fitstyle.service.news;
 
-import ru.project.fitstyle.model.news.News;
+import ru.project.fitstyle.model.dto.news.News;
 
 import java.util.List;
 

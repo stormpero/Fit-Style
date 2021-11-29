@@ -3,8 +3,8 @@ package ru.project.fitstyle.service.token;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.project.fitstyle.config.properties.AccessTokenProperties;
-import ru.project.fitstyle.model.user.FitUser;
-import ru.project.fitstyle.repository.UserRepository;
+import ru.project.fitstyle.model.dto.user.FitUser;
+import ru.project.fitstyle.model.dao.UserRepository;
 import ru.project.fitstyle.security.jwt.JwtTokenHandler;
 
 import java.util.Date;

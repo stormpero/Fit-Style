@@ -1,8 +1,8 @@
 package ru.project.fitstyle.service.user;
 
-import ru.project.fitstyle.model.subscription.Subscription;
-import ru.project.fitstyle.model.user.FitUser;
-import ru.project.fitstyle.model.user.Role;
+import ru.project.fitstyle.model.dto.subscription.Subscription;
+import ru.project.fitstyle.model.dto.user.FitUser;
+import ru.project.fitstyle.model.dto.user.Role;
 
 import java.util.Set;
 

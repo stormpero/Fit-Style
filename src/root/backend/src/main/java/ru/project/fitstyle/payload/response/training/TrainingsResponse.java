@@ -1,7 +1,7 @@
 package ru.project.fitstyle.payload.response.training;
 
-import ru.project.fitstyle.model.training.GroupTraining;
-import ru.project.fitstyle.model.training.PersonalTraining;
+import ru.project.fitstyle.model.dto.training.GroupTraining;
+import ru.project.fitstyle.model.dto.training.PersonalTraining;
 
 import java.util.Set;
 

@@ -1,4 +1,4 @@
-package ru.project.fitstyle.model.training;
+package ru.project.fitstyle.model.dto.training;
 
 import javax.persistence.*;
 

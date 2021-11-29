@@ -2,8 +2,8 @@ package ru.project.fitstyle.service.subscription;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.project.fitstyle.model.subscription.SubscriptionType;
-import ru.project.fitstyle.repository.SubscriptionTypeRepository;
+import ru.project.fitstyle.model.dto.subscription.SubscriptionType;
+import ru.project.fitstyle.model.dao.SubscriptionTypeRepository;
 
 import java.util.List;
 

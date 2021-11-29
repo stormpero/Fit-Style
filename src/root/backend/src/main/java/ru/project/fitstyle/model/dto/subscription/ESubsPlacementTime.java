@@ -1,4 +1,4 @@
-package ru.project.fitstyle.model.subscription;
+package ru.project.fitstyle.model.dto.subscription;
 
 public enum ESubsPlacementTime {
     DAY,

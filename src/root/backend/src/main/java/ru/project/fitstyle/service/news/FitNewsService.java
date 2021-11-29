@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 import ru.project.fitstyle.config.properties.NewsProperties;
 import ru.project.fitstyle.exception.newsstory.ENewsStoryError;
 import ru.project.fitstyle.exception.newsstory.NewsStoryException;
-import ru.project.fitstyle.model.news.News;
-import ru.project.fitstyle.repository.NewsRepository;
+import ru.project.fitstyle.model.dto.news.News;
+import ru.project.fitstyle.model.dao.NewsRepository;
 
 import java.util.List;
 

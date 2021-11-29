@@ -5,10 +5,10 @@ import org.springframework.stereotype.Service;
 import ru.project.fitstyle.config.properties.RefreshTokenProperties;
 import ru.project.fitstyle.exception.refresh.ERefreshTokenError;
 import ru.project.fitstyle.exception.refresh.RefreshTokenException;
-import ru.project.fitstyle.model.user.RefreshToken;
-import ru.project.fitstyle.model.user.FitUser;
-import ru.project.fitstyle.repository.RefreshTokenRepository;
-import ru.project.fitstyle.repository.UserRepository;
+import ru.project.fitstyle.model.dto.user.RefreshToken;
+import ru.project.fitstyle.model.dto.user.FitUser;
+import ru.project.fitstyle.model.dao.RefreshTokenRepository;
+import ru.project.fitstyle.model.dao.UserRepository;
 import ru.project.fitstyle.security.jwt.JwtTokenHandler;
 
 import java.time.Instant;

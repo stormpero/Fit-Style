@@ -1,8 +1,8 @@
-package ru.project.fitstyle.model.user;
+package ru.project.fitstyle.model.dto.user;
 
-import ru.project.fitstyle.model.subscription.Subscription;
-import ru.project.fitstyle.model.training.GroupTraining;
-import ru.project.fitstyle.model.training.PersonalTraining;
+import ru.project.fitstyle.model.dto.subscription.Subscription;
+import ru.project.fitstyle.model.dto.training.GroupTraining;
+import ru.project.fitstyle.model.dto.training.PersonalTraining;
 
 import java.util.Date;
 import java.util.HashSet;

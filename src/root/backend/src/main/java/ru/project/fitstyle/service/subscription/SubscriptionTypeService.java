@@ -1,6 +1,6 @@
 package ru.project.fitstyle.service.subscription;
 
-import ru.project.fitstyle.model.subscription.SubscriptionType;
+import ru.project.fitstyle.model.dto.subscription.SubscriptionType;
 
 import java.util.List;
 

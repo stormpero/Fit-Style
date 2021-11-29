@@ -1,7 +1,7 @@
 package ru.project.fitstyle.payload.response.profile;
 
-import ru.project.fitstyle.model.subscription.ESubsPlacementTime;
-import ru.project.fitstyle.model.user.FitUser;
+import ru.project.fitstyle.model.dto.subscription.ESubsPlacementTime;
+import ru.project.fitstyle.model.dto.user.FitUser;
 
 import java.util.Date;
 
