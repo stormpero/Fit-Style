@@ -18,6 +18,10 @@ public class Training {
     public Training() {
     }
 
+    public Training(String name) {
+        this.name = name;
+    }
+
     public Long getId() {
         return id;
     }

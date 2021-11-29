@@ -36,6 +36,12 @@ public class PersonalTraining {
     public PersonalTraining() {
     }
 
+    public PersonalTraining(Date date, ETrainingStatus status, Long coachId) {
+        this.date = date;
+        this.status = status;
+        this.coachId = coachId;
+    }
+
     public Long getId() {
         return id;
     }

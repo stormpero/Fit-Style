@@ -37,6 +37,12 @@ public class GroupTraining {
     public GroupTraining() {
     }
 
+    public GroupTraining(Date date, ETrainingStatus status, Long coachId) {
+        this.date = date;
+        this.status = status;
+        this.coachId = coachId;
+    }
+
     public Long getId() {
         return id;
     }
