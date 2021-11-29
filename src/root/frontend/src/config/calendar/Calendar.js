@@ -10,7 +10,7 @@ export const messagesRu = {
     date: 'Дата',
     time: 'Время',
     event: 'Ивент',
-    showMore: total => `show more && (${total})`
+    showMore: total => `Показать больше (${total})`
 };
 
 export const formats = {
@@ -21,4 +21,12 @@ export const formats = {
         return local.format(start, 'DD MMMM', culture) + ' – ' +
             local.format(end, 'DD MMMM', culture);
     },
+}
+
+export const scheduleStyle = () => {
+    return {
+        style: {
+            "min-height": "200px"
+        }
+    }
 }

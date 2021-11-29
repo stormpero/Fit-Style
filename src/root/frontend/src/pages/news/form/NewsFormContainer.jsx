@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import NewsForm from "./NewsForm";
 import isEmpty from "validator/es/lib/isEmpty";
-import NewsService from "../../../services/api/NewsService";
+import NewsService from "../../../services/api/news/NewsService";
+import ToastMessages from "../../../components/toastmessages/ToastMessages";
+import {TOP_RIGHT} from "../../../config/consts/ToastPosition";
 
 class NewsFormContainer extends Component {
 
@@ -67,10 +69,13 @@ class NewsFormContainer extends Component {
                     newsData: {
                         header: "",
                         content: "",
+                        dateTime: "",
                     },
                 })
+                ToastMessages.success("Новость успешно добавлена!", TOP_RIGHT);
                 this.props.setActive(false);
-                window.location.reload();
+                this.props.updateNews();
+
             }
         ).catch(
             error => {

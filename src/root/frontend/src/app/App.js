@@ -4,7 +4,7 @@ import {BrowserRouter} from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
-import AppRouter from "./components/AppRouter";
+import AppRouter from "../components/approuter/AppRouter";
 
 const App = () => {
     return (

@@ -12,6 +12,7 @@ import user from "../../assets/user.png";
 import map from "../../assets/map.png";
 import info from "../../assets/info.png";
 import calendar from "../../assets/calendar.png"
+import workout from "../../assets/workout.png"
 import {
     URL_CALENDAR,
     URL_INFO,
@@ -20,8 +21,9 @@ import {
     URL_NEWS,
     URL_USER,
     URL_PROFILE,
-    URL_REGISTER
-} from "../../services/utils/consts/urlsPages";
+    URL_REGISTER,
+    URL_SCHEDULE
+} from "../../config/consts/urlsPages";
 
 
 const Navbar = (props) => {
@@ -49,6 +51,12 @@ const Navbar = (props) => {
                 <Link to={URL_CALENDAR} className="menu-link">
                     <img className="svg-icon" src={calendar} alt="Fit-Style"/>
                     <span className="menu-link-name">Календарь</span>
+                </Link>
+            </div>
+            <div className="menu-user">
+                <Link to={URL_SCHEDULE} className="menu-link">
+                    <img className="svg-icon" src={workout} alt="Fit-Style"/>
+                    <span className="menu-link-name">Расписание тренировок</span>
                 </Link>
             </div>
             <div className="menu-user">

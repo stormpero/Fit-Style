@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import UserService from "../services/api/UserService";
-import LStorageUser from "../services/LStorageUser";
+import UserService from "../../services/api/user/UserService";
+import LStorageUser from "../../services/localstorage/LStorageUser";
 
 export default class UserContent extends Component {
   state = {

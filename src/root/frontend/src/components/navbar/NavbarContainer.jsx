@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import LStorageUser from "../../services/LStorageUser";
-import api from "../../services/api/Api";
+import LStorageUser from "../../services/localstorage/LStorageUser";
+import api from "../../services/api/config/Api";
 
 import Navbar from "./Navbar";
 

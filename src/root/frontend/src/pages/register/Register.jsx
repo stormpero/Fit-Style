@@ -4,7 +4,7 @@ import "./Register.css"
 
 import {AddressSuggestions} from "react-dadata";
 import 'react-dadata/dist/react-dadata.css';
-import {DADATA_TOKEN} from "../../services/utils/consts/Dadata";
+import {DADATA_TOKEN} from "../../config/dadata/Dadata";
 
 const Register = (props) => {
     return (
@@ -82,7 +82,8 @@ const Register = (props) => {
                     <div className="form-group">
                         <label htmlFor="age">Вид абонемента</label>
                         <select className="form-control" name="subscriptionTypeId"
-                                onChange={props.handleFunc.input} value={props.subscriptionTypes[props.value.subscriptionTypeId]}
+                                onChange={props.handleFunc.input} value={props.value.subscriptionTypeId}
+
                                 defaultValue={"DEFAULT"}>
                             <option value="DEFAULT">Выберите абонемент</option>
                             {props.subscriptionTypes.map((param, index) => <option value={param.id} key={index}>{param.name}</option>)}
@@ -180,7 +181,7 @@ const Register = (props) => {
                     <div className="form-group d-flex justify-content-between">
                         <button className="btn btn-primary btn-block"
                                 onClick={props.handleFunc.registering}>
-                            <span>Register</span>
+                            <span>Зарегистрировать</span>
                         </button>
                     </div>
                 </form>

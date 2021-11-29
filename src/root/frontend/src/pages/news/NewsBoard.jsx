@@ -1,19 +1,18 @@
 import React, {useEffect, useState} from "react";
 import NewsRow from "./NewsRow";
-import DateFormat from "../../services/utils/DateFormat";
-import ArrayHelper from "../../services/utils/ArrayHelper";
+import DateFormat from "../../utils/DateConvert";
+import ArrayHelper from "../../utils/ArrayConvert";
 import Modal from "../../components/modal/Modal";
 import NewsFormContainer from "./form/NewsFormContainer";
-import NewsService from "../../services/api/NewsService";
-import LStorageUser from "../../services/LStorageUser";
+import NewsService from "../../services/api/news/NewsService";
 import "./NewsBoard.css";
-import ToastMessages from "../../services/utils/ToastMessages";
-import {TOP_RIGHT} from "../../services/utils/consts/ToastPosition";
+import ToastMessages from "../../components/toastmessages/ToastMessages";
+import {TOP_RIGHT} from "../../config/consts/ToastPosition";
 import arrow from "../../assets/arrow.png";
+import PermissionService from "../../services/security/permission/PermissionService";
 
 export const NewsBoard = () => {
-
-    const isAdmin = LStorageUser.getUser().roles.includes("ROLE_MODERATOR");
+    const isModer = PermissionService.hasRole("MODERATOR");
 
     const [modalActive, setModalActive] = useState(false);
     const [deleteActive, setDeleteActive] = useState(false);
@@ -21,30 +20,37 @@ export const NewsBoard = () => {
     const [rowNews, setRowNews] = useState([]);
     const [rowNum, setRowNum] = useState(1);
     const [hasNews, setHasNews] = useState(true);
+    const [reload, setReload] = useState(false)
+
 
     useEffect(() => {
-        const loadNews = () => {
-            NewsService.getNews(rowNum).then(
-                response => {
-                    let rowNewsData = response.data.news;
-                    rowNewsData.map(value => value.dateTime = DateFormat.convertDataTimeToData(value.dateTime))
-                    rowNewsData = ArrayHelper.sliceArray(rowNewsData, 3);
-                    setRowNews(prevNews => prevNews.concat(rowNewsData))
-                },
-                error => {
-                    setHasNews(false);
-                    if (error?.response?.data?.statusCode === 400 &&
-                        error.response.data?.message === "Failed. Page not found!") {
-                    }
+        NewsService.getNews(rowNum).then(
+            response => {
+                let rowNewsData = response.data.news;
+                rowNewsData.map(value => value.dateTime = DateFormat.convertDataTimeToData(value.dateTime))
+                rowNewsData = ArrayHelper.sliceArray(rowNewsData, 3);
+                setRowNews(prevNews => prevNews.concat(rowNewsData))
+            },
+            error => {
+                setHasNews(false);
+                if (error?.response?.data?.statusCode === 400 &&
+                    error.response.data?.message === "Failed. Page not found!") {
                 }
-            )}
-        loadNews();
-    },[rowNum])
+            }
+        )
+    },[rowNum, reload])
+
+    const updateNews = () => {
+        setRowNews([]);
+        setHasNews(true);
+        if (rowNum === 1) setReload(prevState => !prevState);
+        else setRowNum(1);
+    }
 
     const deleteNews = (id) => {
         NewsService.deleteNews(id).then(
             response => {
-                window.location.reload();
+                updateNews();
                 ToastMessages.success("Новость удалена!", TOP_RIGHT);
             },
             error => {
@@ -57,7 +63,7 @@ export const NewsBoard = () => {
         <div className="d-flex justify-content-center">
             <div className="news-board">
                 <div className="d-flex justify-content-around">
-                    {isAdmin &&
+                    {isModer &&
                         <button className={deleteActive ? 'select' : 'noselect'}
                                 onClick={() => setDeleteActive((prev) => !prev)}>
                             <span className='text'>Удалить</span>
@@ -69,7 +75,7 @@ export const NewsBoard = () => {
                         </button>
                     }
                     <h1 className="map-title">Новостная лента</h1>
-                    {isAdmin &&
+                    {isModer &&
                         <button className="add-news" onClick={() => setModalActive(true)}>
                             <span className='text'>Добавить</span>
                             <span className="icon">
@@ -93,9 +99,9 @@ export const NewsBoard = () => {
                 <br/>
                 <br/>
             </div>
-            {isAdmin &&
-                <Modal active={modalActive} setActive={setModalActive}>
-                    <NewsFormContainer setActive={setModalActive}/>
+            {isModer &&
+                <Modal active={modalActive} setActive={setModalActive} options={{closeBackground: false}}>
+                    <NewsFormContainer setActive={setModalActive} updateNews={updateNews}/>
                 </Modal>
             }
         </div>
