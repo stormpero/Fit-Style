@@ -1,0 +1,2 @@
+INSERT INTO subscription(begin_date, contract_number, end_date, subscription_type_id) VALUES ('26.11.2021', '89824655645', '27.11.2021', 1);
+INSERT INTO subscription(begin_date, contract_number, end_date, subscription_type_id) VALUES ('31.12.2021', '89824561232', '01.01.2022', 2);
