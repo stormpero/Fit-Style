@@ -1,17 +1,32 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Schedule from "./Schedule";
 import "./Schedule.css"
 import ToastMessages from "../../components/toastmessages/ToastMessages";
 import Modal from "../../components/modal/Modal";
 import ScheduleModalTraining from "./form/ScheduleModalTraining";
 import PermissionService from "../../services/security/permission/PermissionService";
+import ScheduleApi from "../../services/api/schedule/ScheduleApi";
 
 export const ScheduleContainer = () => {
     const isCoach = PermissionService.hasRole("COACH");
 
     const [eventList, setEventList] = useState([]);
+    const [coachList, setCoachList] = useState(null);
     const [modalActive, setModalActive] = useState(false);
     const [eventInfo, setEventInfo] = useState(null)
+    const [selectCoach, setSelectCoach] = useState("")
+    const [isReady, setIsReady] = useState(false);
+
+    useEffect(() => {
+        ScheduleApi.getCoachesList().then(
+            response => {
+                setCoachList(response.data?.coaches)
+            },
+            error => {
+                ToastMessages.defaultError();
+            }
+        ).finally(() => setIsReady(true));
+    }, [])
 
     const handleSelect = (event) => {
         if (event.start.getDay() !== event.end.getDay()) {
@@ -35,6 +50,21 @@ export const ScheduleContainer = () => {
             ToastMessages.success("Тренировка(и) созданы")
         }
 
+    }
+
+    const handleSelectInput = (event) => {
+        const {value} = event.target;
+        setSelectCoach(value);
+
+        if (value !== "DEFAULT") {
+            ScheduleApi.getCoachTrainings(value).then(
+                response => {
+
+                },
+                error => {
+                    ToastMessages.defaultError();
+                });
+        }
     }
 
     const createTraining = (id, date, hours) => {
@@ -63,48 +93,28 @@ export const ScheduleContainer = () => {
     }
 
 
-    const eventStatusStyle = (status) => {
-        let styles = {
-            style: {
-                backgroundColor: "",
-                borderColor: "",
-                color: "black"
-            }
-        }
-        switch (status) {
-            case "LOGGED":
-                styles.style.backgroundColor = "#27FB6B"
-                styles.style.borderColor = "#27FB6B"
-                break;
-            case "ACTIVE":
-                styles.style.backgroundColor = "#00E8FC"
-                styles.style.borderColor = "#00E8FC"
-                break;
-            case "COMPLETED":
-                styles.style.backgroundColor = "#e62222"
-                styles.style.borderColor = "#e62222"
-                break;
-            case "ENDED":
-                styles.style.backgroundColor = "#93ff8e"
-                styles.style.borderColor = "#0bff00"
-                break;
-            default:
-                console.error("Error, unknown training status");
-        }
-        return styles;
-    }
-
     return (
-
         <div>
-            { eventList && <Schedule myEvents={eventList}
-                                   isCoach={isCoach}
-                                   handleSelect={handleSelect}
-                                   eventStatusStyle={eventStatusStyle}
-                                   eventSelectHandle={eventSelectHandle}/> }
+            { isReady &&
+            <Schedule
+                lists={{
+                    trainings: eventList,
+                    coaches: coachList,
+                }}
+                isCoach={isCoach}
+                selectInput={{
+                    handleSelect: handleSelectInput,
+                    selectValue: selectCoach
+                }}
+                schedule={{
+                    handleSelect: handleSelect,
+                    eventSelectHandle: eventSelectHandle
+                }}
+            />}
            <Modal active={modalActive} setActive={setModalActive} options={{closeBackground: true}}>
                 <ScheduleModalTraining setActive={setModalActive} eventInfo={eventInfo} deleteTraining={deleteTraining}/>
             </Modal>
+
         </div>
     );
 
