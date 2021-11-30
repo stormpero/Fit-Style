@@ -7,6 +7,8 @@ export const URL_AUTH = "auth/signin";
 // REGISTER //
 export const URL_REGISTER = "auth/signup";
 export const URL_SUBSCRIPTIONTYPE = "subscriptiontype";
+// NAVBAR //
+export const URL_LOGOUT = "auth/logout";
 // USER TEST //
 export const URL_USERTEST = "test/user";
 // PROFILE //
