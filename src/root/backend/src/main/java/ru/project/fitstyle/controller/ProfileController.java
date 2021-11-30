@@ -7,6 +7,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import ru.project.fitstyle.controller.request.profile.ChangeBalanceRequest;
+import ru.project.fitstyle.controller.response.other.SuccessMessage;
 import ru.project.fitstyle.model.dto.user.FitUser;
 import ru.project.fitstyle.controller.response.profile.UserProfileResponse;
 import ru.project.fitstyle.service.AuthService;
@@ -59,5 +61,13 @@ public class ProfileController {
         FitUser fitUser = userService.getUserById(id);
         return ResponseEntity.ok(
                 new UserProfileResponse(fitUser));
+    }
+
+    @PatchMapping
+    public ResponseEntity<SuccessMessage> changeBalance(@RequestBody ChangeBalanceRequest changeBalanceRequest) {
+        userService.changeBalance(userService.getUserByEmail(authService.getEmail()), changeBalanceRequest.getSummary());
+        return ResponseEntity.ok(
+                new SuccessMessage("Balance changed successfully!")
+        );
     }
 }

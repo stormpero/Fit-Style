@@ -19,6 +19,8 @@ public interface UserService {
 
     void saveFitUser(FitUser fitUser, Set<Role> roles, Subscription subscription);
 
+    void changeBalance(FitUser fitUser, Long summary);
+
     void logoutFitUserByEmail(String email);
 
     Set<Role> getFitUserRolesByEmail(String email);

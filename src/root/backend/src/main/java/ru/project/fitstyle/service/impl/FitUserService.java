@@ -9,6 +9,7 @@ import ru.project.fitstyle.model.dto.user.Role;
 import ru.project.fitstyle.model.dao.RefreshTokenRepository;
 import ru.project.fitstyle.model.dao.UserRepository;
 import ru.project.fitstyle.service.UserService;
+import ru.project.fitstyle.service.exception.user.BalanceLessThanZeroException;
 import ru.project.fitstyle.service.exception.user.NotACoachException;
 import ru.project.fitstyle.service.exception.user.UserNotFoundException;
 
@@ -61,6 +62,15 @@ public class FitUserService implements UserService {
         fitUser.setRoles(roles);
         fitUser.setSubscription(subscription);
         userRepository.save(fitUser);
+    }
+
+    @Override
+    public void changeBalance(FitUser fitUser, Long summary) {
+        long result = fitUser.getBalance() + summary;
+        if(result >= 0) {
+            fitUser.setBalance(result);
+        }
+        throw new BalanceLessThanZeroException("Balance cannot be less than zero!");
     }
 
     @Override

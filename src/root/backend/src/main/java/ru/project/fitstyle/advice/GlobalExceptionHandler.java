@@ -13,6 +13,7 @@ import ru.project.fitstyle.service.exception.subscription.SubscriptionTypeNotFou
 import ru.project.fitstyle.service.exception.token.RefreshTokenExpiredException;
 import ru.project.fitstyle.service.exception.token.RefreshTokenNotFoundException;
 import ru.project.fitstyle.service.exception.training.TrainingNotFoundException;
+import ru.project.fitstyle.service.exception.user.BalanceLessThanZeroException;
 import ru.project.fitstyle.service.exception.user.EmailAlreadyExistsException;
 import ru.project.fitstyle.service.exception.user.NotACoachException;
 import ru.project.fitstyle.service.exception.role.RoleNotFoundException;
@@ -79,6 +80,17 @@ public class GlobalExceptionHandler {
                 new Date(),
                 ex.getMessage(),
                 ErrorCode.USER_IS_NOT_A_COACH.value(),
+                request.getDescription(false));
+    }
+
+    @ExceptionHandler(value = {BalanceLessThanZeroException.class})
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorMessage handleBalanceLessThanZeroException(RuntimeException ex, WebRequest request) {
+        return new ErrorMessage(
+                HttpStatus.BAD_REQUEST.value(),
+                new Date(),
+                ex.getMessage(),
+                ErrorCode.LESS_THAN_ZERO.value(),
                 request.getDescription(false));
     }
 }
