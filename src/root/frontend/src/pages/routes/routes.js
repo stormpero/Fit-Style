@@ -7,13 +7,13 @@ import {
     URL_INFO, URL_CALENDAR, URL_SCHEDULE
 } from "../../config/consts/urlsPages";
 import RegisterContainer from "../register/RegisterContainer";
-import ProfileContainer from "../profile/ProfileContainer";
+import {ProfileContainer} from "../profile/ProfileContainer";
 import UserContent from "../../components/usercontent/UserContent";
 import MapContainer from "../map/MapContainer";
 import {NewsBoard} from "../news/NewsBoard";
 import InfoContainer from "../info/InfoContainer";
 import CalendarContainer from "../calendar/CalendarContainer";
-import ScheduleContainer from "../schedule/ScheduleContainer";
+import {ScheduleContainer} from "../schedule/ScheduleContainer";
 
 export const routes = [
     {
