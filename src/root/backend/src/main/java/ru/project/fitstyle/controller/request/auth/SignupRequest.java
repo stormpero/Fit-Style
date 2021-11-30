@@ -1,5 +1,7 @@
 package ru.project.fitstyle.controller.request.auth;
 
+import ru.project.fitstyle.controller.data.SubscriptionTypeInfo;
+
 import java.util.Date;
 import java.util.Set;
 
@@ -52,13 +54,7 @@ public class SignupRequest {
 
     private Set<String> roles;
 
-    @NotNull(message = "subscriptionTypeId should not be blank")
-    private Long subscriptionTypeId;
-
-    @NotBlank(message = "contractNumber should not be blank")
-    @Size(min = 1, max = 15, message = "contractNumber should be more or equal than 1 and less or equal than 15 characters")
-    private String contractNumber;
-
+    private SubscriptionTypeInfo subscriptionTypeInfo;
 
     public String getName() {
         return name;
@@ -156,19 +152,11 @@ public class SignupRequest {
       this.roles = roles;
     }
 
-    public Long getSubscriptionTypeId() {
-        return subscriptionTypeId;
+    public SubscriptionTypeInfo getSubscriptionTypeInfo() {
+        return subscriptionTypeInfo;
     }
 
-    public void setSubscriptionTypeId(Long subscriptionTypeId) {
-        this.subscriptionTypeId = subscriptionTypeId;
-    }
-
-    public String getContractNumber() {
-        return contractNumber;
-    }
-
-    public void setContractNumber(String contractNumber) {
-        this.contractNumber = contractNumber;
+    public void setSubscriptionTypeInfo(SubscriptionTypeInfo subscriptionTypeInfo) {
+        this.subscriptionTypeInfo = subscriptionTypeInfo;
     }
 }

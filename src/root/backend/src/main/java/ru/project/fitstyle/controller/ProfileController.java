@@ -9,6 +9,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.project.fitstyle.controller.request.profile.ChangeBalanceRequest;
 import ru.project.fitstyle.controller.response.other.SuccessMessage;
+import ru.project.fitstyle.controller.data.SubscriptionInfo;
 import ru.project.fitstyle.model.dto.user.FitUser;
 import ru.project.fitstyle.controller.response.profile.UserProfileResponse;
 import ru.project.fitstyle.service.AuthService;
@@ -39,9 +40,7 @@ public class ProfileController {
 
     @GetMapping()
     public ResponseEntity<UserProfileResponse> getUserProfileInfo() {
-        FitUser fitUser = userService.getUserByEmail(authService.getEmail());
-        return ResponseEntity.ok(
-                new UserProfileResponse(fitUser));
+        return createUserProfileResponse(userService.getUserByEmail(authService.getEmail()));
     }
 
     @GetMapping ("/user_image")
@@ -58,9 +57,7 @@ public class ProfileController {
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('MODERATOR')")
     public ResponseEntity<UserProfileResponse> getUserProfileInfoById(@PathVariable("id") Long id) {
-        FitUser fitUser = userService.getUserById(id);
-        return ResponseEntity.ok(
-                new UserProfileResponse(fitUser));
+        return createUserProfileResponse(userService.getUserById(id));
     }
 
     @PatchMapping("/change_balance")
@@ -69,5 +66,14 @@ public class ProfileController {
         return ResponseEntity.ok(
                 new SuccessMessage("Balance changed successfully!")
         );
+    }
+
+    private ResponseEntity<UserProfileResponse> createUserProfileResponse(FitUser fitUser) {
+        return ResponseEntity.ok(
+                new UserProfileResponse(fitUser.getId(), fitUser.getName(), fitUser.getSurname(), fitUser.getPatronymic(),
+                        fitUser.getEmail(), fitUser.getAge(), fitUser.getGender(), fitUser.getBirthdate(),
+                        fitUser.getTelephone(), fitUser.getPassport(), fitUser.getAddress(),
+                        fitUser.getBalance(),
+                        new SubscriptionInfo(fitUser.getSubscription().getSubscriptionType().getName(), fitUser.getSubscription().getEndDate())));
     }
 }

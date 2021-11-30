@@ -94,7 +94,7 @@ public class FitUser {
     @OneToMany(mappedBy = "fitUser", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Set<PersonalTraining> personalTrainings = new HashSet<>();
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.REMOVE, CascadeType.PERSIST})
+    @OneToOne(fetch = FetchType.LAZY, optional = false, cascade = {CascadeType.REMOVE, CascadeType.PERSIST})
     @PrimaryKeyJoinColumn
     private Subscription subscription;
 

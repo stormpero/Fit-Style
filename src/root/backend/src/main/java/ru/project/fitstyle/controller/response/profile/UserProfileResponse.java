@@ -1,11 +1,12 @@
 package ru.project.fitstyle.controller.response.profile;
 
-import ru.project.fitstyle.model.dto.subscription.ESubsPlacementTime;
-import ru.project.fitstyle.model.dto.user.FitUser;
+import ru.project.fitstyle.controller.data.SubscriptionInfo;
 
 import java.util.Date;
 
 public class UserProfileResponse {
+
+    private final Long id;
 
     private final String name;
 
@@ -27,33 +28,31 @@ public class UserProfileResponse {
 
     private final String address;
 
-    private final int subscriptionValidityMonths;
+    private final Long balance;
 
-    private final ESubsPlacementTime subscriptionPlacementTime;
+    private final SubscriptionInfo subscriptionInfo;
 
-    private final String subscriptionCost;
+    public UserProfileResponse(Long id, String name, String surname, String patronymic,
+                               String email, String age, String gender, Date birthdate,
+                               String telephone, String passport, String address,
+                               Long balance, SubscriptionInfo subscriptionInfo) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.patronymic = patronymic;
+        this.email = email;
+        this.age = age;
+        this.gender = gender;
+        this.birthdate = birthdate;
+        this.telephone = telephone;
+        this.passport = passport;
+        this.address = address;
+        this.balance = balance;
+        this.subscriptionInfo = subscriptionInfo;
+    }
 
-    public UserProfileResponse(FitUser fitUser) {
-        this.name = fitUser.getName();
-        this.surname = fitUser.getSurname();
-        this.patronymic = fitUser.getPatronymic();
-        this.email = fitUser.getEmail();
-        this.age = fitUser.getAge();
-        this.gender = fitUser.getGender();
-        this.birthdate = fitUser.getBirthdate();
-        this.telephone = fitUser.getTelephone();
-        this.passport = fitUser.getPassport();
-        this.address = fitUser.getAddress();
-        if(fitUser.getSubscription() != null) {
-            this.subscriptionPlacementTime = fitUser.getSubscription().getSubscriptionType().getPlacementTime();
-            this.subscriptionValidityMonths = fitUser.getSubscription().getSubscriptionType().getValidityMonths();
-            this.subscriptionCost = fitUser.getSubscription().getSubscriptionType().getCost();
-        }
-        else {
-            this.subscriptionPlacementTime = null;
-            this.subscriptionCost = null;
-            subscriptionValidityMonths = 0;
-        }
+    public Long getId() {
+        return id;
     }
 
     public String getName() {
@@ -96,15 +95,11 @@ public class UserProfileResponse {
         return address;
     }
 
-    public int getSubscriptionValidityMonths() {
-        return subscriptionValidityMonths;
+    public Long getBalance() {
+        return balance;
     }
 
-    public ESubsPlacementTime getSubscriptionPlacementTime() {
-        return subscriptionPlacementTime;
-    }
-
-    public String getSubscriptionCost() {
-        return subscriptionCost;
+    public SubscriptionInfo getSubscriptionInfo() {
+        return subscriptionInfo;
     }
 }

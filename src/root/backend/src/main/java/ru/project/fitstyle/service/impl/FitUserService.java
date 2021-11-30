@@ -69,6 +69,8 @@ public class FitUserService implements UserService {
         long result = fitUser.getBalance() + summary;
         if(result >= 0) {
             fitUser.setBalance(result);
+            userRepository.save(fitUser);
+            return;
         }
         throw new BalanceLessThanZeroException("Balance cannot be less than zero!");
     }

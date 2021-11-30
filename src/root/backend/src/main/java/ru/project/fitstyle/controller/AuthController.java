@@ -107,21 +107,16 @@ public class AuthController {
                                                        @RequestPart(value = "image", required = false) MultipartFile image) {
         userService.validateEmail(request.getEmail());
 
-        FitUser fitUser = new FitUser(request.getName(), request.getSurname(),
-                request.getPatronymic(), request.getEmail(),
-                encoder.encode(request.getPassword()),
-                request.getAge(), request.getGender(),
-                request.getBirthdate(), request.getTelephone(),
-                request.getPassport(), request.getAddress());
+        FitUser fitUser = createFitUser(request);
 
         if(image != null) {
             imageStorageService.store(image);
-            System.out.println(image.getOriginalFilename());
             fitUser.setImgURL(image.getOriginalFilename());
         }
 
         userService.saveFitUser(fitUser, roleService.createFitRoles(request.getRoles()),
-                subscriptionTypeService.createFitUserSubscription(request.getSubscriptionTypeId(), request.getContractNumber()));
+                subscriptionTypeService.createFitUserSubscription(request.getSubscriptionTypeInfo().getSubscriptionTypeId(),
+                        request.getSubscriptionTypeInfo().getContractNumber()));
 
         return ResponseEntity.ok(
                 new SuccessMessage("User registered successfully!"));
@@ -156,5 +151,14 @@ public class AuthController {
         httpHeaders.add(HttpHeaders.SET_COOKIE, refreshTokenCookieService.createCookie(refreshToken,
                 refreshTokenService.getExpirationMs()).toString());
         return httpHeaders;
+    }
+
+    private FitUser createFitUser(SignupRequest request) {
+        return new FitUser(request.getName(), request.getSurname(),
+                request.getPatronymic(), request.getEmail(),
+                encoder.encode(request.getPassword()),
+                request.getAge(), request.getGender(),
+                request.getBirthdate(), request.getTelephone(),
+                request.getPassport(), request.getAddress());
     }
 }
