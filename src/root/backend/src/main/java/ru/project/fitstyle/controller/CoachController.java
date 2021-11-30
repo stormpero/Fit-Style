@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.project.fitstyle.controller.response.profile.AllCoachesInfoResponse;
-import ru.project.fitstyle.controller.response.profile.CoachInfo;
+import ru.project.fitstyle.controller.data.CoachInfo;
 import ru.project.fitstyle.model.dto.user.ERole;
 import ru.project.fitstyle.model.dto.user.FitUser;
 import ru.project.fitstyle.service.RoleService;

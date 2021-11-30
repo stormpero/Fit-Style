@@ -1,4 +1,4 @@
-package ru.project.fitstyle.controller.response;
+package ru.project.fitstyle.controller.response.permission;
 
 import ru.project.fitstyle.model.dto.user.Role;
 

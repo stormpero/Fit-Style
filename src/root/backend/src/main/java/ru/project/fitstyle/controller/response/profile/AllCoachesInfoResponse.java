@@ -1,5 +1,7 @@
 package ru.project.fitstyle.controller.response.profile;
 
+import ru.project.fitstyle.controller.data.CoachInfo;
+
 import java.util.List;
 
 public class AllCoachesInfoResponse {

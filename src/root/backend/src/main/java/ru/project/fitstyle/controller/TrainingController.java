@@ -14,7 +14,7 @@ import ru.project.fitstyle.model.dto.training.GroupTraining;
 import ru.project.fitstyle.model.dto.training.PersonalTraining;
 import ru.project.fitstyle.model.dto.training.Training;
 import ru.project.fitstyle.model.dto.user.FitUser;
-import ru.project.fitstyle.controller.response.TrainingsResponse;
+import ru.project.fitstyle.controller.response.training.TrainingsResponse;
 import ru.project.fitstyle.service.AuthService;
 import ru.project.fitstyle.service.TrainingService;
 import ru.project.fitstyle.service.UserService;
@@ -60,6 +60,7 @@ public class TrainingController {
     public ResponseEntity<SuccessMessage> addGroupTraining(@RequestBody AddEditGroupTrainingRequest request) {
         GroupTraining groupTraining = new GroupTraining(request.getDate(), ETrainingStatus.LOGGED,
                 userService.getUserByEmail(authService.getEmail()).getId(), trainingService.getTrainingById(request.getTrainingId()));
+        trainingService.saveGroupTraining(groupTraining);
         return ResponseEntity.ok(
                 new SuccessMessage("Success! Group training created!")
         );
@@ -70,6 +71,7 @@ public class TrainingController {
     public ResponseEntity<SuccessMessage> addPersonalTraining(@RequestBody AddEditPersonalTrainingRequest request) {
         PersonalTraining personalTraining = new PersonalTraining(request.getDate(), ETrainingStatus.LOGGED,
                 userService.getUserByEmail(authService.getEmail()).getId());
+        trainingService.savePersonalTraining(personalTraining);
         return ResponseEntity.ok(
                 new SuccessMessage("Success! Personal training created!")
         );

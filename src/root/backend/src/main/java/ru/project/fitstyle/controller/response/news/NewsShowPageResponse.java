@@ -1,4 +1,4 @@
-package ru.project.fitstyle.controller.response;
+package ru.project.fitstyle.controller.response.news;
 
 import ru.project.fitstyle.model.dto.news.News;
 

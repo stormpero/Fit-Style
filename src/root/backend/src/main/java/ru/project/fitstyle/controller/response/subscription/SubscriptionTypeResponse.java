@@ -1,4 +1,4 @@
-package ru.project.fitstyle.controller.response;
+package ru.project.fitstyle.controller.response.subscription;
 
 import ru.project.fitstyle.model.dto.subscription.SubscriptionType;
 

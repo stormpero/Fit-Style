@@ -1,4 +1,4 @@
-package ru.project.fitstyle.controller.response;
+package ru.project.fitstyle.controller.response.training;
 
 import ru.project.fitstyle.model.dto.training.GroupTraining;
 import ru.project.fitstyle.model.dto.training.PersonalTraining;

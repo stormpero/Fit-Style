@@ -7,7 +7,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.project.fitstyle.model.dto.news.News;
 import ru.project.fitstyle.controller.request.news.AddEditNewsRequest;
-import ru.project.fitstyle.controller.response.NewsShowPageResponse;
+import ru.project.fitstyle.controller.response.news.NewsShowPageResponse;
 import ru.project.fitstyle.controller.response.other.SuccessMessage;
 import ru.project.fitstyle.service.NewsService;
 import ru.project.fitstyle.service.StorageService;

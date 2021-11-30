@@ -1,4 +1,4 @@
-package ru.project.fitstyle.controller.response.profile;
+package ru.project.fitstyle.controller.data;
 
 public class CoachInfo {
     private final Long id;
