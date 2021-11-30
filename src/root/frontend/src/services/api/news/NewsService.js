@@ -5,7 +5,6 @@ class NewsService {
     getNews(pageNumber) {
         return api.get(`news/${pageNumber}`);
     }
-
     addNews(newsData) {
         return api.post(URL_NEWSADD, newsData);
     }

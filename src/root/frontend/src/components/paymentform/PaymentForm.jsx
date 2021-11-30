@@ -4,10 +4,11 @@ import 'react-credit-cards/es/styles-compiled.css';
 import {
     formatCreditCardNumber,
     formatCVC,
-    formatExpirationDate,
-    formatFormData
+    formatExpirationDate
 } from "./Utils";
 import "./PaymentForm.css"
+import ProfileApi from "../../services/api/profile/ProfileApi";
+import ToastMessages from "../toastmessages/ToastMessages";
 
 export default class PaymentForm extends Component {
     state = {
@@ -17,7 +18,7 @@ export default class PaymentForm extends Component {
         cvc: "",
         issuer: "",
         focused: "",
-        formData: null
+        balance: "",
     };
 
     handleCallback = ({ issuer }, isValid) => {
@@ -46,20 +47,20 @@ export default class PaymentForm extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        const { issuer } = this.state;
-        const formData = [...e.target.elements]
-            .filter(d => d.name)
-            .reduce((acc, d) => {
-                acc[d.name] = d.value;
-                return acc;
-            }, {});
-
-        this.setState({ formData });
-        this.form.reset();
+        ProfileApi.addBalance(this.state.balance).then(
+            response => {
+                this.props.setReload(prev => !prev);
+            },
+            error => {
+                ToastMessages.defaultError();
+            }).finally(() => {
+            this.form.reset();
+            this.props.setActive(false);
+        })
     };
 
     render() {
-        const { name, number, expiry, cvc, focused, issuer, formData } = this.state;
+        const { name, number, expiry, cvc, focused, issuer } = this.state;
 
         return (
             <div key="Payment">
@@ -124,17 +125,20 @@ export default class PaymentForm extends Component {
                             </div>
                         </div>
                         <input type="hidden" name="issuer" value={issuer} />
+                        <div className="form-group mt-4">
+                            <input className="form-control mb-2"
+                                   required
+                                   name="balance"
+                                   type="text"
+                                   placeholder="Сумма"
+                                   onChange={this.handleInputChange}
+                                   value={this.state.balance}
+                            />
+                        </div>
                         <div className="form-actions">
                             <button className="btn btn-primary btn-lg btn-block w-100">Пополнить</button>
                         </div>
                     </form>
-                    {formData && (
-                        <div className="App-highlight">
-                            {formatFormData(formData).map((d, i) => (
-                                <div key={i}>{d}</div>
-                            ))}
-                        </div>
-                    )}
                 </div>
             </div>
         );

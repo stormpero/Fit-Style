@@ -26,7 +26,7 @@ import {
 } from "../../config/consts/urlsPages";
 
 
-const Navbar = (props) => {
+const Navbar = ({isModer, logOut}) => {
     return (
         <div className="menu">
             <Link to={"/news"} className="menu-link-logo">
@@ -71,7 +71,7 @@ const Navbar = (props) => {
                     <span className="menu-link-name">Контакты</span>
                 </Link>
             </div>
-            { props.isAdmin && (
+            { isModer && (
                 <div className="menu-user">
                     <div className="menu-user-container">
                         <Link to={URL_REGISTER} className="menu-link">
@@ -83,7 +83,7 @@ const Navbar = (props) => {
             )}
             <div className="menu-user">
                 <div className="menu-user-container">
-                    <Link to={URL_LOGIN} className="menu-link-exit" onClick={props.logOut}>
+                    <Link to={URL_LOGIN} className="menu-link-exit" onClick={logOut}>
                         <img className="svg-icon" src={exit} alt="Fit-Style"/>
                         <span className="menu-link-name">Выход</span>
                     </Link>

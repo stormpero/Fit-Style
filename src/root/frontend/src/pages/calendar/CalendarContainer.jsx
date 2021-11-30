@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import CalendarView from "./CalendarView";
-import UserService from "../../services/api/user/UserService";
 import ToastMessages from "../../components/toastmessages/ToastMessages";
+import ScheduleApi from "../../services/api/schedule/ScheduleApi";
 
 class CalendarContainer extends Component {
 
@@ -10,7 +10,7 @@ class CalendarContainer extends Component {
     }
 
     componentDidMount() {
-        UserService.getTrainings().then(
+        ScheduleApi.getTrainings().then(
             response => {
                 let trainingsListTemp = [];
                 this.addTraining(trainingsListTemp, response.data?.personalTrainings, true);

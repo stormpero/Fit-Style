@@ -112,7 +112,7 @@ export default class RegisterContainer extends Component {
                     }
                 });
             }).catch((error)=> {
-                let errorMsg = error.response.data.errorCode === 1 ? 'Ошибка. Пользователь с таким Email уже существует!' : 'Ошибка';
+                let errorMsg = error.response.data.errorCode === 4 ? 'Ошибка. Пользователь с таким Email уже существует!' : 'Ошибка';
                 ToastMessages.error(errorMsg, TOP_RIGHT)
             }
         );

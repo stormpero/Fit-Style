@@ -1,6 +1,6 @@
 import React from 'react';
 import DateFormat from "../../../utils/DateConvert";
-import TrainingService from "../../../services/training/TrainingService";
+import TrainingService from "../../../services/training/ScheduleService";
 function ScheduleModalTraining({setModalActive, eventInfo, deleteTraining}) {
 
     return (eventInfo ?

@@ -1,40 +1,27 @@
-import React, {Component} from 'react';
-import LStorageUser from "../../services/localstorage/LStorageUser";
-import api from "../../services/api/config/Api";
+import React from 'react';
 
 import Navbar from "./Navbar";
+import NavbarApi from "../../services/api/navbar/NavbarApi";
 
-export default class NavbarContainer extends Component {
-    state = {
-        isAdmin: false
-    }
+import LStorageUser from "../../services/localstorage/LStorageUser";
+import PermissionService from "../../services/security/permission/PermissionService";
+import ToastMessages from "../toastmessages/ToastMessages";
 
-    componentDidMount() {
-        const user = LStorageUser.getUser();
-        if (user) {
-            this.setState({
-                isAdmin: user?.roles.includes("ROLE_MODERATOR"),
-            });
-        }
-    }
+export const NavbarContainer = ({setIsAuth}) => {
+    const isModer = PermissionService.hasRole("MODERATOR");
 
-    logOut() {
-        api.get('auth/logout')
-        .then(response => {
-            console.log(response)
-        }).catch(error =>{
-            console.error(error)
+    const logOut = () => {
+        NavbarApi.logout().then(
+            response => {
+                console.log(response)
+            },
+            error => {
+                console.error(error)
+                ToastMessages.defaultError();
         }).finally(() => {
             LStorageUser.remove();
-            window.location.reload();
-        })
+            setIsAuth(false);
+        });
     }
-
-    render() {
-        const { isAdmin } = this.state;
-
-        return (
-            <Navbar isAdmin={isAdmin} logOut={this.logOut}/>
-        );
-    }
+    return ( <Navbar isModer={isModer} logOut={logOut}/> );
 }

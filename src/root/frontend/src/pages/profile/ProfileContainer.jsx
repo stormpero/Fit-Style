@@ -1,38 +1,28 @@
-import React, { Component } from "react";
+import React, {useEffect, useState} from "react";
 
-import LStorageUser from "../../services/localstorage/LStorageUser";
 import UserService from "../../services/api/user/UserService";
 import DateFormat from "../../utils/DateConvert";
 import Profile from "./Profile";
 
-export default class ProfileContainer extends Component {
-    state = {
-        userReady: false,
-        currentUser: { username: "" },
-        userInfo: null,
-        img: null
-    }
+export const ProfileContainer = () => {
+    const [userInfo, setUserInfo] = useState(null);
+    const [userImg, setUserImg] = useState(null);
+    const [isReady, setIsReady] = useState(false);
+    const [reload, setReload] = useState(false);
 
-    componentDidMount() {
-        const currentUser = LStorageUser.getUser();
+    useEffect(() => {
         Promise.allSettled([UserService.getProfileInfo(), UserService.getProfileImg()]).then(
             response => {
-                const [userInfo, img] = response.map(element => element?.status === "fulfilled" ? element?.value.data :null);
-
-                userInfo.id = ('000000' + currentUser.id).slice(Math.log(Number(currentUser.id)) * Math.LOG10E + 1 | 0);
+                const [userInfo, img] = response.map(element => element?.status === "fulfilled" ? element?.value.data : null);
+                userInfo.id = ('000000' + userInfo.id).slice(Math.log(Number(userInfo.id)) * Math.LOG10E + 1 | 0);
                 userInfo.birthdate = DateFormat.convertDataToNormalData(userInfo.birthdate);
-                this.setState({
-                    userInfo: userInfo,
-                    currentUser: currentUser,
-                    img:  img ? URL.createObjectURL(img) : null,
-                    userReady: true
-                });
-            }
-        )
-    }
 
-    render() {
-        const { userInfo, img } = this.state;
-        return ((this.state.userReady) ? <Profile userInfo={userInfo} img={img}/> : null);
-    }
+                setUserInfo(userInfo);
+                setUserImg(img ? URL.createObjectURL(img) : null);
+            }
+        ).finally(() => setIsReady(true))
+    }, [reload])
+
+
+    return ( isReady ? <Profile userInfo={userInfo} img={userImg} setReload={setReload}/> : null );
 }
