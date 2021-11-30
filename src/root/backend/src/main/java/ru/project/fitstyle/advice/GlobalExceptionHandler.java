@@ -13,6 +13,7 @@ import ru.project.fitstyle.service.exception.token.RefreshTokenExpiredException;
 import ru.project.fitstyle.service.exception.token.RefreshTokenNotFoundException;
 import ru.project.fitstyle.service.exception.training.TrainingNotFoundException;
 import ru.project.fitstyle.service.exception.user.EmailAlreadyExistsException;
+import ru.project.fitstyle.service.exception.user.NotACoachException;
 import ru.project.fitstyle.service.exception.user.RoleNotFoundException;
 import ru.project.fitstyle.service.exception.user.UserNotFoundException;
 
@@ -68,7 +69,7 @@ public class GlobalExceptionHandler {
                 request.getDescription(false));
     }
 
-    @ExceptionHandler(value = {StorageException.class})
+    @ExceptionHandler(value = {NotACoachException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorMessage handleNotACoachException(RuntimeException ex, WebRequest request) {
         return new ErrorMessage(

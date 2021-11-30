@@ -54,13 +54,6 @@ public class ProfileController {
                 .body(resource);
     }
 
-    @GetMapping("/coach/{id}")
-    public ResponseEntity<CoachInfoResponse> getCoachInfoById(@PathVariable("id") Long id) {
-        FitUser fitUser = userService.getUserById(id);
-        return ResponseEntity.ok(
-                new CoachInfoResponse(fitUser.getName(), fitUser.getSurname(), fitUser.getPatronymic()));
-    }
-
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('MODERATOR')")
     public ResponseEntity<UserProfileResponse> getUserProfileInfoById(@PathVariable("id") Long id) {

@@ -75,6 +75,9 @@ public class FitUser {
     @Column(name = "img_URL", length = 100)
     private String imgURL;
 
+    @Column(name = "balance")
+    private Long balance = 0L;
+
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "fit_user_roles",
@@ -249,5 +252,13 @@ public class FitUser {
 
     public void setSubscription(Subscription subscription) {
         this.subscription = subscription;
+    }
+
+    public Long getBalance() {
+        return balance;
+    }
+
+    public void setBalance(Long balance) {
+        this.balance = balance;
     }
 }
