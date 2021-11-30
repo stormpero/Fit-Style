@@ -74,6 +74,7 @@ public class ProfileController {
                         fitUser.getEmail(), fitUser.getAge(), fitUser.getGender(), fitUser.getBirthdate(),
                         fitUser.getTelephone(), fitUser.getPassport(), fitUser.getAddress(),
                         fitUser.getBalance(),
-                        new SubscriptionInfo(fitUser.getSubscription().getSubscriptionType().getName(), fitUser.getSubscription().getEndDate())));
+                        new SubscriptionInfo(fitUser.getSubscription().getSubscriptionType().getName(), fitUser.getSubscription().getEndDate()),
+                        fitUser.getRoles()));
     }
 }
