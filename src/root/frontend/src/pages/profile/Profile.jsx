@@ -4,8 +4,10 @@ import "./Profile.css";
 import ProfilePicture from "../../assets/default-profile-picture.jpg";
 import Modal from "../../components/modal/Modal";
 import PaymentForm from "../../components/paymentform/PaymentForm"
+import DateConvert from "../../utils/DateConvert";
+import ProfileService from "../../services/profile/ProfileService";
 
-const Profile = ({userInfo, img}) => {
+const Profile = ({userInfo, img, setReload}) => {
     const [modalActive, setModalActive] = useState(false);
     return (
             <div className="container profile-info">
@@ -39,7 +41,7 @@ const Profile = ({userInfo, img}) => {
                             </p>
                             <p>
                                 <label> Роль </label>
-                                <strong>Администратор</strong>
+                                <strong>{ProfileService.getRoleView(userInfo?.roles.map(value => value.name))}</strong>
                             </p>
                         </div>
                         <div className="second-column">
@@ -57,15 +59,15 @@ const Profile = ({userInfo, img}) => {
                             </p>
                             <p>
                                 <label> Вид абонемента </label>
-                                <strong>Премиум</strong>
+                                <strong>{userInfo?.subscriptionInfo.name}</strong>
                             </p>
                             <p>
                                 <label> Дата окончания </label>
-                                <strong>20.11.2021</strong>
+                                <strong>{DateConvert.convertDataToNormalData(userInfo?.subscriptionInfo.endDate)}</strong>
                             </p>
                             <p className="p-button">
                                 <label> Баланс </label>
-                                <strong>2000 рублей</strong>
+                                <strong>{userInfo.balance} рублей</strong>
                                 <button className="button-53" onClick={() => setModalActive(true)}>Пополнить</button>
                             </p>
 
@@ -74,7 +76,7 @@ const Profile = ({userInfo, img}) => {
                 </div>
                 {
                     <Modal active={modalActive} setActive={setModalActive} options={{closeBackground: false}}>
-                        <PaymentForm></PaymentForm>
+                        <PaymentForm setReload={setReload} setActive={setModalActive}/>
                     </Modal>
                 }
             </div>
