@@ -67,4 +67,15 @@ public class GlobalExceptionHandler {
                 ErrorCode.CANNOT_STORE.value(),
                 request.getDescription(false));
     }
+
+    @ExceptionHandler(value = {StorageException.class})
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorMessage handleNotACoachException(RuntimeException ex, WebRequest request) {
+        return new ErrorMessage(
+                HttpStatus.BAD_REQUEST.value(),
+                new Date(),
+                ex.getMessage(),
+                ErrorCode.USER_IS_NOT_A_COACH.value(),
+                request.getDescription(false));
+    }
 }

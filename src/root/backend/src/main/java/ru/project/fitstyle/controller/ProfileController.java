@@ -7,6 +7,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import ru.project.fitstyle.controller.response.profile.CoachInfoResponse;
 import ru.project.fitstyle.model.dto.user.FitUser;
 import ru.project.fitstyle.controller.response.profile.UserProfileResponse;
 import ru.project.fitstyle.service.AuthService;
@@ -51,6 +52,13 @@ public class ProfileController {
                 .header(HttpHeaders.CONTENT_DISPOSITION,
                         "attachment; filename=\"" + resource.getFilename() + "\"")
                 .body(resource);
+    }
+
+    @GetMapping("/coach/{id}")
+    public ResponseEntity<CoachInfoResponse> getCoachInfoById(@PathVariable("id") Long id) {
+        FitUser fitUser = userService.getUserById(id);
+        return ResponseEntity.ok(
+                new CoachInfoResponse(fitUser.getName(), fitUser.getSurname(), fitUser.getPatronymic()));
     }
 
     @GetMapping("/{id}")

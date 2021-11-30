@@ -1,4 +1,4 @@
-package ru.project.fitstyle.controller.response;
+package ru.project.fitstyle.controller.response.other;
 
 public class SuccessMessage {
     private final String message;

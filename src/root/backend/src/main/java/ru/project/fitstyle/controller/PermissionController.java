@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import ru.project.fitstyle.controller.response.permission.PermissionResponse;
+import ru.project.fitstyle.controller.response.PermissionResponse;
 import ru.project.fitstyle.service.AuthService;
 import ru.project.fitstyle.service.UserService;
 

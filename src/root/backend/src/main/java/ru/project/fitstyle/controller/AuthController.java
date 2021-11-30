@@ -26,7 +26,7 @@ import ru.project.fitstyle.controller.request.auth.LoginRequest;
 import ru.project.fitstyle.controller.request.auth.SignupRequest;
 import ru.project.fitstyle.controller.response.auth.LoginResponse;
 import ru.project.fitstyle.controller.response.auth.RefreshTokenResponse;
-import ru.project.fitstyle.controller.response.SuccessMessage;
+import ru.project.fitstyle.controller.response.other.SuccessMessage;
 import ru.project.fitstyle.service.*;
 import ru.project.fitstyle.service.impl.details.FitUserDetails;
 

@@ -11,6 +11,7 @@ import ru.project.fitstyle.model.dao.RoleRepository;
 import ru.project.fitstyle.model.dao.SubscriptionTypeRepository;
 import ru.project.fitstyle.model.dao.UserRepository;
 import ru.project.fitstyle.service.UserService;
+import ru.project.fitstyle.service.exception.user.NotACoachException;
 import ru.project.fitstyle.service.exception.user.RoleNotFoundException;
 import ru.project.fitstyle.service.exception.user.UserNotFoundException;
 
@@ -48,6 +49,17 @@ public class FitUserService implements UserService {
     public FitUser getUserById(Long id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("User with that id cannot be found!"));
+    }
+
+    @Override
+    public FitUser getCoachById(Long id) {
+        FitUser fitUser = getUserById(id);
+        for(Role role : fitUser.getRoles()) {
+            if(role.getName() == ERole.ROLE_COACH) {
+                return fitUser;
+            }
+        }
+        throw new NotACoachException("Given id doesn't belong to coach");
     }
 
     @Override
