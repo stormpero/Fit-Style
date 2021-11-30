@@ -4,7 +4,6 @@ import {
     URL_PROFILE_INFO,
     URL_ROLES,
     URL_SUBSCRIPTIONTYPE,
-    URL_TRAINING,
     URL_USERTEST
 } from "../../../config/consts/urlsApi";
 
@@ -27,10 +26,6 @@ class UserService {
 
     getSubscriptionType() {
         return api.get(URL_SUBSCRIPTIONTYPE);
-    }
-
-    getTrainings() {
-        return api.get(URL_TRAINING);
     }
 }
 
