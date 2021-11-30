@@ -7,24 +7,23 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.project.fitstyle.model.dto.user.FitUser;
-import ru.project.fitstyle.model.dao.UserRepository;
-import ru.project.fitstyle.service.impl.details.FitUserDetails;
+import ru.project.fitstyle.model.dao.FitUserRepository;
 
 
 @Service
 public class FitUserDetailsService implements UserDetailsService {
 
-    private final UserRepository userRepository;
+    private final FitUserRepository fitUserRepository;
 
     @Autowired
-    public FitUserDetailsService(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public FitUserDetailsService(FitUserRepository fitUserRepository) {
+        this.fitUserRepository = fitUserRepository;
     }
 
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        FitUser fitUser = userRepository.findByEmail(username)
+        FitUser fitUser = fitUserRepository.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
 
         return FitUserDetails.build(fitUser);

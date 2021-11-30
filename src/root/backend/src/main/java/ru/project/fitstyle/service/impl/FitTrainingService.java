@@ -11,6 +11,8 @@ import ru.project.fitstyle.model.dto.training.Training;
 import ru.project.fitstyle.service.TrainingService;
 import ru.project.fitstyle.service.exception.training.TrainingNotFoundException;
 
+import java.util.Set;
+
 @Service
 public class FitTrainingService implements TrainingService {
     private final TrainingRepository trainingRepository;
@@ -35,6 +37,16 @@ public class FitTrainingService implements TrainingService {
     public Training getTrainingById(Long id) {
         return trainingRepository.findById(id)
                 .orElseThrow(() -> new TrainingNotFoundException("Training with that email cannot be found!"));
+    }
+
+    @Override
+    public Set<GroupTraining> getGroupTrainingsByCoachId(Long id) {
+        return groupTrainingRepository.findByCoachId(id);
+    }
+
+    @Override
+    public Set<PersonalTraining> getPersonalTrainingsByCoachId(Long id) {
+        return personalTrainingRepository.findByCoachId(id);
     }
 
     @Override

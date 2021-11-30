@@ -37,7 +37,7 @@ public class TrainingController {
         this.trainingService = trainingService;
     }
 
-    @GetMapping()
+    @GetMapping("/user")
     public ResponseEntity<TrainingsResponse> getFitUserTrainings() {
         FitUser fitUser = userService.getUserByEmail(authService.getEmail());
         return ResponseEntity.ok(
@@ -76,4 +76,13 @@ public class TrainingController {
                 new SuccessMessage("Success! Personal training created!")
         );
     }
+
+    @GetMapping("/coach/{id}")
+    public ResponseEntity<TrainingsResponse> getCoachTrainings(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(
+                new TrainingsResponse(trainingService.getGroupTrainingsByCoachId(id),
+                        trainingService.getPersonalTrainingsByCoachId(id))
+        );
+    }
+
 }

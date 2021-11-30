@@ -7,7 +7,7 @@ import ru.project.fitstyle.model.dto.user.ERole;
 import ru.project.fitstyle.model.dto.user.FitUser;
 import ru.project.fitstyle.model.dto.user.Role;
 import ru.project.fitstyle.model.dao.RefreshTokenRepository;
-import ru.project.fitstyle.model.dao.UserRepository;
+import ru.project.fitstyle.model.dao.FitUserRepository;
 import ru.project.fitstyle.service.UserService;
 import ru.project.fitstyle.service.exception.user.BalanceLessThanZeroException;
 import ru.project.fitstyle.service.exception.user.NotACoachException;
@@ -17,32 +17,32 @@ import java.util.Set;
 
 @Service
 public class FitUserService implements UserService {
-    private final UserRepository userRepository;
+    private final FitUserRepository fitUserRepository;
     private final RefreshTokenRepository refreshTokenRepository;
 
     @Autowired
-    public FitUserService(UserRepository userRepository,
+    public FitUserService(FitUserRepository fitUserRepository,
                           RefreshTokenRepository refreshTokenRepository) {
-        this.userRepository = userRepository;
+        this.fitUserRepository = fitUserRepository;
         this.refreshTokenRepository = refreshTokenRepository;
     }
 
     @Override
     public void validateEmail(String email) {
-        if(userRepository.existsByEmail(email)) {
+        if(fitUserRepository.existsByEmail(email)) {
             throw new UserNotFoundException("User with that email cannot be found!");
         }
     }
 
     @Override
     public FitUser getUserByEmail(String email) {
-        return userRepository.findByEmail(email)
+        return fitUserRepository.findByEmail(email)
                 .orElseThrow(() -> new UserNotFoundException("User with that email cannot be found!"));
     }
 
     @Override
     public FitUser getUserById(Long id) {
-        return userRepository.findById(id)
+        return fitUserRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("User with that id cannot be found!"));
     }
 
@@ -61,7 +61,7 @@ public class FitUserService implements UserService {
     public void saveFitUser(FitUser fitUser, Set<Role> roles, Subscription subscription) {
         fitUser.setRoles(roles);
         fitUser.setSubscription(subscription);
-        userRepository.save(fitUser);
+        fitUserRepository.save(fitUser);
     }
 
     @Override
@@ -69,7 +69,7 @@ public class FitUserService implements UserService {
         long result = fitUser.getBalance() + summary;
         if(result >= 0) {
             fitUser.setBalance(result);
-            userRepository.save(fitUser);
+            fitUserRepository.save(fitUser);
             return;
         }
         throw new BalanceLessThanZeroException("Balance cannot be less than zero!");
@@ -78,14 +78,14 @@ public class FitUserService implements UserService {
     @Override
     public void logoutFitUserByEmail(String email) {
         refreshTokenRepository
-                .deleteByFitUser(userRepository
+                .deleteByFitUser(fitUserRepository
                         .findByEmail(email)
                         .orElseThrow(() -> new UserNotFoundException("User with that email cannot be found!")));
     }
 
     @Override
     public Set<Role> getFitUserRolesByEmail(String email) {
-        FitUser fitUser = userRepository.findByEmail(email).orElseThrow(() ->
+        FitUser fitUser = fitUserRepository.findByEmail(email).orElseThrow(() ->
                 new  UserNotFoundException("User with that email cannot be found!"));
         return fitUser.getRoles();
     }

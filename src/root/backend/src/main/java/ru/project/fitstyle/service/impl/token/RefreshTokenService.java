@@ -6,7 +6,7 @@ import ru.project.fitstyle.config.properties.RefreshTokenProperties;
 import ru.project.fitstyle.model.dto.user.RefreshToken;
 import ru.project.fitstyle.model.dto.user.FitUser;
 import ru.project.fitstyle.model.dao.RefreshTokenRepository;
-import ru.project.fitstyle.model.dao.UserRepository;
+import ru.project.fitstyle.model.dao.FitUserRepository;
 import ru.project.fitstyle.security.JwtTokenHandler;
 import ru.project.fitstyle.service.TokenService;
 import ru.project.fitstyle.service.exception.token.RefreshTokenExpiredException;
@@ -24,13 +24,13 @@ public class RefreshTokenService implements TokenService {
 
     private final RefreshTokenRepository refreshTokenRepository;
 
-    private final UserRepository userRepository;
+    private final FitUserRepository fitUserRepository;
 
     @Autowired
-    public RefreshTokenService(RefreshTokenRepository refreshTokenRepository, UserRepository userRepository,
+    public RefreshTokenService(RefreshTokenRepository refreshTokenRepository, FitUserRepository fitUserRepository,
                                RefreshTokenProperties refreshTokenProperties) {
         this.refreshTokenRepository = refreshTokenRepository;
-        this.userRepository = userRepository;
+        this.fitUserRepository = fitUserRepository;
         this.secret = refreshTokenProperties.getSecret();
         this.expirationMs = refreshTokenProperties.getExpirationMs();
     }
@@ -53,7 +53,7 @@ public class RefreshTokenService implements TokenService {
 
     @Override
     public String generateTokenFromUsername(String username) {
-        FitUser user = userRepository.findByEmail(username)
+        FitUser user = fitUserRepository.findByEmail(username)
                 .orElseThrow(() -> new UserNotFoundException("User with that email cannot be found!"));
         return generateTokenFromUser(user);
     }

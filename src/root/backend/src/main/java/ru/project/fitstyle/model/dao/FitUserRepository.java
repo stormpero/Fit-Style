@@ -10,7 +10,7 @@ import ru.project.fitstyle.model.dto.user.Role;
 
 
 @Repository
-public interface UserRepository extends JpaRepository<FitUser, Long> {
+public interface FitUserRepository extends JpaRepository<FitUser, Long> {
 
     Optional<FitUser> findByEmail(String email);
 

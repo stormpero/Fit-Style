@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.project.fitstyle.config.properties.AccessTokenProperties;
 import ru.project.fitstyle.model.dto.user.FitUser;
-import ru.project.fitstyle.model.dao.UserRepository;
+import ru.project.fitstyle.model.dao.FitUserRepository;
 import ru.project.fitstyle.security.JwtTokenHandler;
 import ru.project.fitstyle.service.TokenService;
 
@@ -17,11 +17,11 @@ public class AccessTokenService implements TokenService {
 
     private final Long expirationMs;
 
-    private final UserRepository userRepository;
+    private final FitUserRepository fitUserRepository;
 
     @Autowired
-    public AccessTokenService(UserRepository userRepository, AccessTokenProperties accessTokenProperties) {
-        this.userRepository = userRepository;
+    public AccessTokenService(FitUserRepository fitUserRepository, AccessTokenProperties accessTokenProperties) {
+        this.fitUserRepository = fitUserRepository;
         this.secret = accessTokenProperties.getSecret();
         this.expirationMs = accessTokenProperties.getExpirationMs();
     }
@@ -36,7 +36,7 @@ public class AccessTokenService implements TokenService {
 
     @Override
     public String generateTokenFromUsername(String username) {
-        FitUser user = userRepository.findByEmail(username).get();
+        FitUser user = fitUserRepository.findByEmail(username).get();
         return generateTokenFromUser(user);
     }
 
