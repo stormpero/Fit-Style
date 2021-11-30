@@ -30,7 +30,7 @@ public class GroupTraining {
             nullable = false)
     private Long coachId;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "training_id", referencedColumnName = "id",
             nullable = false)
     private Training training;

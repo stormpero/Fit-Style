@@ -91,7 +91,7 @@ public class FitUser {
             inverseJoinColumns = @JoinColumn(name = "group_training_id", referencedColumnName = "id", nullable = false))
     private Set<GroupTraining> groupTrainings = new HashSet<>();
 
-    @OneToMany(mappedBy = "fitUser", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "fitUser", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private Set<PersonalTraining> personalTrainings = new HashSet<>();
 
     @OneToOne(fetch = FetchType.LAZY, optional = false, cascade = {CascadeType.REMOVE, CascadeType.PERSIST})
