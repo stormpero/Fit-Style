@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Switch, Route} from "react-router-dom";
 
-import NavbarContainer from "../navbar/NavbarContainer";
+import {NavbarContainer} from "../navbar/NavbarContainer";
 import LoginContainer from "../../pages/login/LoginContainer";
 
 import {routes} from "../../pages/routes/routes";
