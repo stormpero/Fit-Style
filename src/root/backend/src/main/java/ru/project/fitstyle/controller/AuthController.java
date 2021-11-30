@@ -42,6 +42,8 @@ public class AuthController {
 
     private final UserService userService;
 
+    private final RoleService roleService;
+
     private final SubscriptionTypeService subscriptionTypeService;
 
     private final TokenService accessTokenService;
@@ -57,6 +59,7 @@ public class AuthController {
     @Autowired
     public AuthController(AuthenticationManager authenticationManager,PasswordEncoder encoder,
                           @Qualifier("fitUserService") UserService userService,
+                          @Qualifier("fitRoleService") RoleService roleService,
                           @Qualifier("fitSubscriptionTypeService") SubscriptionTypeService subscriptionTypeService,
                           @Qualifier("accessTokenService") TokenService accessTokenService,
                           @Qualifier("refreshTokenService") TokenService refreshTokenService,
@@ -65,6 +68,7 @@ public class AuthController {
                           @Qualifier("imageStorageService") StorageService imageStorageService) {
         this.authenticationManager = authenticationManager;
         this.userService = userService;
+        this.roleService = roleService;
         this.subscriptionTypeService = subscriptionTypeService;
         this.encoder = encoder;
         this.accessTokenService = accessTokenService;
@@ -116,7 +120,7 @@ public class AuthController {
             fitUser.setImgURL(image.getOriginalFilename());
         }
 
-        userService.saveFitUser(fitUser, request.getRoles(),
+        userService.saveFitUser(fitUser, roleService.createFitRoles(request.getRoles()),
                 subscriptionTypeService.createFitUserSubscription(request.getSubscriptionTypeId(), request.getContractNumber()));
 
         return ResponseEntity.ok(

@@ -7,28 +7,22 @@ import ru.project.fitstyle.model.dto.user.ERole;
 import ru.project.fitstyle.model.dto.user.FitUser;
 import ru.project.fitstyle.model.dto.user.Role;
 import ru.project.fitstyle.model.dao.RefreshTokenRepository;
-import ru.project.fitstyle.model.dao.RoleRepository;
-import ru.project.fitstyle.model.dao.SubscriptionTypeRepository;
 import ru.project.fitstyle.model.dao.UserRepository;
 import ru.project.fitstyle.service.UserService;
 import ru.project.fitstyle.service.exception.user.NotACoachException;
-import ru.project.fitstyle.service.exception.user.RoleNotFoundException;
 import ru.project.fitstyle.service.exception.user.UserNotFoundException;
 
-import java.util.HashSet;
 import java.util.Set;
 
 @Service
 public class FitUserService implements UserService {
     private final UserRepository userRepository;
-    private final RoleRepository roleRepository;
     private final RefreshTokenRepository refreshTokenRepository;
 
     @Autowired
-    public FitUserService(UserRepository userRepository, RoleRepository roleRepository,
+    public FitUserService(UserRepository userRepository,
                           RefreshTokenRepository refreshTokenRepository) {
         this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
         this.refreshTokenRepository = refreshTokenRepository;
     }
 
@@ -63,8 +57,8 @@ public class FitUserService implements UserService {
     }
 
     @Override
-    public void saveFitUser(FitUser fitUser, Set<String> strRoles, Subscription subscription) {
-        fitUser.setRoles(createFitUserRoles(strRoles));
+    public void saveFitUser(FitUser fitUser, Set<Role> roles, Subscription subscription) {
+        fitUser.setRoles(roles);
         fitUser.setSubscription(subscription);
         userRepository.save(fitUser);
     }
@@ -82,34 +76,5 @@ public class FitUserService implements UserService {
         FitUser fitUser = userRepository.findByEmail(email).orElseThrow(() ->
                 new  UserNotFoundException("User with that email cannot be found!"));
         return fitUser.getRoles();
-    }
-
-    @Override
-    public Set<Role> createFitUserRoles(Set<String> strRoles) {
-        Set<Role> roles = new HashSet<>();
-
-        if (strRoles != null) {
-            strRoles.forEach(role -> {
-                switch (role) {
-                    case "coach":
-                        Role adminRole = roleRepository.findByName(ERole.ROLE_COACH)
-                                .orElseThrow(() -> new RoleNotFoundException("Role cannot be found!"));
-                        roles.add(adminRole);
-
-                        break;
-                    case "mod":
-                        Role modRole = roleRepository.findByName(ERole.ROLE_MODERATOR)
-                                .orElseThrow(() -> new RoleNotFoundException("Role cannot be found!"));
-                        roles.add(modRole);
-
-                        break;
-                }
-            });
-        }
-        Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-                .orElseThrow(() -> new RoleNotFoundException("Role cannot be found!"));
-        roles.add(userRole);
-
-        return roles;
     }
 }

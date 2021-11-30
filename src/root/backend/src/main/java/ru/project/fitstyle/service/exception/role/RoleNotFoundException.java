@@ -1,4 +1,4 @@
-package ru.project.fitstyle.service.exception.user;
+package ru.project.fitstyle.service.exception.role;
 
 public class RoleNotFoundException extends RuntimeException {
     public RoleNotFoundException(String message) {

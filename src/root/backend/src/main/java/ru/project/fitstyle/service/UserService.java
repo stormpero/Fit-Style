@@ -17,11 +17,9 @@ public interface UserService {
 
     FitUser getCoachById(Long id);
 
-    void saveFitUser(FitUser fitUser, Set<String> strRoles, Subscription subscription);
+    void saveFitUser(FitUser fitUser, Set<Role> roles, Subscription subscription);
 
     void logoutFitUserByEmail(String email);
 
     Set<Role> getFitUserRolesByEmail(String email);
-
-    Set<Role> createFitUserRoles(Set<String> strRoles);
 }
