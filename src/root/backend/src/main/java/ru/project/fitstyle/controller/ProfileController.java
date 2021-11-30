@@ -63,7 +63,7 @@ public class ProfileController {
                 new UserProfileResponse(fitUser));
     }
 
-    @PatchMapping
+    @PatchMapping("/change_balance")
     public ResponseEntity<SuccessMessage> changeBalance(@RequestBody ChangeBalanceRequest changeBalanceRequest) {
         userService.changeBalance(userService.getUserByEmail(authService.getEmail()), changeBalanceRequest.getSummary());
         return ResponseEntity.ok(
