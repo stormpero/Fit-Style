@@ -26,7 +26,7 @@ export default class NavbarContainer extends Component {
             console.error(error)
         }).finally(() => {
             LStorageUser.remove();
-            window.location.reload();
+            this.props.setIsAuth(false);
         })
     }
 
