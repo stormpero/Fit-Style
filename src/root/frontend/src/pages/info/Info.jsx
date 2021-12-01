@@ -1,17 +1,12 @@
 import React from 'react';
-
 import "./Info.css"
 
-
-
-
-const Info = (props) => {
+export const Info = () => {
     return (
         <div className="info">
             <div className="info-header">
                 <div className="container-info">
                     <h1 className="center">Контактная информация</h1>
-
                     <article className="episode">
                         <div className="episode__number">1</div>
                         <div className="episode__content">
@@ -24,7 +19,6 @@ const Info = (props) => {
                             </div>
                         </div>
                     </article>
-
                     <article className="episode">
                         <div className="episode__number">2</div>
                         <div className="episode__content">
@@ -37,7 +31,6 @@ const Info = (props) => {
                             </div>
                         </div>
                     </article>
-
                     <article className="episode">
                         <div className="episode__number">3</div>
                         <div className="episode__content">
@@ -50,7 +43,6 @@ const Info = (props) => {
                             </div>
                         </div>
                     </article>
-
                     <article className="episode">
                         <div className="episode__number">4</div>
                         <div className="episode__content">
@@ -65,9 +57,6 @@ const Info = (props) => {
                     </article>
                 </div>
             </div>
-
         </div>
     );
 };
-
-export default Info;

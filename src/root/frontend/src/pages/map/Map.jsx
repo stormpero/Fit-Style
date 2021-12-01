@@ -7,9 +7,7 @@ import group from "../../assets/group.png";
 import boxing from "../../assets/boxing.png";
 import reception from "../../assets/reception.png";
 
-
-
-const Map = (props) => {
+export const Map = () => {
     return (
         <div className="map">
             <h1 className="map-title">Карта зала</h1>
@@ -21,7 +19,7 @@ const Map = (props) => {
                         <div className="map-content">
                             <h4>Reception</h4>
                             <span>Время работы</span>
-                            <br></br>
+                            <br/>
                             <span>Пн-Вс: 6:00-23:00</span>
                         </div>
                     </div>
@@ -30,7 +28,7 @@ const Map = (props) => {
                         <div className="map-content">
                             <h4>Тренажерный зал</h4>
                             <span>Время работы</span>
-                            <br></br>
+                            <br/>
                             <span>Пн-Вс: 10:00-22:00</span>
                         </div>
                     </div>
@@ -39,7 +37,7 @@ const Map = (props) => {
                         <div className="map-content">
                             <h4>Зал групповых занятий</h4>
                             <span>Время работы</span>
-                            <br></br>
+                            <br/>
                             <span>Пн-Вс: 8:00-23:00</span>
                         </div>
                     </div>
@@ -48,7 +46,7 @@ const Map = (props) => {
                         <div className="map-content">
                             <h1>Зал бокса</h1>
                             <span>Время работы</span>
-                            <br></br>
+                            <br/>
                             <span>Пн, Ср, Пт: 10:00-21:00</span>
                         </div>
                     </div>
@@ -57,7 +55,7 @@ const Map = (props) => {
                         <div className="map-content">
                             <h4>Тренажерный зал</h4>
                             <span>Время работы</span>
-                            <br></br>
+                            <br/>
                             <span>Пн-Вс: 10:00-22:00</span>
                         </div>
                     </div>
@@ -66,7 +64,7 @@ const Map = (props) => {
                         <div className="map-content">
                             <h1>Бассейн</h1>
                             <span>Время работы</span>
-                            <br></br>
+                            <br/>
                             <span>Пн-Сб: 10:00-20:00</span>
                         </div>
                     </div>
@@ -75,11 +73,10 @@ const Map = (props) => {
                         <div className="map-content">
                             <h4>Тренажерный зал</h4>
                             <span>Время работы</span>
-                            <br></br>
+                            <br/>
                             <span>Пн-Вс: 10:00-22:00</span>
                         </div>
                     </div>
-
                 </div>
                 </center>
             </div>
@@ -89,4 +86,3 @@ const Map = (props) => {
     );
 };
 
-export default Map;
