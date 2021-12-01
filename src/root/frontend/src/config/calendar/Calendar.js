@@ -1,5 +1,5 @@
 export const messagesRu = {
-    allDay: 'Весль день',
+    allDay: 'Весь день',
     previous: '<',
     next: '>',
     today: 'Сегодня',
@@ -30,3 +30,10 @@ export const scheduleStyle = () => {
         }
     }
 }
+
+export const maxTime = new Date(0, 0, 0, 23, 0, 0);
+export const minTime = new Date(0, 0, 0, 7, 0, 0);
+export const views = ['month', 'week', 'day'];
+export const defaultView = 'week';
+export const step = 60;
+export const timeslots = 1;
