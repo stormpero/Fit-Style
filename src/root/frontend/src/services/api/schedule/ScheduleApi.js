@@ -11,7 +11,7 @@ class ScheduleApi {
     };
 
     getCoachTrainings(id) {
-        return api.get(URL_COACH_TRAININGS);
+        return api.get(`training/coach/${id}`);
     }
 }
 

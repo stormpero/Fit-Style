@@ -59,7 +59,7 @@ export const ScheduleContainer = () => {
         if (value !== "DEFAULT") {
             ScheduleApi.getCoachTrainings(value).then(
                 response => {
-
+                    console.log(response.data)
                 },
                 error => {
                     ToastMessages.defaultError();
