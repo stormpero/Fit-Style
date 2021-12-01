@@ -69,12 +69,13 @@ export const Payment = ({func, value, setValue}) => {
                     </div>
                     <input type="hidden" name="issuer" value={value.issuer} />
                     <div className="form-group mt-4">
-                        <input className="form-control mb-2"
-                               required
-                               name="balance"
-                               type="text"
-                               placeholder="Сумма"
-                               onChange={(e) => func.handleInputChange(e, setValue.setBalance)}
+                        <input
+                            type="text"
+                            name="balance"
+                            className="form-control mb-2"
+                            placeholder="Введите сумму"
+                            required
+                            onChange={(e) => func.handleInputChange(e, setValue.setBalance)}
                         />
                     </div>
                     <div className="form-actions">

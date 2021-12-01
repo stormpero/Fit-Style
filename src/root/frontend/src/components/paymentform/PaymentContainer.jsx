@@ -11,6 +11,7 @@ import ProfileService from "../../services/profile/ProfileService";
 import ToastMessages from "../toastmessages/ToastMessages";
 import {TOP_RIGHT} from "../../config/consts/ToastPosition";
 import {Payment} from "./Payment";
+import Validation from "../../services/validation/Validation";
 
 export const PaymentContainer = ({setReload, setActive}) => {
     const [cardNumber, setCardNumber] = useState("");
@@ -38,6 +39,18 @@ export const PaymentContainer = ({setReload, setActive}) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+
+        if (!Validation.validateNumbers(balance)) {
+            ToastMessages.error("Введите корректную сумму", TOP_RIGHT);
+            return;
+        } else if (balance === "0") {
+            ToastMessages.error("Сумма должна быть больше 0", TOP_RIGHT);
+            return;
+        } else if (Number(balance) < 0) {
+            ToastMessages.error("Сумма не может быть отрицательной", TOP_RIGHT);
+            return;
+        }
+
         ProfileApi.addBalance(balance).then(
             response => {
                 setReload(prev => !prev);
