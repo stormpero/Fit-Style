@@ -9,6 +9,8 @@ import {
 import "./PaymentForm.css"
 import ProfileApi from "../../services/api/profile/ProfileApi";
 import ToastMessages from "../toastmessages/ToastMessages";
+import {TOP_RIGHT} from "../../config/consts/ToastPosition";
+import ProfileService from "../../services/profile/ProfileService";
 
 export default class PaymentForm extends Component {
     state = {
@@ -50,6 +52,7 @@ export default class PaymentForm extends Component {
         ProfileApi.addBalance(this.state.balance).then(
             response => {
                 this.props.setReload(prev => !prev);
+                ToastMessages.success("Баланс пополнен на " + ProfileService.declinationRuble(this.state.balance), TOP_RIGHT);
             },
             error => {
                 ToastMessages.defaultError();

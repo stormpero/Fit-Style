@@ -67,7 +67,7 @@ const Profile = ({userInfo, img, setReload}) => {
                             </p>
                             <p className="p-button">
                                 <label> Баланс </label>
-                                <strong>{userInfo.balance} рублей</strong>
+                                <strong>{ProfileService.declinationRuble(userInfo.balance)}</strong>
                                 <button className="button-53" onClick={() => setModalActive(true)}>Пополнить</button>
                             </p>
 
