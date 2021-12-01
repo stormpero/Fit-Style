@@ -9,7 +9,7 @@ import "./CalendarView.css"
 
 const localize = momentLocalizer(moment)
 
-function CalendarView({events}) {
+export const CalendarView = ({events}) => {
     moment.locale(localization.locale);
     return (
         <div className="calendar-container" >
@@ -42,5 +42,3 @@ function CalendarView({events}) {
         </div>
     );
 }
-
-export default CalendarView;

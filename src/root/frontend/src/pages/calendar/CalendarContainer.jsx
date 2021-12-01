@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import CalendarView from "./CalendarView";
+import {CalendarView} from "./CalendarView";
 import ToastMessages from "../../components/toastmessages/ToastMessages";
 import ScheduleApi from "../../services/api/schedule/ScheduleApi";
 
