@@ -4,9 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import ru.project.fitstyle.model.dto.user.FitUser;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "group_training")
@@ -37,7 +35,7 @@ public class GroupTraining {
 
     @ManyToMany(mappedBy = "groupTrainings",
             fetch = FetchType.LAZY)
-    private Set<FitUser> fitUsers = new HashSet<>();
+    private List<FitUser> fitUsers = new ArrayList<>();
 
     public GroupTraining() {
     }
@@ -90,11 +88,11 @@ public class GroupTraining {
     }
 
     @JsonIgnore
-    public Set<FitUser> getFitUsers() {
+    public List<FitUser> getFitUsers() {
         return fitUsers;
     }
 
-    public void setFitUsers(Set<FitUser> fitUsers) {
+    public void setFitUsers(List<FitUser> fitUsers) {
         this.fitUsers = fitUsers;
     }
 }

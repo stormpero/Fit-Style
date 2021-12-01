@@ -11,7 +11,7 @@ import ru.project.fitstyle.model.dto.training.Training;
 import ru.project.fitstyle.service.TrainingService;
 import ru.project.fitstyle.service.exception.training.TrainingNotFoundException;
 
-import java.util.Set;
+import java.util.List;
 
 @Service
 public class FitTrainingService implements TrainingService {
@@ -40,12 +40,12 @@ public class FitTrainingService implements TrainingService {
     }
 
     @Override
-    public Set<GroupTraining> getGroupTrainingsByCoachId(Long id) {
+    public List<GroupTraining> getGroupTrainingsByCoachId(Long id) {
         return groupTrainingRepository.findByCoachId(id);
     }
 
     @Override
-    public Set<PersonalTraining> getPersonalTrainingsByCoachId(Long id) {
+    public List<PersonalTraining> getPersonalTrainingsByCoachId(Long id) {
         return personalTrainingRepository.findByCoachId(id);
     }
 

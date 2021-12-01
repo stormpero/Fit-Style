@@ -1,8 +1,7 @@
 package ru.project.fitstyle.controller.request.auth;
 
-import ru.project.fitstyle.controller.data.SubscriptionTypeInfo;
-
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.validation.constraints.*;
@@ -52,7 +51,7 @@ public class SignupRequest {
     @Size(min = 5, max = 150, message = "address should be more or equal than 5 and less or equal than 150 characters")
     private String address;
 
-    private Set<String> roles;
+    private List<String> roles;
 
     private SubscriptionTypeInfo subscriptionTypeInfo;
 
@@ -144,11 +143,11 @@ public class SignupRequest {
         this.address = address;
     }
 
-    public Set<String> getRoles() {
+    public List<String> getRoles() {
       return this.roles;
     }
     
-    public void setRoles(Set<String> roles) {
+    public void setRoles(List<String> roles) {
       this.roles = roles;
     }
 

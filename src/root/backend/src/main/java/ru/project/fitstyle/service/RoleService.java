@@ -9,7 +9,7 @@ import java.util.Set;
 
 public interface RoleService {
 
-    Set<Role> createFitRoles(Set<String> strRoles);
+    List<Role> createFitRoles(List<String> strRoles);
 
     List<FitUser> getUserByRole(ERole role);
 }

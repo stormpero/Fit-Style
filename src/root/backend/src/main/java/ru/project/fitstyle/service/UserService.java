@@ -5,6 +5,7 @@ import ru.project.fitstyle.model.dto.user.ERole;
 import ru.project.fitstyle.model.dto.user.FitUser;
 import ru.project.fitstyle.model.dto.user.Role;
 
+import java.util.List;
 import java.util.Set;
 
 public interface UserService {
@@ -17,11 +18,11 @@ public interface UserService {
 
     FitUser getCoachById(Long id);
 
-    void saveFitUser(FitUser fitUser, Set<Role> roles, Subscription subscription);
+    void saveFitUser(FitUser fitUser, List<Role> roles, Subscription subscription);
 
     void changeBalance(FitUser fitUser, Long summary);
 
     void logoutFitUserByEmail(String email);
 
-    Set<Role> getFitUserRolesByEmail(String email);
+    List<Role> getFitUserRolesByEmail(String email);
 }

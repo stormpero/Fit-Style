@@ -5,6 +5,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ru.project.fitstyle.config.properties.NewsProperties;
+import ru.project.fitstyle.controller.response.news.NewsInfo;
 import ru.project.fitstyle.model.dto.news.News;
 import ru.project.fitstyle.model.dao.NewsRepository;
 import ru.project.fitstyle.service.NewsService;
@@ -27,15 +28,11 @@ public class FitNewsService implements NewsService {
     }
 
     @Override
-    public List<News> getNewsPage(int number) {
-        List<News> newsPage = newsRepository
-                .findAll(PageRequest.of(number - 1, pageNumber, Sort.by(Sort.Direction.DESC, "dateTime")))
-                .toList();
-        if (newsPage.size() != 0) {
-            return newsPage;
-        } else {
-            throw new NewsPageNotFoundException("There are no news on that page!");
-        }
+    public List<NewsInfo> getNewsPage(int number) {
+        return newsRepository
+                .findNewsPage(PageRequest.of(number - 1, pageNumber, Sort.by(Sort.Direction.DESC, "dateTime")))
+                .filter(list -> list.size() != 0)
+                .orElseThrow(() -> new NewsPageNotFoundException("There are no news on that page!"));
     }
 
     @Override

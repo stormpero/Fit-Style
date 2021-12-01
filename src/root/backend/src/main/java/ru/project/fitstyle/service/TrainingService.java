@@ -4,7 +4,7 @@ import ru.project.fitstyle.model.dto.training.GroupTraining;
 import ru.project.fitstyle.model.dto.training.PersonalTraining;
 import ru.project.fitstyle.model.dto.training.Training;
 
-import java.util.Set;
+import java.util.List;
 
 public interface TrainingService {
 
@@ -12,9 +12,9 @@ public interface TrainingService {
 
     Training getTrainingById(Long id);
 
-    Set<GroupTraining> getGroupTrainingsByCoachId(Long id);
+    List<GroupTraining> getGroupTrainingsByCoachId(Long id);
 
-    Set<PersonalTraining> getPersonalTrainingsByCoachId(Long id);
+    List<PersonalTraining> getPersonalTrainingsByCoachId(Long id);
 
     void saveGroupTraining(GroupTraining groupTraining);
 

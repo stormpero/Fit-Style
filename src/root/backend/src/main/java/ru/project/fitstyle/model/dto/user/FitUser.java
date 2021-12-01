@@ -4,9 +4,7 @@ import ru.project.fitstyle.model.dto.subscription.Subscription;
 import ru.project.fitstyle.model.dto.training.GroupTraining;
 import ru.project.fitstyle.model.dto.training.PersonalTraining;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 import javax.persistence.*;
 
@@ -83,16 +81,16 @@ public class FitUser {
     @JoinTable(name = "fit_user_roles",
             joinColumns = @JoinColumn(name = "fit_user_id", referencedColumnName = "id", nullable = false),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false))
-    private Set<Role> roles = new HashSet<>();
+    private List<Role> roles = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "fit_user_group_training",
             joinColumns = @JoinColumn(name = "fit_user_id", referencedColumnName = "id", nullable = false),
             inverseJoinColumns = @JoinColumn(name = "group_training_id", referencedColumnName = "id", nullable = false))
-    private Set<GroupTraining> groupTrainings = new HashSet<>();
+    private List<GroupTraining> groupTrainings = new ArrayList<>();
 
     @OneToMany(mappedBy = "fitUser", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    private Set<PersonalTraining> personalTrainings = new HashSet<>();
+    private List<PersonalTraining> personalTrainings = new ArrayList<>();
 
     @OneToOne(fetch = FetchType.LAZY, optional = false, cascade = {CascadeType.REMOVE, CascadeType.PERSIST})
     @PrimaryKeyJoinColumn
@@ -222,27 +220,27 @@ public class FitUser {
         this.imgURL = imgURL;
     }
 
-    public Set<Role> getRoles() {
+    public List<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<Role> roles) {
+    public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
 
-    public Set<GroupTraining> getGroupTrainings() {
+    public List<GroupTraining> getGroupTrainings() {
         return groupTrainings;
     }
 
-    public void setGroupTrainings(Set<GroupTraining> groupTrainings) {
+    public void setGroupTrainings(List<GroupTraining> groupTrainings) {
         this.groupTrainings = groupTrainings;
     }
 
-    public Set<PersonalTraining> getPersonalTrainings() {
+    public List<PersonalTraining> getPersonalTrainings() {
         return personalTrainings;
     }
 
-    public void setPersonalTrainings(Set<PersonalTraining> personalTrainings) {
+    public void setPersonalTrainings(List<PersonalTraining> personalTrainings) {
         this.personalTrainings = personalTrainings;
     }
 

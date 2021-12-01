@@ -1,6 +1,4 @@
-package ru.project.fitstyle.controller.response.profile;
-
-import ru.project.fitstyle.controller.data.CoachInfo;
+package ru.project.fitstyle.controller.response.coach;
 
 import java.util.List;
 

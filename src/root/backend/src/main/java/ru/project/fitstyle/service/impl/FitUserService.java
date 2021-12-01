@@ -13,6 +13,7 @@ import ru.project.fitstyle.service.exception.user.BalanceLessThanZeroException;
 import ru.project.fitstyle.service.exception.user.NotACoachException;
 import ru.project.fitstyle.service.exception.user.UserNotFoundException;
 
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -58,7 +59,7 @@ public class FitUserService implements UserService {
     }
 
     @Override
-    public void saveFitUser(FitUser fitUser, Set<Role> roles, Subscription subscription) {
+    public void saveFitUser(FitUser fitUser, List<Role> roles, Subscription subscription) {
         fitUser.setRoles(roles);
         fitUser.setSubscription(subscription);
         fitUserRepository.save(fitUser);
@@ -84,7 +85,7 @@ public class FitUserService implements UserService {
     }
 
     @Override
-    public Set<Role> getFitUserRolesByEmail(String email) {
+    public List<Role> getFitUserRolesByEmail(String email) {
         FitUser fitUser = fitUserRepository.findByEmail(email).orElseThrow(() ->
                 new  UserNotFoundException("User with that email cannot be found!"));
         return fitUser.getRoles();

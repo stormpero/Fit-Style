@@ -45,6 +45,14 @@ public class TrainingController {
         );
     }
 
+    @GetMapping("/coach/{id}")
+    public ResponseEntity<TrainingsResponse> getCoachTrainings(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(
+                new TrainingsResponse(trainingService.getGroupTrainingsByCoachId(id),
+                        trainingService.getPersonalTrainingsByCoachId(id))
+        );
+    }
+
     @PreAuthorize("hasRole('COACH')")
     @PostMapping()
     public ResponseEntity<SuccessMessage> addTraining(@RequestBody AddEditTrainingRequest request) {
@@ -76,13 +84,4 @@ public class TrainingController {
                 new SuccessMessage("Success! Personal training created!")
         );
     }
-
-    @GetMapping("/coach/{id}")
-    public ResponseEntity<TrainingsResponse> getCoachTrainings(@PathVariable("id") Long id) {
-        return ResponseEntity.ok(
-                new TrainingsResponse(trainingService.getGroupTrainingsByCoachId(id),
-                        trainingService.getPersonalTrainingsByCoachId(id))
-        );
-    }
-
 }

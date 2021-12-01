@@ -11,9 +11,8 @@ import ru.project.fitstyle.service.RoleService;
 import ru.project.fitstyle.service.exception.role.RoleNotFoundException;
 import ru.project.fitstyle.service.exception.role.UsersWithRoleNotFoundException;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class FitRoleService implements RoleService {
@@ -27,8 +26,8 @@ public class FitRoleService implements RoleService {
     }
 
     @Override
-    public Set<Role> createFitRoles(Set<String> strRoles) {
-        Set<Role> roles = new HashSet<>();
+    public List<Role> createFitRoles(List<String> strRoles) {
+        List<Role> roles = new ArrayList<>();
 
         if (strRoles != null) {
             strRoles.forEach(role -> {
@@ -58,7 +57,8 @@ public class FitRoleService implements RoleService {
     @Override
     public List<FitUser> getUserByRole(ERole role) {
         return fitUserRepository.findByRoles(roleRepository.findByName(role)
-                        .orElseThrow(() -> new RoleNotFoundException("Role with that name cannot be found!")))
+                        .orElseThrow(() -> new RoleNotFoundException(role + " cannot be found!")))
+                .filter(list -> list.size() != 0)
                 .orElseThrow(() -> new UsersWithRoleNotFoundException("There are no users with that role: " + role));
     }
 }

@@ -1,4 +1,4 @@
-package ru.project.fitstyle.controller.data;
+package ru.project.fitstyle.controller.request.auth;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

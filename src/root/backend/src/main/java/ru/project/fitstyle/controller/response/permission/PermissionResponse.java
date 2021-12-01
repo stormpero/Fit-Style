@@ -2,16 +2,16 @@ package ru.project.fitstyle.controller.response.permission;
 
 import ru.project.fitstyle.model.dto.user.Role;
 
-import java.util.Set;
+import java.util.List;
 
 public class PermissionResponse {
-    private final Set<Role> roles;
+    private final List<Role> roles;
 
-    public PermissionResponse(Set<Role> roles) {
+    public PermissionResponse(List<Role> roles) {
         this.roles = roles;
     }
 
-    public Set<Role> getRoles() {
+    public List<Role> getRoles() {
         return roles;
     }
 }

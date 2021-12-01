@@ -33,9 +33,7 @@ public class NewsController {
     @GetMapping("/{page_number}")
     public ResponseEntity<NewsShowPageResponse> showPage(@PathVariable("page_number") int pageNumber) {
         //Here we get first 6 (can be specified) recently added news
-        List<News> news = newsService.getNewsPage(pageNumber);
-
-        return ResponseEntity.ok(new NewsShowPageResponse(news));
+        return ResponseEntity.ok(new NewsShowPageResponse(newsService.getNewsPage(pageNumber)));
     }
 
     @PostMapping()

@@ -1,4 +1,4 @@
-package ru.project.fitstyle.controller.data;
+package ru.project.fitstyle.controller.response.profile;
 
 import java.util.Date;
 
