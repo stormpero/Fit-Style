@@ -1,7 +1,7 @@
 package ru.project.fitstyle.service;
 
-import ru.project.fitstyle.model.dto.subscription.Subscription;
-import ru.project.fitstyle.model.dto.subscription.SubscriptionType;
+import ru.project.fitstyle.model.entity.subscription.Subscription;
+import ru.project.fitstyle.model.entity.subscription.SubscriptionType;
 
 import java.util.List;
 

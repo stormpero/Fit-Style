@@ -1,6 +1,6 @@
 package ru.project.fitstyle.service;
 
-import ru.project.fitstyle.model.dto.user.FitUser;
+import ru.project.fitstyle.model.entity.user.FitUser;
 
 public interface TokenService {
 

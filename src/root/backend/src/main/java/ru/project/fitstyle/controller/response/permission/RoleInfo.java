@@ -1,6 +1,6 @@
 package ru.project.fitstyle.controller.response.permission;
 
-import ru.project.fitstyle.model.dto.user.ERole;
+import ru.project.fitstyle.model.entity.user.ERole;
 
 public class RoleInfo {
     private final Long id;

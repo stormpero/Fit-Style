@@ -1,8 +1,8 @@
 package ru.project.fitstyle.service;
 
-import ru.project.fitstyle.model.dto.training.GroupTraining;
-import ru.project.fitstyle.model.dto.training.PersonalTraining;
-import ru.project.fitstyle.model.dto.training.Training;
+import ru.project.fitstyle.model.entity.training.GroupTraining;
+import ru.project.fitstyle.model.entity.training.PersonalTraining;
+import ru.project.fitstyle.model.entity.training.Training;
 
 import java.util.List;
 

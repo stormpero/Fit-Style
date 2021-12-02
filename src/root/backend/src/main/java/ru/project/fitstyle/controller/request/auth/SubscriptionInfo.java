@@ -4,7 +4,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-public class SubscriptionTypeInfo {
+public class SubscriptionInfo {
     @NotNull(message = "subscriptionTypeId should not be blank")
     private Long subscriptionTypeId;
 

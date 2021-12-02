@@ -7,8 +7,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.project.fitstyle.controller.response.coach.AllCoachesInfoResponse;
 import ru.project.fitstyle.controller.response.coach.CoachInfo;
-import ru.project.fitstyle.model.dto.user.ERole;
-import ru.project.fitstyle.model.dto.user.FitUser;
+import ru.project.fitstyle.model.entity.user.ERole;
+import ru.project.fitstyle.model.entity.user.FitUser;
 import ru.project.fitstyle.service.RoleService;
 
 import java.util.ArrayList;

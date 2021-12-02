@@ -1,7 +1,7 @@
-package ru.project.fitstyle.model.dto.training;
+package ru.project.fitstyle.model.entity.training;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import ru.project.fitstyle.model.dto.user.FitUser;
+import ru.project.fitstyle.model.entity.user.FitUser;
 
 import javax.persistence.*;
 import java.util.*;

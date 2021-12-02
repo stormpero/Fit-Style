@@ -4,8 +4,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import ru.project.fitstyle.model.dto.user.RefreshToken;
-import ru.project.fitstyle.model.dto.user.FitUser;
+import ru.project.fitstyle.model.entity.user.RefreshToken;
+import ru.project.fitstyle.model.entity.user.FitUser;
 
 import java.util.Optional;
 

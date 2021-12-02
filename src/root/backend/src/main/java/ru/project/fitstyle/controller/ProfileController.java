@@ -9,12 +9,17 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.project.fitstyle.controller.request.profile.ChangeBalanceRequest;
 import ru.project.fitstyle.controller.response.other.SuccessMessage;
+import ru.project.fitstyle.controller.response.permission.RoleInfo;
 import ru.project.fitstyle.controller.response.profile.SubscriptionInfo;
-import ru.project.fitstyle.model.dto.user.FitUser;
+import ru.project.fitstyle.model.entity.user.FitUser;
 import ru.project.fitstyle.controller.response.profile.UserProfileResponse;
+import ru.project.fitstyle.model.entity.user.Role;
 import ru.project.fitstyle.service.AuthService;
 import ru.project.fitstyle.service.StorageService;
 import ru.project.fitstyle.service.UserService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
@@ -69,12 +74,16 @@ public class ProfileController {
     }
 
     private ResponseEntity<UserProfileResponse> createUserProfileResponse(FitUser fitUser) {
+        List<RoleInfo> roles = new ArrayList<>();
+        for(Role role : fitUser.getRoles()) {
+            roles.add(new RoleInfo(role.getId(), role.getName()));
+        }
         return ResponseEntity.ok(
                 new UserProfileResponse(fitUser.getId(), fitUser.getName(), fitUser.getSurname(), fitUser.getPatronymic(),
                         fitUser.getEmail(), fitUser.getAge(), fitUser.getGender(), fitUser.getBirthdate(),
                         fitUser.getTelephone(), fitUser.getPassport(), fitUser.getAddress(),
                         fitUser.getBalance(),
                         new SubscriptionInfo(fitUser.getSubscription().getSubscriptionType().getName(), fitUser.getSubscription().getEndDate()),
-                        fitUser.getRoles()));
+                        roles));
     }
 }

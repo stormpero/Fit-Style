@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import ru.project.fitstyle.controller.response.news.NewsInfo;
-import ru.project.fitstyle.model.dto.news.News;
+import ru.project.fitstyle.model.entity.news.News;
 
 import java.util.List;
 import java.util.Optional;

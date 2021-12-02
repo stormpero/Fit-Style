@@ -1,4 +1,4 @@
-package ru.project.fitstyle.model.dto.subscription;
+package ru.project.fitstyle.model.entity.subscription;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

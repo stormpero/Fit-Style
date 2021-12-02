@@ -5,9 +5,9 @@ import org.springframework.stereotype.Service;
 import ru.project.fitstyle.model.dao.GroupTrainingRepository;
 import ru.project.fitstyle.model.dao.PersonalTrainingRepository;
 import ru.project.fitstyle.model.dao.TrainingRepository;
-import ru.project.fitstyle.model.dto.training.GroupTraining;
-import ru.project.fitstyle.model.dto.training.PersonalTraining;
-import ru.project.fitstyle.model.dto.training.Training;
+import ru.project.fitstyle.model.entity.training.GroupTraining;
+import ru.project.fitstyle.model.entity.training.PersonalTraining;
+import ru.project.fitstyle.model.entity.training.Training;
 import ru.project.fitstyle.service.TrainingService;
 import ru.project.fitstyle.service.exception.training.TrainingNotFoundException;
 

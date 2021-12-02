@@ -2,7 +2,6 @@ package ru.project.fitstyle.controller.request.auth;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import javax.validation.constraints.*;
 
@@ -53,7 +52,7 @@ public class SignupRequest {
 
     private List<String> roles;
 
-    private SubscriptionTypeInfo subscriptionTypeInfo;
+    private SubscriptionInfo subscriptionInfo;
 
     public String getName() {
         return name;
@@ -151,11 +150,11 @@ public class SignupRequest {
       this.roles = roles;
     }
 
-    public SubscriptionTypeInfo getSubscriptionTypeInfo() {
-        return subscriptionTypeInfo;
+    public SubscriptionInfo getSubscriptionTypeInfo() {
+        return subscriptionInfo;
     }
 
-    public void setSubscriptionTypeInfo(SubscriptionTypeInfo subscriptionTypeInfo) {
-        this.subscriptionTypeInfo = subscriptionTypeInfo;
+    public void setSubscriptionTypeInfo(SubscriptionInfo subscriptionInfo) {
+        this.subscriptionInfo = subscriptionInfo;
     }
 }

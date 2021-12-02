@@ -20,8 +20,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import org.springframework.web.multipart.MultipartFile;
-import ru.project.fitstyle.model.dto.user.RefreshToken;
-import ru.project.fitstyle.model.dto.user.FitUser;
+import ru.project.fitstyle.model.entity.user.RefreshToken;
+import ru.project.fitstyle.model.entity.user.FitUser;
 import ru.project.fitstyle.controller.request.auth.LoginRequest;
 import ru.project.fitstyle.controller.request.auth.SignupRequest;
 import ru.project.fitstyle.controller.response.auth.LoginResponse;

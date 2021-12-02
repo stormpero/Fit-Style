@@ -2,8 +2,8 @@ package ru.project.fitstyle.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.project.fitstyle.model.dto.subscription.Subscription;
-import ru.project.fitstyle.model.dto.subscription.SubscriptionType;
+import ru.project.fitstyle.model.entity.subscription.Subscription;
+import ru.project.fitstyle.model.entity.subscription.SubscriptionType;
 import ru.project.fitstyle.model.dao.SubscriptionTypeRepository;
 import ru.project.fitstyle.service.SubscriptionTypeService;
 import ru.project.fitstyle.service.exception.subscription.SubscriptionTypeNotFoundException;

@@ -1,8 +1,8 @@
-package ru.project.fitstyle.model.dto.user;
+package ru.project.fitstyle.model.entity.user;
 
-import ru.project.fitstyle.model.dto.subscription.Subscription;
-import ru.project.fitstyle.model.dto.training.GroupTraining;
-import ru.project.fitstyle.model.dto.training.PersonalTraining;
+import ru.project.fitstyle.model.entity.subscription.Subscription;
+import ru.project.fitstyle.model.entity.training.GroupTraining;
+import ru.project.fitstyle.model.entity.training.PersonalTraining;
 
 import java.util.*;
 

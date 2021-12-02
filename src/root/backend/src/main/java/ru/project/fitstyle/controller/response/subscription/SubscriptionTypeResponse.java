@@ -1,6 +1,6 @@
 package ru.project.fitstyle.controller.response.subscription;
 
-import ru.project.fitstyle.model.dto.subscription.SubscriptionType;
+import ru.project.fitstyle.model.entity.subscription.SubscriptionType;
 
 import java.util.List;
 

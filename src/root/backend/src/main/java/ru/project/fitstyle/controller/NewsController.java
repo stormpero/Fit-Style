@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import ru.project.fitstyle.model.dto.news.News;
+import ru.project.fitstyle.model.entity.news.News;
 import ru.project.fitstyle.controller.request.news.AddEditNewsRequest;
 import ru.project.fitstyle.controller.response.news.NewsShowPageResponse;
 import ru.project.fitstyle.controller.response.other.SuccessMessage;
@@ -13,7 +13,6 @@ import ru.project.fitstyle.service.NewsService;
 import ru.project.fitstyle.service.StorageService;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
 @RestController

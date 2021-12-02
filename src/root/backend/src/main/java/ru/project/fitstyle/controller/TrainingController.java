@@ -9,12 +9,12 @@ import ru.project.fitstyle.controller.request.training.AddEditGroupTrainingReque
 import ru.project.fitstyle.controller.request.training.AddEditPersonalTrainingRequest;
 import ru.project.fitstyle.controller.request.training.AddEditTrainingRequest;
 import ru.project.fitstyle.controller.response.other.SuccessMessage;
-import ru.project.fitstyle.model.dto.training.ETrainingStatus;
-import ru.project.fitstyle.model.dto.training.GroupTraining;
-import ru.project.fitstyle.model.dto.training.PersonalTraining;
-import ru.project.fitstyle.model.dto.training.Training;
-import ru.project.fitstyle.model.dto.user.FitUser;
-import ru.project.fitstyle.controller.response.training.TrainingsResponse;
+import ru.project.fitstyle.model.entity.training.ETrainingStatus;
+import ru.project.fitstyle.model.entity.training.GroupTraining;
+import ru.project.fitstyle.model.entity.training.PersonalTraining;
+import ru.project.fitstyle.model.entity.training.Training;
+import ru.project.fitstyle.model.entity.user.FitUser;
+import ru.project.fitstyle.controller.response.training.AllTrainingsResponse;
 import ru.project.fitstyle.service.AuthService;
 import ru.project.fitstyle.service.TrainingService;
 import ru.project.fitstyle.service.UserService;
@@ -38,17 +38,17 @@ public class TrainingController {
     }
 
     @GetMapping("/user")
-    public ResponseEntity<TrainingsResponse> getFitUserTrainings() {
+    public ResponseEntity<AllTrainingsResponse> getFitUserTrainings() {
         FitUser fitUser = userService.getUserByEmail(authService.getEmail());
         return ResponseEntity.ok(
-                new TrainingsResponse(fitUser.getGroupTrainings(), fitUser.getPersonalTrainings())
+                new AllTrainingsResponse(fitUser.getGroupTrainings(), fitUser.getPersonalTrainings())
         );
     }
 
     @GetMapping("/coach/{id}")
-    public ResponseEntity<TrainingsResponse> getCoachTrainings(@PathVariable("id") Long id) {
+    public ResponseEntity<AllTrainingsResponse> getCoachTrainings(@PathVariable("id") Long id) {
         return ResponseEntity.ok(
-                new TrainingsResponse(trainingService.getGroupTrainingsByCoachId(id),
+                new AllTrainingsResponse(trainingService.getGroupTrainingsByCoachId(id),
                         trainingService.getPersonalTrainingsByCoachId(id))
         );
     }

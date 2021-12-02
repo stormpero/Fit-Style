@@ -1,4 +1,4 @@
-package ru.project.fitstyle.model.dto.user;
+package ru.project.fitstyle.model.entity.user;
 
 import java.time.Instant;
 

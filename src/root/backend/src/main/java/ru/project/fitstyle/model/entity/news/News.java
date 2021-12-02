@@ -1,4 +1,4 @@
-package ru.project.fitstyle.model.dto.news;
+package ru.project.fitstyle.model.entity.news;
 
 import javax.persistence.*;
 import java.util.Date;

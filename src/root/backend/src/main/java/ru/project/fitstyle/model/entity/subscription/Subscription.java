@@ -1,4 +1,4 @@
-package ru.project.fitstyle.model.dto.subscription;
+package ru.project.fitstyle.model.entity.subscription;
 
 import javax.persistence.*;
 import java.util.Date;

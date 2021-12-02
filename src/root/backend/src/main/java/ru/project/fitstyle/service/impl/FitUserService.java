@@ -2,10 +2,11 @@ package ru.project.fitstyle.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.project.fitstyle.model.dto.subscription.Subscription;
-import ru.project.fitstyle.model.dto.user.ERole;
-import ru.project.fitstyle.model.dto.user.FitUser;
-import ru.project.fitstyle.model.dto.user.Role;
+import ru.project.fitstyle.controller.response.permission.RoleInfo;
+import ru.project.fitstyle.model.entity.subscription.Subscription;
+import ru.project.fitstyle.model.entity.user.ERole;
+import ru.project.fitstyle.model.entity.user.FitUser;
+import ru.project.fitstyle.model.entity.user.Role;
 import ru.project.fitstyle.model.dao.RefreshTokenRepository;
 import ru.project.fitstyle.model.dao.FitUserRepository;
 import ru.project.fitstyle.service.UserService;
@@ -14,7 +15,6 @@ import ru.project.fitstyle.service.exception.user.NotACoachException;
 import ru.project.fitstyle.service.exception.user.UserNotFoundException;
 
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class FitUserService implements UserService {
@@ -85,9 +85,16 @@ public class FitUserService implements UserService {
     }
 
     @Override
-    public List<Role> getFitUserRolesByEmail(String email) {
-        FitUser fitUser = fitUserRepository.findByEmail(email).orElseThrow(() ->
-                new  UserNotFoundException("User with that email cannot be found!"));
-        return fitUser.getRoles();
+    public List<RoleInfo> getFitUserRolesByEmail(String email) {
+        return fitUserRepository.findRolesByEmail(email)
+                .filter(list -> list.size() != 0)
+                .orElseThrow(() -> new  UserNotFoundException("User with that email cannot be found!"));
+    }
+
+    @Override
+    public List<RoleInfo> getFitUserRolesById(Long id) {
+        return fitUserRepository.findRolesById(id)
+                .filter(list -> list.size() != 0)
+                .orElseThrow(() -> new  UserNotFoundException("User with that id cannot be found!"));
     }
 }

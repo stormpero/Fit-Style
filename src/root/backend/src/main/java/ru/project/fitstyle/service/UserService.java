@@ -1,12 +1,11 @@
 package ru.project.fitstyle.service;
 
-import ru.project.fitstyle.model.dto.subscription.Subscription;
-import ru.project.fitstyle.model.dto.user.ERole;
-import ru.project.fitstyle.model.dto.user.FitUser;
-import ru.project.fitstyle.model.dto.user.Role;
+import ru.project.fitstyle.controller.response.permission.RoleInfo;
+import ru.project.fitstyle.model.entity.subscription.Subscription;
+import ru.project.fitstyle.model.entity.user.FitUser;
+import ru.project.fitstyle.model.entity.user.Role;
 
 import java.util.List;
-import java.util.Set;
 
 public interface UserService {
 
@@ -24,5 +23,7 @@ public interface UserService {
 
     void logoutFitUserByEmail(String email);
 
-    List<Role> getFitUserRolesByEmail(String email);
+    List<RoleInfo> getFitUserRolesByEmail(String email);
+
+    List<RoleInfo> getFitUserRolesById(Long id);
 }

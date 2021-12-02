@@ -1,27 +1,24 @@
-package ru.project.fitstyle.model.dto.user;
-
+package ru.project.fitstyle.model.entity.training;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "role")
-public class Role {
+@Table(name = "training")
+public class Training {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id",
             nullable = false, updatable = false, unique = true)
     private Long id;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "name", length = 20,
+    @Column(name = "name", length = 50,
             nullable = false, unique = true)
-    private ERole name;
+    private String name;
 
-    public Role() {
-
+    public Training() {
     }
 
-    public Role(ERole name) {
+    public Training(String name) {
         this.name = name;
     }
 
@@ -33,11 +30,11 @@ public class Role {
         this.id = id;
     }
 
-    public ERole getName() {
+    public String getName() {
         return name;
     }
 
-    public void setName(ERole name) {
+    public void setName(String name) {
         this.name = name;
     }
 }
