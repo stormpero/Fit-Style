@@ -72,7 +72,6 @@ export default class RegisterContainer extends Component {
 
     handleRegister = (event) => {
         event.preventDefault();
-        console.log(this.state)
 
         let res = Validation.validateSingUp(this.state.userInfo);
         if (res.result) {
