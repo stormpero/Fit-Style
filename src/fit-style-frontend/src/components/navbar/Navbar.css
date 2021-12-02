@@ -15,7 +15,7 @@ a{
     width: 4rem;
     height: 100%;
     overflow: hidden;
-    background-color: rgba(0, 0, 0, 1);
+    background-color: #202038;
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
     transition: 0.3s ease-in;
@@ -93,7 +93,7 @@ a{
     transition: 0.2s ease;
 }
 .menu-link:hover{
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: #333559;
     color: rgba(255, 255, 255, 1);
 
 }
@@ -118,13 +118,13 @@ a{
     height: 4rem;
     margin-top: auto;
     color: rgba(255, 255, 255, 1);
-    background-color: rgba(255, 255, 255, 0.3);
+    background-color: #333559;
     transition: 0.2s ease;
 
 }
 
 .menu-link-profile:hover{
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: #2c2e4d;
     color: rgba(255, 255, 255, 1);
 
 }
