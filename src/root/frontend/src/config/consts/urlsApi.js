@@ -22,4 +22,4 @@ export const URL_NEWSADD = "news";
 // SCHEDULE //
 export const URL_TRAINING = "training/user";
 export const URL_COACHES = "coach"
-export const URL_COACH_TRAININGS = "training/coach/id"
+export const URL_COACH_TRAININGS = "training/coach/"

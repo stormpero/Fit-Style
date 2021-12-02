@@ -2,8 +2,8 @@ import React, {useEffect, useState} from "react";
 import Profile from "./Profile";
 import Modal from "../../components/modal/Modal";
 import {PaymentContainer} from "../../components/paymentform/PaymentContainer";
-import UserService from "../../services/api/user/UserService";
 import DateFormat from "../../utils/DateConvert";
+import ProfileApi from "../../services/api/profile/ProfileApi";
 
 export const ProfileContainer = () => {
     const [modalActive, setModalActive] = useState(false);
@@ -13,7 +13,7 @@ export const ProfileContainer = () => {
     const [reload, setReload] = useState(false);
 
     useEffect(() => {
-        Promise.allSettled([UserService.getProfileInfo(), UserService.getProfileImg()]).then(
+        Promise.allSettled([ProfileApi.getProfileInfo(), ProfileApi.getProfileImg()]).then(
             response => {
                 const [userInfo, img] = response.map(element => element?.status === "fulfilled" ? element?.value.data : null);
                 userInfo.id = ('000000' + userInfo.id).slice(Math.log(Number(userInfo.id)) * Math.LOG10E + 1 | 0);
