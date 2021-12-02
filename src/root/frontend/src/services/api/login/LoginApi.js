@@ -1,8 +1,8 @@
 import api from "../config/Api";
+import {URL_AUTH} from "../../../config/consts/urlsApi";
 import LStorageUser from "../../localstorage/LStorageUser";
-import {URL_AUTH, URL_REGISTER} from "../../../config/consts/urlsApi";
 
-class AuthService {
+class LoginApi {
     login(userInfo) {
         return api
             .post(URL_AUTH, userInfo, {
@@ -18,10 +18,6 @@ class AuthService {
                 return Promise.reject(error)
             });
     }
-
-    register(userInfo) {
-        return api.post(URL_REGISTER, userInfo);
-    }
 }
 
-export default new AuthService();
+export default new LoginApi();

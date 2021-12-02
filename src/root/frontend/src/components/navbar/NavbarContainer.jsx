@@ -13,7 +13,7 @@ export const NavbarContainer = ({setIsAuth}) => {
     const logOut = () => {
         NavbarApi.logout().then(
             response => {
-                console.log(response)
+
             },
             error => {
                 console.error(error)

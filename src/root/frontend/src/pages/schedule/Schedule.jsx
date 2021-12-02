@@ -13,8 +13,8 @@ const Schedule = ({lists, isCoach, selectInput, schedule}) => {
             <h1 className="calendar-title">Расписание тренеровок</h1>
             <div>
                 <select className="form-control" name=""
-                        onChange={selectInput.handleSelect} value={selectInput.selectValue}
-                        defaultValue={"DEFAULT"}>
+                        onChange={selectInput.handleSelect}
+                        value={selectInput.selectValue}>
                     <option value="DEFAULT">Выберите тренера</option>
                     {lists.coaches.map((coach, index) => <option value={coach.id} key={index}>{coach.surname} {coach.name} {coach.patronymic}</option>)}
                 </select>

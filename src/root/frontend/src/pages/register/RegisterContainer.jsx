@@ -2,11 +2,11 @@ import React, { Component } from "react";
 
 import Register from "./Register";
 
-import AuthService from "../../services/api/auth/AuthService";
 import Validation from "../../services/validation/Validation";
 import ToastMessages from "../../components/toastmessages/ToastMessages";
 import {TOP_RIGHT} from "../../config/consts/ToastPosition";
-import UserService from "../../services/api/user/UserService";
+import UserService from "../../services/api/user/UserApi";
+import RegisterApi from "../../services/api/register/RegisterApi";
 
 export default class RegisterContainer extends Component {
 
@@ -72,7 +72,6 @@ export default class RegisterContainer extends Component {
 
     handleRegister = (event) => {
         event.preventDefault();
-        console.log(this.state)
 
         let res = Validation.validateSingUp(this.state.userInfo);
         if (res.result) {
@@ -91,7 +90,7 @@ export default class RegisterContainer extends Component {
         formData.append('request', blob);
         formData.append('image', this.state.imageData);
 
-        AuthService.register(formData).then(
+        RegisterApi.register(formData).then(
             (response) => {
                 let msg = response.data.message === 'User registered successfully!' ? 'Пользователь успешно зарегистрирован' : "-_-";
                 ToastMessages.success(msg, TOP_RIGHT)

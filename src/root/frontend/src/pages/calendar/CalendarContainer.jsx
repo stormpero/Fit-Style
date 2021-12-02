@@ -1,53 +1,40 @@
-import React, {Component} from 'react';
-import CalendarView from "./CalendarView";
+import React, {useEffect, useState} from 'react';
+import {CalendarView} from "./CalendarView";
 import ToastMessages from "../../components/toastmessages/ToastMessages";
 import ScheduleApi from "../../services/api/schedule/ScheduleApi";
 
-class CalendarContainer extends Component {
+export const CalendarContainer = () => {
+    const [trainingsList, setTrainingsList] = useState([]);
 
-    state = {
-        trainingsList: [],
-    }
-
-    componentDidMount() {
+    useEffect(() => {
         ScheduleApi.getTrainings().then(
             response => {
                 let trainingsListTemp = [];
-                this.addTraining(trainingsListTemp, response.data?.personalTrainings, true);
-                this.addTraining(trainingsListTemp, response.data?.groupTrainings, false);
+                addTraining(trainingsListTemp, response.data?.personalTrainings, true);
+                addTraining(trainingsListTemp, response.data?.groupTrainings, false);
 
-                this.setState({
-                    trainingsList: trainingsListTemp,
-                })
+                setTrainingsList(trainingsListTemp);
             },
             error => {
                 console.error(error);
                 ToastMessages.error("Произошла ошибка, повторите ошибку позже");
             }
         )
-    }
+    }, [])
 
-    addTraining(trainingsListTemp, array, isPersonal) {
+    const addTraining = (trainingsListTemp, array, isPersonal) => {
         array.forEach(element => {
             let date = new Date(element.date);
             date.setHours(date.getHours() + 1);
             trainingsListTemp.push({
-                id: element.id +" ",
+                id: element.id + " ",
                 title: "Тренер: " + element?.coachId,
-                start: new Date(element.date),
-                end: date,
+                startDate: new Date(element.date),
+                endDate: date,
                 isPersonal: isPersonal,
             })
         })
     }
 
-
-
-    render() {
-        return (
-            <CalendarView events={this.state.trainingsList} />
-        );
-    }
+    return (<CalendarView events={trainingsList} />);
 }
-
-export default CalendarContainer;

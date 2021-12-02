@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import UserService from "../../services/api/user/UserService";
+
 import LStorageUser from "../../services/localstorage/LStorageUser";
+import UserApi from "../../services/api/user/UserApi";
 
 export default class UserContent extends Component {
   state = {
@@ -10,7 +11,7 @@ export default class UserContent extends Component {
 
   componentDidMount() {
     const currentUser = LStorageUser.getUser();
-    UserService.getUserBoard().then(
+    UserApi.getUserBoard().then(
       response => {
 
         this.setState({

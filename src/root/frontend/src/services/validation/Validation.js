@@ -36,9 +36,6 @@ class Validation {
     }
 
     validateSingUp(obj) {
-        //true - error
-        // false - good
-        console.log(obj)
         if (this.validateNull(obj)) {
             return { msg: "Заполните поля", result: true }
         }

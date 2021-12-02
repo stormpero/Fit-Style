@@ -2,10 +2,10 @@ import React, { Component } from "react";
 
 import Login from "./Login";
 
-import AuthService from "../../services/api/auth/AuthService";
 import isEmpty from "validator/es/lib/isEmpty";
 import ToastMessages from "../../components/toastmessages/ToastMessages";
 import {TOP_CENTER, TOP_RIGHT} from "../../config/consts/ToastPosition";
+import LoginApi from "../../services/api/login/LoginApi";
 
 export default class LoginContainer extends Component {
 
@@ -36,7 +36,7 @@ export default class LoginContainer extends Component {
             return;
         }
 
-        AuthService.login(this.state.userInfo).then(
+        LoginApi.login(this.state.userInfo).then(
             () => {
                 ToastMessages.success("Добро пожаловать!", TOP_RIGHT);
                 this.props.setIsAuth(true);

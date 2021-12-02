@@ -9,11 +9,11 @@ import {
 import RegisterContainer from "../register/RegisterContainer";
 import {ProfileContainer} from "../profile/ProfileContainer";
 import UserContent from "../../components/usercontent/UserContent";
-import MapContainer from "../map/MapContainer";
+import {Map} from "../map/Map";
 import {NewsBoard} from "../news/NewsBoard";
-import InfoContainer from "../info/InfoContainer";
-import CalendarContainer from "../calendar/CalendarContainer";
+import {CalendarContainer} from "../calendar/CalendarContainer";
 import {ScheduleContainer} from "../schedule/ScheduleContainer";
+import {Info} from "../info/Info";
 
 export const routes = [
     {
@@ -33,12 +33,12 @@ export const routes = [
     },
     {
         path: URL_MAP,
-        Component: MapContainer,
+        Component: Map,
         reqRole: "ROLE_USER"
     },
     {
         path: URL_INFO,
-        Component: InfoContainer,
+        Component: Info,
         reqRole: "ROLE_USER"
     },
     {
