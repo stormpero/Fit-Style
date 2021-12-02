@@ -9,10 +9,22 @@ export const CalendarContainer = () => {
     useEffect(() => {
         ScheduleApi.getTrainings().then(
             response => {
-                let trainingsListTemp = [];
-                addTraining(trainingsListTemp, response.data?.personalTrainings, true);
-                addTraining(trainingsListTemp, response.data?.groupTrainings, false);
+                let {personalTrainings, groupTrainings} = response.data;
+                personalTrainings.forEach(value => {
+                    value.startDate = new Date(value.startDate);
+                    value.endDate = new Date(value.endDate);
+                    value.isPersonal = true;
+                    return value;
+                })
 
+                groupTrainings.forEach(value => {
+                    value.startDate = new Date(value.startDate);
+                    value.endDate = new Date(value.endDate);
+                    return value;
+                })
+
+                let trainingsListTemp = personalTrainings.concat(groupTrainings);
+                console.log(trainingsListTemp)
                 setTrainingsList(trainingsListTemp);
             },
             error => {
@@ -21,20 +33,6 @@ export const CalendarContainer = () => {
             }
         )
     }, [])
-
-    const addTraining = (trainingsListTemp, array, isPersonal) => {
-        array.forEach(element => {
-            let date = new Date(element.date);
-            date.setHours(date.getHours() + 1);
-            trainingsListTemp.push({
-                id: element.id + " ",
-                title: "Тренер: " + element?.coachId,
-                startDate: new Date(element.date),
-                endDate: date,
-                isPersonal: isPersonal,
-            })
-        })
-    }
 
     return (<CalendarView events={trainingsList} />);
 }

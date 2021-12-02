@@ -28,6 +28,10 @@ export const CalendarView = ({events}) => {
                 max={custom.maxTime}
                 step={custom.step}
                 timeslots={custom.timeslots}
+                titleAccessor={event => {
+                    let fio = `${event.coach.surname} ${event.coach.name.slice(0, 1)}. ${event.coach.patronymic.slice(0, 1)}.`;
+                    return event.isPersonal ? fio : event.title + " " + fio;
+                }}
                 eventPropGetter={
                     (event, start, end, isSelected) => {
                         return {
