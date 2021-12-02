@@ -98,7 +98,7 @@
     border: none;
     border-radius: 5px;
     box-shadow: 1px 1px 3px rgba(0,0,0,0.15);
-    background: #2cdbe7;
+    background: #00CC00;
 }
 
 .add-news,
@@ -113,7 +113,7 @@
 }
 .add-news .icon {
     position: absolute;
-    border-left: 1px solid #3ac0c7;
+    border-left: 1px solid #00b600;
     transform: translateX(110px);
     height: 40px;
     width: 35px;
@@ -129,7 +129,7 @@
 }
 
 .add-news:hover {
-    background: #00E8FC;
+    background: #00CC00;
 }
 
 .add-news:hover .text {
@@ -170,11 +170,11 @@
 
 .news-more:hover {
     transition: 0.3s all ease-in;
-    background: #00E8FC;
+    background: #a6a9ff;
 }
 .news-more:not(:hover) {
     transition: 0.3s all ease-in;
-    background: #37b6bd;
+    background: #8f94fb;
 }
 
 .news-title{

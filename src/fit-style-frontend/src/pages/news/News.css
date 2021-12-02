@@ -2,11 +2,10 @@
     max-width: 1200px;
 }
 .block-news {
-
     cursor: default;
     color: white;
     position: relative;
-    margin-top: 100px;
+    margin-top: 50px;
     border-radius: 30px;
     height: 20rem;
     width: 70rem;
@@ -88,5 +87,5 @@
 }
 
 .content-news-text::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, #27FB6B, #00E8FC);
+    background: linear-gradient(180deg, #8f94fb, #4e54c8);
 }

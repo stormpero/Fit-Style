@@ -61,6 +61,18 @@ export const NewsBoard = () => {
 
     return(
         <div className="d-flex justify-content-center">
+            <ul className="circles">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
             <div className="news-board">
                 <div>
                     {isModer &&
