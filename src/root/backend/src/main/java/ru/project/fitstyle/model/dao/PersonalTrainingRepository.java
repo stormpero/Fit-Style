@@ -16,8 +16,8 @@ public interface PersonalTrainingRepository extends JpaRepository<PersonalTraini
             "where v.coachId = :id")
     List<PersonalTrainingInfo> findAllCoachTrainingsByCoachId(@Param("id") Long id);
 
-    @Query("select new ru.project.fitstyle.model.dto.training.PersonalTrainingInfo(v.id, v.startDate, v.endDate, v.status, w.id, w.name, w.surname, w.patronymic)" +
-            "from PersonalTraining v inner join FitUser w on (v.coachId=w.id)" +
-            "where w.email = :email")
+    @Query("select new ru.project.fitstyle.model.dto.training.PersonalTrainingInfo(v.id, v.startDate, v.endDate, v.status, v.fitUser.id, v.fitUser.name, v.fitUser.surname, v.fitUser.patronymic)" +
+            "from PersonalTraining v " +
+            "where v.fitUser.email=:email")
     List<PersonalTrainingInfo> findAllFitUserTrainingsByFitUserEmail(@Param("email") String email);
 }

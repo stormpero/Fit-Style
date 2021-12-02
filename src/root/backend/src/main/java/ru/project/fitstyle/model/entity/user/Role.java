@@ -1,6 +1,5 @@
 package ru.project.fitstyle.model.entity.user;
 
-
 import javax.persistence.*;
 
 @Entity

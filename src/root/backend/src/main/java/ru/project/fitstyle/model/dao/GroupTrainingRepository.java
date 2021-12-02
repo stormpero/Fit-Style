@@ -17,7 +17,7 @@ public interface GroupTrainingRepository extends JpaRepository<GroupTraining, Lo
     List<GroupTrainingInfo> findAllCoachTrainingsByCoachId(@Param("id") Long id);
 
     @Query("select new ru.project.fitstyle.model.dto.training.GroupTrainingInfo(v.id, v.startDate, v.endDate, v.status, w.id, w.name, w.surname, w.patronymic, v.training.name)" +
-            "from GroupTraining v inner join FitUser w on (v.coachId=w.id)" +
-            "where w.email = :email")
+            "from GroupTraining v inner join v.fitUsers w " +
+            "where w.email=:email")
     List<GroupTrainingInfo> findAllFitUserTrainingsByFitUserEmail(@Param("email") String email);
 }
