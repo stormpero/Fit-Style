@@ -13,8 +13,7 @@ import java.util.Optional;
 
 @Repository
 public interface NewsRepository extends JpaRepository<News, Long> {
-    @Query(value = "select " +
-            "new ru.project.fitstyle.controller.response.news.NewsInfo(v.id, v.header, v.content, v.dateTime, v.imgURL) " +
+    @Query(value = "select new ru.project.fitstyle.controller.response.news.NewsInfo(v.id, v.header, v.content, v.dateTime, v.imgURL) " +
             "from News v")
     Optional<List<NewsInfo>> findNewsPage(Pageable page);
 }

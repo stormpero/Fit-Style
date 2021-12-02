@@ -2,6 +2,7 @@ package ru.project.fitstyle.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.project.fitstyle.controller.response.subscription.SubscriptionTypeInfo;
 import ru.project.fitstyle.model.entity.subscription.Subscription;
 import ru.project.fitstyle.model.entity.subscription.SubscriptionType;
 import ru.project.fitstyle.model.dao.SubscriptionTypeRepository;
@@ -23,14 +24,10 @@ public class FitSubscriptionTypeService implements SubscriptionTypeService {
     }
 
     @Override
-    public List<SubscriptionType> getAllSubscriptionTypes() {
-        List<SubscriptionType> subscriptionTypes = subscriptionTypeRepository.findAll();
-        if(subscriptionTypes.size() != 0) {
-            return subscriptionTypes;
-        }
-        else {
-            throw new SubscriptionTypeNotFoundException("There are no subscription types!");
-        }
+    public List<SubscriptionTypeInfo> getAllSubscriptionTypes() {
+        return subscriptionTypeRepository.findAllSubscriptions()
+                .filter(list -> list.size() != 0)
+                .orElseThrow(() -> new SubscriptionTypeNotFoundException("There are no subscription types!"));
     }
 
     @Override
