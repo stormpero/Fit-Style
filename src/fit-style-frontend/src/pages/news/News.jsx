@@ -21,7 +21,7 @@ const News = (props) => {
                 </button>
             }
             <h2 className="title">{props.content.header}</h2>
-            <div className="dateTime title">
+            <div className="dateTime">
                 <p>{props.content.dateTime}</p>
             </div>
             <div className="content-news d-flex flex-column">

@@ -2,13 +2,14 @@
     max-width: 1200px;
 }
 .block-news {
+
     cursor: default;
     color: white;
     position: relative;
-    margin-top: 5vh;
+    margin-top: 100px;
     border-radius: 30px;
     height: 20rem;
-    width: 27rem;
+    width: 70rem;
     padding-left: 0px;
     margin-right: 1.2rem;
     margin-left: 1.2rem;
@@ -18,7 +19,7 @@
 .block-news:hover{
     max-width: 40%;
     height: 26rem;
-    width: 31rem;
+    width: 75rem;
 }
 .content-news {
     border-radius: 30px;
@@ -69,6 +70,11 @@
 }
 
 .dateTime{
+    position: absolute;
+    bottom: 0px;
+    left: 40%;
+    transition: 0.1s ease-in;
+    text-align: center;
     font-size: 0.8rem;
 }
 

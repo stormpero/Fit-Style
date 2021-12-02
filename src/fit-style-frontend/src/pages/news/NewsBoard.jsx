@@ -62,7 +62,7 @@ export const NewsBoard = () => {
     return(
         <div className="d-flex justify-content-center">
             <div className="news-board">
-                <div className="d-flex justify-content-around">
+                <div>
                     {isModer &&
                         <button className={deleteActive ? 'select' : 'noselect'}
                                 onClick={() => setDeleteActive((prev) => !prev)}>
@@ -74,7 +74,9 @@ export const NewsBoard = () => {
                             </span>
                         </button>
                     }
-                    <h1 className="map-title">Новостная лента</h1>
+
+                    <h1 className="news-title">Новостная лента</h1>
+
                     {isModer &&
                         <button className="add-news" onClick={() => setModalActive(true)}>
                             <span className='text'>Добавить</span>
