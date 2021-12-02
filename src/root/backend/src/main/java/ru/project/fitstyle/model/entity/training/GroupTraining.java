@@ -1,6 +1,5 @@
 package ru.project.fitstyle.model.entity.training;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import ru.project.fitstyle.model.entity.user.FitUser;
 
 import javax.persistence.*;
@@ -15,9 +14,13 @@ public class GroupTraining {
             nullable = false, updatable = false, unique = true)
     private Long id;
 
-    @Column(name = "date",
+    @Column(name = "start_date",
             nullable = false)
-    private Date date;
+    private Date startDate;
+
+    @Column(name = "end_date",
+            nullable = false)
+    private Date endDate;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", length = 10,
@@ -40,8 +43,9 @@ public class GroupTraining {
     public GroupTraining() {
     }
 
-    public GroupTraining(Date date, ETrainingStatus status, Long coachId, Training training) {
-        this.date = date;
+    public GroupTraining(Date startDate, Date endDate, ETrainingStatus status, Long coachId, Training training) {
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.status = status;
         this.coachId = coachId;
         this.training = training;
@@ -55,12 +59,20 @@ public class GroupTraining {
         this.id = id;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
     public ETrainingStatus getStatus() {
@@ -87,7 +99,6 @@ public class GroupTraining {
         this.training = training;
     }
 
-    @JsonIgnore
     public List<FitUser> getFitUsers() {
         return fitUsers;
     }

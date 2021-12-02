@@ -13,11 +13,12 @@ import ru.project.fitstyle.model.entity.training.ETrainingStatus;
 import ru.project.fitstyle.model.entity.training.GroupTraining;
 import ru.project.fitstyle.model.entity.training.PersonalTraining;
 import ru.project.fitstyle.model.entity.training.Training;
-import ru.project.fitstyle.model.entity.user.FitUser;
 import ru.project.fitstyle.controller.response.training.AllTrainingsResponse;
 import ru.project.fitstyle.service.AuthService;
 import ru.project.fitstyle.service.TrainingService;
 import ru.project.fitstyle.service.UserService;
+
+import java.util.Calendar;
 
 @CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
 @RestController
@@ -39,17 +40,18 @@ public class TrainingController {
 
     @GetMapping("/user")
     public ResponseEntity<AllTrainingsResponse> getFitUserTrainings() {
-        FitUser fitUser = userService.getUserByEmail(authService.getEmail());
+
         return ResponseEntity.ok(
-                new AllTrainingsResponse(fitUser.getGroupTrainings(), fitUser.getPersonalTrainings())
+                new AllTrainingsResponse(trainingService.getFitUserGroupTrainingsByFitUserEmail(authService.getEmail()),
+                        trainingService.getFitUserPersonalTrainingsByFitUserEmail(authService.getEmail()))
         );
     }
 
     @GetMapping("/coach/{id}")
     public ResponseEntity<AllTrainingsResponse> getCoachTrainings(@PathVariable("id") Long id) {
         return ResponseEntity.ok(
-                new AllTrainingsResponse(trainingService.getGroupTrainingsByCoachId(id),
-                        trainingService.getPersonalTrainingsByCoachId(id))
+                new AllTrainingsResponse(trainingService.getCoachGroupTrainingsByCoachId(id),
+                        trainingService.getCoachPersonalTrainingsByCoachId(id))
         );
     }
 
@@ -66,7 +68,11 @@ public class TrainingController {
     @PreAuthorize("hasRole('COACH')")
     @PostMapping("/group")
     public ResponseEntity<SuccessMessage> addGroupTraining(@RequestBody AddEditGroupTrainingRequest request) {
-        GroupTraining groupTraining = new GroupTraining(request.getDate(), ETrainingStatus.LOGGED,
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(request.getDate());
+        calendar.add(Calendar.HOUR, 1);
+
+        GroupTraining groupTraining = new GroupTraining(request.getDate(), calendar.getTime(), ETrainingStatus.LOGGED,
                 userService.getUserByEmail(authService.getEmail()).getId(), trainingService.getTrainingById(request.getTrainingId()));
         trainingService.saveGroupTraining(groupTraining);
         return ResponseEntity.ok(
@@ -77,7 +83,11 @@ public class TrainingController {
     @PreAuthorize("hasRole('COACH')")
     @PostMapping("/personal")
     public ResponseEntity<SuccessMessage> addPersonalTraining(@RequestBody AddEditPersonalTrainingRequest request) {
-        PersonalTraining personalTraining = new PersonalTraining(request.getDate(), ETrainingStatus.LOGGED,
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(request.getDate());
+        calendar.add(Calendar.HOUR, 1);
+
+        PersonalTraining personalTraining = new PersonalTraining(request.getDate(), calendar.getTime(), ETrainingStatus.LOGGED,
                 userService.getUserByEmail(authService.getEmail()).getId());
         trainingService.savePersonalTraining(personalTraining);
         return ResponseEntity.ok(

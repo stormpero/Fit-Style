@@ -1,10 +1,10 @@
-package ru.project.fitstyle.controller.request.auth;
+package ru.project.fitstyle.model.dto.user;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-public class SubscriptionInfo {
+public class SubscriptionRequestInfo {
     @NotNull(message = "subscriptionTypeId should not be blank")
     private Long subscriptionTypeId;
 

@@ -31,7 +31,6 @@ public class SubscriptionType {
             nullable = false)
     private String cost;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "subscriptionType", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<Subscription> owner;
 

@@ -5,8 +5,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import ru.project.fitstyle.controller.response.coach.AllCoachesInfoResponse;
-import ru.project.fitstyle.controller.response.coach.CoachInfo;
+import ru.project.fitstyle.controller.response.coach.AllCoachesResponse;
+import ru.project.fitstyle.model.dto.user.CoachInfo;
 import ru.project.fitstyle.model.entity.user.ERole;
 import ru.project.fitstyle.model.entity.user.FitUser;
 import ru.project.fitstyle.service.RoleService;
@@ -28,7 +28,7 @@ public class CoachController {
 
 
     @GetMapping()
-    public ResponseEntity<AllCoachesInfoResponse> getAllCoaches() {
+    public ResponseEntity<AllCoachesResponse> getAllCoaches() {
         List<FitUser> fitUserList = roleService.getUserByRole(ERole.ROLE_COACH);
         List<CoachInfo> allCoachesInfo = new ArrayList<>();
         for(FitUser fitUser : fitUserList) {
@@ -36,7 +36,7 @@ public class CoachController {
                     fitUser.getSurname(), fitUser.getPatronymic()));
         }
         return ResponseEntity.ok(
-                new AllCoachesInfoResponse(allCoachesInfo)
+                new AllCoachesResponse(allCoachesInfo)
         );
     }
 }

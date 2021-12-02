@@ -2,7 +2,7 @@ package ru.project.fitstyle.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.project.fitstyle.controller.response.permission.RoleInfo;
+import ru.project.fitstyle.model.dto.user.RoleInfo;
 import ru.project.fitstyle.model.entity.subscription.Subscription;
 import ru.project.fitstyle.model.entity.user.ERole;
 import ru.project.fitstyle.model.entity.user.FitUser;

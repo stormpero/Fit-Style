@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import ru.project.fitstyle.model.dao.GroupTrainingRepository;
 import ru.project.fitstyle.model.dao.PersonalTrainingRepository;
 import ru.project.fitstyle.model.dao.TrainingRepository;
+import ru.project.fitstyle.model.dto.training.GroupTrainingInfo;
+import ru.project.fitstyle.model.dto.training.PersonalTrainingInfo;
 import ru.project.fitstyle.model.entity.training.GroupTraining;
 import ru.project.fitstyle.model.entity.training.PersonalTraining;
 import ru.project.fitstyle.model.entity.training.Training;
@@ -40,13 +42,23 @@ public class FitTrainingService implements TrainingService {
     }
 
     @Override
-    public List<GroupTraining> getGroupTrainingsByCoachId(Long id) {
-        return groupTrainingRepository.findByCoachId(id);
+    public List<GroupTrainingInfo> getCoachGroupTrainingsByCoachId(Long id) {
+        return groupTrainingRepository.findAllCoachTrainingsByCoachId(id);
     }
 
     @Override
-    public List<PersonalTraining> getPersonalTrainingsByCoachId(Long id) {
-        return personalTrainingRepository.findByCoachId(id);
+    public List<PersonalTrainingInfo> getCoachPersonalTrainingsByCoachId(Long id) {
+        return personalTrainingRepository.findAllCoachTrainingsByCoachId(id);
+    }
+
+    @Override
+    public List<GroupTrainingInfo> getFitUserGroupTrainingsByFitUserEmail(String email) {
+        return groupTrainingRepository.findAllFitUserTrainingsByFitUserEmail(email);
+    }
+
+    @Override
+    public List<PersonalTrainingInfo> getFitUserPersonalTrainingsByFitUserEmail(String email) {
+        return personalTrainingRepository.findAllFitUserTrainingsByFitUserEmail(email);
     }
 
     @Override

@@ -1,13 +1,13 @@
-package ru.project.fitstyle.controller.response.profile;
+package ru.project.fitstyle.model.dto.user;
 
 import java.util.Date;
 
-public class SubscriptionInfo {
+public class SubscriptionResponseInfo {
     private final String name;
 
     private final Date endDate;
 
-    public SubscriptionInfo(String name, Date endDate) {
+    public SubscriptionResponseInfo(String name, Date endDate) {
         this.name = name;
         this.endDate = endDate;
     }

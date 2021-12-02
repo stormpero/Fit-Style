@@ -5,7 +5,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ru.project.fitstyle.config.properties.NewsProperties;
-import ru.project.fitstyle.controller.response.news.NewsInfo;
+import ru.project.fitstyle.model.dto.news.NewsInfo;
 import ru.project.fitstyle.model.entity.news.News;
 import ru.project.fitstyle.model.dao.NewsRepository;
 import ru.project.fitstyle.service.NewsService;

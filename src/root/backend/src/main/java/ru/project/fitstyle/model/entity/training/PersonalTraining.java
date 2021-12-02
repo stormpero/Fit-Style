@@ -15,9 +15,14 @@ public class PersonalTraining {
             nullable = false, updatable = false, unique = true)
     private Long id;
 
-    @Column(name = "date",
+    @Column(name = "start_date",
             nullable = false)
-    private Date date;
+    private Date startDate;
+
+    @Column(name = "end_date",
+            nullable = false)
+    private Date endDate;
+
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", length = 10,
@@ -36,8 +41,9 @@ public class PersonalTraining {
     public PersonalTraining() {
     }
 
-    public PersonalTraining(Date date, ETrainingStatus status, Long coachId) {
-        this.date = date;
+    public PersonalTraining(Date startDate, Date endDate, ETrainingStatus status, Long coachId) {
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.status = status;
         this.coachId = coachId;
     }
@@ -50,12 +56,20 @@ public class PersonalTraining {
         this.id = id;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
     public ETrainingStatus getStatus() {
@@ -66,7 +80,6 @@ public class PersonalTraining {
         this.status = status;
     }
 
-    @JsonIgnore
     public FitUser getUser() {
         return fitUser;
     }

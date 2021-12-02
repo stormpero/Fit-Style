@@ -1,4 +1,4 @@
-package ru.project.fitstyle.controller.response.coach;
+package ru.project.fitstyle.model.dto.user;
 
 public class CoachInfo {
     private final Long id;

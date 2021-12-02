@@ -2,7 +2,7 @@ package ru.project.fitstyle.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.project.fitstyle.controller.response.subscription.SubscriptionTypeInfo;
+import ru.project.fitstyle.model.dto.subscription.SubscriptionTypeInfo;
 import ru.project.fitstyle.model.entity.subscription.Subscription;
 import ru.project.fitstyle.model.entity.subscription.SubscriptionType;
 import ru.project.fitstyle.model.dao.SubscriptionTypeRepository;
@@ -37,6 +37,7 @@ public class FitSubscriptionTypeService implements SubscriptionTypeService {
 
         Subscription subscription = new Subscription();
         Date beginDate = new Date(new Date().getTime());
+
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(beginDate);
         calendar.add(Calendar.MONTH, subscriptionType.getValidityMonths());

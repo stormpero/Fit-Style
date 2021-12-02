@@ -1,4 +1,4 @@
-package ru.project.fitstyle.controller.response.news;
+package ru.project.fitstyle.model.dto.news;
 
 import java.util.Date;
 

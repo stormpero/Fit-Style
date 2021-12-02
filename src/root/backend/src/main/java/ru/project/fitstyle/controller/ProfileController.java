@@ -9,8 +9,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.project.fitstyle.controller.request.profile.ChangeBalanceRequest;
 import ru.project.fitstyle.controller.response.other.SuccessMessage;
-import ru.project.fitstyle.controller.response.permission.RoleInfo;
-import ru.project.fitstyle.controller.response.profile.SubscriptionInfo;
+import ru.project.fitstyle.model.dto.user.RoleInfo;
+import ru.project.fitstyle.model.dto.user.SubscriptionResponseInfo;
 import ru.project.fitstyle.model.entity.user.FitUser;
 import ru.project.fitstyle.controller.response.profile.UserProfileResponse;
 import ru.project.fitstyle.model.entity.user.Role;
@@ -83,7 +83,7 @@ public class ProfileController {
                         fitUser.getEmail(), fitUser.getAge(), fitUser.getGender(), fitUser.getBirthdate(),
                         fitUser.getTelephone(), fitUser.getPassport(), fitUser.getAddress(),
                         fitUser.getBalance(),
-                        new SubscriptionInfo(fitUser.getSubscription().getSubscriptionType().getName(), fitUser.getSubscription().getEndDate()),
+                        new SubscriptionResponseInfo(fitUser.getSubscription().getSubscriptionType().getName(), fitUser.getSubscription().getEndDate()),
                         roles));
     }
 }

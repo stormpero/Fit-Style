@@ -1,5 +1,7 @@
 package ru.project.fitstyle.controller.response.permission;
 
+import ru.project.fitstyle.model.dto.user.RoleInfo;
+
 import java.util.List;
 
 public class PermissionResponse {

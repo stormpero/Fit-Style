@@ -1,4 +1,4 @@
-package ru.project.fitstyle.controller.response.subscription;
+package ru.project.fitstyle.model.dto.subscription;
 
 import ru.project.fitstyle.model.entity.subscription.ESubsPlacementTime;
 

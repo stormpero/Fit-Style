@@ -7,7 +7,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.project.fitstyle.model.entity.news.News;
 import ru.project.fitstyle.controller.request.news.AddEditNewsRequest;
-import ru.project.fitstyle.controller.response.news.NewsShowPageResponse;
+import ru.project.fitstyle.controller.response.news.NewsPageResponse;
 import ru.project.fitstyle.controller.response.other.SuccessMessage;
 import ru.project.fitstyle.service.NewsService;
 import ru.project.fitstyle.service.StorageService;
@@ -30,9 +30,9 @@ public class NewsController {
     }
 
     @GetMapping("/{page_number}")
-    public ResponseEntity<NewsShowPageResponse> showPage(@PathVariable("page_number") int pageNumber) {
+    public ResponseEntity<NewsPageResponse> showPage(@PathVariable("page_number") int pageNumber) {
         //Here we get first 6 (can be specified) recently added news
-        return ResponseEntity.ok(new NewsShowPageResponse(newsService.getNewsPage(pageNumber)));
+        return ResponseEntity.ok(new NewsPageResponse(newsService.getNewsPage(pageNumber)));
     }
 
     @PostMapping()

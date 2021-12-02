@@ -1,6 +1,7 @@
 package ru.project.fitstyle.controller.response.profile;
 
-import ru.project.fitstyle.controller.response.permission.RoleInfo;
+import ru.project.fitstyle.model.dto.user.RoleInfo;
+import ru.project.fitstyle.model.dto.user.SubscriptionResponseInfo;
 
 import java.util.Date;
 import java.util.List;
@@ -31,14 +32,14 @@ public class UserProfileResponse {
 
     private final Long balance;
 
-    private final SubscriptionInfo subscriptionInfo;
+    private final SubscriptionResponseInfo subscriptionResponseInfo;
 
     private final List<RoleInfo> roles;
 
     public UserProfileResponse(Long id, String name, String surname, String patronymic,
                                String email, String age, String gender, Date birthdate,
                                String telephone, String passport, String address,
-                               Long balance, SubscriptionInfo subscriptionInfo, List<RoleInfo> roles) {
+                               Long balance, SubscriptionResponseInfo subscriptionResponseInfo, List<RoleInfo> roles) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -51,7 +52,7 @@ public class UserProfileResponse {
         this.passport = passport;
         this.address = address;
         this.balance = balance;
-        this.subscriptionInfo = subscriptionInfo;
+        this.subscriptionResponseInfo = subscriptionResponseInfo;
         this.roles = roles;
     }
 
@@ -103,8 +104,8 @@ public class UserProfileResponse {
         return balance;
     }
 
-    public SubscriptionInfo getSubscriptionInfo() {
-        return subscriptionInfo;
+    public SubscriptionResponseInfo getSubscriptionInfo() {
+        return subscriptionResponseInfo;
     }
 
     public List<RoleInfo> getRoles() {

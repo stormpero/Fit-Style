@@ -1,5 +1,7 @@
 package ru.project.fitstyle.controller.request.auth;
 
+import ru.project.fitstyle.model.dto.user.SubscriptionRequestInfo;
+
 import java.util.Date;
 import java.util.List;
 
@@ -52,7 +54,7 @@ public class SignupRequest {
 
     private List<String> roles;
 
-    private SubscriptionInfo subscriptionInfo;
+    private SubscriptionRequestInfo subscriptionRequestInfo;
 
     public String getName() {
         return name;
@@ -150,11 +152,11 @@ public class SignupRequest {
       this.roles = roles;
     }
 
-    public SubscriptionInfo getSubscriptionTypeInfo() {
-        return subscriptionInfo;
+    public SubscriptionRequestInfo getSubscriptionTypeInfo() {
+        return subscriptionRequestInfo;
     }
 
-    public void setSubscriptionTypeInfo(SubscriptionInfo subscriptionInfo) {
-        this.subscriptionInfo = subscriptionInfo;
+    public void setSubscriptionTypeInfo(SubscriptionRequestInfo subscriptionRequestInfo) {
+        this.subscriptionRequestInfo = subscriptionRequestInfo;
     }
 }

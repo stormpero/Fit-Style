@@ -1,5 +1,7 @@
 package ru.project.fitstyle.service;
 
+import ru.project.fitstyle.model.dto.training.GroupTrainingInfo;
+import ru.project.fitstyle.model.dto.training.PersonalTrainingInfo;
 import ru.project.fitstyle.model.entity.training.GroupTraining;
 import ru.project.fitstyle.model.entity.training.PersonalTraining;
 import ru.project.fitstyle.model.entity.training.Training;
@@ -12,9 +14,13 @@ public interface TrainingService {
 
     Training getTrainingById(Long id);
 
-    List<GroupTraining> getGroupTrainingsByCoachId(Long id);
+    List<GroupTrainingInfo> getCoachGroupTrainingsByCoachId(Long id);
 
-    List<PersonalTraining> getPersonalTrainingsByCoachId(Long id);
+    List<PersonalTrainingInfo> getCoachPersonalTrainingsByCoachId(Long id);
+
+    List<GroupTrainingInfo> getFitUserGroupTrainingsByFitUserEmail(String email);
+
+    List<PersonalTrainingInfo> getFitUserPersonalTrainingsByFitUserEmail(String email);
 
     void saveGroupTraining(GroupTraining groupTraining);
 
