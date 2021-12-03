@@ -127,7 +127,7 @@ public class AuthController {
                                                       String requestRefreshToken) {
         FitUser fitUser = ((RefreshToken) (refreshTokenService.validate(requestRefreshToken))).getUser();
         String jwtToken = accessTokenService
-                .generateTokenFromUsername(fitUser.getName());
+                .generateTokenFromUsername(fitUser.getEmail());
         String refreshToken = refreshTokenService
                 .generateTokenFromUser(fitUser);
 
