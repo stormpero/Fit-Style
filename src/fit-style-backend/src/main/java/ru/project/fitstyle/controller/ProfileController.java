@@ -9,6 +9,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.project.fitstyle.controller.request.profile.ChangeBalanceRequest;
 import ru.project.fitstyle.controller.response.other.SuccessMessage;
+import ru.project.fitstyle.model.dto.user.FitUserInfo;
 import ru.project.fitstyle.model.dto.user.RoleInfo;
 import ru.project.fitstyle.model.dto.user.SubscriptionResponseInfo;
 import ru.project.fitstyle.model.entity.user.FitUser;
@@ -45,7 +46,8 @@ public class ProfileController {
 
     @GetMapping()
     public ResponseEntity<UserProfileResponse> getUserProfileInfo() {
-        return createUserProfileResponse(userService.getUserByEmail(authService.getEmail()));
+        return ResponseEntity.ok(new UserProfileResponse(userService.getFitUserInfoByEmail(authService.getEmail()),
+                userService.getSubscriptionResponseInfoByEmail(authService.getEmail()), userService.getFitUserRolesByEmail(authService.getEmail())));
     }
 
     @GetMapping ("/user_image")
@@ -62,8 +64,10 @@ public class ProfileController {
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('MODERATOR')")
     public ResponseEntity<UserProfileResponse> getUserProfileInfoById(@PathVariable("id") Long id) {
-        return createUserProfileResponse(userService.getUserById(id));
-    }
+        return ResponseEntity.ok(new UserProfileResponse(userService.getFitUserInfoById(id),
+                userService.getSubscriptionResponseInfoById(id), userService.getFitUserRolesById(id)));
+    };
+
 
     @PatchMapping("/change_balance")
     public ResponseEntity<SuccessMessage> changeBalance(@RequestBody ChangeBalanceRequest changeBalanceRequest) {
@@ -71,19 +75,5 @@ public class ProfileController {
         return ResponseEntity.ok(
                 new SuccessMessage("Balance changed successfully!")
         );
-    }
-
-    private ResponseEntity<UserProfileResponse> createUserProfileResponse(FitUser fitUser) {
-        List<RoleInfo> roles = new ArrayList<>();
-        for(Role role : fitUser.getRoles()) {
-            roles.add(new RoleInfo(role.getId(), role.getName()));
-        }
-        return ResponseEntity.ok(
-                new UserProfileResponse(fitUser.getId(), fitUser.getName(), fitUser.getSurname(), fitUser.getPatronymic(),
-                        fitUser.getEmail(), fitUser.getAge(), fitUser.getGender(), fitUser.getBirthdate(),
-                        fitUser.getTelephone(), fitUser.getPassport(), fitUser.getAddress(),
-                        fitUser.getBalance(),
-                        new SubscriptionResponseInfo(fitUser.getSubscription().getSubscriptionType().getName(), fitUser.getSubscription().getEndDate()),
-                        roles));
     }
 }

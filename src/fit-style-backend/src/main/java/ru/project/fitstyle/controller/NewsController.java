@@ -56,14 +56,11 @@ public class NewsController {
         );
     }
 
-
-    //TODO Make specific methods only to update separate fields without updating the whole object
-
     @PatchMapping("/{id}")
     @PreAuthorize("hasRole('MODERATOR')")
     public ResponseEntity<SuccessMessage> update(@Valid @RequestBody AddEditNewsRequest addEditNewsRequest,
                                                  @PathVariable("id") Long id) {
-    //Update news. It currently updates all fields of the DB object instead of updating only those which are changed
+    //Update news.
         News news = newsService.getNewsById(id);
         news.setHeader(addEditNewsRequest.getHeader());
         news.setContent(addEditNewsRequest.getContent());
