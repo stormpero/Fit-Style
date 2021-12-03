@@ -6,7 +6,7 @@ import {
     formatExpirationDate
 } from "./Utils";
 
-import ProfileApi from "../../services/api/profile/ProfileApi";
+import ProfileApi from "../../services/api/ProfileApi";
 import ProfileService from "../../services/profile/ProfileService";
 import ToastMessages from "../toastmessages/ToastMessages";
 import {TOP_RIGHT} from "../../config/consts/ToastPosition";

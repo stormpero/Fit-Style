@@ -8,7 +8,7 @@ import {routes} from "../../pages/routes/routes";
 import {URL_LOGIN} from "../../config/consts/urlsPages";
 
 import LStorageUser from "../../services/localstorage/LStorageUser";
-import UserService from "../../services/api/user/UserApi";
+import UserService from "../../services/api/UserApi";
 
 const AppRouter = () => {
     const [isAuth, setIsAuth] = useState(false);

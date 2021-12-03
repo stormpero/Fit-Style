@@ -5,8 +5,8 @@ import Register from "./Register";
 import Validation from "../../services/validation/Validation";
 import ToastMessages from "../../components/toastmessages/ToastMessages";
 import {TOP_RIGHT} from "../../config/consts/ToastPosition";
-import UserService from "../../services/api/user/UserApi";
-import RegisterApi from "../../services/api/register/RegisterApi";
+import UserService from "../../services/api/UserApi";
+import RegisterApi from "../../services/api/RegisterApi";
 
 export default class RegisterContainer extends Component {
 

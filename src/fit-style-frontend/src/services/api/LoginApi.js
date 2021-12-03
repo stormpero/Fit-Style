@@ -1,6 +1,6 @@
-import api from "../config/Api";
-import {URL_AUTH} from "../../../config/consts/urlsApi";
-import LStorageUser from "../../localstorage/LStorageUser";
+import api from "./Api";
+import {URL_AUTH} from "../../config/consts/urlsApi";
+import LStorageUser from "../localstorage/LStorageUser";
 
 class LoginApi {
     login(userInfo) {

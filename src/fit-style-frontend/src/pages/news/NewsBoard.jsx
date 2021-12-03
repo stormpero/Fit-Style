@@ -4,7 +4,7 @@ import DateFormat from "../../utils/DateConvert";
 import ArrayHelper from "../../utils/ArrayConvert";
 import Modal from "../../components/modal/Modal";
 import NewsFormContainer from "./form/NewsFormContainer";
-import NewsService from "../../services/api/news/NewsService";
+import NewsService from "../../services/api/NewsApi";
 import "./NewsBoard.css";
 import ToastMessages from "../../components/toastmessages/ToastMessages";
 import {TOP_RIGHT} from "../../config/consts/ToastPosition";

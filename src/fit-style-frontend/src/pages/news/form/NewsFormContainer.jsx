@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import NewsForm from "./NewsForm";
 import isEmpty from "validator/es/lib/isEmpty";
-import NewsService from "../../../services/api/news/NewsService";
+import NewsService from "../../../services/api/NewsApi";
 import ToastMessages from "../../../components/toastmessages/ToastMessages";
 import {TOP_RIGHT} from "../../../config/consts/ToastPosition";
 

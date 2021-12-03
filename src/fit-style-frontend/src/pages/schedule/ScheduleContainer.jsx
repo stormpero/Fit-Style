@@ -5,7 +5,7 @@ import ToastMessages from "../../components/toastmessages/ToastMessages";
 import Modal from "../../components/modal/Modal";
 import ScheduleModalTrainingInfo from "./form/ScheduleModalTrainingInfo";
 import PermissionService from "../../services/security/permission/PermissionService";
-import ScheduleApi from "../../services/api/schedule/ScheduleApi";
+import ScheduleApi from "../../services/api/ScheduleApi";
 import TrainingService from "../../services/training/TrainingService";
 import {ScheduleModalTrainingCreate} from "./form/ScheduleModalTrainingCreate";
 
