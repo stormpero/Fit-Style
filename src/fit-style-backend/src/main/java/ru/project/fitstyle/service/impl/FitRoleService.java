@@ -26,7 +26,7 @@ public class FitRoleService implements RoleService {
     }
 
     @Override
-    public List<Role> createFitRoles(List<String> strRoles) {
+    public List<Role> createRoles(List<String> strRoles) {
         List<Role> roles = new ArrayList<>();
 
         if (strRoles != null) {

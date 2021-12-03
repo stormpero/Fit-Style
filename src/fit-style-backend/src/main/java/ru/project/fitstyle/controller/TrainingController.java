@@ -75,6 +75,15 @@ public class TrainingController {
     }
 
     @PreAuthorize("hasRole('COACH')")
+    @GetMapping("/{id}")
+    public ResponseEntity<SuccessMessage> deleteTraining(@PathVariable("id") Long id) {
+        trainingService.deleteTraining(id);
+        return ResponseEntity.ok(
+                new SuccessMessage("Success! Training created!")
+        );
+    }
+
+    @PreAuthorize("hasRole('COACH')")
     @GetMapping("/name")
     public ResponseEntity<TrainingNamesResponse> getTrainingNames() {
         return ResponseEntity.ok(new TrainingNamesResponse(trainingService.getTrainingNames()));
@@ -96,6 +105,15 @@ public class TrainingController {
     }
 
     @PreAuthorize("hasRole('COACH')")
+    @GetMapping("/group/{id}")
+    public ResponseEntity<SuccessMessage> deleteGroupTraining(@PathVariable("id") Long id) {
+        trainingService.deleteGroupTraining(id);
+        return ResponseEntity.ok(
+                new SuccessMessage("Success! Training created!")
+        );
+    }
+
+    @PreAuthorize("hasRole('COACH')")
     @PostMapping("/personal")
     public ResponseEntity<SuccessMessage> addPersonalTraining(@RequestBody AddEditPersonalTrainingRequest request) {
         Calendar calendar = Calendar.getInstance();
@@ -107,6 +125,15 @@ public class TrainingController {
         trainingService.savePersonalTraining(personalTraining);
         return ResponseEntity.ok(
                 new SuccessMessage("Success! Personal training created!")
+        );
+    }
+
+    @PreAuthorize("hasRole('COACH')")
+    @GetMapping("/personal/{id}")
+    public ResponseEntity<SuccessMessage> deletePersonalTraining(@PathVariable("id") Long id) {
+        trainingService.deletePersonalTraining(id);
+        return ResponseEntity.ok(
+                new SuccessMessage("Success! Training created!")
         );
     }
 }

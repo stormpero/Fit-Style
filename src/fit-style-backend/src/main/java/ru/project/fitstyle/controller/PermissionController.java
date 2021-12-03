@@ -30,6 +30,6 @@ public class PermissionController {
     @GetMapping("/roles")
     public ResponseEntity<PermissionResponse> getUserRoles() {
         return ResponseEntity.ok(
-                new PermissionResponse(userService.getFitUserRolesByEmail(authServiceImpl.getEmail())));
+                new PermissionResponse(userService.getUserRolesByEmail(authServiceImpl.getEmail())));
     }
 }

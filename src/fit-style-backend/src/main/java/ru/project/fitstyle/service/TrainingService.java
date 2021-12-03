@@ -13,6 +13,16 @@ public interface TrainingService {
 
     void saveTraining(Training training);
 
+    void saveGroupTraining(GroupTraining groupTraining);
+
+    void savePersonalTraining(PersonalTraining personalTraining);
+
+    void deleteTraining(Long id);
+
+    void deleteGroupTraining(Long id);
+
+    void deletePersonalTraining(Long id);
+
     Training getTrainingById(Long id);
 
     List<GroupTrainingInfo> getCoachGroupTrainingsByCoachId(Long id);
@@ -28,8 +38,4 @@ public interface TrainingService {
     List<PersonalTrainingInfo> getFitUserPersonalTrainingsByFitUserEmail(String email);
 
     List<TrainingNameInfo> getTrainingNames();
-
-    void saveGroupTraining(GroupTraining groupTraining);
-
-    void savePersonalTraining(PersonalTraining personalTraining);
 }

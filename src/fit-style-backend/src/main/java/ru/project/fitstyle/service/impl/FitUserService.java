@@ -43,24 +43,7 @@ public class FitUserService implements UserService {
     }
 
     @Override
-    public FitUser getUserById(Long id) {
-        return fitUserRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException("User with that id cannot be found!"));
-    }
-
-//    @Override
-//    public FitUser getCoachById(Long id) {
-//        FitUser fitUser = getUserById(id);
-//        for(Role role : fitUser.getRoles()) {
-//            if(role.getName() == ERole.ROLE_COACH) {
-//                return fitUser;
-//            }
-//        }
-//        throw new NotACoachException("Given id doesn't belong to coach");
-//    }
-
-    @Override
-    public void saveFitUser(FitUser fitUser, List<Role> roles, Subscription subscription) {
+    public void saveUser(FitUser fitUser, List<Role> roles, Subscription subscription) {
         fitUser.setRoles(roles);
         fitUser.setSubscription(subscription);
         fitUserRepository.save(fitUser);
@@ -78,7 +61,7 @@ public class FitUserService implements UserService {
     }
 
     @Override
-    public void logoutFitUserByEmail(String email) {
+    public void logoutUserByEmail(String email) {
         refreshTokenRepository
                 .deleteByFitUser(fitUserRepository
                         .findByEmail(email)
@@ -110,21 +93,21 @@ public class FitUserService implements UserService {
     }
 
     @Override
-    public List<RoleInfo> getFitUserRolesByEmail(String email) {
+    public List<RoleInfo> getUserRolesByEmail(String email) {
         return fitUserRepository.findRolesWithEmail(email)
                 .filter(list -> list.size() != 0)
                 .orElseThrow(() -> new  UserNotFoundException("User with that email cannot be found!"));
     }
 
     @Override
-    public List<RoleInfo> getFitUserRolesById(Long id) {
+    public List<RoleInfo> getUserRolesById(Long id) {
         return fitUserRepository.findRolesWithId(id)
                 .filter(list -> list.size() != 0)
                 .orElseThrow(() -> new  UserNotFoundException("User with that id cannot be found!"));
     }
 
     @Override
-    public List<CoachInfo> getAllCoaches() {
+    public List<CoachInfo> getCoaches() {
         return fitUserRepository.findAllCoaches()
                 .filter(list -> list.size() != 0)
                 .orElseThrow(() -> new UserNotFoundException("There are no coaches!"));

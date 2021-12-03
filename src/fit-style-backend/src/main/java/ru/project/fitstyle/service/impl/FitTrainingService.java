@@ -37,6 +37,31 @@ public class FitTrainingService implements TrainingService {
     }
 
     @Override
+    public void saveGroupTraining(GroupTraining groupTraining) {
+        groupTrainingRepository.save(groupTraining);
+    }
+
+    @Override
+    public void savePersonalTraining(PersonalTraining personalTraining) {
+        personalTrainingRepository.save(personalTraining);
+    }
+
+    @Override
+    public void deleteTraining(Long id) {
+        trainingRepository.deleteById(id);
+    }
+
+    @Override
+    public void deleteGroupTraining(Long id) {
+        groupTrainingRepository.deleteById(id);
+    }
+
+    @Override
+    public void deletePersonalTraining(Long id) {
+        personalTrainingRepository.deleteById(id);
+    }
+
+    @Override
     public Training getTrainingById(Long id) {
         return trainingRepository.findById(id)
                 .orElseThrow(() -> new TrainingNotFoundException("Training with that email cannot be found!"));
@@ -75,15 +100,5 @@ public class FitTrainingService implements TrainingService {
     @Override
     public List<TrainingNameInfo> getTrainingNames() {
         return trainingRepository.findAllTrainingNames();
-    }
-
-    @Override
-    public void saveGroupTraining(GroupTraining groupTraining) {
-        groupTrainingRepository.save(groupTraining);
-    }
-
-    @Override
-    public void savePersonalTraining(PersonalTraining personalTraining) {
-        personalTrainingRepository.save(personalTraining);
     }
 }

@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface RoleService {
 
-    List<Role> createFitRoles(List<String> strRoles);
+    List<Role> createRoles(List<String> strRoles);
 }

@@ -25,7 +25,7 @@ public class CoachController {
     @GetMapping()
     public ResponseEntity<AllCoachesResponse> getAllCoaches() {
         return ResponseEntity.ok(
-                new AllCoachesResponse(userService.getAllCoaches())
+                new AllCoachesResponse(userService.getCoaches())
         );
     }
 }

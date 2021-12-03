@@ -16,15 +16,11 @@ public interface UserService {
 
     FitUser getUserByEmail(String email);
 
-    FitUser getUserById(Long id);
-
-//    FitUser getCoachById(Long id);
-
-    void saveFitUser(FitUser fitUser, List<Role> roles, Subscription subscription);
+    void saveUser(FitUser fitUser, List<Role> roles, Subscription subscription);
 
     void changeBalance(FitUser fitUser, Long summary);
 
-    void logoutFitUserByEmail(String email);
+    void logoutUserByEmail(String email);
 
     FitUserInfo getFitUserInfoByEmail(String email);
 
@@ -34,9 +30,9 @@ public interface UserService {
 
     SubscriptionResponseInfo getSubscriptionResponseInfoById(Long id);
 
-    List<RoleInfo> getFitUserRolesByEmail(String email);
+    List<RoleInfo> getUserRolesByEmail(String email);
 
-    List<RoleInfo> getFitUserRolesById(Long id);
+    List<RoleInfo> getUserRolesById(Long id);
 
-    List<CoachInfo> getAllCoaches();
+    List<CoachInfo> getCoaches();
 }

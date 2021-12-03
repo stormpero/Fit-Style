@@ -9,18 +9,11 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.project.fitstyle.controller.request.profile.ChangeBalanceRequest;
 import ru.project.fitstyle.controller.response.other.SuccessMessage;
-import ru.project.fitstyle.model.dto.user.FitUserInfo;
-import ru.project.fitstyle.model.dto.user.RoleInfo;
-import ru.project.fitstyle.model.dto.user.SubscriptionResponseInfo;
 import ru.project.fitstyle.model.entity.user.FitUser;
 import ru.project.fitstyle.controller.response.profile.UserProfileResponse;
-import ru.project.fitstyle.model.entity.user.Role;
 import ru.project.fitstyle.service.AuthService;
 import ru.project.fitstyle.service.StorageService;
 import ru.project.fitstyle.service.UserService;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 @CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
@@ -47,7 +40,7 @@ public class ProfileController {
     @GetMapping()
     public ResponseEntity<UserProfileResponse> getUserProfileInfo() {
         return ResponseEntity.ok(new UserProfileResponse(userService.getFitUserInfoByEmail(authService.getEmail()),
-                userService.getSubscriptionResponseInfoByEmail(authService.getEmail()), userService.getFitUserRolesByEmail(authService.getEmail())));
+                userService.getSubscriptionResponseInfoByEmail(authService.getEmail()), userService.getUserRolesByEmail(authService.getEmail())));
     }
 
     @GetMapping ("/user_image")
@@ -65,7 +58,7 @@ public class ProfileController {
     @PreAuthorize("hasRole('MODERATOR')")
     public ResponseEntity<UserProfileResponse> getUserProfileInfoById(@PathVariable("id") Long id) {
         return ResponseEntity.ok(new UserProfileResponse(userService.getFitUserInfoById(id),
-                userService.getSubscriptionResponseInfoById(id), userService.getFitUserRolesById(id)));
+                userService.getSubscriptionResponseInfoById(id), userService.getUserRolesById(id)));
     };
 
 

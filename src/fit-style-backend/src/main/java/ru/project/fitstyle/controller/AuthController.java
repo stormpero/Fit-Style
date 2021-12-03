@@ -114,7 +114,7 @@ public class AuthController {
             fitUser.setImgURL(image.getOriginalFilename());
         }
 
-        userService.saveFitUser(fitUser, roleService.createFitRoles(request.getRoles()),
+        userService.saveUser(fitUser, roleService.createRoles(request.getRoles()),
                 subscriptionTypeService.createFitUserSubscription(request.getSubscriptionTypeInfo().getSubscriptionTypeId(),
                         request.getSubscriptionTypeInfo().getContractNumber()));
 
@@ -138,7 +138,7 @@ public class AuthController {
     @GetMapping("/logout")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<SuccessMessage> logoutUser() {
-        userService.logoutFitUserByEmail(authService.getEmail());
+        userService.logoutUserByEmail(authService.getEmail());
         return ResponseEntity.ok(
                 new SuccessMessage("Log out successful!"));
     }
