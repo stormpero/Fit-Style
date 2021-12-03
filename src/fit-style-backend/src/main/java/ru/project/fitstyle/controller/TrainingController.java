@@ -67,7 +67,6 @@ public class TrainingController {
         );
     }
 
-    @PreAuthorize("hasRole('COACH')")
     @GetMapping("/name")
     public ResponseEntity<TrainingNamesResponse> getTrainingNames() {
         return ResponseEntity.ok(new TrainingNamesResponse(trainingService.getTrainingNames()));
