@@ -53,6 +53,16 @@ public class FitTrainingService implements TrainingService {
     }
 
     @Override
+    public List<GroupTrainingInfo> getCoachGroupTrainingsByCoachEmail(String email) {
+        return groupTrainingRepository.findAllCoachTrainingsWithCoachEmail(email);
+    }
+
+    @Override
+    public List<PersonalTrainingInfo> getCoachPersonalTrainingsByCoachEmail(String email) {
+        return personalTrainingRepository.findAllCoachTrainingsWithCoachEmail(email);
+    }
+
+    @Override
     public List<GroupTrainingInfo> getFitUserGroupTrainingsByFitUserEmail(String email) {
         return groupTrainingRepository.findAllFitUserTrainingsWithFitUserEmail(email);
     }
