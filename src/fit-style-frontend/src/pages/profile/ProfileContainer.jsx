@@ -3,7 +3,7 @@ import Profile from "./Profile";
 import Modal from "../../components/modal/Modal";
 import {PaymentContainer} from "../../components/paymentform/PaymentContainer";
 import DateFormat from "../../utils/DateConvert";
-import ProfileApi from "../../services/api/profile/ProfileApi";
+import ProfileApi from "../../services/api/ProfileApi";
 
 export const ProfileContainer = () => {
     const [modalActive, setModalActive] = useState(false);

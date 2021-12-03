@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Navbar from "./Navbar";
-import NavbarApi from "../../services/api/navbar/NavbarApi";
+import NavbarApi from "../../services/api/NavbarApi";
 
 import LStorageUser from "../../services/localstorage/LStorageUser";
 import PermissionService from "../../services/security/permission/PermissionService";

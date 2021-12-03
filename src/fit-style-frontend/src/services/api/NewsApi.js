@@ -1,7 +1,7 @@
-import api from "../config/Api";
-import {URL_ADD_NEWS} from "../../../config/consts/urlsApi";
+import api from "./Api";
+import {URL_ADD_NEWS} from "../../config/consts/urlsApi";
 
-class NewsService {
+class NewsApi {
     getNews(pageNumber) {
         return api.get(`news/${pageNumber}`);
     }
@@ -13,4 +13,4 @@ class NewsService {
     }
 }
 
-export default new NewsService();
+export default new NewsApi();

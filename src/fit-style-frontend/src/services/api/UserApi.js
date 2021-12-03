@@ -1,9 +1,9 @@
-import api from "../config/Api";
+import api from "./Api";
 import {
     URL_ROLES,
     URL_SUBSCRIPTIONTYPE,
     URL_USERTEST
-} from "../../../config/consts/urlsApi";
+} from "../../config/consts/urlsApi";
 
 class UserApi {
     getUserBoard() {

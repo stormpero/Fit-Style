@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import LStorageUser from "../../services/localstorage/LStorageUser";
-import UserApi from "../../services/api/user/UserApi";
+import UserApi from "../../services/api/UserApi";
 
 export default class UserContent extends Component {
   state = {

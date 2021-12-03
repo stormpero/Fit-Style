@@ -1,5 +1,5 @@
-import api from "../config/Api";
-import {URL_CHANGE_BALANCE, URL_PROFILE_IMG, URL_PROFILE_INFO} from "../../../config/consts/urlsApi";
+import api from "./Api";
+import {URL_CHANGE_BALANCE, URL_PROFILE_IMG, URL_PROFILE_INFO} from "../../config/consts/urlsApi";
 
 class ProfileApi {
     getProfileInfo() {

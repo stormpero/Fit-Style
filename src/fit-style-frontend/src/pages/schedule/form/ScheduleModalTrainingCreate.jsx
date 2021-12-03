@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import ScheduleApi from "../../../services/api/schedule/ScheduleApi";
+import ScheduleApi from "../../../services/api/ScheduleApi";
 import ScheduleService from "../../../services/training/ScheduleService";
 import ToastMessages from "../../../components/toastmessages/ToastMessages";
 

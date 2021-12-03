@@ -1,11 +1,11 @@
-import api from "../config/Api";
+import api from "./Api";
 import {
     URL_ADD_TRAINING_GROUP,
     URL_ADD_TRAINING_PERSONAL,
     URL_COACH_TRAININGS,
     URL_COACHES,
     URL_TRAINING
-} from "../../../config/consts/urlsApi";
+} from "../../config/consts/urlsApi";
 
 class ScheduleApi {
     getTrainings() {

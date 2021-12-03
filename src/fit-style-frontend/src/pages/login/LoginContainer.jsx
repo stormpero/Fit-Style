@@ -5,7 +5,7 @@ import Login from "./Login";
 import isEmpty from "validator/es/lib/isEmpty";
 import ToastMessages from "../../components/toastmessages/ToastMessages";
 import {TOP_CENTER, TOP_RIGHT} from "../../config/consts/ToastPosition";
-import LoginApi from "../../services/api/login/LoginApi";
+import LoginApi from "../../services/api/LoginApi";
 
 export default class LoginContainer extends Component {
 

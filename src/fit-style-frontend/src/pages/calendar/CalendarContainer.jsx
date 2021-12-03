@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {CalendarView} from "./CalendarView";
 import ToastMessages from "../../components/toastmessages/ToastMessages";
-import ScheduleApi from "../../services/api/schedule/ScheduleApi";
+import ScheduleApi from "../../services/api/ScheduleApi";
 import TrainingService from "../../services/training/TrainingService";
 
 export const CalendarContainer = () => {
