@@ -157,6 +157,6 @@ public class AuthController {
                 encoder.encode(request.getPassword()),
                 request.getAge(), request.getGender(),
                 request.getBirthdate(), request.getTelephone(),
-                request.getPassport(), request.getAddress());
+                request.getPassport(), request.getAddress(), 0L);
     }
 }

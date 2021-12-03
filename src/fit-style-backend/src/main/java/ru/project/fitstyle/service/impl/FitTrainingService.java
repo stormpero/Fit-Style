@@ -11,6 +11,7 @@ import ru.project.fitstyle.model.dto.training.TrainingNameInfo;
 import ru.project.fitstyle.model.entity.training.GroupTraining;
 import ru.project.fitstyle.model.entity.training.PersonalTraining;
 import ru.project.fitstyle.model.entity.training.Training;
+import ru.project.fitstyle.model.entity.user.FitUser;
 import ru.project.fitstyle.service.TrainingService;
 import ru.project.fitstyle.service.exception.training.TrainingNotFoundException;
 
@@ -59,6 +60,20 @@ public class FitTrainingService implements TrainingService {
     @Override
     public void deletePersonalTraining(Long id) {
         personalTrainingRepository.deleteById(id);
+    }
+
+    @Override
+    public void signForGroupTraining(Long trainingId, String fitUserEmail) {
+        GroupTraining groupTraining = groupTrainingRepository.findById(trainingId)
+                .orElseThrow(() -> new TrainingNotFoundException("Group training with that id cannot be found!"));
+//        groupTrainingRepository.
+//        FitUser fitUser =
+//        groupTraining.getFitUsers().add();
+    }
+
+    @Override
+    public void signForPersonalTraining(Long trainingId, String fitUserEmail) {
+
     }
 
     @Override

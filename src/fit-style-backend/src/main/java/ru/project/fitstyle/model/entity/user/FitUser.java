@@ -74,7 +74,7 @@ public class FitUser {
     private String imgURL;
 
     @Column(name = "balance")
-    private Long balance = 0L;
+    private Long balance;
 
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -102,7 +102,7 @@ public class FitUser {
     public FitUser(String name, String surname, String patronymic,
                    String email, String password, String age,
                    String gender, Date birthdate, String telephone,
-                   String passport, String address) {
+                   String passport, String address, Long balance) {
         this.name = name;
         this.surname=surname;
         this.patronymic=patronymic;
@@ -114,6 +114,7 @@ public class FitUser {
         this.telephone = telephone;
         this.passport = passport;
         this.address = address;
+        this.balance = balance;
     }
 
     public Long getId() {

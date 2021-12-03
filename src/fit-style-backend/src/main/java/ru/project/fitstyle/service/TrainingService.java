@@ -23,6 +23,10 @@ public interface TrainingService {
 
     void deletePersonalTraining(Long id);
 
+    void signForGroupTraining(Long trainingId, String fitUserEmail);
+
+    void signForPersonalTraining(Long trainingId, String fitUserEmail);
+
     Training getTrainingById(Long id);
 
     List<GroupTrainingInfo> getCoachGroupTrainingsByCoachId(Long id);

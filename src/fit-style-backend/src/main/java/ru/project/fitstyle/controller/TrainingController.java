@@ -112,6 +112,11 @@ public class TrainingController {
         );
     }
 
+//    @GetMapping("/group/sign/{id}")
+//    public ResponseEntity<SuccessMessage> signForGroupTraining(@PathVariable("id") Long id) {
+//
+//    }
+
     @PreAuthorize("hasRole('COACH')")
     @PostMapping("/personal")
     public ResponseEntity<SuccessMessage> addPersonalTraining(@RequestBody AddEditPersonalTrainingRequest request) {
@@ -126,6 +131,11 @@ public class TrainingController {
                 new SuccessMessage("Success! Personal training created!")
         );
     }
+
+//    @GetMapping("/personal/sign/{id}")
+//    public ResponseEntity<SuccessMessage> signForPersonalTraining(@PathVariable("id") Long id) {
+//
+//    }
 
     @PreAuthorize("hasRole('COACH')")
     @GetMapping("/personal/{id}")

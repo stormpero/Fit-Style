@@ -33,8 +33,7 @@ public class PersonalTraining {
     private Long coachId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "fit_user_id", referencedColumnName = "id",
-            nullable = false)
+    @JoinColumn(name = "fit_user_id", referencedColumnName = "id")
     private FitUser fitUser;
 
     public PersonalTraining() {
