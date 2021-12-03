@@ -53,12 +53,4 @@ public class FitRoleService implements RoleService {
 
         return roles;
     }
-
-    @Override
-    public List<FitUser> getUserByRole(ERole role) {
-        return fitUserRepository.findByRoles(roleRepository.findByName(role)
-                        .orElseThrow(() -> new RoleNotFoundException(role + " cannot be found!")))
-                .filter(list -> list.size() != 0)
-                .orElseThrow(() -> new UsersWithRoleNotFoundException("There are no users with that role: " + role));
-    }
 }

@@ -43,22 +43,22 @@ public class FitTrainingService implements TrainingService {
 
     @Override
     public List<GroupTrainingInfo> getCoachGroupTrainingsByCoachId(Long id) {
-        return groupTrainingRepository.findAllCoachTrainingsByCoachId(id);
+        return groupTrainingRepository.findAllCoachTrainingsWithCoachId(id);
     }
 
     @Override
     public List<PersonalTrainingInfo> getCoachPersonalTrainingsByCoachId(Long id) {
-        return personalTrainingRepository.findAllCoachTrainingsByCoachId(id);
+        return personalTrainingRepository.findAllCoachTrainingsWithCoachId(id);
     }
 
     @Override
     public List<GroupTrainingInfo> getFitUserGroupTrainingsByFitUserEmail(String email) {
-        return groupTrainingRepository.findAllFitUserTrainingsByFitUserEmail(email);
+        return groupTrainingRepository.findAllFitUserTrainingsWithFitUserEmail(email);
     }
 
     @Override
     public List<PersonalTrainingInfo> getFitUserPersonalTrainingsByFitUserEmail(String email) {
-        return personalTrainingRepository.findAllFitUserTrainingsByFitUserEmail(email);
+        return personalTrainingRepository.findAllFitUserTrainingsWithFitUserEmail(email);
     }
 
     @Override

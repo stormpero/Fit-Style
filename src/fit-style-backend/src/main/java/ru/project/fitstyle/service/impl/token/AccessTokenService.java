@@ -28,16 +28,15 @@ public class AccessTokenService implements TokenService {
 
     @Override
     public String generateTokenFromUser(FitUser user) {
-        return JwtTokenHandler
-                .generateJwtToken(user.getEmail(),
-                new Date((new Date()).getTime() + expirationMs),
-                secret);
+        return generateTokenFromUsername(user.getEmail());
     }
 
     @Override
     public String generateTokenFromUsername(String username) {
-        FitUser user = fitUserRepository.findByEmail(username).get();
-        return generateTokenFromUser(user);
+        return JwtTokenHandler
+                .generateJwtToken(username,
+                        new Date((new Date()).getTime() + expirationMs),
+                        secret);
     }
 
     @Override

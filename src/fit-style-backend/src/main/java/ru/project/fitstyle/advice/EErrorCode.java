@@ -1,6 +1,6 @@
 package ru.project.fitstyle.advice;
 
-public enum ErrorCode {
+public enum EErrorCode {
     NOT_FOUND(1),
     REFRESH_TOKEN_EXPIRED(2),
     CANNOT_STORE(3),
@@ -10,7 +10,7 @@ public enum ErrorCode {
 
     private final int code;
 
-    ErrorCode(int code) {
+    EErrorCode(int code) {
         this.code = code;
     }
 

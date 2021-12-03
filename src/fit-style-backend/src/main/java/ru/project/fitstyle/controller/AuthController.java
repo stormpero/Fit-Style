@@ -125,12 +125,10 @@ public class AuthController {
     @GetMapping("/refreshtoken")
     public ResponseEntity<RefreshTokenResponse> refreshToken(@CookieValue(value="refreshToken", required = false)
                                                       String requestRefreshToken) {
-        RefreshToken rToken = (RefreshToken) refreshTokenService.validate(requestRefreshToken);
-        FitUser user = rToken.getUser();
         String jwtToken = accessTokenService
-                .generateTokenFromUser(user);
+                .generateTokenFromUsername(authService.getEmail());
         String refreshToken = refreshTokenService
-                .generateTokenFromUser(user);
+                .generateTokenFromUser(((RefreshToken) (refreshTokenService.validate(requestRefreshToken))).getUser());
 
         return ResponseEntity.ok()
                 .headers(createRefreshTokenCookie(refreshToken))

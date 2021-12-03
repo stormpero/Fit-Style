@@ -32,7 +32,7 @@ public class GlobalExceptionHandler {
                 HttpStatus.BAD_REQUEST.value(),
                 new Date(),
                 ex.getMessage(),
-                ErrorCode.EMAIL_ALREADY_EXISTS.value(),
+                EErrorCode.EMAIL_ALREADY_EXISTS.value(),
                 request.getDescription(false));
     }
 
@@ -46,7 +46,7 @@ public class GlobalExceptionHandler {
                 HttpStatus.NOT_FOUND.value(),
                 new Date(),
                 ex.getMessage(),
-                ErrorCode.NOT_FOUND.value(),
+                EErrorCode.NOT_FOUND.value(),
                 request.getDescription(false));
     }
 
@@ -57,7 +57,7 @@ public class GlobalExceptionHandler {
                 HttpStatus.FORBIDDEN.value(),
                 new Date(),
                 ex.getMessage(),
-                ErrorCode.REFRESH_TOKEN_EXPIRED.value(),
+                EErrorCode.REFRESH_TOKEN_EXPIRED.value(),
                 request.getDescription(false));
     }
 
@@ -68,7 +68,7 @@ public class GlobalExceptionHandler {
                 HttpStatus.BAD_REQUEST.value(),
                 new Date(),
                 ex.getMessage(),
-                ErrorCode.CANNOT_STORE.value(),
+                EErrorCode.CANNOT_STORE.value(),
                 request.getDescription(false));
     }
 
@@ -79,7 +79,7 @@ public class GlobalExceptionHandler {
                 HttpStatus.BAD_REQUEST.value(),
                 new Date(),
                 ex.getMessage(),
-                ErrorCode.USER_IS_NOT_A_COACH.value(),
+                EErrorCode.USER_IS_NOT_A_COACH.value(),
                 request.getDescription(false));
     }
 
@@ -90,7 +90,7 @@ public class GlobalExceptionHandler {
                 HttpStatus.BAD_REQUEST.value(),
                 new Date(),
                 ex.getMessage(),
-                ErrorCode.LESS_THAN_ZERO.value(),
+                EErrorCode.LESS_THAN_ZERO.value(),
                 request.getDescription(false));
     }
 }
