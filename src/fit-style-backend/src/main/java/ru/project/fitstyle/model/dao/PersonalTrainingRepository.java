@@ -13,8 +13,13 @@ import java.util.List;
 public interface PersonalTrainingRepository extends JpaRepository<PersonalTraining, Long> {
     @Query("select new ru.project.fitstyle.model.dto.training.PersonalTrainingInfo(v.id, v.startDate, v.endDate, v.status, w.id, w.name, w.surname, w.patronymic)" +
             "from PersonalTraining v inner join FitUser w on (v.coachId=w.id)" +
-            "where v.coachId = :id")
+            "where w.id = :id")
     List<PersonalTrainingInfo> findAllCoachTrainingsWithCoachId(@Param("id") Long id);
+
+    @Query("select new ru.project.fitstyle.model.dto.training.PersonalTrainingInfo(v.id, v.startDate, v.endDate, v.status, w.id, w.name, w.surname, w.patronymic)" +
+            "from PersonalTraining v inner join FitUser w on (v.coachId=w.id)" +
+            "where w.email = :email")
+    List<PersonalTrainingInfo> findAllCoachTrainingsWithCoachEmail(@Param("email") String email);
 
     @Query("select new ru.project.fitstyle.model.dto.training.PersonalTrainingInfo(v.id, v.startDate, v.endDate, v.status, v.fitUser.id, v.fitUser.name, v.fitUser.surname, v.fitUser.patronymic)" +
             "from PersonalTraining v " +

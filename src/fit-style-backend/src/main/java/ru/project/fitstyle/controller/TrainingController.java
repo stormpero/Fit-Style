@@ -9,7 +9,6 @@ import ru.project.fitstyle.controller.request.training.AddEditGroupTrainingReque
 import ru.project.fitstyle.controller.request.training.AddEditPersonalTrainingRequest;
 import ru.project.fitstyle.controller.request.training.AddEditTrainingRequest;
 import ru.project.fitstyle.controller.response.other.SuccessMessage;
-import ru.project.fitstyle.controller.response.subscription.SubscriptionTypeResponse;
 import ru.project.fitstyle.controller.response.training.TrainingNamesResponse;
 import ru.project.fitstyle.model.entity.training.ETrainingStatus;
 import ru.project.fitstyle.model.entity.training.GroupTraining;
@@ -54,6 +53,14 @@ public class TrainingController {
         return ResponseEntity.ok(
                 new AllTrainingsResponse(trainingService.getCoachGroupTrainingsByCoachId(id),
                         trainingService.getCoachPersonalTrainingsByCoachId(id))
+        );
+    }
+
+    @GetMapping("/coach")
+    public ResponseEntity<AllTrainingsResponse> getCoachTrainings() {
+        return ResponseEntity.ok(
+                new AllTrainingsResponse(trainingService.getCoachGroupTrainingsByCoachEmail(authService.getEmail()),
+                        trainingService.getCoachPersonalTrainingsByCoachEmail(authService.getEmail()))
         );
     }
 

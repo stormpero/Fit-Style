@@ -19,6 +19,10 @@ public interface TrainingService {
 
     List<PersonalTrainingInfo> getCoachPersonalTrainingsByCoachId(Long id);
 
+    List<GroupTrainingInfo> getCoachGroupTrainingsByCoachEmail(String email);
+
+    List<PersonalTrainingInfo> getCoachPersonalTrainingsByCoachEmail(String email);
+
     List<GroupTrainingInfo> getFitUserGroupTrainingsByFitUserEmail(String email);
 
     List<PersonalTrainingInfo> getFitUserPersonalTrainingsByFitUserEmail(String email);
