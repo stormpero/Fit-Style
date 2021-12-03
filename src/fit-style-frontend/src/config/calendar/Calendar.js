@@ -23,14 +23,6 @@ export const formats = {
     },
 }
 
-export const scheduleStyle = () => {
-    return {
-        style: {
-            "min-height": "200px"
-        }
-    }
-}
-
 export const maxTime = new Date(0, 0, 0, 23, 0, 0);
 export const minTime = new Date(0, 0, 0, 7, 0, 0);
 export const views = ['month', 'week', 'day'];
