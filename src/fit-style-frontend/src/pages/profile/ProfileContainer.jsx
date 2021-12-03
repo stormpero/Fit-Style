@@ -16,8 +16,8 @@ export const ProfileContainer = () => {
         Promise.allSettled([ProfileApi.getProfileInfo(), ProfileApi.getProfileImg()]).then(
             response => {
                 const [userInfo, img] = response.map(element => element?.status === "fulfilled" ? element?.value.data : null);
-                userInfo.id = ('000000' + userInfo.id).slice(Math.log(Number(userInfo.id)) * Math.LOG10E + 1 | 0);
-                userInfo.birthdate = DateFormat.convertDataToNormalData(userInfo.birthdate);
+                userInfo.fitUserInfo.id = ('000000' + userInfo.fitUserInfo.id).slice(Math.log(Number(userInfo.fitUserInfo.id)) * Math.LOG10E + 1 | 0);
+                userInfo.fitUserInfo.birthdate = DateFormat.convertDataToNormalData(userInfo.fitUserInfo.birthdate);
 
                 setUserInfo(userInfo);
                 setUserImg(img ? URL.createObjectURL(img) : null);

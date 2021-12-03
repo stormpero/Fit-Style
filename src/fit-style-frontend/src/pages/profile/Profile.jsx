@@ -28,25 +28,25 @@ const Profile = ({userInfo, img, setModalActive}) => {
                     <div className="first-column">
                         <p>
                             <label> Номер клубной карты </label>
-                            <strong>{userInfo.id}</strong>
+                            <strong>{userInfo.fitUserInfo.id}</strong>
                         </p>
                         <p>
                             <label> ФИО </label>
-                            <strong>{userInfo.surname} </strong>
-                            <strong>{userInfo.name} </strong>
-                            <strong>{userInfo.patronymic} </strong>
+                            <strong>{userInfo.fitUserInfo.surname} </strong>
+                            <strong>{userInfo.fitUserInfo.name} </strong>
+                            <strong>{userInfo.fitUserInfo.patronymic} </strong>
                         </p>
                         <p>
                             <label> Возраст </label>
-                            <strong>{userInfo.age}</strong>
+                            <strong>{userInfo.fitUserInfo.age}</strong>
                         </p>
                         <p>
                             <label> Пол </label>
-                            <strong>{userInfo.gender}</strong>
+                            <strong>{userInfo.fitUserInfo.gender}</strong>
                         </p>
                         <p>
                             <label> Дата рождения </label>
-                            <strong>{userInfo.birthdate}</strong>
+                            <strong>{userInfo.fitUserInfo.birthdate}</strong>
                         </p>
                         <p>
                             <label> Роль </label>
@@ -56,15 +56,15 @@ const Profile = ({userInfo, img, setModalActive}) => {
                     <div className="second-column">
                         <p>
                             <label> Телефон </label>
-                            <strong>{userInfo.telephone}</strong>
+                            <strong>{userInfo.fitUserInfo.telephone}</strong>
                         </p>
                         <p>
                             <label> Паспорт </label>
-                            <strong>{userInfo.passport}</strong>
+                            <strong>{userInfo.fitUserInfo.passport}</strong>
                         </p>
                         <p>
                             <label> Адрес </label>
-                            <strong>{userInfo.address}</strong>
+                            <strong>{userInfo.fitUserInfo.address}</strong>
                         </p>
                         <p>
                             <label> Вид абонемента </label>
@@ -76,7 +76,7 @@ const Profile = ({userInfo, img, setModalActive}) => {
                         </p>
                         <p className="p-button">
                             <label> Баланс </label>
-                            <strong>{ProfileService.declinationRuble(userInfo?.balance)}</strong>
+                            <strong>{ProfileService.declinationRuble(userInfo.fitUserInfo.balance)}</strong>
                             <button className="button-53" onClick={() => setModalActive(true)}>Пополнить</button>
                         </p>
                     </div>
