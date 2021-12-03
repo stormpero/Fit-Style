@@ -3,36 +3,69 @@ import Schedule from "./Schedule";
 import "./Schedule.css"
 import ToastMessages from "../../components/toastmessages/ToastMessages";
 import Modal from "../../components/modal/Modal";
-import ScheduleModalTraining from "./form/ScheduleModalTraining";
+import ScheduleModalTrainingInfo from "./form/ScheduleModalTrainingInfo";
 import PermissionService from "../../services/security/permission/PermissionService";
 import ScheduleApi from "../../services/api/schedule/ScheduleApi";
+import TrainingService from "../../services/training/TrainingService";
+import {ScheduleModalTrainingCreate} from "./form/ScheduleModalTrainingCreate";
 
 export const ScheduleContainer = () => {
     const isCoach = PermissionService.hasRole("COACH");
 
     const [eventList, setEventList] = useState([]);
     const [coachList, setCoachList] = useState(null);
-    const [modalActive, setModalActive] = useState(false);
+    const [modalActiveInfo, setModalActiveInfo] = useState(false);
+    const [modalActiveCreate, setModalActiveCreate] = useState(false);
     const [eventInfo, setEventInfo] = useState(null)
-    const [selectCoach, setSelectCoach] = useState("")
+    const [selectCoach, setSelectCoach] = useState("DEFAULT")
     const [isReady, setIsReady] = useState(false);
+    const [reload, setReload] = useState(false);
 
     useEffect(() => {
-        ScheduleApi.getCoachesList().then(
-            response => {
-                setCoachList(response.data?.coaches)
-            },
-            error => {
-                ToastMessages.defaultError();
-            }
-        ).finally(() => setIsReady(true));
-    }, [])
+        if (isCoach) {
+            ScheduleApi.getCoachTrainings().then(
+                response => {
+                    let trainingsListTemp = TrainingService.concatTrainings(response.data);
+                    setEventList(trainingsListTemp);
+                },
+                error => {
+                    ToastMessages.defaultError();
+                }).finally(() => setIsReady(true));
+        } else {
+            ScheduleApi.getCoachesList().then(
+                response => {
+                    setCoachList(response.data?.coaches)
+                },
+                error => {
+                    ToastMessages.defaultError();
+                }
+            ).finally(() => setIsReady(true));
+        }
 
-    const handleSelect = (event) => {
+    }, [isCoach, reload])
+
+    useEffect(() => {
+        if (selectCoach !== "DEFAULT") {
+            ScheduleApi.getCoachTrainings(selectCoach).then(
+                response => {
+                    let trainingsListTemp = TrainingService.concatTrainings(response.data);
+                    setEventList(trainingsListTemp);
+                },
+                error => {
+                    ToastMessages.defaultError();
+                });
+        }
+    }, [selectCoach])
+
+    const handleSelectSlot = (event) => {
         if (event.start.getDay() !== event.end.getDay()) {
-            ToastMessages.error("Тренировки можно назначать только в определенный день")
+            ToastMessages.error("Тренировки можно назначать только на определенное время")
             return
         }
+        setEventInfo(event);
+        setModalActiveCreate(true)
+
+        return;
 
         let date = new Date(event.start.getFullYear(), event.start.getMonth(), event.start.getDate());
         let count = event.end.getHours() - event.start.getHours();
@@ -48,22 +81,6 @@ export const ScheduleContainer = () => {
             ToastMessages.error("Тренировка(и) не создана")
         } else {
             ToastMessages.success("Тренировка(и) созданы")
-        }
-
-    }
-
-    const handleSelectInput = (event) => {
-        const {value} = event.target;
-        setSelectCoach(value);
-
-        if (value !== "DEFAULT") {
-            ScheduleApi.getCoachTrainings(value).then(
-                response => {
-                    console.log(response.data)
-                },
-                error => {
-                    ToastMessages.defaultError();
-                });
         }
     }
 
@@ -84,14 +101,18 @@ export const ScheduleContainer = () => {
 
     const deleteTraining = (event) => {
         setEventList(prevState => prevState.filter(value => value.start.getTime() !== event.start.getTime()))
-        setModalActive(false)
+        setModalActiveInfo(false)
     }
 
-    const eventSelectHandle = (event) => {
-        setModalActive(true);
+    const handleSelectInput = (event) => {
+        const {value} = event.target;
+        setSelectCoach(value);
+    }
+
+    const handleSelectEvent = (event) => {
+        setModalActiveInfo(true);
         setEventInfo(event)
     }
-
 
     return (
         <div>
@@ -107,14 +128,16 @@ export const ScheduleContainer = () => {
                     selectValue: selectCoach
                 }}
                 schedule={{
-                    handleSelect: handleSelect,
-                    eventSelectHandle: eventSelectHandle
+                    handleSelectSlot: handleSelectSlot,
+                    handleSelectEvent: handleSelectEvent
                 }}
             />}
-           <Modal active={modalActive} setActive={setModalActive} options={{closeBackground: true}}>
-                <ScheduleModalTraining setActive={setModalActive} eventInfo={eventInfo} deleteTraining={deleteTraining}/>
+           <Modal active={modalActiveInfo} setActive={setModalActiveInfo} options={{closeBackground: true}}>
+                <ScheduleModalTrainingInfo isActive={modalActiveInfo} eventInfo={eventInfo} deleteTraining={deleteTraining}/>
+           </Modal>
+            <Modal active={modalActiveCreate} setActive={setModalActiveCreate} options={{closeBackground: true}}>
+                <ScheduleModalTrainingCreate setActive={setModalActiveCreate} eventInfo={eventInfo} setReload={setReload}/>
             </Modal>
-
         </div>
     );
 

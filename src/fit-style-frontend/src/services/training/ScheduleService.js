@@ -42,6 +42,15 @@ class ScheduleService {
         }
         return styles;
     }
+
+    getTrainingsListFromDate(startDate, endDate) {
+        let trainingsDates = []
+        let dateNoTime = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
+        for (let i = startDate.getHours(); i < endDate.getHours(); i++) {
+            trainingsDates.push(new Date(dateNoTime.setHours(i)));
+        }
+        return trainingsDates;
+    }
 }
 
 export default new ScheduleService();

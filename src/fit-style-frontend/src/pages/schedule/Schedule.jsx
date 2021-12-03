@@ -1,7 +1,7 @@
 import React from 'react';
 import {Calendar, momentLocalizer} from "react-big-calendar";
 import {views} from "react-big-calendar/lib/utils/constants";
-import {formats, messagesRu, scheduleStyle} from "../../config/calendar/Calendar";
+import {formats, messagesRu} from "../../config/calendar/Calendar";
 import moment from "moment";
 import TrainingService from "../../services/training/ScheduleService";
 
@@ -11,18 +11,21 @@ const Schedule = ({lists, isCoach, selectInput, schedule}) => {
     return (
         <div className="calendar-container" >
             <h1 className="calendar-title">Расписание тренеровок</h1>
-            <div>
-                <select className="form-control" name=""
-                        onChange={selectInput.handleSelect}
-                        value={selectInput.selectValue}>
-                    <option value="DEFAULT">Выберите тренера</option>
-                    {lists.coaches.map((coach, index) => <option value={coach.id} key={index}>{coach.surname} {coach.name} {coach.patronymic}</option>)}
-                </select>
-            </div>
-
+            {!isCoach &&
+                <div>
+                    <select className="form-control" name=""
+                            onChange={selectInput.handleSelect}
+                            value={selectInput.selectValue}>
+                        <option value="DEFAULT">Выберите тренера</option>
+                        {lists.coaches.map((coach, index) => <option value={coach.id} key={index}>{coach.surname} {coach.name} {coach.patronymic}</option>)}
+                    </select>
+                </div>
+            }
             <Calendar
                 selectable={isCoach}
                 localizer={localize}
+                startAccessor={'startDate'}
+                endAccessor={'endDate'}
                 events={lists.trainings}
                 style={{ height: "94vh" }}
                 views={['month', 'week', 'day']}
@@ -31,16 +34,17 @@ const Schedule = ({lists, isCoach, selectInput, schedule}) => {
                 formats={formats}
                 min={new Date(0, 0, 0, 7, 0, 0)}
                 max={new Date(0, 0, 0, 23, 0, 0)}
-                onSelectEvent={schedule.eventSelectHandle}
-                onSelectSlot={schedule.handleSelect}
+                onSelectEvent={schedule.handleSelectEvent}
+                onSelectSlot={schedule.handleSelectSlot}
                 step={60}
                 timeslots={1}
                 eventPropGetter={(event) => TrainingService.getEventStatusColor(event.status)}
                 titleAccessor={event => {
-                    return "ФИО Тренера Статус"
+                    let fio = `${event.coach.surname} ${event.coach.name.slice(0, 1)}. ${event.coach.patronymic.slice(0, 1)}. Статус: ${TrainingService.getStatusName(event.status)}`;
+                    return event.isPersonal ? fio : event.title + " " + fio;
                 }}
-                slotPropGetter={() => scheduleStyle}
                 dayLayoutAlgorithm={'no-overlap'}
+
             />
         </div>
     );
