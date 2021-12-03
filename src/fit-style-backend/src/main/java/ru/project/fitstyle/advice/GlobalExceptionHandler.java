@@ -10,6 +10,7 @@ import ru.project.fitstyle.service.exception.news.NewsStoryNotFoundException;
 import ru.project.fitstyle.service.exception.role.UsersWithRoleNotFoundException;
 import ru.project.fitstyle.service.exception.storage.StorageException;
 import ru.project.fitstyle.service.exception.subscription.SubscriptionTypeNotFoundException;
+import ru.project.fitstyle.service.exception.token.AnonymousTokenException;
 import ru.project.fitstyle.service.exception.token.RefreshTokenExpiredException;
 import ru.project.fitstyle.service.exception.token.RefreshTokenNotFoundException;
 import ru.project.fitstyle.service.exception.training.TrainingNotFoundException;
@@ -58,6 +59,17 @@ public class GlobalExceptionHandler {
                 new Date(),
                 ex.getMessage(),
                 EErrorCode.REFRESH_TOKEN_EXPIRED.value(),
+                request.getDescription(false));
+    }
+
+    @ExceptionHandler(value={AnonymousTokenException.class})
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public ErrorMessage handleAnonymousTokenException(RuntimeException ex, WebRequest request) {
+        return new ErrorMessage(
+                HttpStatus.FORBIDDEN.value(),
+                new Date(),
+                ex.getMessage(),
+                EErrorCode.ANONYMOUS_TOKEN.value(),
                 request.getDescription(false));
     }
 

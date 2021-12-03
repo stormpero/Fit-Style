@@ -17,11 +17,8 @@ public class AccessTokenService implements TokenService {
 
     private final Long expirationMs;
 
-    private final FitUserRepository fitUserRepository;
-
     @Autowired
-    public AccessTokenService(FitUserRepository fitUserRepository, AccessTokenProperties accessTokenProperties) {
-        this.fitUserRepository = fitUserRepository;
+    public AccessTokenService(AccessTokenProperties accessTokenProperties) {
         this.secret = accessTokenProperties.getSecret();
         this.expirationMs = accessTokenProperties.getExpirationMs();
     }

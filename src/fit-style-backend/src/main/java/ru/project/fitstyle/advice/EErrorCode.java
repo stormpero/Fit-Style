@@ -6,7 +6,8 @@ public enum EErrorCode {
     CANNOT_STORE(3),
     EMAIL_ALREADY_EXISTS(4),
     USER_IS_NOT_A_COACH(5),
-    LESS_THAN_ZERO(6);
+    LESS_THAN_ZERO(6),
+    ANONYMOUS_TOKEN(7);
 
     private final int code;
 
