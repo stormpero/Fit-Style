@@ -10,9 +10,8 @@ import org.springframework.stereotype.Repository;
 import ru.project.fitstyle.model.dto.user.CoachInfo;
 import ru.project.fitstyle.model.dto.user.FitUserInfo;
 import ru.project.fitstyle.model.dto.user.RoleInfo;
-import ru.project.fitstyle.model.dto.user.SubscriptionResponseInfo;
+import ru.project.fitstyle.model.dto.user.SubscriptionInfo;
 import ru.project.fitstyle.model.entity.user.FitUser;
-import ru.project.fitstyle.model.entity.user.Role;
 
 
 @Repository
@@ -40,20 +39,20 @@ public interface FitUserRepository extends JpaRepository<FitUser, Long> {
             "where v.id=:id")
     Optional<FitUserInfo> findFitUserInfoWithId(@Param("id") Long id);
 
-    @Query(value = "select new ru.project.fitstyle.model.dto.user.SubscriptionResponseInfo(v.subscription.subscriptionType.name, v.subscription.endDate) " +
+    @Query(value = "select new ru.project.fitstyle.model.dto.user.SubscriptionInfo(v.subscription.subscriptionType.name, v.subscription.endDate) " +
             "from FitUser v " +
             "where v.id=:id")
-    Optional<SubscriptionResponseInfo> findSubscriptionResponseInfoWithId(@Param("id") Long id);
+    Optional<SubscriptionInfo> findSubscriptionResponseInfoWithId(@Param("id") Long id);
 
     @Query(value = "select new ru.project.fitstyle.model.dto.user.FitUserInfo(v.id, v.email, v.password, v.name, v.surname, v.patronymic, v.age, v.gender, v.birthdate, v.telephone, v.passport, v.address, v.imgURL, v.balance) " +
             "from FitUser v " +
             "where v.email=:email")
     Optional<FitUserInfo> findFitUserInfoWithEmail(@Param("email") String email);
 
-    @Query(value = "select new ru.project.fitstyle.model.dto.user.SubscriptionResponseInfo(v.subscription.subscriptionType.name, v.subscription.endDate) " +
+    @Query(value = "select new ru.project.fitstyle.model.dto.user.SubscriptionInfo(v.subscription.subscriptionType.name, v.subscription.endDate) " +
             "from FitUser v " +
             "where v.email=:email")
-    Optional<SubscriptionResponseInfo> findSubscriptionResponseInfoWithEmail(@Param("email") String email);
+    Optional<SubscriptionInfo> findSubscriptionResponseInfoWithEmail(@Param("email") String email);
 
     Boolean existsByEmail(String email);
 }

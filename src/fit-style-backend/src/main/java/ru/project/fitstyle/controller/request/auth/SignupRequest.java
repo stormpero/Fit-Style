@@ -52,9 +52,9 @@ public class SignupRequest {
 
     private List<String> roles;
 
-    private SubscriptionRequestInfo subscriptionRequestInfo;
+    private SubscriptionInfo subscriptionInfo;
 
-    public static class SubscriptionRequestInfo {
+    public static class SubscriptionInfo {
         @NotNull(message = "subscriptionTypeId should not be blank")
         private Long subscriptionTypeId;
 
@@ -176,11 +176,11 @@ public class SignupRequest {
       this.roles = roles;
     }
 
-    public SubscriptionRequestInfo getSubscriptionTypeInfo() {
-        return subscriptionRequestInfo;
+    public SubscriptionInfo getSubscriptionTypeInfo() {
+        return subscriptionInfo;
     }
 
-    public void setSubscriptionTypeInfo(SubscriptionRequestInfo subscriptionRequestInfo) {
-        this.subscriptionRequestInfo = subscriptionRequestInfo;
+    public void setSubscriptionTypeInfo(SubscriptionInfo subscriptionInfo) {
+        this.subscriptionInfo = subscriptionInfo;
     }
 }

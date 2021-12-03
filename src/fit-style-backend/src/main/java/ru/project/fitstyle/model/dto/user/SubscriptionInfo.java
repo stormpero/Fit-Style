@@ -2,12 +2,12 @@ package ru.project.fitstyle.model.dto.user;
 
 import java.util.Date;
 
-public class SubscriptionResponseInfo {
+public class SubscriptionInfo {
     private final String name;
 
     private final Date endDate;
 
-    public SubscriptionResponseInfo(String name, Date endDate) {
+    public SubscriptionInfo(String name, Date endDate) {
         this.name = name;
         this.endDate = endDate;
     }

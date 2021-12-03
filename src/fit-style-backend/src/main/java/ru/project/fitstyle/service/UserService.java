@@ -3,7 +3,7 @@ package ru.project.fitstyle.service;
 import ru.project.fitstyle.model.dto.user.CoachInfo;
 import ru.project.fitstyle.model.dto.user.FitUserInfo;
 import ru.project.fitstyle.model.dto.user.RoleInfo;
-import ru.project.fitstyle.model.dto.user.SubscriptionResponseInfo;
+import ru.project.fitstyle.model.dto.user.SubscriptionInfo;
 import ru.project.fitstyle.model.entity.subscription.Subscription;
 import ru.project.fitstyle.model.entity.user.FitUser;
 import ru.project.fitstyle.model.entity.user.Role;
@@ -26,9 +26,9 @@ public interface UserService {
 
     FitUserInfo getFitUserInfoById(Long id);
 
-    SubscriptionResponseInfo getSubscriptionResponseInfoByEmail(String email);
+    SubscriptionInfo getSubscriptionResponseInfoByEmail(String email);
 
-    SubscriptionResponseInfo getSubscriptionResponseInfoById(Long id);
+    SubscriptionInfo getSubscriptionResponseInfoById(Long id);
 
     List<RoleInfo> getUserRolesByEmail(String email);
 

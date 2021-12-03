@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.project.fitstyle.model.dto.user.CoachInfo;
 import ru.project.fitstyle.model.dto.user.FitUserInfo;
 import ru.project.fitstyle.model.dto.user.RoleInfo;
-import ru.project.fitstyle.model.dto.user.SubscriptionResponseInfo;
+import ru.project.fitstyle.model.dto.user.SubscriptionInfo;
 import ru.project.fitstyle.model.entity.subscription.Subscription;
 import ru.project.fitstyle.model.entity.user.FitUser;
 import ru.project.fitstyle.model.entity.user.Role;
@@ -81,13 +81,13 @@ public class FitUserService implements UserService {
     }
 
     @Override
-    public SubscriptionResponseInfo getSubscriptionResponseInfoByEmail(String email) {
+    public SubscriptionInfo getSubscriptionResponseInfoByEmail(String email) {
         return fitUserRepository.findSubscriptionResponseInfoWithEmail(email)
                 .orElseThrow(() -> new UserNotFoundException("User with that email cannot be found!"));
     }
 
     @Override
-    public SubscriptionResponseInfo getSubscriptionResponseInfoById(Long id) {
+    public SubscriptionInfo getSubscriptionResponseInfoById(Long id) {
         return fitUserRepository.findSubscriptionResponseInfoWithId(id)
                 .orElseThrow(() -> new UserNotFoundException("User with that id cannot be found!"));
     }
