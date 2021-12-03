@@ -14,12 +14,14 @@ export const URL_USERTEST = "test/user";
 // PROFILE //
 export const URL_PROFILE_INFO = "profile";
 export const URL_PROFILE_IMG = "profile/user_image";
-export const URL_CHANGE_BALANCE = "profile/change_balance"
+export const URL_CHANGE_BALANCE = "profile/change_balance";
 // PERMISSIONS //
 export const URL_ROLES = "permission/roles";
 // NEWS //
-export const URL_NEWSADD = "news";
+export const URL_ADD_NEWS = "news";
 // SCHEDULE //
 export const URL_TRAINING = "training/user";
-export const URL_COACHES = "coach"
-export const URL_COACH_TRAININGS = "training/coach/"
+export const URL_COACHES = "coach";
+export const URL_COACH_TRAININGS = "training/coach/";
+export const URL_ADD_TRAINING_PERSONAL = "training/personal";
+export const URL_ADD_TRAINING_GROUP = "training/group";
