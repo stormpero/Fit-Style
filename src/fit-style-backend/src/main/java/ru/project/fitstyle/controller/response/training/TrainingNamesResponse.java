@@ -6,13 +6,13 @@ import ru.project.fitstyle.model.dto.training.TrainingNameInfo;
 import java.util.List;
 
 public class TrainingNamesResponse {
-    private final List<TrainingNameInfo> trainingName;
+    private final List<TrainingNameInfo> trainingNames;
 
-    public TrainingNamesResponse(List<TrainingNameInfo> trainingName) {
-        this.trainingName = trainingName;
+    public TrainingNamesResponse(List<TrainingNameInfo> trainingNames) {
+        this.trainingNames = trainingNames;
     }
 
-    public List<TrainingNameInfo> getTrainingName() {
-        return trainingName;
+    public List<TrainingNameInfo> getTrainingNames() {
+        return trainingNames;
     }
 }
