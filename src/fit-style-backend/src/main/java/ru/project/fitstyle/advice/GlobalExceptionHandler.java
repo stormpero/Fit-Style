@@ -11,8 +11,7 @@ import ru.project.fitstyle.service.exception.role.UsersWithRoleNotFoundException
 import ru.project.fitstyle.service.exception.storage.StorageException;
 import ru.project.fitstyle.service.exception.subscription.SubscriptionTypeNotFoundException;
 import ru.project.fitstyle.service.exception.token.AnonymousTokenException;
-import ru.project.fitstyle.service.exception.token.RefreshTokenExpiredException;
-import ru.project.fitstyle.service.exception.token.RefreshTokenNotFoundException;
+import ru.project.fitstyle.service.exception.token.RefreshTokenNotValidException;
 import ru.project.fitstyle.service.exception.training.TrainingNotFoundException;
 import ru.project.fitstyle.service.exception.user.BalanceLessThanZeroException;
 import ru.project.fitstyle.service.exception.user.EmailAlreadyExistsException;
@@ -38,9 +37,8 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(value = {NewsPageNotFoundException.class, NewsStoryNotFoundException.class,
-            FileNotFoundException.class, SubscriptionTypeNotFoundException.class, RefreshTokenNotFoundException.class,
-            UserNotFoundException.class, RoleNotFoundException.class, TrainingNotFoundException.class,
-            UsersWithRoleNotFoundException.class})
+            FileNotFoundException.class, SubscriptionTypeNotFoundException.class, UserNotFoundException.class,
+            RoleNotFoundException.class, TrainingNotFoundException.class, UsersWithRoleNotFoundException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorMessage handleNotFoundException(RuntimeException ex, WebRequest request) {
         return new ErrorMessage(
@@ -51,14 +49,14 @@ public class GlobalExceptionHandler {
                 request.getDescription(false));
     }
 
-    @ExceptionHandler(value = {RefreshTokenExpiredException.class})
+    @ExceptionHandler(value = {RefreshTokenNotValidException.class})
     @ResponseStatus(HttpStatus.FORBIDDEN)
-    public ErrorMessage handleRefreshTokenExpiredException(RuntimeException ex, WebRequest request) {
+    public ErrorMessage handleRefreshTokenNotValid(RuntimeException ex, WebRequest request) {
         return new ErrorMessage(
                 HttpStatus.FORBIDDEN.value(),
                 new Date(),
                 ex.getMessage(),
-                EErrorCode.REFRESH_TOKEN_EXPIRED.value(),
+                EErrorCode.REFRESH_NOT_VALID.value(),
                 request.getDescription(false));
     }
 

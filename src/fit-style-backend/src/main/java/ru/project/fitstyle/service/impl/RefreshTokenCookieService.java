@@ -11,16 +11,18 @@ import ru.project.fitstyle.service.CookieService;
 public class RefreshTokenCookieService implements CookieService {
 
     private final String cookieName;
+    private final Long cookieExpireTime;
 
     @Autowired
     public RefreshTokenCookieService(RefreshTokenCookieProperties refreshTokenCookieProperties) {
         this.cookieName = refreshTokenCookieProperties.getName();
+        this.cookieExpireTime = refreshTokenCookieProperties.getExpireTime();
     }
 
     @Override
     public HttpCookie createCookie(String token, Long duration) {
         return ResponseCookie.from(cookieName, token)
-                .maxAge(duration/1000)
+                .maxAge(cookieExpireTime)
                 .httpOnly(true)
                 .secure(true)
                 .path("/")

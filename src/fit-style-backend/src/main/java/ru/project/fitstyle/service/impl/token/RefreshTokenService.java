@@ -9,8 +9,7 @@ import ru.project.fitstyle.model.dao.RefreshTokenRepository;
 import ru.project.fitstyle.model.dao.FitUserRepository;
 import ru.project.fitstyle.security.JwtTokenHandler;
 import ru.project.fitstyle.service.TokenService;
-import ru.project.fitstyle.service.exception.token.RefreshTokenExpiredException;
-import ru.project.fitstyle.service.exception.token.RefreshTokenNotFoundException;
+import ru.project.fitstyle.service.exception.token.RefreshTokenNotValidException;
 import ru.project.fitstyle.service.exception.user.UserNotFoundException;
 
 import java.time.Instant;
@@ -68,14 +67,14 @@ public class RefreshTokenService implements TokenService {
     public Object validate(String token) {
         RefreshToken refreshToken = refreshTokenRepository.findByToken(token)
                 .orElseThrow(() ->
-                        new RefreshTokenNotFoundException("Refresh token not found!"));
+                        new RefreshTokenNotValidException("Refresh token not found!"));
 
         if (refreshToken.getExpiryDate().compareTo(Instant.now()) >= 0) {
             return refreshToken;
         }
         else {
             refreshTokenRepository.delete(refreshToken);
-            throw new RefreshTokenExpiredException("Refresh token expired!");
+            throw new RefreshTokenNotValidException("Refresh token expired!");
         }
     }
 
