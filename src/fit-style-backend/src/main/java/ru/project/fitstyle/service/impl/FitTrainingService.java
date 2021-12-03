@@ -7,6 +7,7 @@ import ru.project.fitstyle.model.dao.PersonalTrainingRepository;
 import ru.project.fitstyle.model.dao.TrainingRepository;
 import ru.project.fitstyle.model.dto.training.GroupTrainingInfo;
 import ru.project.fitstyle.model.dto.training.PersonalTrainingInfo;
+import ru.project.fitstyle.model.dto.training.TrainingNameInfo;
 import ru.project.fitstyle.model.entity.training.GroupTraining;
 import ru.project.fitstyle.model.entity.training.PersonalTraining;
 import ru.project.fitstyle.model.entity.training.Training;
@@ -59,6 +60,11 @@ public class FitTrainingService implements TrainingService {
     @Override
     public List<PersonalTrainingInfo> getFitUserPersonalTrainingsByFitUserEmail(String email) {
         return personalTrainingRepository.findAllFitUserTrainingsWithFitUserEmail(email);
+    }
+
+    @Override
+    public List<TrainingNameInfo> getTrainingNames() {
+        return trainingRepository.findAllTrainingNames();
     }
 
     @Override

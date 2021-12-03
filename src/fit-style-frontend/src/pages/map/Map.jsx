@@ -10,6 +10,18 @@ import reception from "../../assets/reception.png";
 export const Map = () => {
     return (
         <div className="map">
+            <ul className="circles">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
             <h1 className="map-title">Карта зала</h1>
             <div className="map-picture-container">
                 <center>

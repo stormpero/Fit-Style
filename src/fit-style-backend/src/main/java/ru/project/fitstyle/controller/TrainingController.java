@@ -9,6 +9,8 @@ import ru.project.fitstyle.controller.request.training.AddEditGroupTrainingReque
 import ru.project.fitstyle.controller.request.training.AddEditPersonalTrainingRequest;
 import ru.project.fitstyle.controller.request.training.AddEditTrainingRequest;
 import ru.project.fitstyle.controller.response.other.SuccessMessage;
+import ru.project.fitstyle.controller.response.subscription.SubscriptionTypeResponse;
+import ru.project.fitstyle.controller.response.training.TrainingNamesResponse;
 import ru.project.fitstyle.model.entity.training.ETrainingStatus;
 import ru.project.fitstyle.model.entity.training.GroupTraining;
 import ru.project.fitstyle.model.entity.training.PersonalTraining;
@@ -63,6 +65,12 @@ public class TrainingController {
         return ResponseEntity.ok(
                 new SuccessMessage("Success! Training created!")
         );
+    }
+
+    @PreAuthorize("hasRole('COACH')")
+    @GetMapping("/name")
+    public ResponseEntity<TrainingNamesResponse> getTrainingNames() {
+        return ResponseEntity.ok(new TrainingNamesResponse(trainingService.getTrainingNames()));
     }
 
     @PreAuthorize("hasRole('COACH')")

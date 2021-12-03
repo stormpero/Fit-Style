@@ -32,11 +32,25 @@ export default class UserContent extends Component {
     const email = this.state.email;
 
     return (
+        <div>
+          <ul className="circles">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
       <div className="container">
         <header className="jumbotron">
-          <h3>{this.state.content + email + "!"}</h3>
+          <h3 className="text-white">{this.state.content + email + "!"}</h3>
         </header>
       </div>
+        </div>
     );
   }
 }
