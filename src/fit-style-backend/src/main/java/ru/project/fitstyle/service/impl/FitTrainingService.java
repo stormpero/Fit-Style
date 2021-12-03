@@ -11,7 +11,6 @@ import ru.project.fitstyle.model.dto.training.TrainingNameInfo;
 import ru.project.fitstyle.model.entity.training.GroupTraining;
 import ru.project.fitstyle.model.entity.training.PersonalTraining;
 import ru.project.fitstyle.model.entity.training.Training;
-import ru.project.fitstyle.model.entity.user.FitUser;
 import ru.project.fitstyle.service.TrainingService;
 import ru.project.fitstyle.service.exception.training.TrainingNotFoundException;
 
@@ -114,6 +113,6 @@ public class FitTrainingService implements TrainingService {
 
     @Override
     public List<TrainingNameInfo> getTrainingNames() {
-        return trainingRepository.findAllTrainingNames();
+        return trainingRepository.findAllTrainingNameInfo();
     }
 }

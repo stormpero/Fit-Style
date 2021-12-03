@@ -13,5 +13,5 @@ import java.util.List;
 public interface TrainingRepository extends JpaRepository<Training, Long> {
     @Query(value = "select new ru.project.fitstyle.model.dto.training.TrainingNameInfo(v.id, v.name) " +
             "from Training v")
-    List<TrainingNameInfo> findAllTrainingNames();
+    List<TrainingNameInfo> findAllTrainingNameInfo();
 }
