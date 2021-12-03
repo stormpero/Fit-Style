@@ -66,7 +66,7 @@ public class RefreshTokenService implements TokenService {
 
     @Override
     public Object validate(String token) {
-        RefreshToken refreshToken= refreshTokenRepository.findByToken(token)
+        RefreshToken refreshToken = refreshTokenRepository.findByToken(token)
                 .orElseThrow(() ->
                         new RefreshTokenNotFoundException("Refresh token not found!"));
 

@@ -20,6 +20,7 @@ public class RefreshTokenCookieService implements CookieService {
     @Override
     public HttpCookie createCookie(String token, Long duration) {
         return ResponseCookie.from(cookieName, token)
+                .maxAge(duration/1000)
                 .httpOnly(true)
                 .secure(true)
                 .path("/")
