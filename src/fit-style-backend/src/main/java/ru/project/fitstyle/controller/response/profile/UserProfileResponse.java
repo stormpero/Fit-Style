@@ -4,20 +4,19 @@ import ru.project.fitstyle.model.dto.user.FitUserInfo;
 import ru.project.fitstyle.model.dto.user.RoleInfo;
 import ru.project.fitstyle.model.dto.user.SubscriptionResponseInfo;
 
-import java.util.Date;
 import java.util.List;
 
 public class UserProfileResponse {
 
     private final FitUserInfo fitUserInfo;
 
-    private final SubscriptionResponseInfo subscriptionResponseInfo;
+    private final SubscriptionResponseInfo subscriptionInfo;
 
     private final List<RoleInfo> roles;
 
-    public UserProfileResponse(FitUserInfo fitUserInfo, SubscriptionResponseInfo subscriptionResponseInfo, List<RoleInfo> roles) {
+    public UserProfileResponse(FitUserInfo fitUserInfo, SubscriptionResponseInfo subscriptionInfo, List<RoleInfo> roles) {
         this.fitUserInfo = fitUserInfo;
-        this.subscriptionResponseInfo = subscriptionResponseInfo;
+        this.subscriptionInfo = subscriptionInfo;
         this.roles = roles;
     }
 
@@ -25,8 +24,8 @@ public class UserProfileResponse {
         return fitUserInfo;
     }
 
-    public SubscriptionResponseInfo getSubscriptionResponseInfo() {
-        return subscriptionResponseInfo;
+    public SubscriptionResponseInfo getSubscriptionInfo() {
+        return subscriptionInfo;
     }
 
     public List<RoleInfo> getRoles() {
