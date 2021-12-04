@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.project.fitstyle.controller.request.training.AddEditGroupTrainingRequest;
 import ru.project.fitstyle.controller.request.training.AddEditPersonalTrainingRequest;
 import ru.project.fitstyle.controller.request.training.AddEditTrainingRequest;
-import ru.project.fitstyle.controller.response.other.SuccessMessage;
+import ru.project.fitstyle.controller.response.SuccessMessage;
 import ru.project.fitstyle.controller.response.training.TrainingNamesResponse;
 import ru.project.fitstyle.model.entity.training.ETrainingStatus;
 import ru.project.fitstyle.model.entity.training.GroupTraining;

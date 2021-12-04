@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.project.fitstyle.model.entity.news.News;
 import ru.project.fitstyle.controller.request.news.AddEditNewsRequest;
 import ru.project.fitstyle.controller.response.news.NewsPageResponse;
-import ru.project.fitstyle.controller.response.other.SuccessMessage;
+import ru.project.fitstyle.controller.response.SuccessMessage;
 import ru.project.fitstyle.service.NewsService;
 import ru.project.fitstyle.service.StorageService;
 

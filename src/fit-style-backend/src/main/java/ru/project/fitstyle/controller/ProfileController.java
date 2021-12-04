@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.project.fitstyle.controller.request.profile.ChangeBalanceRequest;
-import ru.project.fitstyle.controller.response.other.SuccessMessage;
+import ru.project.fitstyle.controller.response.SuccessMessage;
 import ru.project.fitstyle.model.entity.user.FitUser;
 import ru.project.fitstyle.controller.response.profile.UserProfileResponse;
 import ru.project.fitstyle.service.AuthService;
