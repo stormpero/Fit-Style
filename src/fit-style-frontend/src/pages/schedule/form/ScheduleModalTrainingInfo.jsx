@@ -2,7 +2,7 @@ import React from 'react';
 import DateFormat from "../../../utils/DateConvert";
 import TrainingService from "../../../services/training/ScheduleService";
 function ScheduleModalTrainingInfo({isActive, eventInfo, deleteTraining}) {
-    return (eventInfo && isActive ?
+    return (eventInfo && !eventInfo.action ?
         <div>
             <h4 className="title">Информация о тренировке</h4>
             <div className="d-flex justify-content-around">

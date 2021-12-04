@@ -142,5 +142,3 @@ export const ScheduleContainer = () => {
     );
 
 }
-
-export default ScheduleContainer;
