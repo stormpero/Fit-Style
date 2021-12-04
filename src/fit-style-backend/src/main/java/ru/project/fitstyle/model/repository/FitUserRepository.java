@@ -19,37 +19,37 @@ public interface FitUserRepository extends JpaRepository<FitUser, Long> {
 
     Optional<FitUser> findByEmail(String email);
 
-    @Query(value = "select new ru.project.fitstyle.model.dto.user.CoachDto(v.id, v.name, v.surname, v.patronymic) " +
+    @Query("select new ru.project.fitstyle.model.dto.user.CoachDto(v.id, v.name, v.surname, v.patronymic) " +
             "from FitUser v inner join v.roles w on w.name='ROLE_COACH'")
     Optional<List<CoachDto>> findAllCoaches();
 
-    @Query(value = "select new ru.project.fitstyle.model.dto.user.RoleDto(w.id, w.name) " +
+    @Query("select new ru.project.fitstyle.model.dto.user.RoleDto(w.id, w.name) " +
             "from FitUser v inner join v.roles w " +
             "where v.email=:email")
     Optional<List<RoleDto>> findRolesWithEmail(@Param("email") final String email);
 
-    @Query(value = "select new ru.project.fitstyle.model.dto.user.RoleDto(w.id, w.name) " +
+    @Query("select new ru.project.fitstyle.model.dto.user.RoleDto(w.id, w.name) " +
             "from FitUser v inner join v.roles w " +
             "where v.id=:id")
     Optional<List<RoleDto>> findRolesWithId(@Param("id") final Long id);
 
 
-    @Query(value = "select new ru.project.fitstyle.model.dto.user.FitUserDto(v.id, v.email, v.password, v.name, v.surname, v.patronymic, v.age, v.gender, v.birthdate, v.telephone, v.passport, v.address, v.imgURL, v.balance) " +
+    @Query("select new ru.project.fitstyle.model.dto.user.FitUserDto(v.id, v.email, v.password, v.name, v.surname, v.patronymic, v.age, v.gender, v.birthdate, v.telephone, v.passport, v.address, v.imgURL, v.balance) " +
             "from FitUser v " +
             "where v.id=:id")
     Optional<FitUserDto> findFitUserInfoWithId(@Param("id") final Long id);
 
-    @Query(value = "select new ru.project.fitstyle.model.dto.user.SubscriptionDto(v.subscription.subscriptionType.name, v.subscription.endDate) " +
+    @Query("select new ru.project.fitstyle.model.dto.user.SubscriptionDto(v.subscription.subscriptionType.name, v.subscription.endDate) " +
             "from FitUser v " +
             "where v.id=:id")
     Optional<SubscriptionDto> findSubscriptionResponseInfoWithId(@Param("id") final Long id);
 
-    @Query(value = "select new ru.project.fitstyle.model.dto.user.FitUserDto(v.id, v.email, v.password, v.name, v.surname, v.patronymic, v.age, v.gender, v.birthdate, v.telephone, v.passport, v.address, v.imgURL, v.balance) " +
+    @Query("select new ru.project.fitstyle.model.dto.user.FitUserDto(v.id, v.email, v.password, v.name, v.surname, v.patronymic, v.age, v.gender, v.birthdate, v.telephone, v.passport, v.address, v.imgURL, v.balance) " +
             "from FitUser v " +
             "where v.email=:email")
     Optional<FitUserDto> findFitUserInfoWithEmail(@Param("email") final String email);
 
-    @Query(value = "select new ru.project.fitstyle.model.dto.user.SubscriptionDto(v.subscription.subscriptionType.name, v.subscription.endDate) " +
+    @Query("select new ru.project.fitstyle.model.dto.user.SubscriptionDto(v.subscription.subscriptionType.name, v.subscription.endDate) " +
             "from FitUser v " +
             "where v.email=:email")
     Optional<SubscriptionDto> findSubscriptionResponseInfoWithEmail(@Param("email") final String email);

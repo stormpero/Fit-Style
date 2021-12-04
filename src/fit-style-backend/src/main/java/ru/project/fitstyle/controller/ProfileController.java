@@ -24,15 +24,11 @@ public class ProfileController {
 
     private final AuthService authService;
 
-    private final StorageService imageStorageService;
-
     @Autowired
     public ProfileController (final UserService userService,
-                              final AuthService authService,
-                              final StorageService imageStorageService) {
+                              final AuthService authService) {
         this.userService = userService;
         this.authService = authService;
-        this.imageStorageService = imageStorageService;
     }
 
     @GetMapping()

@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Repository
 public interface SubscriptionTypeRepository extends JpaRepository<SubscriptionType, Long> {
-    @Query(value = "select new ru.project.fitstyle.model.dto.subscription.SubscriptionTypeDto(v.id, v.name, v.validityMonths, v.placementTime, v.cost) " +
+    @Query("select new ru.project.fitstyle.model.dto.subscription.SubscriptionTypeDto(v.id, v.name, v.validityMonths, v.placementTime, v.cost) " +
             "from SubscriptionType v")
     Optional<List<SubscriptionTypeDto>> findAllSubscriptions();
 }
