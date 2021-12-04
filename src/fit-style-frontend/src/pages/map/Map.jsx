@@ -31,7 +31,7 @@ export const Map = () => {
                         <path className="part" d="m 853.49592,302.30299 26.70653,-105.34239 -137.61278,-34.86685 -82.71603,216.99049 65.65353,18.17527 -13.35326,38.94701 42.28533,12.24049 47.84918,-158.38451 z" />
                         <path className="part" d="M 992.59239,338.65353 1025.9755,114.24457 883.16984,78.264946 852.01223,187.6875 l 32.59494,8.48488 -27.86036,106.63313 z" />
                 </svg>
-                <img className="first" src={first} alt="Fit-Style"/>
+                <img className="map-img first" src={first} alt="Fit-Style"/>
             </div>
             <div className={!MapActive ? "map second-floor" : "map-none"}>
                 <svg className="svg-map" viewBox="0 0 1038 584">
@@ -41,7 +41,7 @@ export const Map = () => {
                     <path className="part" d="M 719.17719,451.29575 753.76848,310.51722 614.3307,282.09336 567.13637,414.55926 Z"/>
                     <path className="part" d="m 835.28596,478.64701 -110.47763,-25.74236 34.59129,-142.92373 153.11342,33.78685 -12.06673,100.55609 -60.33366,-12.06673 -4.02224,12.87118 4.55854,0.80445 z"/>
                 </svg>
-                <img className="second" src={second} alt="Fit-Style"/>
+                <img className="map-img second" src={second} alt="Fit-Style"/>
             </div>
         </div>
     );
