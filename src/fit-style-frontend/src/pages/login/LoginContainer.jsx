@@ -42,8 +42,12 @@ export default class LoginContainer extends Component {
                 this.props.setIsAuth(true);
                 this.props.history.push("/user");
             }).catch((error)=> {
-                let errorMsg = error?.response?.data?.message === "Bad credentials" ? "Неверные данные" : "Заполните поля";
-                ToastMessages.error(errorMsg);
+               if (error?.response?.data?.message === "Bad credentials") {
+                   ToastMessages.error("Неверные данные");
+               } else {
+                   ToastMessages.defaultError();
+               }
+
         });
     }
 
