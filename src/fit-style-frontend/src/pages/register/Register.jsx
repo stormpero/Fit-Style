@@ -9,18 +9,6 @@ import {DADATA_TOKEN} from "../../config/dadata/Dadata";
 const Register = (props) => {
     return (
         <div className="col-md-12 text-white">
-            <ul className="circles">
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
             <div className="card card-container non-margin">
                 <h3 className="text-white">Регистрация</h3>
                 <form>

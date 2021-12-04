@@ -3,21 +3,7 @@ import "./Info.css"
 
 export const Info = () => {
     return (
-
         <div className="info">
-            <ul className="circles">
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-
-            </ul>
             <div className="info-header">
                 <div className="container-info">
                     <h1 className="center">Контактная информация</h1>
