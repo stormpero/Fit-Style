@@ -61,18 +61,6 @@ export const NewsBoard = () => {
 
     return(
         <div className="d-flex justify-content-center">
-            <ul className="circles">
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
             <div className="news-board">
                 <div>
                     {isModer &&
@@ -86,9 +74,7 @@ export const NewsBoard = () => {
                             </span>
                         </button>
                     }
-
                     <h1 className="news-title">Новостная лента</h1>
-
                     {isModer &&
                         <button className="add-news" onClick={() => setModalActive(true)}>
                             <span className='text'>Добавить</span>

@@ -9,6 +9,7 @@ import {URL_LOGIN} from "../../config/consts/urlsPages";
 
 import LStorageUser from "../../services/localstorage/LStorageUser";
 import UserService from "../../services/api/UserApi";
+import {Background} from "../background/Background";
 
 const AppRouter = () => {
     const [isAuth, setIsAuth] = useState(false);
@@ -28,7 +29,12 @@ const AppRouter = () => {
 
     return (
         <div>
-            { isAuth &&  <NavbarContainer setIsAuth={setIsAuth}/> }
+            {isAuth &&
+                <div>
+                    <Background/>
+                    <NavbarContainer setIsAuth={setIsAuth}/>
+                </div>
+             }
             <Switch>
                 {isAuth && isLoad && routes.map(({path, Component, reqRole}) =>
                         !!(roles.indexOf(reqRole) + 1) ? <Route key={path} path={path} component={Component}/> : null

@@ -2,6 +2,7 @@ import React from "react";
 import "./News.css";
 
 import Gym from "../../assets/gym.jpg";
+import {CloseBtn} from "../../components/closebtn/CloseBtn";
 
 const News = (props) => {
     return(
@@ -9,17 +10,7 @@ const News = (props) => {
             background: `linear-gradient(rgba(41, 31, 30, 1), rgba(41, 31, 30, 0.4)), url("${Gym}"), center`,
             backgroundSize: 'cover'
         }}>
-            {props.deleteMode &&
-                <button
-                    type="button"
-                    className="btn-close-modal"
-                    data-dismiss="modal"
-                    aria-label="Close"
-                    onClick={() => props.delete(props.content.id)}
-                >
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            }
+            {props.deleteMode && <CloseBtn onClickEvent={() => props.delete(props.content.id)}/> }
             <h2 className="title">{props.content.header}</h2>
             <div className="dateTime">
                 <p>{props.content.dateTime}</p>

@@ -6,19 +6,6 @@ import ProfileService from "../../services/profile/ProfileService";
 
 const Profile = ({userInfo, img, setModalActive}) => {
     return (
-        <div>
-            <ul className="circles">
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
         <div className="container profile-info">
             <div className="d-flex justify-content-between">
                 <div className="left-image d-flex flex-column">
@@ -82,7 +69,6 @@ const Profile = ({userInfo, img, setModalActive}) => {
                     </div>
                 </div>
             </div>
-        </div>
         </div>
     );
 }

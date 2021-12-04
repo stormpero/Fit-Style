@@ -9,18 +9,6 @@ import {DADATA_TOKEN} from "../../config/dadata/Dadata";
 const Register = (props) => {
     return (
         <div className="col-md-12 text-white">
-            <ul className="circles">
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
             <div className="card card-container non-margin">
                 <h3 className="text-white">Регистрация</h3>
                 <form>
@@ -94,7 +82,7 @@ const Register = (props) => {
                     <div className="form-group">
                         <label htmlFor="age">Вид абонемента</label>
                         <select className="form-control" name="subscriptionTypeId"
-                                onChange={props.handleFunc.input} value={props.value.subscriptionTypeId}>
+                                onChange={props.handleFunc.inputSubscription} value={props.value.subscriptionTypeInfo.subscriptionTypeId}>
                             <option value="DEFAULT">Выберите абонемент</option>
                             {props.subscriptionTypes.map((param, index) => <option value={param.id} key={index}>{param.name}</option>)}
                         </select>
@@ -162,8 +150,8 @@ const Register = (props) => {
                                required
                                name="contractNumber"
                                type="text"
-                               onChange={props.handleFunc.input}
-                               value={props.value.contractNumber}
+                               onChange={props.handleFunc.inputSubscription}
+                               value={props.value.subscriptionTypeInfo.contractNumber}
                                placeholder="Номер договора"
                         />
                     </div>
