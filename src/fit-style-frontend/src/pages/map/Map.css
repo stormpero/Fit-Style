@@ -3,7 +3,6 @@
     text-align: center;
     padding-top: 30px;
     padding-bottom: 30px;
-
 }
 .map{
     position: relative;
@@ -32,8 +31,9 @@
     transition: opacity 0.3s ease-in;
     opacity: 0.8;
 }
-
-
+.map-img {
+    max-width: 100%;
+}
 .svg-title{
     opacity: 1;
 }
@@ -124,4 +124,5 @@ g:hover > text{
 }
 .text-pool{
     transform: skewX(5deg);
+    pointer-events: none;
 }
