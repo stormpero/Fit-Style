@@ -13,7 +13,7 @@ export const URL_LOGOUT = "auth/logout";
 export const URL_USERTEST = "test/user";
 // PROFILE //
 export const URL_PROFILE_INFO = "profile";
-export const URL_PROFILE_IMG = "profile/user_image";
+export const URL_PROFILE_IMG = "get-image/user";
 export const URL_CHANGE_BALANCE = "profile/change_balance";
 // PERMISSIONS //
 export const URL_ROLES = "permission/roles";
