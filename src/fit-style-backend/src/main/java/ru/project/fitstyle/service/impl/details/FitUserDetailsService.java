@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.project.fitstyle.model.entity.user.FitUser;
-import ru.project.fitstyle.model.dao.FitUserRepository;
+import ru.project.fitstyle.model.repository.FitUserRepository;
 
 
 @Service

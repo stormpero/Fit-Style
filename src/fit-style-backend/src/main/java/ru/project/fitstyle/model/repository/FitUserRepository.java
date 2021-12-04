@@ -1,4 +1,4 @@
-package ru.project.fitstyle.model.dao;
+package ru.project.fitstyle.model.repository;
 
 import java.util.List;
 import java.util.Optional;

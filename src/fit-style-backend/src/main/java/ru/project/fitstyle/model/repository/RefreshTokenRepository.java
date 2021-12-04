@@ -1,4 +1,4 @@
-package ru.project.fitstyle.model.dao;
+package ru.project.fitstyle.model.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;

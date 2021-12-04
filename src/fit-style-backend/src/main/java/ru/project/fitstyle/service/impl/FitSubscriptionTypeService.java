@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.project.fitstyle.model.dto.subscription.SubscriptionTypeDto;
 import ru.project.fitstyle.model.entity.subscription.Subscription;
 import ru.project.fitstyle.model.entity.subscription.SubscriptionType;
-import ru.project.fitstyle.model.dao.SubscriptionTypeRepository;
+import ru.project.fitstyle.model.repository.SubscriptionTypeRepository;
 import ru.project.fitstyle.service.SubscriptionTypeService;
 import ru.project.fitstyle.service.exception.subscription.SubscriptionTypeNotFoundException;
 

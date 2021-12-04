@@ -2,9 +2,9 @@ package ru.project.fitstyle.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.project.fitstyle.model.dao.GroupTrainingRepository;
-import ru.project.fitstyle.model.dao.PersonalTrainingRepository;
-import ru.project.fitstyle.model.dao.TrainingRepository;
+import ru.project.fitstyle.model.repository.GroupTrainingRepository;
+import ru.project.fitstyle.model.repository.PersonalTrainingRepository;
+import ru.project.fitstyle.model.repository.TrainingRepository;
 import ru.project.fitstyle.model.dto.training.GroupTrainingDto;
 import ru.project.fitstyle.model.dto.training.PersonalTrainingDto;
 import ru.project.fitstyle.model.dto.training.TrainingNameDto;

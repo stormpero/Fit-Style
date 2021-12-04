@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.project.fitstyle.config.properties.AccessTokenProperties;
 import ru.project.fitstyle.model.entity.user.FitUser;
-import ru.project.fitstyle.model.dao.FitUserRepository;
 import ru.project.fitstyle.security.JwtTokenHandler;
 import ru.project.fitstyle.service.TokenService;
 
