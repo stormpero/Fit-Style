@@ -1,7 +1,6 @@
 package ru.project.fitstyle.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -9,7 +8,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.project.fitstyle.controller.request.profile.ChangeBalanceRequest;
 import ru.project.fitstyle.controller.response.SuccessMessage;
-import ru.project.fitstyle.model.entity.user.FitUser;
 import ru.project.fitstyle.controller.response.profile.UserProfileResponse;
 import ru.project.fitstyle.service.AuthService;
 import ru.project.fitstyle.service.StorageService;
@@ -41,16 +39,6 @@ public class ProfileController {
     public ResponseEntity<UserProfileResponse> getUserProfileInfo() {
         return ResponseEntity.ok(new UserProfileResponse(userService.getFitUserInfoByEmail(authService.getEmail()),
                 userService.getSubscriptionResponseInfoByEmail(authService.getEmail()), userService.getUserRolesByEmail(authService.getEmail())));
-    }
-
-    @GetMapping ("/user_image")
-    public ResponseEntity<Resource> getUserProfileImage() {
-        final Resource resource = imageStorageService.loadAsResource(userService.getUserByEmail(authService.getEmail()).getImgURL());
-
-        return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION,
-                        "attachment; filename=\"" + resource.getFilename() + "\"")
-                .body(resource);
     }
 
     @GetMapping("/{id}")
