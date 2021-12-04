@@ -33,9 +33,9 @@ public class FitUserDto {
 
     private final Long balance;
 
-    public FitUserDto(Long id, String email, String password, String name, String surname, String patronymic,
-                      String age, String gender, Date birthdate, String telephone, String passport, String address,
-                      String imgURL, Long balance) {
+    public FitUserDto(final Long id, final String email, final String password, final String name, final String surname, final String patronymic,
+                      final String age, final String gender, final Date birthdate, final String telephone, final String passport, final String address,
+                      final String imgURL, final Long balance) {
         this.id = id;
         this.email = email;
         this.password = password;

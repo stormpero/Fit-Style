@@ -29,9 +29,9 @@ public class ProfileController {
     private final StorageService imageStorageService;
 
     @Autowired
-    public ProfileController (UserService userService,
-                              AuthService authService,
-                              StorageService imageStorageService) {
+    public ProfileController (final UserService userService,
+                              final AuthService authService,
+                              final StorageService imageStorageService) {
         this.userService = userService;
         this.authService = authService;
         this.imageStorageService = imageStorageService;
@@ -45,8 +45,7 @@ public class ProfileController {
 
     @GetMapping ("/user_image")
     public ResponseEntity<Resource> getUserProfileImage() {
-        FitUser fitUser = userService.getUserByEmail(authService.getEmail());
-        Resource resource = imageStorageService.loadAsResource(fitUser.getImgURL());
+        final Resource resource = imageStorageService.loadAsResource(userService.getUserByEmail(authService.getEmail()).getImgURL());
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION,
@@ -56,14 +55,14 @@ public class ProfileController {
 
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('MODERATOR')")
-    public ResponseEntity<UserProfileResponse> getUserProfileInfoById(@PathVariable("id") Long id) {
+    public ResponseEntity<UserProfileResponse> getUserProfileInfoById(@PathVariable("id") final Long id) {
         return ResponseEntity.ok(new UserProfileResponse(userService.getFitUserInfoById(id),
                 userService.getSubscriptionResponseInfoById(id), userService.getUserRolesById(id)));
     };
 
 
     @PatchMapping("/change_balance")
-    public ResponseEntity<SuccessMessage> changeBalance(@RequestBody ChangeBalanceRequest changeBalanceRequest) {
+    public ResponseEntity<SuccessMessage> changeBalance(@RequestBody final ChangeBalanceRequest changeBalanceRequest) {
         userService.changeBalance(userService.getUserByEmail(authService.getEmail()), changeBalanceRequest.getSummary());
         return ResponseEntity.ok(
                 new SuccessMessage("Balance changed successfully!")

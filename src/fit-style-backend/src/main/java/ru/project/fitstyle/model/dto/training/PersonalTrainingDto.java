@@ -16,8 +16,8 @@ public class PersonalTrainingDto {
 
     private final CoachDto coach;
 
-    public PersonalTrainingDto(Long id, Date startDate, Date endDate, ETrainingStatus status,
-                               Long coachId, String name, String surname, String patronymic) {
+    public PersonalTrainingDto(final Long id, final Date startDate, final Date endDate,final ETrainingStatus status,
+                               final Long coachId, final String name, final String surname, final String patronymic) {
         this.id = id;
         this.startDate = startDate;
         this.endDate = endDate;

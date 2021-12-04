@@ -14,15 +14,15 @@ public interface GroupTrainingRepository extends JpaRepository<GroupTraining, Lo
     @Query("select new ru.project.fitstyle.model.dto.training.GroupTrainingDto(v.id, v.startDate, v.endDate, v.status, w.id, w.name, w.surname, w.patronymic, v.training.name) " +
             "from GroupTraining v inner join FitUser w on (v.coachId=w.id) " +
             "where w.id = :id")
-    List<GroupTrainingDto> findAllCoachTrainingsWithCoachId(@Param("id") Long id);
+    List<GroupTrainingDto> findAllCoachTrainingsWithCoachId(@Param("id") final Long id);
 
     @Query("select new ru.project.fitstyle.model.dto.training.GroupTrainingDto(v.id, v.startDate, v.endDate, v.status, w.id, w.name, w.surname, w.patronymic, v.training.name) " +
             "from GroupTraining v inner join FitUser w on (v.coachId=w.id) " +
             "where w.email = :email")
-    List<GroupTrainingDto> findAllCoachTrainingsWithCoachEmail(@Param("email") String email);
+    List<GroupTrainingDto> findAllCoachTrainingsWithCoachEmail(@Param("email") final String email);
 
     @Query("select new ru.project.fitstyle.model.dto.training.GroupTrainingDto(v.id, v.startDate, v.endDate, v.status, w.id, w.name, w.surname, w.patronymic, v.training.name) " +
             "from GroupTraining v inner join v.fitUsers w " +
             "where w.email=:email")
-    List<GroupTrainingDto> findAllFitUserTrainingsWithFitUserEmail(@Param("email") String email);
+    List<GroupTrainingDto> findAllFitUserTrainingsWithFitUserEmail(@Param("email") final String email);
 }

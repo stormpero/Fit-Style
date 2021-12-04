@@ -23,33 +23,31 @@ public class NewsController {
     private final StorageService storageService;
 
     @Autowired
-    public NewsController(NewsService newsService,
-                          StorageService storageService) {
+    public NewsController(final NewsService newsService,
+                          final StorageService storageService) {
         this.newsService = newsService;
         this.storageService = storageService;
     }
 
     @GetMapping("/{page_number}")
-    public ResponseEntity<NewsPageResponse> showPage(@PathVariable("page_number") int pageNumber) {
+    public ResponseEntity<NewsPageResponse> showPage(@PathVariable("page_number") final int pageNumber) {
         //Here we get first 6 (can be specified) recently added news
         return ResponseEntity.ok(new NewsPageResponse(newsService.getNewsPage(pageNumber)));
     }
 
     @PostMapping()
     @PreAuthorize("hasRole('MODERATOR')")
-    public ResponseEntity<SuccessMessage> add(@Valid @RequestBody AddEditNewsRequest request
+    public ResponseEntity<SuccessMessage> add(@Valid @RequestBody final AddEditNewsRequest request
                                               /*@RequestPart(value = "image", required = false) MultipartFile image*/) {
         //Add News
-        News news = new News(
+        //storageService.store(image);
+        newsService.save(new News(
                 request.getHeader(),
                 request.getContent(),
                 request.getDateTime(),
                 //image.getOriginalFilename()
                 "testfilename"
-        );
-
-        //storageService.store(image);
-        newsService.save(news);
+        ));
 
         return ResponseEntity.ok(
                 new SuccessMessage("Success! News created!")
@@ -58,8 +56,8 @@ public class NewsController {
 
     @PatchMapping("/{id}")
     @PreAuthorize("hasRole('MODERATOR')")
-    public ResponseEntity<SuccessMessage> update(@Valid @RequestBody AddEditNewsRequest addEditNewsRequest,
-                                                 @PathVariable("id") Long id) {
+    public ResponseEntity<SuccessMessage> update(@Valid @RequestBody final AddEditNewsRequest addEditNewsRequest,
+                                                 @PathVariable("id") final Long id) {
     //Update news.
         News news = newsService.getNewsById(id);
         news.setHeader(addEditNewsRequest.getHeader());
@@ -74,10 +72,9 @@ public class NewsController {
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('MODERATOR')")
-    public ResponseEntity<SuccessMessage> delete(@PathVariable("id") Long id) {
+    public ResponseEntity<SuccessMessage> delete(@PathVariable("id") final Long id) {
         //Delete news
-        News news = newsService.getNewsById(id);
-        newsService.delete(news);
+        newsService.delete(newsService.getNewsById(id));
         return ResponseEntity.ok(
                 new SuccessMessage("Success! News deleted!")
         );

@@ -12,27 +12,27 @@ import java.util.List;
 
 public interface UserService {
 
-    void validateEmail(String email);
+    void validateEmail(final String email);
 
-    FitUser getUserByEmail(String email);
+    FitUser getUserByEmail(final String email);
 
-    void saveUser(FitUser fitUser, List<Role> roles, Subscription subscription);
+    void saveUser(FitUser fitUser, final List<Role> roles, final Subscription subscription);
 
-    void changeBalance(FitUser fitUser, Long summary);
+    void changeBalance(FitUser fitUser, final Long summary);
 
-    void logoutUserByEmail(String email);
+    void logoutUserByEmail(final String email);
 
-    FitUserDto getFitUserInfoByEmail(String email);
+    FitUserDto getFitUserInfoByEmail(final String email);
 
-    FitUserDto getFitUserInfoById(Long id);
+    FitUserDto getFitUserInfoById(final Long id);
 
-    SubscriptionDto getSubscriptionResponseInfoByEmail(String email);
+    SubscriptionDto getSubscriptionResponseInfoByEmail(final String email);
 
-    SubscriptionDto getSubscriptionResponseInfoById(Long id);
+    SubscriptionDto getSubscriptionResponseInfoById(final Long id);
 
-    List<RoleDto> getUserRolesByEmail(String email);
+    List<RoleDto> getUserRolesByEmail(final String email);
 
-    List<RoleDto> getUserRolesById(Long id);
+    List<RoleDto> getUserRolesById(final Long id);
 
     List<CoachDto> getCoaches();
 }

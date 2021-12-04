@@ -22,13 +22,13 @@ public class FitNewsService implements NewsService {
     private final int pageNumber;
 
     @Autowired
-    public FitNewsService(NewsRepository newsRepository, NewsProperties newsProperties) {
+    public FitNewsService(final NewsRepository newsRepository, final NewsProperties newsProperties) {
         this.newsRepository = newsRepository;
         this.pageNumber = newsProperties.getPageNumber();
     }
 
     @Override
-    public List<NewsDto> getNewsPage(int number) {
+    public List<NewsDto> getNewsPage(final int number) {
         return newsRepository
                 .findNewsPage(PageRequest.of(number - 1, pageNumber, Sort.by(Sort.Direction.DESC, "dateTime")))
                 .filter(list -> list.size() != 0)
@@ -36,19 +36,19 @@ public class FitNewsService implements NewsService {
     }
 
     @Override
-    public News getNewsById(Long id) {
+    public News getNewsById(final Long id) {
         return newsRepository.findById(id)
                 .orElseThrow(() ->
                         new NewsStoryNotFoundException("News with that id cannot be found!"));
     }
 
     @Override
-    public void save(News news) {
+    public void save(final News news) {
         newsRepository.save(news);
     }
 
     @Override
-    public void delete(News news) {
+    public void delete(final News news) {
         newsRepository.delete(news);
     }
 }

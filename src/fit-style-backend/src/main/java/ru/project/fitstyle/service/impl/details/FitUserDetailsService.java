@@ -16,14 +16,14 @@ public class FitUserDetailsService implements UserDetailsService {
     private final FitUserRepository fitUserRepository;
 
     @Autowired
-    public FitUserDetailsService(FitUserRepository fitUserRepository) {
+    public FitUserDetailsService(final FitUserRepository fitUserRepository) {
         this.fitUserRepository = fitUserRepository;
     }
 
     @Override
     @Transactional
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        FitUser fitUser = fitUserRepository.findByEmail(username)
+    public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
+        final FitUser fitUser = fitUserRepository.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
 
         return FitUserDetails.build(fitUser);

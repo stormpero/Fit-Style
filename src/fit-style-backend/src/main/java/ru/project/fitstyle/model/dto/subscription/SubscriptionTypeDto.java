@@ -13,7 +13,7 @@ public class SubscriptionTypeDto {
 
     private final String cost;
 
-    public SubscriptionTypeDto(Long id, String name, int validityMonths, ESubsPlacementTime placementTime, String cost) {
+    public SubscriptionTypeDto(final Long id, final String name, final int validityMonths, final ESubsPlacementTime placementTime, final String cost) {
         this.id = id;
         this.name = name;
         this.validityMonths = validityMonths;

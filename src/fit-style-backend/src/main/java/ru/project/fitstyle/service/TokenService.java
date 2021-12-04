@@ -4,13 +4,13 @@ import ru.project.fitstyle.model.entity.user.FitUser;
 
 public interface TokenService {
 
-    String generateTokenFromUser(FitUser user);
+    String generateTokenFromUser(final FitUser user);
 
-    String generateTokenFromUsername(String username);
+    String generateTokenFromUsername(final String username);
 
-    String getUsernameFromToken(String token);
+    String getUsernameFromToken(final String token);
 
-    Object validate(String token);
+    Object validate(final String token);
 
     Long getExpirationMs();
 }

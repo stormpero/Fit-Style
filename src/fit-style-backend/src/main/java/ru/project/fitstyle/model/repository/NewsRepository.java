@@ -15,5 +15,5 @@ import java.util.Optional;
 public interface NewsRepository extends JpaRepository<News, Long> {
     @Query(value = "select new ru.project.fitstyle.model.dto.news.NewsDto(v.id, v.header, v.content, v.dateTime, v.imgURL) " +
             "from News v")
-    Optional<List<NewsDto>> findNewsPage(Pageable page);
+    Optional<List<NewsDto>> findNewsPage(final Pageable page);
 }

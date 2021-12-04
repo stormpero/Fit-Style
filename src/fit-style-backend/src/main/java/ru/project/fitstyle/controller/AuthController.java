@@ -57,15 +57,15 @@ public class AuthController {
     private final StorageService imageStorageService;
 
     @Autowired
-    public AuthController(AuthenticationManager authenticationManager,PasswordEncoder encoder,
-                          UserService userService,
-                          RoleService roleService,
-                          SubscriptionTypeService subscriptionTypeService,
-                          @Qualifier("accessTokenService") TokenService accessTokenService,
-                          @Qualifier("refreshTokenService") TokenService refreshTokenService,
-                          CookieService refreshTokenCookieService,
-                          AuthService authService,
-                          StorageService imageStorageService) {
+    public AuthController(final AuthenticationManager authenticationManager,final PasswordEncoder encoder,
+                          final UserService userService,
+                          final RoleService roleService,
+                          final SubscriptionTypeService subscriptionTypeService,
+                          @Qualifier("accessTokenService") final TokenService accessTokenService,
+                          @Qualifier("refreshTokenService") final TokenService refreshTokenService,
+                          final CookieService refreshTokenCookieService,
+                          final AuthService authService,
+                          final StorageService imageStorageService) {
         this.authenticationManager = authenticationManager;
         this.userService = userService;
         this.roleService = roleService;
@@ -79,21 +79,21 @@ public class AuthController {
     }
 
     @PostMapping("/signin")
-    public ResponseEntity<LoginResponse> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-        Authentication authentication = authenticationManager
+    public ResponseEntity<LoginResponse> authenticateUser(@Valid @RequestBody final LoginRequest loginRequest) {
+        final Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(
                         loginRequest.getEmail(), loginRequest.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        FitUserDetails userDetails = (FitUserDetails) authentication.getPrincipal();
+        final FitUserDetails userDetails = (FitUserDetails) authentication.getPrincipal();
         List<String> roles = userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
 
-        String accessToken = accessTokenService
+        final String accessToken = accessTokenService
                 .generateTokenFromUsername(userDetails.getUsername());
-        String refreshToken = refreshTokenService
+        final String refreshToken = refreshTokenService
                 .generateTokenFromUsername(userDetails.getUsername());
 
         return ResponseEntity.ok().headers(createRefreshTokenCookie(refreshToken)).body(
@@ -103,8 +103,8 @@ public class AuthController {
 
     @PostMapping("/signup")
     @PreAuthorize("hasRole('MODERATOR')")
-    public ResponseEntity<SuccessMessage> registerUser(@Valid @RequestPart(value = "request") SignupRequest request,
-                                                       @RequestPart(value = "image", required = false) MultipartFile image) {
+    public ResponseEntity<SuccessMessage> registerUser(@Valid @RequestPart(value = "request") final SignupRequest request,
+                                                       @RequestPart(value = "image", required = false) final MultipartFile image) {
         userService.validateEmail(request.getEmail());
 
         FitUser fitUser = createFitUser(request);
@@ -124,16 +124,14 @@ public class AuthController {
 
     @GetMapping("/refreshtoken")
     public ResponseEntity<RefreshTokenResponse> refreshToken(@CookieValue(value="refreshToken", required = false)
-                                                      String requestRefreshToken) {
-        FitUser fitUser = ((RefreshToken) (refreshTokenService.validate(requestRefreshToken))).getUser();
-        String jwtToken = accessTokenService
-                .generateTokenFromUsername(fitUser.getEmail());
-        String refreshToken = refreshTokenService
-                .generateTokenFromUser(fitUser);
+                                                      final String requestRefreshToken) {
+        final FitUser fitUser = ((RefreshToken) (refreshTokenService.validate(requestRefreshToken))).getUser();
 
         return ResponseEntity.ok()
-                .headers(createRefreshTokenCookie(refreshToken))
-                .body(new RefreshTokenResponse(jwtToken));
+                .headers(createRefreshTokenCookie(refreshTokenService
+                        .generateTokenFromUser(fitUser)))
+                .body(new RefreshTokenResponse(accessTokenService
+                        .generateTokenFromUsername(fitUser.getEmail())));
     }
 
     @GetMapping("/logout")
@@ -145,14 +143,14 @@ public class AuthController {
     }
 
 
-    private HttpHeaders createRefreshTokenCookie(String refreshToken) {
+    private HttpHeaders createRefreshTokenCookie(final String refreshToken) {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add(HttpHeaders.SET_COOKIE, refreshTokenCookieService.createCookie(refreshToken,
                 refreshTokenService.getExpirationMs()).toString());
         return httpHeaders;
     }
 
-    private FitUser createFitUser(SignupRequest request) {
+    private FitUser createFitUser(final SignupRequest request) {
         return new FitUser(request.getName(), request.getSurname(),
                 request.getPatronymic(), request.getEmail(),
                 encoder.encode(request.getPassword()),

@@ -17,7 +17,7 @@ public class CoachController {
     private final UserService userService;
 
     @Autowired
-    public CoachController(UserService userService) {
+    public CoachController(final UserService userService) {
         this.userService = userService;
     }
 

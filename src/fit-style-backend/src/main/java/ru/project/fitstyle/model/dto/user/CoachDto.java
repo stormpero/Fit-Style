@@ -9,7 +9,7 @@ public class CoachDto {
 
     private final String patronymic;
 
-    public CoachDto(Long id, String name, String surname, String patronymic) {
+    public CoachDto(final Long id, final String name, final String surname, final String patronymic) {
         this.id = id;
         this.name = name;
         this.surname = surname;

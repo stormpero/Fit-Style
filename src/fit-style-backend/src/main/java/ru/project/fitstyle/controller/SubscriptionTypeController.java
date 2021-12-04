@@ -16,7 +16,7 @@ public class SubscriptionTypeController {
 
     private final SubscriptionTypeService subscriptionTypeService;
 
-    public SubscriptionTypeController(SubscriptionTypeService subscriptionTypeService) {
+    public SubscriptionTypeController(final SubscriptionTypeService subscriptionTypeService) {
         this.subscriptionTypeService = subscriptionTypeService;
     }
 

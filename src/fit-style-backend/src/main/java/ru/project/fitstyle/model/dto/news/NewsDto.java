@@ -13,7 +13,7 @@ public class NewsDto {
 
     private final String imgURL;
 
-    public NewsDto(Long id, String header, String content, Date dateTime, String imgURL) {
+    public NewsDto(final Long id, final String header, final String content, final Date dateTime, final String imgURL) {
         this.id = id;
         this.header = header;
         this.content = content;

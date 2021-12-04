@@ -23,34 +23,34 @@ public class FitUserService implements UserService {
     private final RefreshTokenRepository refreshTokenRepository;
 
     @Autowired
-    public FitUserService(FitUserRepository fitUserRepository,
-                          RefreshTokenRepository refreshTokenRepository) {
+    public FitUserService(final FitUserRepository fitUserRepository,
+                          final RefreshTokenRepository refreshTokenRepository) {
         this.fitUserRepository = fitUserRepository;
         this.refreshTokenRepository = refreshTokenRepository;
     }
 
     @Override
-    public void validateEmail(String email) {
+    public void validateEmail(final String email) {
         if(fitUserRepository.existsByEmail(email)) {
             throw new UserNotFoundException("User with that email cannot be found!");
         }
     }
 
     @Override
-    public FitUser getUserByEmail(String email) {
+    public FitUser getUserByEmail(final String email) {
         return fitUserRepository.findByEmail(email)
                 .orElseThrow(() -> new UserNotFoundException("User with that email cannot be found!"));
     }
 
     @Override
-    public void saveUser(FitUser fitUser, List<Role> roles, Subscription subscription) {
+    public void saveUser(FitUser fitUser, final List<Role> roles, final Subscription subscription) {
         fitUser.setRoles(roles);
         fitUser.setSubscription(subscription);
         fitUserRepository.save(fitUser);
     }
 
     @Override
-    public void changeBalance(FitUser fitUser, Long summary) {
+    public void changeBalance(FitUser fitUser, final Long summary) {
         long result = fitUser.getBalance() + summary;
         if(result >= 0) {
             fitUser.setBalance(result);
@@ -61,7 +61,7 @@ public class FitUserService implements UserService {
     }
 
     @Override
-    public void logoutUserByEmail(String email) {
+    public void logoutUserByEmail(final String email) {
         refreshTokenRepository
                 .deleteByFitUser(fitUserRepository
                         .findByEmail(email)
@@ -69,38 +69,38 @@ public class FitUserService implements UserService {
     }
 
     @Override
-    public FitUserDto getFitUserInfoByEmail(String email) {
+    public FitUserDto getFitUserInfoByEmail(final String email) {
         return fitUserRepository.findFitUserInfoWithEmail(email)
                 .orElseThrow(() -> new UserNotFoundException("User with that email cannot be found!"));
     }
 
     @Override
-    public FitUserDto getFitUserInfoById(Long id) {
+    public FitUserDto getFitUserInfoById(final Long id) {
         return fitUserRepository.findFitUserInfoWithId(id)
                 .orElseThrow(() -> new UserNotFoundException("User with that id cannot be found!"));
     }
 
     @Override
-    public SubscriptionDto getSubscriptionResponseInfoByEmail(String email) {
+    public SubscriptionDto getSubscriptionResponseInfoByEmail(final String email) {
         return fitUserRepository.findSubscriptionResponseInfoWithEmail(email)
                 .orElseThrow(() -> new UserNotFoundException("User with that email cannot be found!"));
     }
 
     @Override
-    public SubscriptionDto getSubscriptionResponseInfoById(Long id) {
+    public SubscriptionDto getSubscriptionResponseInfoById(final Long id) {
         return fitUserRepository.findSubscriptionResponseInfoWithId(id)
                 .orElseThrow(() -> new UserNotFoundException("User with that id cannot be found!"));
     }
 
     @Override
-    public List<RoleDto> getUserRolesByEmail(String email) {
+    public List<RoleDto> getUserRolesByEmail(final String email) {
         return fitUserRepository.findRolesWithEmail(email)
                 .filter(list -> list.size() != 0)
                 .orElseThrow(() -> new  UserNotFoundException("User with that email cannot be found!"));
     }
 
     @Override
-    public List<RoleDto> getUserRolesById(Long id) {
+    public List<RoleDto> getUserRolesById(final Long id) {
         return fitUserRepository.findRolesWithId(id)
                 .filter(list -> list.size() != 0)
                 .orElseThrow(() -> new  UserNotFoundException("User with that id cannot be found!"));

@@ -18,26 +18,26 @@ public class FitRoleService implements RoleService {
     private final FitUserRepository fitUserRepository;
 
     @Autowired
-    public FitRoleService(RoleRepository roleRepository, FitUserRepository fitUserRepository) {
+    public FitRoleService(final RoleRepository roleRepository, final FitUserRepository fitUserRepository) {
         this.roleRepository = roleRepository;
         this.fitUserRepository = fitUserRepository;
     }
 
     @Override
-    public List<Role> createRoles(List<String> strRoles) {
+    public List<Role> createRoles(final List<String> strRoles) {
         List<Role> roles = new ArrayList<>();
 
         if (strRoles != null) {
             strRoles.forEach(role -> {
                 switch (role) {
                     case "coach":
-                        Role adminRole = roleRepository.findByName(ERole.ROLE_COACH)
+                        final Role adminRole = roleRepository.findByName(ERole.ROLE_COACH)
                                 .orElseThrow(() -> new RoleNotFoundException("Role cannot be found!"));
                         roles.add(adminRole);
 
                         break;
                     case "mod":
-                        Role modRole = roleRepository.findByName(ERole.ROLE_MODERATOR)
+                        final Role modRole = roleRepository.findByName(ERole.ROLE_MODERATOR)
                                 .orElseThrow(() -> new RoleNotFoundException("Role cannot be found!"));
                         roles.add(modRole);
 
@@ -45,7 +45,7 @@ public class FitRoleService implements RoleService {
                 }
             });
         }
-        Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+        final Role userRole = roleRepository.findByName(ERole.ROLE_USER)
                 .orElseThrow(() -> new RoleNotFoundException("Role cannot be found!"));
         roles.add(userRole);
 

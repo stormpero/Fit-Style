@@ -5,7 +5,7 @@ public class TrainingNameDto {
 
     private final String name;
 
-    public TrainingNameDto(Long id, String name) {
+    public TrainingNameDto(final Long id, final String name) {
         this.id = id;
         this.name = name;
     }

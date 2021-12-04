@@ -23,46 +23,46 @@ public class FitTrainingService implements TrainingService {
     private final PersonalTrainingRepository personalTrainingRepository;
 
     @Autowired
-    public FitTrainingService(TrainingRepository trainingRepository,
-                              GroupTrainingRepository groupTrainingRepository,
-                              PersonalTrainingRepository personalTrainingRepository) {
+    public FitTrainingService(final TrainingRepository trainingRepository,
+                              final GroupTrainingRepository groupTrainingRepository,
+                              final PersonalTrainingRepository personalTrainingRepository) {
         this.trainingRepository = trainingRepository;
         this.groupTrainingRepository = groupTrainingRepository;
         this.personalTrainingRepository = personalTrainingRepository;
     }
 
     @Override
-    public void saveTraining(Training training) {
+    public void saveTraining(final Training training) {
         trainingRepository.save(training);
     }
 
     @Override
-    public void saveGroupTraining(GroupTraining groupTraining) {
+    public void saveGroupTraining(final GroupTraining groupTraining) {
         groupTrainingRepository.save(groupTraining);
     }
 
     @Override
-    public void savePersonalTraining(PersonalTraining personalTraining) {
+    public void savePersonalTraining(final PersonalTraining personalTraining) {
         personalTrainingRepository.save(personalTraining);
     }
 
     @Override
-    public void deleteTraining(Long id) {
+    public void deleteTraining(final Long id) {
         trainingRepository.deleteById(id);
     }
 
     @Override
-    public void deleteGroupTraining(Long id) {
+    public void deleteGroupTraining(final Long id) {
         groupTrainingRepository.deleteById(id);
     }
 
     @Override
-    public void deletePersonalTraining(Long id) {
+    public void deletePersonalTraining(final Long id) {
         personalTrainingRepository.deleteById(id);
     }
 
     @Override
-    public void signForGroupTraining(Long trainingId, String fitUserEmail) {
+    public void signForGroupTraining(final Long trainingId, final String fitUserEmail) {
         GroupTraining groupTraining = groupTrainingRepository.findById(trainingId)
                 .orElseThrow(() -> new TrainingNotFoundException("Group training with that id cannot be found!"));
 //        groupTrainingRepository.
@@ -71,43 +71,43 @@ public class FitTrainingService implements TrainingService {
     }
 
     @Override
-    public void signForPersonalTraining(Long trainingId, String fitUserEmail) {
+    public void signForPersonalTraining(final Long trainingId, final String fitUserEmail) {
 
     }
 
     @Override
-    public Training getTrainingById(Long id) {
+    public Training getTrainingById(final Long id) {
         return trainingRepository.findById(id)
                 .orElseThrow(() -> new TrainingNotFoundException("Training with that email cannot be found!"));
     }
 
     @Override
-    public List<GroupTrainingDto> getCoachGroupTrainingsByCoachId(Long id) {
+    public List<GroupTrainingDto> getCoachGroupTrainingsByCoachId(final Long id) {
         return groupTrainingRepository.findAllCoachTrainingsWithCoachId(id);
     }
 
     @Override
-    public List<PersonalTrainingDto> getCoachPersonalTrainingsByCoachId(Long id) {
+    public List<PersonalTrainingDto> getCoachPersonalTrainingsByCoachId(final Long id) {
         return personalTrainingRepository.findAllCoachTrainingsWithCoachId(id);
     }
 
     @Override
-    public List<GroupTrainingDto> getCoachGroupTrainingsByCoachEmail(String email) {
+    public List<GroupTrainingDto> getCoachGroupTrainingsByCoachEmail(final String email) {
         return groupTrainingRepository.findAllCoachTrainingsWithCoachEmail(email);
     }
 
     @Override
-    public List<PersonalTrainingDto> getCoachPersonalTrainingsByCoachEmail(String email) {
+    public List<PersonalTrainingDto> getCoachPersonalTrainingsByCoachEmail(final String email) {
         return personalTrainingRepository.findAllCoachTrainingsWithCoachEmail(email);
     }
 
     @Override
-    public List<GroupTrainingDto> getFitUserGroupTrainingsByFitUserEmail(String email) {
+    public List<GroupTrainingDto> getFitUserGroupTrainingsByFitUserEmail(final String email) {
         return groupTrainingRepository.findAllFitUserTrainingsWithFitUserEmail(email);
     }
 
     @Override
-    public List<PersonalTrainingDto> getFitUserPersonalTrainingsByFitUserEmail(String email) {
+    public List<PersonalTrainingDto> getFitUserPersonalTrainingsByFitUserEmail(final String email) {
         return personalTrainingRepository.findAllFitUserTrainingsWithFitUserEmail(email);
     }
 

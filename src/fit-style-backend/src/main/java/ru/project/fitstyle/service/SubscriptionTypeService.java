@@ -9,5 +9,5 @@ public interface SubscriptionTypeService {
 
     List<SubscriptionTypeDto> getAllSubscriptionTypes();
 
-    Subscription createFitUserSubscription(Long subscriptionTypeId, String contractNumber);
+    Subscription createFitUserSubscription(final Long subscriptionTypeId, final String contractNumber);
 }

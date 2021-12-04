@@ -11,35 +11,35 @@ import java.util.List;
 
 public interface TrainingService {
 
-    void saveTraining(Training training);
+    void saveTraining(final Training training);
 
-    void saveGroupTraining(GroupTraining groupTraining);
+    void saveGroupTraining(final GroupTraining groupTraining);
 
-    void savePersonalTraining(PersonalTraining personalTraining);
+    void savePersonalTraining(final PersonalTraining personalTraining);
 
-    void deleteTraining(Long id);
+    void deleteTraining(final Long id);
 
-    void deleteGroupTraining(Long id);
+    void deleteGroupTraining(final Long id);
 
-    void deletePersonalTraining(Long id);
+    void deletePersonalTraining(final Long id);
 
-    void signForGroupTraining(Long trainingId, String fitUserEmail);
+    void signForGroupTraining(final Long trainingId, final String fitUserEmail);
 
-    void signForPersonalTraining(Long trainingId, String fitUserEmail);
+    void signForPersonalTraining(final Long trainingId, final String fitUserEmail);
 
-    Training getTrainingById(Long id);
+    Training getTrainingById(final Long id);
 
-    List<GroupTrainingDto> getCoachGroupTrainingsByCoachId(Long id);
+    List<GroupTrainingDto> getCoachGroupTrainingsByCoachId(final Long id);
 
-    List<PersonalTrainingDto> getCoachPersonalTrainingsByCoachId(Long id);
+    List<PersonalTrainingDto> getCoachPersonalTrainingsByCoachId(final Long id);
 
-    List<GroupTrainingDto> getCoachGroupTrainingsByCoachEmail(String email);
+    List<GroupTrainingDto> getCoachGroupTrainingsByCoachEmail(final String email);
 
-    List<PersonalTrainingDto> getCoachPersonalTrainingsByCoachEmail(String email);
+    List<PersonalTrainingDto> getCoachPersonalTrainingsByCoachEmail(final String email);
 
-    List<GroupTrainingDto> getFitUserGroupTrainingsByFitUserEmail(String email);
+    List<GroupTrainingDto> getFitUserGroupTrainingsByFitUserEmail(final String email);
 
-    List<PersonalTrainingDto> getFitUserPersonalTrainingsByFitUserEmail(String email);
+    List<PersonalTrainingDto> getFitUserPersonalTrainingsByFitUserEmail(final String email);
 
     List<TrainingNameDto> getTrainingNames();
 }

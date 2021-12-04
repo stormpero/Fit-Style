@@ -14,7 +14,7 @@ public class RefreshTokenCookieService implements CookieService {
     private final Long cookieExpireTime;
 
     @Autowired
-    public RefreshTokenCookieService(RefreshTokenCookieProperties refreshTokenCookieProperties) {
+    public RefreshTokenCookieService(final RefreshTokenCookieProperties refreshTokenCookieProperties) {
         this.cookieName = refreshTokenCookieProperties.getName();
         this.cookieExpireTime = refreshTokenCookieProperties.getExpireTime();
     }

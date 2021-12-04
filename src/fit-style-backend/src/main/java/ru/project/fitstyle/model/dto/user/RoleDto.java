@@ -7,7 +7,7 @@ public class RoleDto {
 
     private final ERole name;
 
-    public RoleDto(Long id, ERole name) {
+    public RoleDto(final Long id, final ERole name) {
         this.id = id;
         this.name = name;
     }

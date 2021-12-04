@@ -18,9 +18,9 @@ public class GroupTrainingDto {
 
     private final String title;
 
-    public GroupTrainingDto(Long id, Date startDate, Date endDate, ETrainingStatus status,
-                            Long coachId, String name, String surname, String patronymic,
-                            String title) {
+    public GroupTrainingDto(final Long id, final Date startDate, final Date endDate, final ETrainingStatus status,
+                            final Long coachId, final String name, final String surname, final String patronymic,
+                            final String title) {
         this.id = id;
         this.startDate = startDate;
         this.endDate = endDate;

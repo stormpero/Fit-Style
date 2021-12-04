@@ -31,9 +31,9 @@ public class TrainingController {
     private final TrainingService trainingService;
 
     @Autowired
-    public TrainingController(AuthService authService,
-                              UserService userService,
-                              TrainingService trainingService) {
+    public TrainingController(final AuthService authService,
+                              final UserService userService,
+                              final TrainingService trainingService) {
         this.authService = authService;
         this.userService = userService;
         this.trainingService = trainingService;
@@ -49,7 +49,7 @@ public class TrainingController {
     }
 
     @GetMapping("/coach/{id}")
-    public ResponseEntity<AllTrainingsResponse> getCoachTrainings(@PathVariable("id") Long id) {
+    public ResponseEntity<AllTrainingsResponse> getCoachTrainings(@PathVariable("id") final Long id) {
         return ResponseEntity.ok(
                 new AllTrainingsResponse(trainingService.getCoachGroupTrainingsByCoachId(id),
                         trainingService.getCoachPersonalTrainingsByCoachId(id))
@@ -66,9 +66,8 @@ public class TrainingController {
 
     @PreAuthorize("hasRole('COACH')")
     @PostMapping()
-    public ResponseEntity<SuccessMessage> addTraining(@RequestBody AddEditTrainingRequest request) {
-        Training training = new Training(request.getName());
-        trainingService.saveTraining(training);
+    public ResponseEntity<SuccessMessage> addTraining(@RequestBody final AddEditTrainingRequest request) {
+        trainingService.saveTraining(new Training(request.getName()));
         return ResponseEntity.ok(
                 new SuccessMessage("Success! Training created!")
         );
@@ -76,7 +75,7 @@ public class TrainingController {
 
     @PreAuthorize("hasRole('COACH')")
     @GetMapping("/{id}")
-    public ResponseEntity<SuccessMessage> deleteTraining(@PathVariable("id") Long id) {
+    public ResponseEntity<SuccessMessage> deleteTraining(@PathVariable("id") final Long id) {
         trainingService.deleteTraining(id);
         return ResponseEntity.ok(
                 new SuccessMessage("Success! Training created!")
@@ -90,14 +89,15 @@ public class TrainingController {
 
     @PreAuthorize("hasRole('COACH')")
     @PostMapping("/group")
-    public ResponseEntity<SuccessMessage> addGroupTraining(@RequestBody AddEditGroupTrainingRequest request) {
+    public ResponseEntity<SuccessMessage> addGroupTraining(@RequestBody final AddEditGroupTrainingRequest request) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(request.getDate());
         calendar.add(Calendar.HOUR, 1);
 
-        GroupTraining groupTraining = new GroupTraining(request.getDate(), calendar.getTime(), ETrainingStatus.LOGGED,
-                userService.getUserByEmail(authService.getEmail()).getId(), trainingService.getTrainingById(request.getTrainingId()));
-        trainingService.saveGroupTraining(groupTraining);
+        trainingService.saveGroupTraining(new GroupTraining(
+                request.getDate(), calendar.getTime(), ETrainingStatus.LOGGED,
+                userService.getUserByEmail(authService.getEmail()).getId(),
+                trainingService.getTrainingById(request.getTrainingId())));
         return ResponseEntity.ok(
                 new SuccessMessage("Success! Group training created!")
         );
@@ -105,7 +105,7 @@ public class TrainingController {
 
     @PreAuthorize("hasRole('COACH')")
     @GetMapping("/group/{id}")
-    public ResponseEntity<SuccessMessage> deleteGroupTraining(@PathVariable("id") Long id) {
+    public ResponseEntity<SuccessMessage> deleteGroupTraining(@PathVariable("id") final Long id) {
         trainingService.deleteGroupTraining(id);
         return ResponseEntity.ok(
                 new SuccessMessage("Success! Training created!")
@@ -119,14 +119,14 @@ public class TrainingController {
 
     @PreAuthorize("hasRole('COACH')")
     @PostMapping("/personal")
-    public ResponseEntity<SuccessMessage> addPersonalTraining(@RequestBody AddEditPersonalTrainingRequest request) {
+    public ResponseEntity<SuccessMessage> addPersonalTraining(@RequestBody final AddEditPersonalTrainingRequest request) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(request.getDate());
         calendar.add(Calendar.HOUR, 1);
 
-        PersonalTraining personalTraining = new PersonalTraining(request.getDate(), calendar.getTime(), ETrainingStatus.LOGGED,
-                userService.getUserByEmail(authService.getEmail()).getId());
-        trainingService.savePersonalTraining(personalTraining);
+        trainingService.savePersonalTraining(new PersonalTraining(
+                request.getDate(), calendar.getTime(), ETrainingStatus.LOGGED,
+                userService.getUserByEmail(authService.getEmail()).getId()));
         return ResponseEntity.ok(
                 new SuccessMessage("Success! Personal training created!")
         );
@@ -139,7 +139,7 @@ public class TrainingController {
 
     @PreAuthorize("hasRole('COACH')")
     @GetMapping("/personal/{id}")
-    public ResponseEntity<SuccessMessage> deletePersonalTraining(@PathVariable("id") Long id) {
+    public ResponseEntity<SuccessMessage> deletePersonalTraining(@PathVariable("id") final Long id) {
         trainingService.deletePersonalTraining(id);
         return ResponseEntity.ok(
                 new SuccessMessage("Success! Training created!")

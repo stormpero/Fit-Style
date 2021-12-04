@@ -7,7 +7,7 @@ public class SubscriptionDto {
 
     private final Date endDate;
 
-    public SubscriptionDto(String name, Date endDate) {
+    public SubscriptionDto(final String name, final Date endDate) {
         this.name = name;
         this.endDate = endDate;
     }

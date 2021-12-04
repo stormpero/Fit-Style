@@ -19,10 +19,10 @@ public class FitSubscriptionTypeService implements SubscriptionTypeService {
     private final SubscriptionTypeRepository subscriptionTypeRepository;
 
     @Autowired
-    public FitSubscriptionTypeService(SubscriptionTypeRepository subscriptionTypeRepository) {
+    public FitSubscriptionTypeService(final SubscriptionTypeRepository subscriptionTypeRepository) {
         this.subscriptionTypeRepository = subscriptionTypeRepository;
     }
-
+final
     @Override
     public List<SubscriptionTypeDto> getAllSubscriptionTypes() {
         return subscriptionTypeRepository.findAllSubscriptions()
@@ -31,7 +31,7 @@ public class FitSubscriptionTypeService implements SubscriptionTypeService {
     }
 
     @Override
-    public Subscription createFitUserSubscription(Long subscriptionTypeId, String contractNumber) {
+    public Subscription createFitUserSubscription(final Long subscriptionTypeId, final String contractNumber) {
         SubscriptionType subscriptionType = subscriptionTypeRepository.findById(subscriptionTypeId)
                 .orElseThrow(() -> new SubscriptionTypeNotFoundException("Subscription type with that id cannot be found"));
 

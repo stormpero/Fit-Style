@@ -30,7 +30,7 @@ public class ImageStorageService implements StorageService {
     private final String defaultFileName;
 
     @Autowired
-    public ImageStorageService(ImageStorageProperties properties) {
+    public ImageStorageService(final ImageStorageProperties properties) {
         this.rootLocation = Paths.get(properties.getLocation());
         this.defaultFileName = properties.getDefaultImageName();
     }

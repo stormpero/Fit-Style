@@ -7,11 +7,11 @@ import java.util.List;
 
 public interface NewsService {
 
-    List<NewsDto> getNewsPage(int number);
+    List<NewsDto> getNewsPage(final int number);
 
-    News getNewsById(Long id);
+    News getNewsById(final Long id);
 
-    void save(News news);
+    void save(final News news);
 
-    void delete(News news);
+    void delete(final News news);
 }

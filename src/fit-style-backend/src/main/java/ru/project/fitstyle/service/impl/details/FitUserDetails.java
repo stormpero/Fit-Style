@@ -10,7 +10,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import ru.project.fitstyle.model.entity.user.FitUser;
 
 public class FitUserDetails implements UserDetails {
@@ -20,20 +19,19 @@ public class FitUserDetails implements UserDetails {
 
 	private final String username;
 
-	@JsonIgnore
 	private final String password;
 
 	private final Collection<? extends GrantedAuthority> authorities;
 
-	public FitUserDetails(Long id, String username, String password,
-                          Collection<? extends GrantedAuthority> authorities) {
+	public FitUserDetails(final Long id, String username, final String password,
+                          final Collection<? extends GrantedAuthority> authorities) {
 		this.id = id;
 		this.username = username;
 		this.password = password;
 		this.authorities = authorities;
 	}
 
-	public static FitUserDetails build(FitUser fitUser) {
+	public static FitUserDetails build(final FitUser fitUser) {
 		List<GrantedAuthority> authorities = fitUser.getRoles().stream()
 				.map(role -> new SimpleGrantedAuthority(role.getName().name()))
 				.collect(Collectors.toList());
@@ -90,7 +88,7 @@ public class FitUserDetails implements UserDetails {
 			return true;
 		if (o == null || getClass() != o.getClass())
 			return false;
-		FitUserDetails user = (FitUserDetails) o;
-		return Objects.equals(id, user.id);
+
+		return Objects.equals(id, ((FitUserDetails) o).id);
 	}
 }
