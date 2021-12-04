@@ -8,6 +8,7 @@ import org.springframework.web.context.request.WebRequest;
 import ru.project.fitstyle.service.exception.news.NewsPageNotFoundException;
 import ru.project.fitstyle.service.exception.news.NewsStoryNotFoundException;
 import ru.project.fitstyle.service.exception.role.UsersWithRoleNotFoundException;
+import ru.project.fitstyle.service.exception.storage.FileNotFoundException;
 import ru.project.fitstyle.service.exception.storage.StorageException;
 import ru.project.fitstyle.service.exception.subscription.SubscriptionTypeNotFoundException;
 import ru.project.fitstyle.service.exception.token.AnonymousTokenException;
@@ -19,7 +20,6 @@ import ru.project.fitstyle.service.exception.user.NotACoachException;
 import ru.project.fitstyle.service.exception.role.RoleNotFoundException;
 import ru.project.fitstyle.service.exception.user.UserNotFoundException;
 
-import java.io.FileNotFoundException;
 import java.util.Date;
 
 @RestControllerAdvice
