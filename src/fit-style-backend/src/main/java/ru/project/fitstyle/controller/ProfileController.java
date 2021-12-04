@@ -29,9 +29,9 @@ public class ProfileController {
     private final StorageService imageStorageService;
 
     @Autowired
-    public ProfileController (@Qualifier("fitUserService") UserService userService,
-                              @Qualifier("fitAuthService") AuthService authService,
-                              @Qualifier("imageStorageService") StorageService imageStorageService) {
+    public ProfileController (UserService userService,
+                              AuthService authService,
+                              StorageService imageStorageService) {
         this.userService = userService;
         this.authService = authService;
         this.imageStorageService = imageStorageService;

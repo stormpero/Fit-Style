@@ -17,7 +17,7 @@ public class CoachController {
     private final UserService userService;
 
     @Autowired
-    public CoachController(@Qualifier("fitUserService") UserService userService) {
+    public CoachController(UserService userService) {
         this.userService = userService;
     }
 

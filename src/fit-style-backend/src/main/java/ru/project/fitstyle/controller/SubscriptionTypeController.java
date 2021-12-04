@@ -16,7 +16,7 @@ public class SubscriptionTypeController {
 
     private final SubscriptionTypeService subscriptionTypeService;
 
-    public SubscriptionTypeController(@Qualifier("fitSubscriptionTypeService") SubscriptionTypeService subscriptionTypeService) {
+    public SubscriptionTypeController(SubscriptionTypeService subscriptionTypeService) {
         this.subscriptionTypeService = subscriptionTypeService;
     }
 

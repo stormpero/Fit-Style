@@ -58,14 +58,14 @@ public class AuthController {
 
     @Autowired
     public AuthController(AuthenticationManager authenticationManager,PasswordEncoder encoder,
-                          @Qualifier("fitUserService") UserService userService,
-                          @Qualifier("fitRoleService") RoleService roleService,
-                          @Qualifier("fitSubscriptionTypeService") SubscriptionTypeService subscriptionTypeService,
+                          UserService userService,
+                          RoleService roleService,
+                          SubscriptionTypeService subscriptionTypeService,
                           @Qualifier("accessTokenService") TokenService accessTokenService,
                           @Qualifier("refreshTokenService") TokenService refreshTokenService,
-                          @Qualifier("refreshTokenCookieService") CookieService refreshTokenCookieService,
-                          @Qualifier("fitAuthService") AuthService authService,
-                          @Qualifier("imageStorageService") StorageService imageStorageService) {
+                          CookieService refreshTokenCookieService,
+                          AuthService authService,
+                          StorageService imageStorageService) {
         this.authenticationManager = authenticationManager;
         this.userService = userService;
         this.roleService = roleService;

@@ -23,8 +23,8 @@ public class NewsController {
     private final StorageService storageService;
 
     @Autowired
-    public NewsController(@Qualifier("fitNewsService") NewsService newsService,
-                          @Qualifier("imageStorageService") StorageService storageService) {
+    public NewsController(NewsService newsService,
+                          StorageService storageService) {
         this.newsService = newsService;
         this.storageService = storageService;
     }

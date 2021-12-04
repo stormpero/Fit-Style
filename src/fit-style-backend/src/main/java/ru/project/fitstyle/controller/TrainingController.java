@@ -31,9 +31,9 @@ public class TrainingController {
     private final TrainingService trainingService;
 
     @Autowired
-    public TrainingController(@Qualifier("fitAuthService") AuthService authService,
-                              @Qualifier("fitUserService") UserService userService,
-                              @Qualifier("fitTrainingService") TrainingService trainingService) {
+    public TrainingController(AuthService authService,
+                              UserService userService,
+                              TrainingService trainingService) {
         this.authService = authService;
         this.userService = userService;
         this.trainingService = trainingService;

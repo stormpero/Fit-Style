@@ -21,8 +21,8 @@ public class PermissionController {
     private final AuthService authServiceImpl;
 
     @Autowired
-    public PermissionController(@Qualifier("fitUserService") UserService userService,
-                                @Qualifier("fitAuthService") AuthService authServiceImpl) {
+    public PermissionController(UserService userService,
+                                AuthService authServiceImpl) {
         this.userService = userService;
         this.authServiceImpl = authServiceImpl;
     }
