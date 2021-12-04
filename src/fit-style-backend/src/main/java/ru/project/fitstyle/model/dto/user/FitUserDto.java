@@ -2,7 +2,7 @@ package ru.project.fitstyle.model.dto.user;
 
 import java.util.Date;
 
-public class FitUserInfo {
+public class FitUserDto {
     private final Long id;
 
     private final String email;
@@ -33,9 +33,9 @@ public class FitUserInfo {
 
     private final Long balance;
 
-    public FitUserInfo(Long id, String email, String password, String name, String surname, String patronymic,
-                       String age, String gender, Date birthdate, String telephone, String passport, String address,
-                       String imgURL, Long balance) {
+    public FitUserDto(Long id, String email, String password, String name, String surname, String patronymic,
+                      String age, String gender, Date birthdate, String telephone, String passport, String address,
+                      String imgURL, Long balance) {
         this.id = id;
         this.email = email;
         this.password = password;

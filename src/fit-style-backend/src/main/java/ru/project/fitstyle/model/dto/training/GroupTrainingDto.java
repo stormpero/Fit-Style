@@ -1,11 +1,11 @@
 package ru.project.fitstyle.model.dto.training;
 
-import ru.project.fitstyle.model.dto.user.CoachInfo;
+import ru.project.fitstyle.model.dto.user.CoachDto;
 import ru.project.fitstyle.model.entity.training.ETrainingStatus;
 
 import java.util.Date;
 
-public class PersonalTrainingInfo {
+public class GroupTrainingDto {
     private final Long id;
 
     private final Date startDate;
@@ -14,15 +14,19 @@ public class PersonalTrainingInfo {
 
     private final ETrainingStatus status;
 
-    private final CoachInfo coach;
+    private final CoachDto coach;
 
-    public PersonalTrainingInfo(Long id, Date startDate, Date endDate, ETrainingStatus status,
-                                Long coachId, String name, String surname, String patronymic) {
+    private final String title;
+
+    public GroupTrainingDto(Long id, Date startDate, Date endDate, ETrainingStatus status,
+                            Long coachId, String name, String surname, String patronymic,
+                            String title) {
         this.id = id;
         this.startDate = startDate;
         this.endDate = endDate;
         this.status = status;
-        this.coach = new CoachInfo(coachId, name, surname, patronymic);
+        this.coach = new CoachDto(coachId, name, surname, patronymic);
+        this.title = title;
     }
 
     public Long getId() {
@@ -41,7 +45,11 @@ public class PersonalTrainingInfo {
         return status;
     }
 
-    public CoachInfo getCoach() {
+    public CoachDto getCoach() {
         return coach;
+    }
+
+    public String getTitle() {
+        return title;
     }
 }

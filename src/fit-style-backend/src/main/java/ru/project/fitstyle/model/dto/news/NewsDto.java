@@ -2,7 +2,7 @@ package ru.project.fitstyle.model.dto.news;
 
 import java.util.Date;
 
-public class NewsInfo {
+public class NewsDto {
     private final Long id;
 
     private final String header;
@@ -13,7 +13,7 @@ public class NewsInfo {
 
     private final String imgURL;
 
-    public NewsInfo(Long id, String header, String content, Date dateTime, String imgURL) {
+    public NewsDto(Long id, String header, String content, Date dateTime, String imgURL) {
         this.id = id;
         this.header = header;
         this.content = content;

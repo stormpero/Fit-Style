@@ -1,6 +1,6 @@
 package ru.project.fitstyle.model.dto.user;
 
-public class CoachInfo {
+public class CoachDto {
     private final Long id;
 
     private final String name;
@@ -9,7 +9,7 @@ public class CoachInfo {
 
     private final String patronymic;
 
-    public CoachInfo(Long id, String name, String surname, String patronymic) {
+    public CoachDto(Long id, String name, String surname, String patronymic) {
         this.id = id;
         this.name = name;
         this.surname = surname;

@@ -2,10 +2,10 @@ package ru.project.fitstyle.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.project.fitstyle.model.dto.user.CoachInfo;
-import ru.project.fitstyle.model.dto.user.FitUserInfo;
-import ru.project.fitstyle.model.dto.user.RoleInfo;
-import ru.project.fitstyle.model.dto.user.SubscriptionInfo;
+import ru.project.fitstyle.model.dto.user.CoachDto;
+import ru.project.fitstyle.model.dto.user.FitUserDto;
+import ru.project.fitstyle.model.dto.user.RoleDto;
+import ru.project.fitstyle.model.dto.user.SubscriptionDto;
 import ru.project.fitstyle.model.entity.subscription.Subscription;
 import ru.project.fitstyle.model.entity.user.FitUser;
 import ru.project.fitstyle.model.entity.user.Role;
@@ -69,45 +69,45 @@ public class FitUserService implements UserService {
     }
 
     @Override
-    public FitUserInfo getFitUserInfoByEmail(String email) {
+    public FitUserDto getFitUserInfoByEmail(String email) {
         return fitUserRepository.findFitUserInfoWithEmail(email)
                 .orElseThrow(() -> new UserNotFoundException("User with that email cannot be found!"));
     }
 
     @Override
-    public FitUserInfo getFitUserInfoById(Long id) {
+    public FitUserDto getFitUserInfoById(Long id) {
         return fitUserRepository.findFitUserInfoWithId(id)
                 .orElseThrow(() -> new UserNotFoundException("User with that id cannot be found!"));
     }
 
     @Override
-    public SubscriptionInfo getSubscriptionResponseInfoByEmail(String email) {
+    public SubscriptionDto getSubscriptionResponseInfoByEmail(String email) {
         return fitUserRepository.findSubscriptionResponseInfoWithEmail(email)
                 .orElseThrow(() -> new UserNotFoundException("User with that email cannot be found!"));
     }
 
     @Override
-    public SubscriptionInfo getSubscriptionResponseInfoById(Long id) {
+    public SubscriptionDto getSubscriptionResponseInfoById(Long id) {
         return fitUserRepository.findSubscriptionResponseInfoWithId(id)
                 .orElseThrow(() -> new UserNotFoundException("User with that id cannot be found!"));
     }
 
     @Override
-    public List<RoleInfo> getUserRolesByEmail(String email) {
+    public List<RoleDto> getUserRolesByEmail(String email) {
         return fitUserRepository.findRolesWithEmail(email)
                 .filter(list -> list.size() != 0)
                 .orElseThrow(() -> new  UserNotFoundException("User with that email cannot be found!"));
     }
 
     @Override
-    public List<RoleInfo> getUserRolesById(Long id) {
+    public List<RoleDto> getUserRolesById(Long id) {
         return fitUserRepository.findRolesWithId(id)
                 .filter(list -> list.size() != 0)
                 .orElseThrow(() -> new  UserNotFoundException("User with that id cannot be found!"));
     }
 
     @Override
-    public List<CoachInfo> getCoaches() {
+    public List<CoachDto> getCoaches() {
         return fitUserRepository.findAllCoaches()
                 .filter(list -> list.size() != 0)
                 .orElseThrow(() -> new UserNotFoundException("There are no coaches!"));

@@ -2,12 +2,12 @@ package ru.project.fitstyle.model.dto.user;
 
 import ru.project.fitstyle.model.entity.user.ERole;
 
-public class RoleInfo {
+public class RoleDto {
     private final Long id;
 
     private final ERole name;
 
-    public RoleInfo(Long id, ERole name) {
+    public RoleDto(Long id, ERole name) {
         this.id = id;
         this.name = name;
     }

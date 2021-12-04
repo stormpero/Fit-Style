@@ -1,18 +1,18 @@
 package ru.project.fitstyle.controller.response.training;
 
 
-import ru.project.fitstyle.model.dto.training.TrainingNameInfo;
+import ru.project.fitstyle.model.dto.training.TrainingNameDto;
 
 import java.util.List;
 
 public class TrainingNamesResponse {
-    private final List<TrainingNameInfo> trainingNames;
+    private final List<TrainingNameDto> trainingNames;
 
-    public TrainingNamesResponse(List<TrainingNameInfo> trainingNames) {
+    public TrainingNamesResponse(List<TrainingNameDto> trainingNames) {
         this.trainingNames = trainingNames;
     }
 
-    public List<TrainingNameInfo> getTrainingNames() {
+    public List<TrainingNameDto> getTrainingNames() {
         return trainingNames;
     }
 }

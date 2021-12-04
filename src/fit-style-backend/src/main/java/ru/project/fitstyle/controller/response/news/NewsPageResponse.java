@@ -1,17 +1,17 @@
 package ru.project.fitstyle.controller.response.news;
 
-import ru.project.fitstyle.model.dto.news.NewsInfo;
+import ru.project.fitstyle.model.dto.news.NewsDto;
 
 import java.util.List;
 
 public class NewsPageResponse {
-    private final List<NewsInfo> news;
+    private final List<NewsDto> news;
 
-    public NewsPageResponse(List<NewsInfo> news) {
+    public NewsPageResponse(List<NewsDto> news) {
         this.news = news;
     }
 
-    public List<NewsInfo> getNews() {
+    public List<NewsDto> getNews() {
         return news;
     }
 }

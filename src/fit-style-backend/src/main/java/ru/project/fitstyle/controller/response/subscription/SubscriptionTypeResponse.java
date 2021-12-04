@@ -1,17 +1,17 @@
 package ru.project.fitstyle.controller.response.subscription;
 
-import ru.project.fitstyle.model.dto.subscription.SubscriptionTypeInfo;
+import ru.project.fitstyle.model.dto.subscription.SubscriptionTypeDto;
 
 import java.util.List;
 
 public class SubscriptionTypeResponse {
-    private final List<SubscriptionTypeInfo> subscriptionTypes;
+    private final List<SubscriptionTypeDto> subscriptionTypes;
 
-    public SubscriptionTypeResponse(List<SubscriptionTypeInfo> subscriptionTypes) {
+    public SubscriptionTypeResponse(List<SubscriptionTypeDto> subscriptionTypes) {
         this.subscriptionTypes = subscriptionTypes;
     }
 
-    public List<SubscriptionTypeInfo> getSubscriptionTypes() {
+    public List<SubscriptionTypeDto> getSubscriptionTypes() {
         return subscriptionTypes;
     }
 }

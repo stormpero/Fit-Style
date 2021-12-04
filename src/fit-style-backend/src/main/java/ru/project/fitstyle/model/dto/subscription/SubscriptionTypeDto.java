@@ -2,7 +2,7 @@ package ru.project.fitstyle.model.dto.subscription;
 
 import ru.project.fitstyle.model.entity.subscription.ESubsPlacementTime;
 
-public class SubscriptionTypeInfo {
+public class SubscriptionTypeDto {
     private final Long id;
 
     private final String name;
@@ -13,7 +13,7 @@ public class SubscriptionTypeInfo {
 
     private final String cost;
 
-    public SubscriptionTypeInfo(Long id, String name, int validityMonths, ESubsPlacementTime placementTime, String cost) {
+    public SubscriptionTypeDto(Long id, String name, int validityMonths, ESubsPlacementTime placementTime, String cost) {
         this.id = id;
         this.name = name;
         this.validityMonths = validityMonths;

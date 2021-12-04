@@ -5,9 +5,9 @@ import org.springframework.stereotype.Service;
 import ru.project.fitstyle.model.dao.GroupTrainingRepository;
 import ru.project.fitstyle.model.dao.PersonalTrainingRepository;
 import ru.project.fitstyle.model.dao.TrainingRepository;
-import ru.project.fitstyle.model.dto.training.GroupTrainingInfo;
-import ru.project.fitstyle.model.dto.training.PersonalTrainingInfo;
-import ru.project.fitstyle.model.dto.training.TrainingNameInfo;
+import ru.project.fitstyle.model.dto.training.GroupTrainingDto;
+import ru.project.fitstyle.model.dto.training.PersonalTrainingDto;
+import ru.project.fitstyle.model.dto.training.TrainingNameDto;
 import ru.project.fitstyle.model.entity.training.GroupTraining;
 import ru.project.fitstyle.model.entity.training.PersonalTraining;
 import ru.project.fitstyle.model.entity.training.Training;
@@ -82,37 +82,37 @@ public class FitTrainingService implements TrainingService {
     }
 
     @Override
-    public List<GroupTrainingInfo> getCoachGroupTrainingsByCoachId(Long id) {
+    public List<GroupTrainingDto> getCoachGroupTrainingsByCoachId(Long id) {
         return groupTrainingRepository.findAllCoachTrainingsWithCoachId(id);
     }
 
     @Override
-    public List<PersonalTrainingInfo> getCoachPersonalTrainingsByCoachId(Long id) {
+    public List<PersonalTrainingDto> getCoachPersonalTrainingsByCoachId(Long id) {
         return personalTrainingRepository.findAllCoachTrainingsWithCoachId(id);
     }
 
     @Override
-    public List<GroupTrainingInfo> getCoachGroupTrainingsByCoachEmail(String email) {
+    public List<GroupTrainingDto> getCoachGroupTrainingsByCoachEmail(String email) {
         return groupTrainingRepository.findAllCoachTrainingsWithCoachEmail(email);
     }
 
     @Override
-    public List<PersonalTrainingInfo> getCoachPersonalTrainingsByCoachEmail(String email) {
+    public List<PersonalTrainingDto> getCoachPersonalTrainingsByCoachEmail(String email) {
         return personalTrainingRepository.findAllCoachTrainingsWithCoachEmail(email);
     }
 
     @Override
-    public List<GroupTrainingInfo> getFitUserGroupTrainingsByFitUserEmail(String email) {
+    public List<GroupTrainingDto> getFitUserGroupTrainingsByFitUserEmail(String email) {
         return groupTrainingRepository.findAllFitUserTrainingsWithFitUserEmail(email);
     }
 
     @Override
-    public List<PersonalTrainingInfo> getFitUserPersonalTrainingsByFitUserEmail(String email) {
+    public List<PersonalTrainingDto> getFitUserPersonalTrainingsByFitUserEmail(String email) {
         return personalTrainingRepository.findAllFitUserTrainingsWithFitUserEmail(email);
     }
 
     @Override
-    public List<TrainingNameInfo> getTrainingNames() {
+    public List<TrainingNameDto> getTrainingNames() {
         return trainingRepository.findAllTrainingNameInfo();
     }
 }

@@ -1,9 +1,9 @@
 package ru.project.fitstyle.service;
 
-import ru.project.fitstyle.model.dto.user.CoachInfo;
-import ru.project.fitstyle.model.dto.user.FitUserInfo;
-import ru.project.fitstyle.model.dto.user.RoleInfo;
-import ru.project.fitstyle.model.dto.user.SubscriptionInfo;
+import ru.project.fitstyle.model.dto.user.CoachDto;
+import ru.project.fitstyle.model.dto.user.FitUserDto;
+import ru.project.fitstyle.model.dto.user.RoleDto;
+import ru.project.fitstyle.model.dto.user.SubscriptionDto;
 import ru.project.fitstyle.model.entity.subscription.Subscription;
 import ru.project.fitstyle.model.entity.user.FitUser;
 import ru.project.fitstyle.model.entity.user.Role;
@@ -22,17 +22,17 @@ public interface UserService {
 
     void logoutUserByEmail(String email);
 
-    FitUserInfo getFitUserInfoByEmail(String email);
+    FitUserDto getFitUserInfoByEmail(String email);
 
-    FitUserInfo getFitUserInfoById(Long id);
+    FitUserDto getFitUserInfoById(Long id);
 
-    SubscriptionInfo getSubscriptionResponseInfoByEmail(String email);
+    SubscriptionDto getSubscriptionResponseInfoByEmail(String email);
 
-    SubscriptionInfo getSubscriptionResponseInfoById(Long id);
+    SubscriptionDto getSubscriptionResponseInfoById(Long id);
 
-    List<RoleInfo> getUserRolesByEmail(String email);
+    List<RoleDto> getUserRolesByEmail(String email);
 
-    List<RoleInfo> getUserRolesById(Long id);
+    List<RoleDto> getUserRolesById(Long id);
 
-    List<CoachInfo> getCoaches();
+    List<CoachDto> getCoaches();
 }
