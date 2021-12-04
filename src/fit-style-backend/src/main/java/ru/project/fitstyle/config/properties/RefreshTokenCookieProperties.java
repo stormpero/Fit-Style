@@ -4,7 +4,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ConfigurationProperties(prefix = "refreshcookie")
+@ConfigurationProperties(prefix = "refresh-cookie")
 public class RefreshTokenCookieProperties {
     /**
      * Refresh token cookie name

@@ -4,7 +4,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ConfigurationProperties(prefix = "accesstoken")
+@ConfigurationProperties(prefix = "access-token")
 public class AccessTokenProperties {
     /**
      * Private key that is used to encode access token

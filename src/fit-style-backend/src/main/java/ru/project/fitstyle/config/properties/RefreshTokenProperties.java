@@ -4,7 +4,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ConfigurationProperties(prefix = "refreshtoken")
+@ConfigurationProperties(prefix = "refresh-token")
 public class RefreshTokenProperties {
     /**
      * Private key that is used to encode refresh token
