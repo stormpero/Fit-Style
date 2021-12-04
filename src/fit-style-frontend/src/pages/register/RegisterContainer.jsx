@@ -18,13 +18,15 @@ export default class RegisterContainer extends Component {
             surname: "",
             patronymic: "",
             age: "",
-            subscriptionTypeId: "",
             gender: "",
             birthdate: "",
             telephone: "",
             passport: "",
             address: "",
-            contractNumber: "",
+            subscriptionTypeInfo: {
+                subscriptionTypeId: "",
+                contractNumber: ""
+            }
         },
         imageData: null,
         subscriptionTypes: [],
@@ -57,6 +59,19 @@ export default class RegisterContainer extends Component {
         const {files} = event.target;
         this.setState({
             imageData: files[0]
+        });
+    }
+
+    handleInputSubscription = (event) => {
+        const {name, value} = event.target;
+        this.setState({
+            userInfo: {
+                ...this.state.userInfo,
+                subscriptionTypeInfo: {
+                    ...this.state.userInfo.subscriptionTypeInfo,
+                    [name]: value,
+                }
+            }
         });
     }
 
@@ -107,7 +122,10 @@ export default class RegisterContainer extends Component {
                         telephone: "",
                         passport: "",
                         address: "",
-                        contractNumber: "",
+                        subscriptionTypeInfo: {
+                            subscriptionTypeId: "",
+                            contractNumber: ""
+                        }
                     }
                 });
             }).catch((error)=> {
@@ -124,6 +142,7 @@ export default class RegisterContainer extends Component {
             registering: this.handleRegister,
             input: this.handleInputChange,
             inputAddress: this.handleAddressInputChange,
+            inputSubscription: this.handleInputSubscription,
             inputImg: this.handleImgInputChange,
         }}
         value={this.state.userInfo}
