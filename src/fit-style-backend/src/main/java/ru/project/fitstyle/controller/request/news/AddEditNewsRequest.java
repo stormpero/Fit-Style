@@ -6,7 +6,7 @@ import java.util.Date;
 
 public class AddEditNewsRequest {
     @NotBlank(message = "header should not be blank")
-    @Size(min = 3, max = 50, message = "name should be more or equal than 3 and less or equal than 50 characters")
+    @Size(max = 50, message = "name should be more or equal than 3 and less or equal than 50 characters")
     private String header;
 
     @NotBlank(message = "content should not be blank")
