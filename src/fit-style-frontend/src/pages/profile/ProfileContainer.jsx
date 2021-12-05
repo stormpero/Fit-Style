@@ -20,7 +20,7 @@ export const ProfileContainer = () => {
                 userInfo.fitUserInfo.birthdate = DateFormat.convertDataToNormalData(userInfo.fitUserInfo.birthdate);
 
                 setUserInfo(userInfo);
-                setUserImg(img ? URL.createObjectURL(img) : null);
+                setUserImg(img != null ? URL.createObjectURL(img) : null);
             }
         ).finally(() => setIsReady(true))
     }, [reload])

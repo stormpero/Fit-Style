@@ -38,17 +38,17 @@ public class GetImageController {
     public ResponseEntity<Resource> getUserProfileImage() {
         final Resource resource = imageStorageService.loadAsResource(userService.getUserByEmail(authService.getEmail()).getImgURL());
 
-        return getImage(resource);
+        return getImageResponse(resource);
     }
 
     @GetMapping("/news/{id}")
     public ResponseEntity<Resource> getNewsImage(@PathVariable("id") Long id) {
         final Resource resource = imageStorageService.loadAsResource(newsService.getNewsById(id).getImgURL());
 
-        return getImage(resource);
+        return getImageResponse(resource);
     }
 
-    private ResponseEntity<Resource> getImage(Resource resource) {
+    private ResponseEntity<Resource> getImageResponse(Resource resource) {
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION,
                         "attachment; filename=\"" + resource.getFilename() + "\"")
