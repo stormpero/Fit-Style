@@ -3,7 +3,7 @@ import Schedule from "./Schedule";
 import "./Schedule.css"
 import ToastMessages from "../../components/toastmessages/ToastMessages";
 import Modal from "../../components/modal/Modal";
-import ScheduleModalTrainingInfo from "./form/ScheduleModalTrainingInfo";
+import {ScheduleModalTrainingInfo} from "./form/ScheduleModalTrainingInfo";
 import PermissionService from "../../services/security/permission/PermissionService";
 import ScheduleApi from "../../services/api/ScheduleApi";
 import TrainingService from "../../services/training/TrainingService";
@@ -70,7 +70,9 @@ export const ScheduleContainer = () => {
         const {isPersonal, id} = event;
         if (isPersonal) {
             ScheduleApi.deletePersonalTraining(id).then(
-                response => {},
+                response => {
+                    ToastMessages.success("Тренировка удалена");
+                },
                 error => {
                     ToastMessages.defaultError();
                 }
@@ -80,7 +82,9 @@ export const ScheduleContainer = () => {
             })
         } else {
             ScheduleApi.deleteGroupTraining(id).then(
-                response => {},
+                response => {
+                    ToastMessages.success("Тренировка удалена");
+                },
                 error => {
                     ToastMessages.defaultError();
                 }
@@ -95,7 +99,9 @@ export const ScheduleContainer = () => {
         const {isPersonal, id} = event;
         if (isPersonal) {
             ScheduleApi.signPersonalTraining(id).then(
-                response => {},
+                response => {
+                    ToastMessages.success("Вы успешно записались на тренировку");
+                },
                 error => {
                     ToastMessages.defaultError();
                 }
@@ -105,7 +111,9 @@ export const ScheduleContainer = () => {
             })
         } else {
             ScheduleApi.signGroupTraining(id).then(
-                response => {},
+                response => {
+                    ToastMessages.success("Вы успешно записались на тренировку");
+                },
                 error => {
                     ToastMessages.defaultError();
                 }
