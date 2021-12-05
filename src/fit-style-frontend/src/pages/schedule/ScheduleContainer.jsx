@@ -55,7 +55,7 @@ export const ScheduleContainer = () => {
                     ToastMessages.defaultError();
                 });
         }
-    }, [selectCoach])
+    }, [selectCoach, reload])
 
     const handleSelectSlot = (event) => {
         if (event.start.getDay() !== event.end.getDay()) {
@@ -89,8 +89,33 @@ export const ScheduleContainer = () => {
                 setModalActiveInfo(false);
             })
         }
-
     }
+
+    const signTraining = (event) => {
+        const {isPersonal, id} = event;
+        if (isPersonal) {
+            ScheduleApi.signPersonalTraining(id).then(
+                response => {},
+                error => {
+                    ToastMessages.defaultError();
+                }
+            ).finally(() => {
+                setReload(prev => !prev);
+                setModalActiveInfo(false);
+            })
+        } else {
+            ScheduleApi.signGroupTraining(id).then(
+                response => {},
+                error => {
+                    ToastMessages.defaultError();
+                }
+            ).finally(() => {
+                setReload(prev => !prev);
+                setModalActiveInfo(false);
+            })
+        }
+    }
+
 
     const handleSelectInput = (event) => {
         const {value} = event.target;
@@ -121,7 +146,7 @@ export const ScheduleContainer = () => {
                 }}
             />}
            <Modal active={modalActiveInfo} setActive={setModalActiveInfo} options={{closeBackground: true}}>
-                <ScheduleModalTrainingInfo isActive={modalActiveInfo} isCoach={isCoach} eventInfo={eventInfo} deleteTraining={deleteTraining}/>
+                <ScheduleModalTrainingInfo isActive={modalActiveInfo} isCoach={isCoach} eventInfo={eventInfo} deleteTraining={deleteTraining} signTraining={signTraining}/>
            </Modal>
             <Modal active={modalActiveCreate} setActive={setModalActiveCreate} options={{closeBackground: true}}>
                 <ScheduleModalTrainingCreate setActive={setModalActiveCreate} eventInfo={eventInfo} setReload={setReload} eventList={eventList}/>

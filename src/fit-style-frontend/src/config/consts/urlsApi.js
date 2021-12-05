@@ -29,3 +29,5 @@ export const URL_ADD_TRAINING_PERSONAL = "training/personal";
 export const URL_ADD_TRAINING_GROUP = "training/group";
 export const URL_DELETE_TRAINING_PERSONAL = "training/personal/";
 export const URL_DELETE_TRAINING_GROUP = "training/group/";
+export const URL_SIGN_TRAINING_PERSONAL = "training/personal/sign/";
+export const URL_SIGN_TRAINING_GROUP ="training/group/sign/";
