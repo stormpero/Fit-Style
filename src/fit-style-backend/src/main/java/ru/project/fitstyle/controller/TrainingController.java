@@ -154,11 +154,12 @@ public class TrainingController {
         FitUser fitUser = userService.getUserByEmail(authService.getEmail());
         fitUser.getPersonalTrainings().add(personalTraining);
         personalTraining.setUser(fitUser);
+        personalTraining.setStatus(ETrainingStatus.ACTIVE);
         userService.saveUser(fitUser);
         trainingService.savePersonalTraining(personalTraining);
 
         return ResponseEntity.ok(
-                new SuccessMessage("Success! Group training created!")
+                new SuccessMessage("Success! Personal training sign up!")
         );
     }
 
