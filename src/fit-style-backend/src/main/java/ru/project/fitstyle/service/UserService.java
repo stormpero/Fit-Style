@@ -18,6 +18,8 @@ public interface UserService {
 
     void saveUser(FitUser fitUser, final List<Role> roles, final Subscription subscription);
 
+    void saveUser(FitUser fitUser);
+
     void changeBalance(FitUser fitUser, final Long summary);
 
     void logoutUserByEmail(final String email);

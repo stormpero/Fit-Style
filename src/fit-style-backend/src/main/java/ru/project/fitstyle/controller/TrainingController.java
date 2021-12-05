@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import ru.project.fitstyle.controller.request.training.AddEditGroupTrainingRequest;
 import ru.project.fitstyle.controller.request.training.AddEditPersonalTrainingRequest;
@@ -15,6 +16,7 @@ import ru.project.fitstyle.model.entity.training.GroupTraining;
 import ru.project.fitstyle.model.entity.training.PersonalTraining;
 import ru.project.fitstyle.model.entity.training.Training;
 import ru.project.fitstyle.controller.response.training.AllTrainingsResponse;
+import ru.project.fitstyle.model.entity.user.FitUser;
 import ru.project.fitstyle.service.AuthService;
 import ru.project.fitstyle.service.TrainingService;
 import ru.project.fitstyle.service.UserService;
@@ -112,10 +114,21 @@ public class TrainingController {
         );
     }
 
-//    @GetMapping("/group/sign/{id}")
-//    public ResponseEntity<SuccessMessage> signForGroupTraining(@PathVariable("id") Long id) {
-//
-//    }
+    //TODO add max users check before signing
+    @Transactional
+    @GetMapping("/group/sign/{id}")
+    public ResponseEntity<SuccessMessage> signForGroupTraining(@PathVariable("id") Long id) {
+        GroupTraining groupTraining = trainingService.getGroupTrainingById(id);
+        FitUser fitUser = userService.getUserByEmail(authService.getEmail());
+        fitUser.getGroupTrainings().add(groupTraining);
+        groupTraining.getFitUsers().add(fitUser);
+        userService.saveUser(fitUser);
+        trainingService.saveGroupTraining(groupTraining);
+
+        return ResponseEntity.ok(
+                new SuccessMessage("Success! Group training created!")
+        );
+    }
 
     @PreAuthorize("hasRole('COACH')")
     @PostMapping("/personal")
@@ -132,10 +145,22 @@ public class TrainingController {
         );
     }
 
-//    @GetMapping("/personal/sign/{id}")
-//    public ResponseEntity<SuccessMessage> signForPersonalTraining(@PathVariable("id") Long id) {
-//
-//    }
+
+    //TODO add if another user is already signed before signing
+    @Transactional
+    @GetMapping("/personal/sign/{id}")
+    public ResponseEntity<SuccessMessage> signForPersonalTraining(@PathVariable("id") Long id) {
+        PersonalTraining personalTraining = trainingService.getPersonalTrainingById(id);
+        FitUser fitUser = userService.getUserByEmail(authService.getEmail());
+        fitUser.getPersonalTrainings().add(personalTraining);
+        personalTraining.setUser(fitUser);
+        userService.saveUser(fitUser);
+        trainingService.savePersonalTraining(personalTraining);
+
+        return ResponseEntity.ok(
+                new SuccessMessage("Success! Group training created!")
+        );
+    }
 
     @PreAuthorize("hasRole('COACH')")
     @GetMapping("/personal/{id}")

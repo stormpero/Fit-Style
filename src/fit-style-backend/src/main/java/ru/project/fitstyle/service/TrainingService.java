@@ -23,9 +23,9 @@ public interface TrainingService {
 
     void deletePersonalTraining(final Long id);
 
-    void signForGroupTraining(final Long trainingId, final String fitUserEmail);
+    GroupTraining getGroupTrainingById(final Long id);
 
-    void signForPersonalTraining(final Long trainingId, final String fitUserEmail);
+    PersonalTraining getPersonalTrainingById(final Long id);
 
     Training getTrainingById(final Long id);
 

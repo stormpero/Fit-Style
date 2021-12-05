@@ -62,17 +62,15 @@ public class FitTrainingService implements TrainingService {
     }
 
     @Override
-    public void signForGroupTraining(final Long trainingId, final String fitUserEmail) {
-        GroupTraining groupTraining = groupTrainingRepository.findById(trainingId)
+    public GroupTraining getGroupTrainingById(final Long id) {
+        return groupTrainingRepository.findById(id)
                 .orElseThrow(() -> new TrainingNotFoundException("Group training with that id cannot be found!"));
-//        groupTrainingRepository.
-//        FitUser fitUser =
-//        groupTraining.getFitUsers().add();
     }
 
     @Override
-    public void signForPersonalTraining(final Long trainingId, final String fitUserEmail) {
-
+    public PersonalTraining getPersonalTrainingById(final Long id) {
+        return personalTrainingRepository.findById(id)
+                .orElseThrow(() -> new TrainingNotFoundException("Personal training with that id cannot be found!"));
     }
 
     @Override

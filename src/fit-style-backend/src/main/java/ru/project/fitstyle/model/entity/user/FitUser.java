@@ -89,7 +89,7 @@ public class FitUser {
             inverseJoinColumns = @JoinColumn(name = "group_training_id", referencedColumnName = "id", nullable = false))
     private List<GroupTraining> groupTrainings = new ArrayList<>();
 
-    @OneToMany(mappedBy = "fitUser", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "fitUser", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     private List<PersonalTraining> personalTrainings = new ArrayList<>();
 
     @OneToOne(fetch = FetchType.LAZY, optional = false, cascade = {CascadeType.REMOVE, CascadeType.PERSIST})
