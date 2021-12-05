@@ -3,7 +3,7 @@ import ScheduleApi from "../../../services/api/ScheduleApi";
 import ScheduleService from "../../../services/training/ScheduleService";
 import ToastMessages from "../../../components/toastmessages/ToastMessages";
 
-export const ScheduleModalTrainingCreate = ({setActive, eventInfo, setReload}) => {
+export const ScheduleModalTrainingCreate = ({setActive, eventInfo, setReload, eventList}) => {
     const [checked, setChecked] = useState(false);
     const [trainingId, setTrainingId] = useState("");
     const [groupTrainingTypes, setGroupTrainingTypes] = useState([]);
@@ -22,7 +22,14 @@ export const ScheduleModalTrainingCreate = ({setActive, eventInfo, setReload}) =
     }, [])
 
     const handleSubmit = () => {
-        const dateList = ScheduleService.getTrainingsListFromDate(eventInfo.start, eventInfo.end);
+        const dateList = ScheduleService.getTrainingsListFromDate(eventInfo.start, eventInfo.end).filter(startDate => {
+            return startDate.getTime() > Date.now() && !eventList.some(value => value.startDate.getTime() === startDate.getTime())
+        });
+        if (dateList.length === 0) {
+            ToastMessages.error("Тренировка(и) не создана");
+            setActive(false);
+        }
+
         if (checked) {
             if (trainingId === "DEFAULT") return ToastMessages.error("Выберите вид тренировки!");
 
@@ -45,7 +52,7 @@ export const ScheduleModalTrainingCreate = ({setActive, eventInfo, setReload}) =
     const addGroupTraining = (data) => {
         ScheduleApi.addGroupTraining(data).then(
             response => {
-                ToastMessages.success("Тренировка(и) созданы")
+                ToastMessages.success("Тренировка создана")
                 setReload(prev => !prev);
                 setActive(false);
             },
@@ -60,7 +67,7 @@ export const ScheduleModalTrainingCreate = ({setActive, eventInfo, setReload}) =
 
         ScheduleApi.addPersonalTraining(data).then(
             response => {
-                ToastMessages.success("Тренировка(и) созданы")
+                ToastMessages.success("Тренировка создана")
                 setReload(prev => !prev);
                 setActive(false);
             },

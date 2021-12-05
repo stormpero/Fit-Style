@@ -64,44 +64,32 @@ export const ScheduleContainer = () => {
         }
         setEventInfo(event);
         setModalActiveCreate(true)
-
-        return;
-
-        let date = new Date(event.start.getFullYear(), event.start.getMonth(), event.start.getDate());
-        let count = event.end.getHours() - event.start.getHours();
-        let startHours = event.start.getHours();
-        let trainings = [];
-        for (let i = 0; i < count; i++) {
-            let temp = createTraining(i, date, startHours++);
-            if (!temp) continue;
-            trainings.push(temp)
-        }
-        setEventList(prevState => prevState.concat(trainings))
-        if (trainings.length === 0) {
-            ToastMessages.error("Тренировка(и) не создана")
-        } else {
-            ToastMessages.success("Тренировка(и) созданы")
-        }
-    }
-
-    const createTraining = (id, date, hours) => {
-        let startDate = new Date(new Date(date.getTime()).setHours(hours));
-        if (eventList.some(value => value.start.getTime() === startDate.getTime()) ||
-            startDate.getTime() <= Date.now()) return null;
-
-        let endDate = new Date(startDate.getTime()).setHours(startDate.getHours() + 1);
-        return {
-            id: id,
-            title: "Тренировка",
-            start: startDate,
-            end: endDate,
-            status: "LOGGED"
-        }
     }
 
     const deleteTraining = (event) => {
-        setEventList(prevState => prevState.filter(value => value.start.getTime() !== event.start.getTime()))
-        setModalActiveInfo(false)
+        const {isPersonal, id} = event;
+        if (isPersonal) {
+            ScheduleApi.deletePersonalTraining(id).then(
+                response => {},
+                error => {
+                    ToastMessages.defaultError();
+                }
+            ).finally(() => {
+                setReload(prev => !prev);
+                setModalActiveInfo(false);
+            })
+        } else {
+            ScheduleApi.deleteGroupTraining(id).then(
+                response => {},
+                error => {
+                    ToastMessages.defaultError();
+                }
+            ).finally(() => {
+                setReload(prev => !prev);
+                setModalActiveInfo(false);
+            })
+        }
+
     }
 
     const handleSelectInput = (event) => {
@@ -133,10 +121,10 @@ export const ScheduleContainer = () => {
                 }}
             />}
            <Modal active={modalActiveInfo} setActive={setModalActiveInfo} options={{closeBackground: true}}>
-                <ScheduleModalTrainingInfo isActive={modalActiveInfo} eventInfo={eventInfo} deleteTraining={deleteTraining}/>
+                <ScheduleModalTrainingInfo isActive={modalActiveInfo} isCoach={isCoach} eventInfo={eventInfo} deleteTraining={deleteTraining}/>
            </Modal>
             <Modal active={modalActiveCreate} setActive={setModalActiveCreate} options={{closeBackground: true}}>
-                <ScheduleModalTrainingCreate setActive={setModalActiveCreate} eventInfo={eventInfo} setReload={setReload}/>
+                <ScheduleModalTrainingCreate setActive={setModalActiveCreate} eventInfo={eventInfo} setReload={setReload} eventList={eventList}/>
             </Modal>
         </div>
     );

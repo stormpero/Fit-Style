@@ -1,7 +1,7 @@
 import React from 'react';
 import DateFormat from "../../../utils/DateConvert";
 import TrainingService from "../../../services/training/ScheduleService";
-function ScheduleModalTrainingInfo({isActive, eventInfo, deleteTraining}) {
+function ScheduleModalTrainingInfo({isActive, isCoach, eventInfo, deleteTraining}) {
     return (eventInfo && !eventInfo.action ?
         <div>
             <h4 className="title">Информация о тренировке</h4>
@@ -20,7 +20,12 @@ function ScheduleModalTrainingInfo({isActive, eventInfo, deleteTraining}) {
                 </div>
             </div>
             <center>
+                {isCoach ?
                     <button className="btn btn-danger mt-5" onClick={() => deleteTraining(eventInfo)}>Удалить</button>
+                    :
+                    <button className="btn btn-primary mt-5" onClick={() => deleteTraining(eventInfo)}>Записаться</button>
+                }
+
             </center>
         </div>
             :
