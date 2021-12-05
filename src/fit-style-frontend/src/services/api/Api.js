@@ -39,7 +39,7 @@ instance.interceptors.response.use(
                         JwtService.updateAccessToken(accessToken);
                     })
                     .catch((_error) => {
-                        if (_error.response.status === 403 ) {
+                         if (_error.response.data.errorCode === 2) {
                             LStorageUser.remove();
                             window.location.reload();
                         }
