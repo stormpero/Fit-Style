@@ -7,8 +7,6 @@ public class FitUserDto {
 
     private final String email;
 
-    private final String password;
-
 
     private final String name;
 
@@ -33,12 +31,11 @@ public class FitUserDto {
 
     private final Long balance;
 
-    public FitUserDto(final Long id, final String email, final String password, final String name, final String surname, final String patronymic,
+    public FitUserDto(final Long id, final String email, final String name, final String surname, final String patronymic,
                       final String age, final String gender, final Date birthdate, final String telephone, final String passport, final String address,
                       final String imgURL, final Long balance) {
         this.id = id;
         this.email = email;
-        this.password = password;
         this.name = name;
         this.surname = surname;
         this.patronymic = patronymic;
@@ -58,10 +55,6 @@ public class FitUserDto {
 
     public String getEmail() {
         return email;
-    }
-
-    public String getPassword() {
-        return password;
     }
 
     public String getName() {

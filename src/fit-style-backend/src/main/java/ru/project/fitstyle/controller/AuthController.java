@@ -109,10 +109,7 @@ public class AuthController {
 
         FitUser fitUser = createFitUser(request);
 
-        if(image != null) {
-            imageStorageService.store(image);
-            fitUser.setImgURL(image.getOriginalFilename());
-        }
+        fitUser.setImgURL(imageStorageService.store(image));
 
         userService.saveUser(fitUser, roleService.createRoles(request.getRoles()),
                 subscriptionTypeService.createFitUserSubscription(request.getSubscriptionTypeInfo().getSubscriptionTypeId(),

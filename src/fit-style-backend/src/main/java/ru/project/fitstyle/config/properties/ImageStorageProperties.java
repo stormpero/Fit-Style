@@ -11,10 +11,6 @@ public class ImageStorageProperties {
      * Location where our file will be stored
      */
     private String location;
-    /**
-     * Image that would be used if no one was given
-     */
-    private String defaultImageName;
 
     public String getLocation() {
         return location;
@@ -22,13 +18,5 @@ public class ImageStorageProperties {
 
     public void setLocation(String location) {
         this.location = location;
-    }
-
-    public String getDefaultImageName() {
-        return defaultImageName;
-    }
-
-    public void setDefaultImageName(String defaultImageName) {
-        this.defaultImageName = defaultImageName;
     }
 }

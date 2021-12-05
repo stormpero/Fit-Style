@@ -20,6 +20,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 @Service
@@ -27,12 +29,9 @@ public class ImageStorageService implements StorageService {
 
     private final Path rootLocation;
 
-    private final String defaultFileName;
-
     @Autowired
     public ImageStorageService(final ImageStorageProperties properties) {
         this.rootLocation = Paths.get(properties.getLocation());
-        this.defaultFileName = properties.getDefaultImageName();
     }
 
     @Override
@@ -48,11 +47,11 @@ public class ImageStorageService implements StorageService {
     @Override
     public String store(MultipartFile file) {
         String filename;
-        if(file != null) {
-            filename = StringUtils.cleanPath(file.getOriginalFilename());
+        try {
+            filename = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
         }
-        else {
-            filename = defaultFileName;
+        catch (NullPointerException e) {
+            return null;
         }
         try {
             if (file.isEmpty()) {
@@ -71,7 +70,7 @@ public class ImageStorageService implements StorageService {
             throw new StorageException("Cannot store file!");
         }
 
-        return filename;
+        return file.getOriginalFilename();
     }
 
     @Override
@@ -102,6 +101,9 @@ public class ImageStorageService implements StorageService {
             else {
                 throw new FileNotFoundException("Could not read file: " + filename);
             }
+        }
+        catch (NullPointerException e) {
+            throw new FileNotFoundException("File does not exist!");
         }
         catch (MalformedURLException e) {
             throw new FileNotFoundException("Could not read file: " + filename);
