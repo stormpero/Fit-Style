@@ -33,8 +33,8 @@ export const NewsBoard = () => {
             },
             error => {
                 setHasNews(false);
-                if (error?.response?.data?.statusCode === 400 &&
-                    error.response.data?.message === "Failed. Page not found!") {
+                if (error?.response?.data?.errorCode === 404) {
+
                 }
             }
         )
