@@ -31,23 +31,19 @@ instance.interceptors.response.use(
             config._retry = true;
 
             try {
-                await instance.get(URL_REFRESHTOKEN, {
+                let response = await instance.get(URL_REFRESHTOKEN, {
                     withCredentials: true
                 })
-                    .then(response => {
-                        const {accessToken} = response.data;
-                        JwtService.updateAccessToken(accessToken);
-                    })
-                    .catch((_error) => {
-                         if (_error.response.data.errorCode === 2) {
-                            LStorageUser.remove();
-                            window.location.reload();
-                        }
-                    });
+                const {accessToken} = response.data;
+                JwtService.updateAccessToken(accessToken);
 
                 return instance(config);
-            } catch (err) {
-                return Promise.reject(err);
+            } catch (_error) {
+                if (_error.response.data.errorCode === 2) {
+                    LStorageUser.remove();
+                    window.location.reload();
+                }
+                return Promise.reject(_error);
             }
         } else {
             return Promise.reject(error);
