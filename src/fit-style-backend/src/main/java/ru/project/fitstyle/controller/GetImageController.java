@@ -11,8 +11,6 @@ import ru.project.fitstyle.service.NewsService;
 import ru.project.fitstyle.service.StorageService;
 import ru.project.fitstyle.service.UserService;
 
-import java.util.Optional;
-
 @CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
 @RestController
 @RequestMapping("/api/get-image")
@@ -40,16 +38,17 @@ public class GetImageController {
     public ResponseEntity<Resource> getUserProfileImage() {
         final Resource resource = imageStorageService.loadAsResource(userService.getUserByEmail(authService.getEmail()).getImgURL());
 
-        return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION,
-                        "attachment; filename=\"" + resource.getFilename() + "\"")
-                .body(resource);
+        return getImage(resource);
     }
 
     @GetMapping("/news/{id}")
     public ResponseEntity<Resource> getNewsImage(@PathVariable("id") Long id) {
         final Resource resource = imageStorageService.loadAsResource(newsService.getNewsById(id).getImgURL());
 
+        return getImage(resource);
+    }
+
+    private ResponseEntity<Resource> getImage(Resource resource) {
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION,
                         "attachment; filename=\"" + resource.getFilename() + "\"")
