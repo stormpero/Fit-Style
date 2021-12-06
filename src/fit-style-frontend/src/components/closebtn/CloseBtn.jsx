@@ -1,9 +1,9 @@
 import React from 'react';
 import "./CloseBtn.css"
 
-export const CloseBtn = ({onClickEvent}) => {
+export const CloseBtn = ({onClickEvent, classname = ""}) => {
     return (
-        <div>
+        <div className={classname}>
             <button
                 type="button"
                 className="btn-close-modal"
