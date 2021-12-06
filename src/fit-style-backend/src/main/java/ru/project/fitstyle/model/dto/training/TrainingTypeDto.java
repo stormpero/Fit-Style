@@ -1,11 +1,11 @@
 package ru.project.fitstyle.model.dto.training;
 
-public class TrainingNameDto {
+public class TrainingTypeDto {
     private final Long id;
 
     private final String name;
 
-    public TrainingNameDto(final Long id, final String name) {
+    public TrainingTypeDto(final Long id, final String name) {
         this.id = id;
         this.name = name;
     }

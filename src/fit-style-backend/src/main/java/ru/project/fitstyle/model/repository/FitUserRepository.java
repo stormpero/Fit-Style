@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import ru.project.fitstyle.model.dto.user.CoachDto;
+import ru.project.fitstyle.model.dto.user.FitUserFullNameDto;
 import ru.project.fitstyle.model.dto.user.FitUserDto;
 import ru.project.fitstyle.model.dto.user.RoleDto;
 import ru.project.fitstyle.model.dto.user.SubscriptionDto;
@@ -19,9 +19,9 @@ public interface FitUserRepository extends JpaRepository<FitUser, Long> {
 
     Optional<FitUser> findByEmail(String email);
 
-    @Query("select new ru.project.fitstyle.model.dto.user.CoachDto(v.id, v.name, v.surname, v.patronymic) " +
+    @Query("select new ru.project.fitstyle.model.dto.user.FitUserFullNameDto(v.id, v.name, v.surname, v.patronymic) " +
             "from FitUser v inner join v.roles w on w.name='ROLE_COACH'")
-    Optional<List<CoachDto>> findAllCoaches();
+    Optional<List<FitUserFullNameDto>> findAllCoaches();
 
     @Query("select new ru.project.fitstyle.model.dto.user.RoleDto(w.id, w.name) " +
             "from FitUser v inner join v.roles w " +

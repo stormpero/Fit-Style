@@ -1,17 +1,17 @@
 package ru.project.fitstyle.controller.response.coach;
 
-import ru.project.fitstyle.model.dto.user.CoachDto;
+import ru.project.fitstyle.model.dto.user.FitUserFullNameDto;
 
 import java.util.List;
 
 public class AllCoachesResponse {
-    public final List<CoachDto> coaches;
+    public final List<FitUserFullNameDto> coaches;
 
-    public AllCoachesResponse(List<CoachDto> coaches) {
+    public AllCoachesResponse(List<FitUserFullNameDto> coaches) {
         this.coaches = coaches;
     }
 
-    public List<CoachDto> getCoaches() {
+    public List<FitUserFullNameDto> getCoaches() {
         return coaches;
     }
 }

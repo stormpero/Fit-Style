@@ -2,7 +2,7 @@ package ru.project.fitstyle.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.project.fitstyle.model.dto.user.CoachDto;
+import ru.project.fitstyle.model.dto.user.FitUserFullNameDto;
 import ru.project.fitstyle.model.dto.user.FitUserDto;
 import ru.project.fitstyle.model.dto.user.RoleDto;
 import ru.project.fitstyle.model.dto.user.SubscriptionDto;
@@ -112,7 +112,7 @@ public class FitUserService implements UserService {
     }
 
     @Override
-    public List<CoachDto> getCoaches() {
+    public List<FitUserFullNameDto> getCoaches() {
         return fitUserRepository.findAllCoaches()
                 .filter(list -> list.size() != 0)
                 .orElseThrow(() -> new UserNotFoundException("There are no coaches!"));

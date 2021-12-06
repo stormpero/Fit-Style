@@ -36,19 +36,15 @@ public class GetImageController {
 
     @GetMapping("/user")
     public ResponseEntity<Resource> getUserProfileImage() {
-        final Resource resource = imageStorageService.loadAsResource(userService.getUserByEmail(authService.getEmail()).getImgURL());
-
-        return getImageResponse(resource);
+        return createImageResponse(imageStorageService.loadAsResource(userService.getUserByEmail(authService.getEmail()).getImgURL()));
     }
 
     @GetMapping("/news/{id}")
     public ResponseEntity<Resource> getNewsImage(@PathVariable("id") Long id) {
-        final Resource resource = imageStorageService.loadAsResource(newsService.getNewsById(id).getImgURL());
-
-        return getImageResponse(resource);
+        return createImageResponse(imageStorageService.loadAsResource(newsService.getNewsById(id).getImgURL()));
     }
 
-    private ResponseEntity<Resource> getImageResponse(Resource resource) {
+    private ResponseEntity<Resource> createImageResponse(Resource resource) {
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION,
                         "attachment; filename=\"" + resource.getFilename() + "\"")

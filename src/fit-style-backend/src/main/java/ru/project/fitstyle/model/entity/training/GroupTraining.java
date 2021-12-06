@@ -34,7 +34,7 @@ public class GroupTraining {
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "training_id", referencedColumnName = "id",
             nullable = false)
-    private Training training;
+    private TrainingType trainingType;
 
     @ManyToMany(mappedBy = "groupTrainings",
             fetch = FetchType.LAZY)
@@ -43,12 +43,12 @@ public class GroupTraining {
     public GroupTraining() {
     }
 
-    public GroupTraining(Date startDate, Date endDate, ETrainingStatus status, Long coachId, Training training) {
+    public GroupTraining(Date startDate, Date endDate, ETrainingStatus status, Long coachId, TrainingType trainingType) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.status = status;
         this.coachId = coachId;
-        this.training = training;
+        this.trainingType = trainingType;
     }
 
     public Long getId() {
@@ -91,12 +91,12 @@ public class GroupTraining {
         this.coachId = coachId;
     }
 
-    public Training getTraining() {
-        return training;
+    public TrainingType getTraining() {
+        return trainingType;
     }
 
-    public void setTraining(Training training) {
-        this.training = training;
+    public void setTraining(TrainingType trainingType) {
+        this.trainingType = trainingType;
     }
 
     public List<FitUser> getFitUsers() {

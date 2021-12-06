@@ -1,18 +1,15 @@
 package ru.project.fitstyle.service;
 
-import ru.project.fitstyle.model.dto.training.GroupTrainingDto;
-import ru.project.fitstyle.model.dto.training.PersonalTrainingDto;
-import ru.project.fitstyle.model.dto.training.TrainingNameDto;
+import ru.project.fitstyle.model.dto.training.*;
 import ru.project.fitstyle.model.entity.training.GroupTraining;
 import ru.project.fitstyle.model.entity.training.PersonalTraining;
-import ru.project.fitstyle.model.entity.training.Training;
-import ru.project.fitstyle.model.entity.user.FitUser;
+import ru.project.fitstyle.model.entity.training.TrainingType;
 
 import java.util.List;
 
 public interface TrainingService {
 
-    void saveTraining(final Training training);
+    void saveTraining(final TrainingType trainingType);
 
     void saveGroupTraining(final GroupTraining groupTraining);
 
@@ -32,7 +29,7 @@ public interface TrainingService {
 
     PersonalTraining getPersonalTrainingById(final Long id);
 
-    Training getTrainingById(final Long id);
+    TrainingType getTrainingById(final Long id);
 
     List<GroupTrainingDto> getCoachGroupTrainingsByCoachId(final Long id);
 
@@ -46,5 +43,9 @@ public interface TrainingService {
 
     List<PersonalTrainingDto> getFitUserPersonalTrainingsByFitUserEmail(final String email);
 
-    List<TrainingNameDto> getTrainingNames();
+    List<GroupTrainingWithUsersDto> getAllOccupiedCoachGroupTrainings(final String email);
+
+    List<PersonalTrainingWithUsersDto> getAllOccupiedCoachPersonalTrainings(final String email);
+
+    List<TrainingTypeDto> getTrainingNames();
 }

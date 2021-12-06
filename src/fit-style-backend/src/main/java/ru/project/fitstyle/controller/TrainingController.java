@@ -1,22 +1,20 @@
 package ru.project.fitstyle.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import ru.project.fitstyle.controller.request.training.AddEditGroupTrainingRequest;
 import ru.project.fitstyle.controller.request.training.AddEditPersonalTrainingRequest;
 import ru.project.fitstyle.controller.request.training.AddEditTrainingRequest;
 import ru.project.fitstyle.controller.response.SuccessMessage;
+import ru.project.fitstyle.controller.response.training.AllCoachTrainingsResponse;
 import ru.project.fitstyle.controller.response.training.TrainingNamesResponse;
 import ru.project.fitstyle.model.entity.training.ETrainingStatus;
 import ru.project.fitstyle.model.entity.training.GroupTraining;
 import ru.project.fitstyle.model.entity.training.PersonalTraining;
-import ru.project.fitstyle.model.entity.training.Training;
+import ru.project.fitstyle.model.entity.training.TrainingType;
 import ru.project.fitstyle.controller.response.training.AllTrainingsResponse;
-import ru.project.fitstyle.model.entity.user.FitUser;
 import ru.project.fitstyle.service.AuthService;
 import ru.project.fitstyle.service.TrainingService;
 import ru.project.fitstyle.service.UserService;
@@ -69,7 +67,7 @@ public class TrainingController {
     @PreAuthorize("hasRole('COACH')")
     @PostMapping()
     public ResponseEntity<SuccessMessage> addTraining(@RequestBody final AddEditTrainingRequest request) {
-        trainingService.saveTraining(new Training(request.getName()));
+        trainingService.saveTraining(new TrainingType(request.getName()));
         return ResponseEntity.ok(
                 new SuccessMessage("Success! Training created!")
         );
@@ -152,6 +150,15 @@ public class TrainingController {
         trainingService.deletePersonalTraining(id);
         return ResponseEntity.ok(
                 new SuccessMessage("Success! Training created!")
+        );
+    }
+
+    @PreAuthorize("hasRole('COACH')")
+    @GetMapping("/coach/trainings")
+    public ResponseEntity<AllCoachTrainingsResponse> getAllCoachTrainings() {
+        return ResponseEntity.ok(
+                new AllCoachTrainingsResponse(trainingService.getAllOccupiedCoachGroupTrainings(authService.getEmail()),
+                        trainingService.getAllOccupiedCoachPersonalTrainings(authService.getEmail()))
         );
     }
 }

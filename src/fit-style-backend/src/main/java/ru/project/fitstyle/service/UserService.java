@@ -1,6 +1,6 @@
 package ru.project.fitstyle.service;
 
-import ru.project.fitstyle.model.dto.user.CoachDto;
+import ru.project.fitstyle.model.dto.user.FitUserFullNameDto;
 import ru.project.fitstyle.model.dto.user.FitUserDto;
 import ru.project.fitstyle.model.dto.user.RoleDto;
 import ru.project.fitstyle.model.dto.user.SubscriptionDto;
@@ -36,5 +36,5 @@ public interface UserService {
 
     List<RoleDto> getUserRolesById(final Long id);
 
-    List<CoachDto> getCoaches();
+    List<FitUserFullNameDto> getCoaches();
 }
