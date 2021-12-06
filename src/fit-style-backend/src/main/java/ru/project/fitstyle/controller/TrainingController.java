@@ -9,7 +9,7 @@ import ru.project.fitstyle.controller.request.training.AddEditPersonalTrainingRe
 import ru.project.fitstyle.controller.request.training.AddEditTrainingRequest;
 import ru.project.fitstyle.controller.response.SuccessMessage;
 import ru.project.fitstyle.controller.response.training.AllCoachTrainingsResponse;
-import ru.project.fitstyle.controller.response.training.TrainingNamesResponse;
+import ru.project.fitstyle.controller.response.training.TrainingTypesResponse;
 import ru.project.fitstyle.model.entity.training.ETrainingStatus;
 import ru.project.fitstyle.model.entity.training.GroupTraining;
 import ru.project.fitstyle.model.entity.training.PersonalTraining;
@@ -83,8 +83,8 @@ public class TrainingController {
     }
 
     @GetMapping()
-    public ResponseEntity<TrainingNamesResponse> getTrainings() {
-        return ResponseEntity.ok(new TrainingNamesResponse(trainingService.getTrainingNames()));
+    public ResponseEntity<TrainingTypesResponse> getTrainings() {
+        return ResponseEntity.ok(new TrainingTypesResponse(trainingService.getTrainingNames()));
     }
 
     @PreAuthorize("hasRole('COACH')")

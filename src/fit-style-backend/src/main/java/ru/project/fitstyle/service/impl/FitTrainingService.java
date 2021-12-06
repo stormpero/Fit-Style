@@ -177,7 +177,7 @@ public class FitTrainingService implements TrainingService {
                 users.add(new FitUserFullNameDto(fitUser.getId(), fitUser.getName(), fitUser.getSurname(), fitUser.getPatronymic()));
             }
             trainings.add(new GroupTrainingWithUsersDto(groupTraining.getId(), groupTraining.getStartDate(),
-                    groupTraining.getEndDate(), groupTraining.getStatus(), groupTraining.getTraining().getName(), users));
+                    groupTraining.getEndDate(), groupTraining.getStatus(), groupTraining.getTraining().getName(), users, groupTraining.getFitUsers().size()));
         }
 
         return trainings;

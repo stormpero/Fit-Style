@@ -5,10 +5,10 @@ import ru.project.fitstyle.model.dto.training.TrainingTypeDto;
 
 import java.util.List;
 
-public class TrainingNamesResponse {
+public class TrainingTypesResponse {
     private final List<TrainingTypeDto> trainingNames;
 
-    public TrainingNamesResponse(List<TrainingTypeDto> trainingNames) {
+    public TrainingTypesResponse(List<TrainingTypeDto> trainingNames) {
         this.trainingNames = trainingNames;
     }
 
