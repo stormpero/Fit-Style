@@ -55,4 +55,4 @@ Just info about training.
 Info about news. Time when it was published. Its image URL.
 
 ## Database
-![database](D:/Code/_projects/_web/Fit-Style/docs/database/database.png)
+![database](database.png)
