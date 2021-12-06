@@ -7,7 +7,8 @@ public enum EErrorCode {
     EMAIL_ALREADY_EXISTS(4),
     USER_IS_NOT_A_COACH(5),
     LESS_THAN_ZERO(6),
-    ANONYMOUS_TOKEN(7);
+    ANONYMOUS_TOKEN(7),
+    MAX_PEOPLE(8);
 
     private final int code;
 

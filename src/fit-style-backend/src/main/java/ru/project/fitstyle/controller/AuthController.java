@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -120,7 +121,7 @@ public class AuthController {
     }
 
     @GetMapping("/refreshtoken")
-    public ResponseEntity<RefreshTokenResponse> refreshToken(@CookieValue(value="refreshToken", required = false)
+    public synchronized ResponseEntity<RefreshTokenResponse> refreshToken(@CookieValue(value="refreshToken", required = false)
                                                       final String requestRefreshToken) {
         final FitUser fitUser = ((RefreshToken) (refreshTokenService.validate(requestRefreshToken))).getUser();
 

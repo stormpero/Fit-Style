@@ -1,8 +1,6 @@
 package ru.project.fitstyle.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +8,6 @@ import ru.project.fitstyle.controller.request.profile.ChangeBalanceRequest;
 import ru.project.fitstyle.controller.response.SuccessMessage;
 import ru.project.fitstyle.controller.response.profile.UserProfileResponse;
 import ru.project.fitstyle.service.AuthService;
-import ru.project.fitstyle.service.StorageService;
 import ru.project.fitstyle.service.UserService;
 
 
@@ -34,14 +31,14 @@ public class ProfileController {
     @GetMapping()
     public ResponseEntity<UserProfileResponse> getUserProfileInfo() {
         return ResponseEntity.ok(new UserProfileResponse(userService.getFitUserInfoByEmail(authService.getEmail()),
-                userService.getSubscriptionResponseInfoByEmail(authService.getEmail()), userService.getUserRolesByEmail(authService.getEmail())));
+                userService.getSubscriptionInfoByEmail(authService.getEmail()), userService.getUserRolesByEmail(authService.getEmail())));
     }
 
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('MODERATOR')")
     public ResponseEntity<UserProfileResponse> getUserProfileInfoById(@PathVariable("id") final Long id) {
         return ResponseEntity.ok(new UserProfileResponse(userService.getFitUserInfoById(id),
-                userService.getSubscriptionResponseInfoById(id), userService.getUserRolesById(id)));
+                userService.getSubscriptionInfoById(id), userService.getUserRolesById(id)));
     };
 
 

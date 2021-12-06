@@ -13,6 +13,7 @@ import ru.project.fitstyle.service.exception.storage.StorageException;
 import ru.project.fitstyle.service.exception.subscription.SubscriptionTypeNotFoundException;
 import ru.project.fitstyle.service.exception.token.AnonymousTokenException;
 import ru.project.fitstyle.service.exception.token.RefreshTokenNotValidException;
+import ru.project.fitstyle.service.exception.training.ExceededMaxPeopleTrainingException;
 import ru.project.fitstyle.service.exception.training.TrainingNotFoundException;
 import ru.project.fitstyle.service.exception.user.BalanceLessThanZeroException;
 import ru.project.fitstyle.service.exception.user.EmailAlreadyExistsException;
@@ -101,6 +102,17 @@ public class GlobalExceptionHandler {
                 new Date(),
                 ex.getMessage(),
                 EErrorCode.LESS_THAN_ZERO.value(),
+                request.getDescription(false));
+    }
+
+    @ExceptionHandler(value = {ExceededMaxPeopleTrainingException.class})
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public ErrorMessage handleExceededMaxPeopleTrainingException(RuntimeException ex, WebRequest request) {
+        return new ErrorMessage(
+                HttpStatus.FORBIDDEN.value(),
+                new Date(),
+                ex.getMessage(),
+                EErrorCode.MAX_PEOPLE.value(),
                 request.getDescription(false));
     }
 }

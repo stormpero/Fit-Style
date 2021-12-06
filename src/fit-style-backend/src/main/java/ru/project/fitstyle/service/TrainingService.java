@@ -6,6 +6,7 @@ import ru.project.fitstyle.model.dto.training.TrainingNameDto;
 import ru.project.fitstyle.model.entity.training.GroupTraining;
 import ru.project.fitstyle.model.entity.training.PersonalTraining;
 import ru.project.fitstyle.model.entity.training.Training;
+import ru.project.fitstyle.model.entity.user.FitUser;
 
 import java.util.List;
 
@@ -16,6 +17,10 @@ public interface TrainingService {
     void saveGroupTraining(final GroupTraining groupTraining);
 
     void savePersonalTraining(final PersonalTraining personalTraining);
+
+    void signForPersonalTraining(final String userEmail, final Long trainingId);
+
+    void signForGroupTraining(final String userEmail, final Long trainingId);
 
     void deleteTraining(final Long id);
 

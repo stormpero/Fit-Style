@@ -2,6 +2,7 @@ package ru.project.fitstyle.service.impl.token;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.project.fitstyle.config.properties.RefreshTokenProperties;
 import ru.project.fitstyle.model.entity.user.RefreshToken;
 import ru.project.fitstyle.model.entity.user.FitUser;

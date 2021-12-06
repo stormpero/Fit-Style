@@ -86,13 +86,13 @@ public class FitUserService implements UserService {
     }
 
     @Override
-    public SubscriptionDto getSubscriptionResponseInfoByEmail(final String email) {
+    public SubscriptionDto getSubscriptionInfoByEmail(final String email) {
         return fitUserRepository.findSubscriptionResponseInfoWithEmail(email)
                 .orElseThrow(() -> new UserNotFoundException("User with that email cannot be found!"));
     }
 
     @Override
-    public SubscriptionDto getSubscriptionResponseInfoById(final Long id) {
+    public SubscriptionDto getSubscriptionInfoById(final Long id) {
         return fitUserRepository.findSubscriptionResponseInfoWithId(id)
                 .orElseThrow(() -> new UserNotFoundException("User with that id cannot be found!"));
     }

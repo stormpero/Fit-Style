@@ -15,12 +15,10 @@ import java.util.List;
 @Service
 public class FitRoleService implements RoleService {
     private final RoleRepository roleRepository;
-    private final FitUserRepository fitUserRepository;
 
     @Autowired
-    public FitRoleService(final RoleRepository roleRepository, final FitUserRepository fitUserRepository) {
+    public FitRoleService(final RoleRepository roleRepository) {
         this.roleRepository = roleRepository;
-        this.fitUserRepository = fitUserRepository;
     }
 
     @Override

@@ -114,17 +114,9 @@ public class TrainingController {
         );
     }
 
-    //TODO add max users check before signing
-    @Transactional
     @GetMapping("/group/sign/{id}")
     public ResponseEntity<SuccessMessage> signForGroupTraining(@PathVariable("id") Long id) {
-        GroupTraining groupTraining = trainingService.getGroupTrainingById(id);
-        FitUser fitUser = userService.getUserByEmail(authService.getEmail());
-        fitUser.getGroupTrainings().add(groupTraining);
-        groupTraining.getFitUsers().add(fitUser);
-        userService.saveUser(fitUser);
-        trainingService.saveGroupTraining(groupTraining);
-
+        trainingService.signForGroupTraining(authService.getEmail(), id);
         return ResponseEntity.ok(
                 new SuccessMessage("Success! Group training created!")
         );
@@ -146,18 +138,9 @@ public class TrainingController {
     }
 
 
-    //TODO add if another user is already signed before signing
-    @Transactional
     @GetMapping("/personal/sign/{id}")
     public ResponseEntity<SuccessMessage> signForPersonalTraining(@PathVariable("id") Long id) {
-        PersonalTraining personalTraining = trainingService.getPersonalTrainingById(id);
-        FitUser fitUser = userService.getUserByEmail(authService.getEmail());
-        fitUser.getPersonalTrainings().add(personalTraining);
-        personalTraining.setUser(fitUser);
-        personalTraining.setStatus(ETrainingStatus.ACTIVE);
-        userService.saveUser(fitUser);
-        trainingService.savePersonalTraining(personalTraining);
-
+        trainingService.signForPersonalTraining(authService.getEmail(), id);
         return ResponseEntity.ok(
                 new SuccessMessage("Success! Personal training sign up!")
         );

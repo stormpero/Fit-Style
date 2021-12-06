@@ -1,7 +1,6 @@
 package ru.project.fitstyle.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -20,13 +19,13 @@ import javax.validation.Valid;
 @PreAuthorize("hasRole('USER')")
 public class NewsController {
     private final NewsService newsService;
-    private final StorageService storageService;
+    private final StorageService imageStorageService;
 
     @Autowired
     public NewsController(final NewsService newsService,
-                          final StorageService storageService) {
+                          final StorageService imageStorageService) {
         this.newsService = newsService;
-        this.storageService = storageService;
+        this.imageStorageService = imageStorageService;
     }
 
     @GetMapping("/{page_number}")
@@ -35,17 +34,18 @@ public class NewsController {
         return ResponseEntity.ok(new NewsPageResponse(newsService.getNewsPage(pageNumber)));
     }
 
+
+    /**
+     * */
     @PostMapping()
     @PreAuthorize("hasRole('MODERATOR')")
     public ResponseEntity<SuccessMessage> add(@Valid @RequestBody final AddEditNewsRequest request
                                               /*@RequestPart(value = "image", required = false) MultipartFile image*/) {
-        //Add News
-        //storageService.store(image);
         newsService.save(new News(
                 request.getHeader(),
                 request.getContent(),
                 request.getDateTime(),
-                //image.getOriginalFilename()
+                //imageStorageService.store(image)
                 "testfilename"
         ));
 
@@ -58,7 +58,7 @@ public class NewsController {
     @PreAuthorize("hasRole('MODERATOR')")
     public ResponseEntity<SuccessMessage> update(@Valid @RequestBody final AddEditNewsRequest addEditNewsRequest,
                                                  @PathVariable("id") final Long id) {
-    //Update news.
+        //Update news.
         News news = newsService.getNewsById(id);
         news.setHeader(addEditNewsRequest.getHeader());
         news.setContent(addEditNewsRequest.getContent());
