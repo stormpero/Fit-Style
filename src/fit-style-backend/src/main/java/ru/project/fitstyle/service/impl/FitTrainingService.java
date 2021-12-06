@@ -97,7 +97,9 @@ public class FitTrainingService implements TrainingService {
     }
 
     @Override
+    @Transactional
     public void deleteGroupTraining(final Long id) {
+
         groupTrainingRepository.deleteById(id);
     }
 

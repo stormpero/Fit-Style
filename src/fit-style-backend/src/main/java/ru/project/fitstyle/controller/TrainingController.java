@@ -76,7 +76,7 @@ public class TrainingController {
     }
 
     @PreAuthorize("hasRole('COACH')")
-    @GetMapping("/{id}")
+    @GetMapping("/delete/{id}")
     public ResponseEntity<SuccessMessage> deleteTraining(@PathVariable("id") final Long id) {
         trainingService.deleteTraining(id);
         return ResponseEntity.ok(
@@ -84,8 +84,8 @@ public class TrainingController {
         );
     }
 
-    @GetMapping("/name")
-    public ResponseEntity<TrainingNamesResponse> getTrainingNames() {
+    @GetMapping()
+    public ResponseEntity<TrainingNamesResponse> getTrainings() {
         return ResponseEntity.ok(new TrainingNamesResponse(trainingService.getTrainingNames()));
     }
 
@@ -106,7 +106,7 @@ public class TrainingController {
     }
 
     @PreAuthorize("hasRole('COACH')")
-    @GetMapping("/group/{id}")
+    @GetMapping("/delete/group/{id}")
     public ResponseEntity<SuccessMessage> deleteGroupTraining(@PathVariable("id") final Long id) {
         trainingService.deleteGroupTraining(id);
         return ResponseEntity.ok(
@@ -114,7 +114,7 @@ public class TrainingController {
         );
     }
 
-    @GetMapping("/group/sign/{id}")
+    @GetMapping("/sign/group/{id}")
     public ResponseEntity<SuccessMessage> signForGroupTraining(@PathVariable("id") Long id) {
         trainingService.signForGroupTraining(authService.getEmail(), id);
         return ResponseEntity.ok(
@@ -138,7 +138,7 @@ public class TrainingController {
     }
 
 
-    @GetMapping("/personal/sign/{id}")
+    @GetMapping("/sign/personal/{id}")
     public ResponseEntity<SuccessMessage> signForPersonalTraining(@PathVariable("id") Long id) {
         trainingService.signForPersonalTraining(authService.getEmail(), id);
         return ResponseEntity.ok(
@@ -147,7 +147,7 @@ public class TrainingController {
     }
 
     @PreAuthorize("hasRole('COACH')")
-    @GetMapping("/personal/{id}")
+    @GetMapping("/delete/personal/{id}")
     public ResponseEntity<SuccessMessage> deletePersonalTraining(@PathVariable("id") final Long id) {
         trainingService.deletePersonalTraining(id);
         return ResponseEntity.ok(
