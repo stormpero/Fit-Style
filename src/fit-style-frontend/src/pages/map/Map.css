@@ -113,16 +113,62 @@ text{
     font-size:2em;
     font-family:sans-serif;
     cursor: none;
+    pointer-events: none;
 }
 
-text:hover{
-    display:none;
-}
 
 g:hover > text{
     display:block;
 }
 .text-pool{
-    transform: skewX(5deg);
-    pointer-events: none;
+    transform: rotate(14deg) skew(336deg,0deg);
+    font-size: 52px;
+}
+.text-reception{
+    transform: rotate(335deg) skew(12deg,0deg);
+}
+.text-hamam{
+    transform: rotate(18deg) skew(344deg,0deg);
+}
+.text-massage{
+    transform: rotate(18deg) skew(344deg,0deg);
+}
+.text-rest{
+    font-size: 40px;
+    transform: rotate(308deg) skew(14deg,0deg);
+}
+.text-cloakroom-male{
+    transform: rotate(286deg) skew(5deg,0deg);
+}
+.text-cloakroom-female{
+    transform: rotate(282deg) skew(4deg,0deg);
+}
+.text-coaching{
+    transform: rotate(13deg) skew(348deg, 0deg);
+    font-size: 30px;
+}
+.text-training{
+    transform: rotate(13deg) skew(338deg, 0deg);
+    font-size: 50px;
+}
+.text-aerobics{
+    transform: rotate(12deg) skew(338deg, 0deg);
+    font-size: 40px;
+}
+.text-cloakroom-male-second{
+    transform: rotate(
+            276deg) skew(
+            0deg,
+            11deg);
+    font-size: 25px;
+}
+.text-cloakroom-female-second{
+    transform: rotate(
+            274deg) skew(
+            0deg,
+            8deg);
+    font-size: 25px;
+}
+.male{
+    font-size: 30px;
 }

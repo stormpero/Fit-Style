@@ -6,7 +6,7 @@ import ProfileService from "../../services/profile/ProfileService";
 
 const Profile = ({userInfo, img, setModalActive}) => {
     return (
-        <div className="container profile-info">
+        <div className="container profile-info center-block">
             <div className="d-flex justify-content-between">
                 <div className="left-image d-flex flex-column">
                     <img className="picture-profile" src={img ? img : ProfilePicture} alt={userInfo.name + " photo"}/>
