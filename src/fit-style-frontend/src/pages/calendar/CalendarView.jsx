@@ -34,6 +34,7 @@ export const CalendarView = ({events}) => {
                 }}
                 eventPropGetter={
                     (event, start, end, isSelected) => {
+                        console.log(event)
                         return {
                             style: {
                                 backgroundColor: event.isPersonal ? "#008080" : "#FF8C00",
