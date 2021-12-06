@@ -29,8 +29,7 @@ public class News {
     private Date dateTime;
 
 
-    @Column(name = "img_URL", length = 100,
-            nullable = false)
+    @Column(name = "img_URL", length = 100)
     private String imgURL;
 
     public News() {

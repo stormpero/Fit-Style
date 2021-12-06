@@ -15,7 +15,7 @@
     transition: 0.5s all ease-in;
     max-width: 30%;
 }
-.block-news:hover{
+.block-news:hover.none-delete-mode{
     max-width: 31%;
     height: 26rem;
     width: 75rem;
@@ -40,7 +40,7 @@
     padding: 1rem;
     height: 21rem;
     overflow-y: scroll;
-
+    min-width: 100%;
 }
 .title-news{
     text-align: center;

@@ -27,7 +27,7 @@ instance.interceptors.response.use(
     async error => {
         const config = error.config;
 
-        if (config.url !== URL_AUTH && error?.response?.status === 401  && !config._retry) {
+        if (config.url !== URL_AUTH && error?.response?.status === 401 && !config._retry) {
             config._retry = true;
 
             try {

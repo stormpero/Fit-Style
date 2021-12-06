@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import ru.project.fitstyle.model.entity.news.News;
 import ru.project.fitstyle.controller.request.news.AddEditNewsRequest;
 import ru.project.fitstyle.controller.response.news.NewsPageResponse;
@@ -39,14 +40,13 @@ public class NewsController {
      * */
     @PostMapping()
     @PreAuthorize("hasRole('MODERATOR')")
-    public ResponseEntity<SuccessMessage> add(@Valid @RequestBody final AddEditNewsRequest request
-                                              /*@RequestPart(value = "image", required = false) MultipartFile image*/) {
+    public ResponseEntity<SuccessMessage> add(@Valid @RequestPart final AddEditNewsRequest request,
+                                              @RequestPart(value = "image", required = false) MultipartFile image) {
         newsService.save(new News(
                 request.getHeader(),
                 request.getContent(),
                 request.getDateTime(),
-                //imageStorageService.store(image)
-                "testfilename"
+                imageStorageService.store(image)
         ));
 
         return ResponseEntity.ok(

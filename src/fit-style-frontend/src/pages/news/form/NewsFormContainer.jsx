@@ -4,6 +4,7 @@ import isEmpty from "validator/es/lib/isEmpty";
 import NewsService from "../../../services/api/NewsApi";
 import ToastMessages from "../../../components/toastmessages/ToastMessages";
 import {TOP_RIGHT} from "../../../config/consts/ToastPosition";
+import ImgConvert from "../../../utils/RequestCreate";
 
 class NewsFormContainer extends Component {
 
@@ -11,7 +12,8 @@ class NewsFormContainer extends Component {
         newsData: {
             header: "",
             content: "",
-            dateTime: ""
+            dateTime: "",
+            imageData: null,
         },
         message: ""
     }
@@ -27,6 +29,16 @@ class NewsFormContainer extends Component {
         });
     }
 
+    handleImgInputChange = (event) => {
+        const {files} = event.target;
+        this.setState({
+            newsData: {
+                ...this.state.newsData,
+                imageData: files[0]
+            }
+        });
+    }
+
     handleAdd = async (event) => {
         event.preventDefault();
 
@@ -38,14 +50,12 @@ class NewsFormContainer extends Component {
             });
             return;
         }
-
         if (this.state.newsData.content.length > 1500) {
             this.setState({
                 message: "В описании должно быть меньше 1500 символов"
             });
             return;
         }
-
         if (this.state.newsData.header.length > 50) {
             this.setState({
                 message: "В заголовке должно быть меньше 50 символов"
@@ -53,29 +63,27 @@ class NewsFormContainer extends Component {
             return;
         }
 
-
-        const date = new Date();
-
         await this.setState({
             newsData: {
                 ...this.state.newsData,
-                dateTime: date
+                dateTime: new Date()
             }
         });
 
-        NewsService.addNews(this.state.newsData).then(
+        const data = ImgConvert.createRequestData(this.state.newsData, this.state.newsData.imageData);
+        NewsService.addNews(data).then(
             response => {
                 this.setState({
                     newsData: {
                         header: "",
                         content: "",
                         dateTime: "",
+                        imageData: null,
                     },
                 })
                 ToastMessages.success("Новость успешно добавлена!", TOP_RIGHT);
                 this.props.setActive(false);
                 this.props.updateNews();
-
             }
         ).catch(
             error => {
@@ -94,6 +102,7 @@ class NewsFormContainer extends Component {
             handleFunc={{
                 add: this.handleAdd,
                 input: this.handleInputChange,
+                inputImg: this.handleImgInputChange,
             }}
             value={this.state.newsData}
             message={this.state.message}

@@ -10,9 +10,11 @@ import ToastMessages from "../../components/toastmessages/ToastMessages";
 import {TOP_RIGHT} from "../../config/consts/ToastPosition";
 import arrow from "../../assets/arrow.png";
 import PermissionService from "../../services/security/permission/PermissionService";
+import NewsApi from "../../services/api/NewsApi";
 
 export const NewsBoard = () => {
     const isModer = PermissionService.hasRole("MODERATOR");
+    const [reload, setReload] = useState(false);
 
     const [modalActive, setModalActive] = useState(false);
     const [deleteActive, setDeleteActive] = useState(false);
@@ -20,25 +22,43 @@ export const NewsBoard = () => {
     const [rowNews, setRowNews] = useState([]);
     const [rowNum, setRowNum] = useState(1);
     const [hasNews, setHasNews] = useState(true);
-    const [reload, setReload] = useState(false)
 
-
+    const [isLoadImages, setIsLoadImages] = useState(false);
     useEffect(() => {
+        setIsLoadImages(false);
         NewsService.getNews(rowNum).then(
             response => {
                 let rowNewsData = response.data.news;
                 rowNewsData.map(value => value.dateTime = DateFormat.convertDataTimeToData(value.dateTime))
+                getNewsImages(rowNewsData).then(
+                    response => {
+                        rowNewsData = response;
+                    }
+                ).finally(() => setIsLoadImages(true));
+                if (rowNewsData.length % 6 !== 0) setHasNews(false);
                 rowNewsData = ArrayHelper.sliceArray(rowNewsData, 3);
-                setRowNews(prevNews => prevNews.concat(rowNewsData))
+                setRowNews(prevNews => prevNews.concat(rowNewsData));
             },
             error => {
                 setHasNews(false);
+                setIsLoadImages(true);
                 if (error?.response?.data?.errorCode === 404) {
 
                 }
             }
         )
     },[rowNum, reload])
+
+    const getNewsImages = async (rowNewsData) => {
+        for (const value of rowNewsData) {
+            try {
+                let response = await NewsApi.getNewsImage(value.id);
+                let imageData = response.data;
+                value.img = imageData ? URL.createObjectURL(imageData) : null
+            } catch (error) {}
+        }
+        return rowNewsData
+    }
 
     const updateNews = () => {
         setRowNews([]);
@@ -86,7 +106,7 @@ export const NewsBoard = () => {
                         </button>
                     }
                 </div>
-                {rowNews && rowNews.map((param, index) => <NewsRow key={index} news={param} delete={deleteNews} deleteMode={deleteActive}/>)}
+                {isLoadImages && rowNews && rowNews.map((param, index) => <NewsRow key={index} news={param} delete={deleteNews} deleteMode={deleteActive}/>)}
                 {hasNews &&
                     <div className="d-flex justify-content-center">
                         <div>
