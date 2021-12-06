@@ -99,8 +99,14 @@ public class FitTrainingService implements TrainingService {
     @Override
     @Transactional
     public void deleteGroupTraining(final Long id) {
-
-        groupTrainingRepository.deleteById(id);
+        GroupTraining groupTraining = groupTrainingRepository.findById(id).orElse(null);
+        if(groupTraining == null) {
+            return;
+        }
+        for (FitUser fitUser : groupTraining.getFitUsers()) {
+            fitUser.getGroupTrainings().remove(groupTraining);
+        }
+        groupTrainingRepository.delete(groupTraining);
     }
 
     @Override
