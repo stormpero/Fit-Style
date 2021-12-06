@@ -23,7 +23,6 @@ export const CalendarContainer = () => {
             ScheduleApi.getTrainings().then(
                 response => {
                     let trainingsListTemp = TrainingService.concatTrainings(response.data);
-                    console.log(trainingsListTemp)
                     setTrainingsList(trainingsListTemp);
                 },
                 error => {
@@ -32,7 +31,7 @@ export const CalendarContainer = () => {
                 }
             );
         }
-    }, [])
+    }, [isCoach])
 
     return (<CalendarView events={trainingsList} />);
 }
