@@ -5,11 +5,22 @@ import Gym from "../../assets/gym.jpg";
 import {CloseBtn} from "../../components/closebtn/CloseBtn";
 
 const News = (props) => {
+    let image, color;
+    if (props.content.img) {
+         image = props.content.img;
+         color = 0.6;
+    } else {
+         image = Gym;
+         color = 1;
+    }
+
+    const style = {
+        background: `linear-gradient(rgba(0, 0, 0, ${color}), rgba(0, 0, 0, 0.4)), url("${image}"), center`,
+        backgroundSize: 'cover'
+    }
+
     return(
-        <div className="container-fluid block-news" style={{
-            background: `linear-gradient(rgba(41, 31, 30, 1), rgba(41, 31, 30, 0.4)), url("${Gym}"), center`,
-            backgroundSize: 'cover'
-        }}>
+        <div className={"container-fluid block-news" + (props.deleteMode ? "" : " none-delete-mode")} style={style}>
             {props.deleteMode && <CloseBtn onClickEvent={() => props.delete(props.content.id)}/> }
             <h2 className="title">{props.content.header}</h2>
             <div className="dateTime">
@@ -23,6 +34,7 @@ const News = (props) => {
                 </div>
             </div>
         </div>
+
     );
 }
 
