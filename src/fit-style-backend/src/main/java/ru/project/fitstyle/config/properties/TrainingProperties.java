@@ -6,10 +6,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConfigurationProperties(prefix = "training")
 public class TrainingProperties {
-    private int maxUsersPerGroup;
-
     /**
      * Max users in one group training group*/
+    private int maxUsersPerGroup;
+
     public int getMaxUsersPerGroup() {
         return maxUsersPerGroup;
     }
