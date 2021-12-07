@@ -14,7 +14,7 @@ public class GroupTrainingDto {
 
     private final ETrainingStatus status;
 
-    private final FitUserFullNameDto coach;
+    private final FitUserFullNameDto fitUser;
 
     private final String title;
 
@@ -27,7 +27,7 @@ public class GroupTrainingDto {
         this.startDate = startDate;
         this.endDate = endDate;
         this.status = status;
-        this.coach = new FitUserFullNameDto(coachId, name, surname, patronymic);
+        this.fitUser = new FitUserFullNameDto(coachId, name, surname, patronymic);
         this.title = title;
         this.numberOfUsers=numberOfUsers;
     }
@@ -48,8 +48,8 @@ public class GroupTrainingDto {
         return status;
     }
 
-    public FitUserFullNameDto getCoach() {
-        return coach;
+    public FitUserFullNameDto getFitUser() {
+        return fitUser;
     }
 
     public String getTitle() {

@@ -48,7 +48,6 @@ public class TrainingController {
         );
     }
 
-    @PreAuthorize("hasRole('COACH')")
     @GetMapping("/coach/{id}")
     public ResponseEntity<AllTrainingsResponse> getCoachTrainingsById(@PathVariable("id") final Long id) {
         return ResponseEntity.ok(

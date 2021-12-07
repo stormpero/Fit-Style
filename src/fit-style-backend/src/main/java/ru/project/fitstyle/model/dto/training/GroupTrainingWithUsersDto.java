@@ -17,17 +17,17 @@ public class GroupTrainingWithUsersDto {
 
     private final String title;
 
-    private final List<FitUserFullNameDto> fitUsers;
+    private final List<FitUserFullNameDto> fitUser;
 
     private final long numberOfUsers;
 
-    public GroupTrainingWithUsersDto(Long id, Date startDate, Date endDate, ETrainingStatus status, String title, List<FitUserFullNameDto> fitUsers, long numberOfUsers) {
+    public GroupTrainingWithUsersDto(Long id, Date startDate, Date endDate, ETrainingStatus status, String title, List<FitUserFullNameDto> fitUser, long numberOfUsers) {
         this.id = id;
         this.startDate = startDate;
         this.endDate = endDate;
         this.status = status;
         this.title = title;
-        this.fitUsers = fitUsers;
+        this.fitUser = fitUser;
         this.numberOfUsers = numberOfUsers;
     }
 
@@ -51,8 +51,8 @@ public class GroupTrainingWithUsersDto {
         return title;
     }
 
-    public List<FitUserFullNameDto> getFitUsers() {
-        return fitUsers;
+    public List<FitUserFullNameDto> getFitUser() {
+        return fitUser;
     }
 
     public long getNumberOfUsers() {

@@ -14,7 +14,7 @@ public class PersonalTrainingDto {
 
     private final ETrainingStatus status;
 
-    private final FitUserFullNameDto coach;
+    private final FitUserFullNameDto fitUser;
 
     public PersonalTrainingDto(final Long id, final Date startDate, final Date endDate,final ETrainingStatus status,
                                final Long coachId, final String name, final String surname, final String patronymic) {
@@ -22,7 +22,7 @@ public class PersonalTrainingDto {
         this.startDate = startDate;
         this.endDate = endDate;
         this.status = status;
-        this.coach = new FitUserFullNameDto(coachId, name, surname, patronymic);
+        this.fitUser = new FitUserFullNameDto(coachId, name, surname, patronymic);
     }
 
     public Long getId() {
@@ -41,7 +41,7 @@ public class PersonalTrainingDto {
         return status;
     }
 
-    public FitUserFullNameDto getCoach() {
-        return coach;
+    public FitUserFullNameDto getFitUser() {
+        return fitUser;
     }
 }
