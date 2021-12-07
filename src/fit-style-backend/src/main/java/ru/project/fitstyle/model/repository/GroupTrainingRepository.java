@@ -31,6 +31,4 @@ public interface GroupTrainingRepository extends JpaRepository<GroupTraining, Lo
             "from GroupTraining v inner join v.fitUsers w inner join FitUser t on v.coachId=t.id " +
             "where t.email=:email")
     List<GroupTraining> findAllOccupiedCoachTrainingsWithCoachEmail(@Param("email") String email);
-
-    Boolean existsGroupTrainingByFitUsersNotContaining(FitUser fitUser);
 }

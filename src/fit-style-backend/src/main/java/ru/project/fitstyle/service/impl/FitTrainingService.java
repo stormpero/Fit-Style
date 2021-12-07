@@ -86,20 +86,20 @@ public class FitTrainingService implements TrainingService {
     public void signForGroupTraining(final String userEmail, final Long trainingId) {
         FitUser fitUser = fitUserRepository.findByEmail(userEmail)
                 .orElseThrow(() -> new UserNotFoundException("User with that email cannot be found!"));
-        if(groupTrainingRepository.existsGroupTrainingByFitUsersNotContaining(fitUser)) {
-            GroupTraining groupTraining = getGroupTrainingById(trainingId);
-            if(groupTraining.getFitUsers().size() <= maxUsersPerGroup) {
-                fitUser.getGroupTrainings().add(groupTraining);
-                groupTraining.getFitUsers().add(fitUser);
-                fitUserRepository.save(fitUser);
-                groupTrainingRepository.save(groupTraining);
-            }
-            else {
-                throw new ExceededMaxPeopleTrainingException("There are already max users signed for this personal training!");
+        GroupTraining groupTraining = getGroupTrainingById(trainingId);
+        for(FitUser user : groupTraining.getFitUsers()) {
+            if(user.getId().equals(fitUser.getId())) {
+                throw new UserAlreadySignedForTraining("User already signed!");
             }
         }
+        if(groupTraining.getFitUsers().size() <= maxUsersPerGroup) {
+            fitUser.getGroupTrainings().add(groupTraining);
+            groupTraining.getFitUsers().add(fitUser);
+            fitUserRepository.save(fitUser);
+            groupTrainingRepository.save(groupTraining);
+        }
         else {
-            throw new UserAlreadySignedForTraining("User already signed for that group training");
+            throw new ExceededMaxPeopleTrainingException("There are already max users signed for this personal training!");
         }
     }
 
