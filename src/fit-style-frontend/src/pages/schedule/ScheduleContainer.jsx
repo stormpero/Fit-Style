@@ -120,7 +120,6 @@ export const ScheduleContainer = () => {
                     } else {
                         ToastMessages.defaultError();
                     }
-
                 }
             ).finally(() => {
                 setReload(prev => !prev);
