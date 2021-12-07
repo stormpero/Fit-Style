@@ -11,7 +11,7 @@ export const CalendarContainer = () => {
 
     useEffect(() => {
         if (isCoach) {
-            ScheduleApi.getCoachTrainings().then(
+            ScheduleApi.getOccupiedCoachTrainings().then(
                 response => {
                     let trainingsListTemp = TrainingService.concatTrainings(response.data);
                     setTrainingsList(trainingsListTemp);

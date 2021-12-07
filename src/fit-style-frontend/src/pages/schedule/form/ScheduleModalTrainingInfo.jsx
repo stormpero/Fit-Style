@@ -12,7 +12,7 @@ export const ScheduleModalTrainingInfo = ({isActive, isCoach, eventInfo, deleteT
                 </div>
                 <div>
                     <label> ФИО тренера </label>
-                    <strong>{`${eventInfo.coach.surname} ${eventInfo.coach.name.slice(0, 1)}. ${eventInfo.coach.patronymic.slice(0, 1)}.`}</strong>
+                    <strong>{`${eventInfo.fitUser.surname} ${eventInfo.fitUser.name.slice(0, 1)}. ${eventInfo.fitUser.patronymic.slice(0, 1)}.`}</strong>
                 </div>
                 <div>
                     <label> Статус </label>

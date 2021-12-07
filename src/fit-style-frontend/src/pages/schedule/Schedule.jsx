@@ -40,8 +40,8 @@ const Schedule = ({lists, isCoach, selectInput, schedule}) => {
                 timeslots={1}
                 eventPropGetter={(event) => TrainingService.getEventStatusColor(event.status)}
                 titleAccessor={event => {
-                    let fio = `${event.coach.surname} ${event.coach.name.slice(0, 1)}. ${event.coach.patronymic.slice(0, 1)}. Статус: ${TrainingService.getStatusName(event.status)}`;
-                    return event.isPersonal ? fio : event.title + " " + fio;
+                    let fio = `${event.fitUser.surname} ${event.fitUser.name.slice(0, 1)}. ${event.fitUser.patronymic.slice(0, 1)}. Статус: ${TrainingService.getStatusName(event.status)}`;
+                    return event.isPersonal ? fio : event.title + " " + fio + " " + event.numberOfUsers + "/20";
                 }}
                 dayLayoutAlgorithm={'no-overlap'}
 

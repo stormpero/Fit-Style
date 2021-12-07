@@ -5,7 +5,7 @@ import {
     URL_COACH_TRAININGS,
     URL_COACHES,
     URL_DELETE_TRAINING_GROUP,
-    URL_DELETE_TRAINING_PERSONAL,
+    URL_DELETE_TRAINING_PERSONAL, URL_OCCUPIED_COACH_TRAININGS,
     URL_SIGN_TRAINING_GROUP,
     URL_SIGN_TRAINING_PERSONAL,
     URL_TRAINING,
@@ -44,6 +44,9 @@ class ScheduleApi {
         return api.get(URL_SIGN_TRAINING_GROUP + id);
     }
 
+    getOccupiedCoachTrainings() {
+        return api.get(URL_OCCUPIED_COACH_TRAININGS)
+    }
 }
 
 export default new ScheduleApi();

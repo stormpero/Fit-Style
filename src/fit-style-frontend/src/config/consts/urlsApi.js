@@ -31,3 +31,4 @@ export const URL_DELETE_TRAINING_PERSONAL = "training/delete/personal/";
 export const URL_DELETE_TRAINING_GROUP = "training/delete/group/";
 export const URL_SIGN_TRAINING_PERSONAL = "training/sign/personal/";
 export const URL_SIGN_TRAINING_GROUP ="training/sign/group/";
+export const URL_OCCUPIED_COACH_TRAININGS = "training/coach/trainings"
