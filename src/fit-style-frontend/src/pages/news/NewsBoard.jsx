@@ -23,7 +23,7 @@ export const NewsBoard = () => {
     const [rowNum, setRowNum] = useState(1);
     const [hasNews, setHasNews] = useState(true);
 
-    const [isLoadImages, setIsLoadImages] = useState(false);
+    const [, setIsLoadImages] = useState(false);
     useEffect(() => {
         setIsLoadImages(false);
         NewsService.getNews(rowNum).then(
@@ -106,7 +106,7 @@ export const NewsBoard = () => {
                         </button>
                     }
                 </div>
-                {isLoadImages && rowNews && rowNews.map((param, index) => <NewsRow key={index} news={param} delete={deleteNews} deleteMode={deleteActive}/>)}
+                {rowNews && rowNews.map((param, index) => <NewsRow key={index} news={param} deleteNews={deleteNews} deleteMode={deleteActive}/>)}
                 {hasNews &&
                     <div className="d-flex justify-content-center">
                         <div>

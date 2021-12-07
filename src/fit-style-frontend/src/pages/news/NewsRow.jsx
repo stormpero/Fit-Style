@@ -6,7 +6,7 @@ const NewsRow = (props) => {
     return(
         <div>
             <div className="row-news d-flex justify-content-start">
-                {props.news.map((param, index) => <News key={index} content={param} delete={props.delete} deleteMode={props.deleteMode}/>)}
+                {props.news.map((param, index) => <News key={index} content={param} deleteNews={props.deleteNews} deleteMode={props.deleteMode}/>)}
             </div>
         </div>
     );
