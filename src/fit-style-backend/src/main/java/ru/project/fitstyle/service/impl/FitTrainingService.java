@@ -44,7 +44,7 @@ public class FitTrainingService implements TrainingService {
         this.groupTrainingRepository = groupTrainingRepository;
         this.personalTrainingRepository = personalTrainingRepository;
         this.fitUserRepository = fitUserRepository;
-        this.maxUsersPerGroup = trainingProperties.getMaxUsersPerGroup();
+        this.maxUsersPerGroup = trainingProperties.getMaxUsersPerGroup() - 1;
     }
 
     @Override
@@ -86,7 +86,7 @@ public class FitTrainingService implements TrainingService {
     public void signForGroupTraining(final String userEmail, final Long trainingId) {
         FitUser fitUser = fitUserRepository.findByEmail(userEmail)
                 .orElseThrow(() -> new UserNotFoundException("User with that email cannot be found!"));
-        if(groupTrainingRepository.existsByFitUsersIsNotIn(fitUser)) {
+        if(groupTrainingRepository.existsGroupTrainingByFitUsersNotContaining(fitUser)) {
             GroupTraining groupTraining = getGroupTrainingById(trainingId);
             if(groupTraining.getFitUsers().size() <= maxUsersPerGroup) {
                 fitUser.getGroupTrainings().add(groupTraining);
