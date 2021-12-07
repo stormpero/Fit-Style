@@ -29,7 +29,12 @@ export const CalendarView = ({events}) => {
                 step={custom.step}
                 timeslots={custom.timeslots}
                 titleAccessor={event => {
-                    let fio = `${event.fitUser.surname} ${event.fitUser.name.slice(0, 1)}. ${event.fitUser.patronymic.slice(0, 1)}.`;
+                    let fio;
+                    if (event.isPersonal) {
+                        fio = `${event.fitUser.surname} ${event.fitUser.name.slice(0, 1)}. ${event.fitUser.patronymic.slice(0, 1)}.`;
+                    } else {
+                        fio = event.numberOfUsers + "/20";
+                    }
                     return event.isPersonal ? fio : event.title + " " + fio;
                 }}
                 eventPropGetter={
