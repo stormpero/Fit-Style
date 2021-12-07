@@ -6,6 +6,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import ru.project.fitstyle.model.dto.training.GroupTrainingDto;
 import ru.project.fitstyle.model.entity.training.GroupTraining;
+import ru.project.fitstyle.model.entity.user.FitUser;
 
 import java.util.List;
 
@@ -30,4 +31,6 @@ public interface GroupTrainingRepository extends JpaRepository<GroupTraining, Lo
             "from GroupTraining v inner join v.fitUsers w inner join FitUser t on v.coachId=t.id " +
             "where t.email=:email")
     List<GroupTraining> findAllOccupiedCoachTrainingsWithCoachEmail(@Param("email") String email);
+
+    Boolean existsByFitUsersIsNotIn(FitUser fitUser);
 }

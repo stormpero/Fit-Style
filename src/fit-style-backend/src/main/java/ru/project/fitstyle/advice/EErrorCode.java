@@ -8,7 +8,8 @@ public enum EErrorCode {
     USER_IS_NOT_A_COACH(5),
     LESS_THAN_ZERO(6),
     ANONYMOUS_TOKEN(7),
-    MAX_PEOPLE(8);
+    MAX_PEOPLE(8),
+    ALREADY_SIGNED(9);
 
     private final int code;
 

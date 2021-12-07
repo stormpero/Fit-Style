@@ -15,6 +15,7 @@ import ru.project.fitstyle.service.exception.token.AnonymousTokenException;
 import ru.project.fitstyle.service.exception.token.RefreshTokenNotValidException;
 import ru.project.fitstyle.service.exception.training.ExceededMaxPeopleTrainingException;
 import ru.project.fitstyle.service.exception.training.TrainingNotFoundException;
+import ru.project.fitstyle.service.exception.training.UserAlreadySignedForTraining;
 import ru.project.fitstyle.service.exception.user.BalanceLessThanZeroException;
 import ru.project.fitstyle.service.exception.user.EmailAlreadyExistsException;
 import ru.project.fitstyle.service.exception.user.NotACoachException;
@@ -69,6 +70,18 @@ public class GlobalExceptionHandler {
                 new Date(),
                 ex.getMessage(),
                 EErrorCode.ANONYMOUS_TOKEN.value(),
+                request.getDescription(false));
+    }
+
+
+    @ExceptionHandler(value={UserAlreadySignedForTraining.class})
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public ErrorMessage handleUserAlreadySigned(RuntimeException ex, WebRequest request) {
+        return new ErrorMessage(
+                HttpStatus.FORBIDDEN.value(),
+                new Date(),
+                ex.getMessage(),
+                EErrorCode.ALREADY_SIGNED.value(),
                 request.getDescription(false));
     }
 

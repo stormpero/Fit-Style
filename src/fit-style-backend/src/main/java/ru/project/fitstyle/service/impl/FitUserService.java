@@ -50,11 +50,6 @@ public class FitUserService implements UserService {
     }
 
     @Override
-    public void saveUser(FitUser fitUser) {
-        fitUserRepository.save(fitUser);
-    }
-
-    @Override
     public void changeBalance(FitUser fitUser, final Long summary) {
         long result = fitUser.getBalance() + summary;
         if(result >= 0) {

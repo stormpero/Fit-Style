@@ -3,6 +3,7 @@ package ru.project.fitstyle.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.project.fitstyle.config.properties.TrainingProperties;
 import ru.project.fitstyle.model.dto.training.*;
 import ru.project.fitstyle.model.dto.user.FitUserFullNameDto;
 import ru.project.fitstyle.model.entity.training.ETrainingStatus;
@@ -17,6 +18,7 @@ import ru.project.fitstyle.model.entity.training.TrainingType;
 import ru.project.fitstyle.service.TrainingService;
 import ru.project.fitstyle.service.exception.training.ExceededMaxPeopleTrainingException;
 import ru.project.fitstyle.service.exception.training.TrainingNotFoundException;
+import ru.project.fitstyle.service.exception.training.UserAlreadySignedForTraining;
 import ru.project.fitstyle.service.exception.user.UserNotFoundException;
 
 import java.util.ArrayList;
@@ -30,17 +32,19 @@ public class FitTrainingService implements TrainingService {
     private final PersonalTrainingRepository personalTrainingRepository;
     private final FitUserRepository fitUserRepository;
 
-    private final int maxGroupTrainingUsers = 20;
+    private final int maxUsersPerGroup;
 
     @Autowired
     public FitTrainingService(final TrainingTypeRepository trainingTypeRepository,
                               final GroupTrainingRepository groupTrainingRepository,
                               final PersonalTrainingRepository personalTrainingRepository,
-                              FitUserRepository fitUserRepository) {
+                              final TrainingProperties trainingProperties,
+                              final FitUserRepository fitUserRepository) {
         this.trainingTypeRepository = trainingTypeRepository;
         this.groupTrainingRepository = groupTrainingRepository;
         this.personalTrainingRepository = personalTrainingRepository;
         this.fitUserRepository = fitUserRepository;
+        this.maxUsersPerGroup = trainingProperties.getMaxUsersPerGroup();
     }
 
     @Override
@@ -82,15 +86,20 @@ public class FitTrainingService implements TrainingService {
     public void signForGroupTraining(final String userEmail, final Long trainingId) {
         FitUser fitUser = fitUserRepository.findByEmail(userEmail)
                 .orElseThrow(() -> new UserNotFoundException("User with that email cannot be found!"));
-        GroupTraining groupTraining = getGroupTrainingById(trainingId);
-        if(groupTraining.getFitUsers().size() <= maxGroupTrainingUsers) {
-            fitUser.getGroupTrainings().add(groupTraining);
-            groupTraining.getFitUsers().add(fitUser);
-            fitUserRepository.save(fitUser);
-            groupTrainingRepository.save(groupTraining);
+        if(groupTrainingRepository.existsByFitUsersIsNotIn(fitUser)) {
+            GroupTraining groupTraining = getGroupTrainingById(trainingId);
+            if(groupTraining.getFitUsers().size() <= maxUsersPerGroup) {
+                fitUser.getGroupTrainings().add(groupTraining);
+                groupTraining.getFitUsers().add(fitUser);
+                fitUserRepository.save(fitUser);
+                groupTrainingRepository.save(groupTraining);
+            }
+            else {
+                throw new ExceededMaxPeopleTrainingException("There are already max users signed for this personal training!");
+            }
         }
         else {
-            throw new ExceededMaxPeopleTrainingException("There are already max users signed for this personal training!");
+            throw new UserAlreadySignedForTraining("User already signed for that group training");
         }
     }
 
