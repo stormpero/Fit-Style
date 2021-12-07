@@ -18,11 +18,11 @@ public class GroupTrainingDto {
 
     private final String title;
 
-    private final Long numberOfUsers;
+    private final int numberOfUsers;
 
     public GroupTrainingDto(final Long id, final Date startDate, final Date endDate, final ETrainingStatus status,
                             final Long coachId, final String name, final String surname, final String patronymic,
-                            final String title, final Long numberOfUsers) {
+                            final String title, final int numberOfUsers) {
         this.id = id;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -56,7 +56,7 @@ public class GroupTrainingDto {
         return title;
     }
 
-    public Long getNumberOfUsers() {
+    public int getNumberOfUsers() {
         return numberOfUsers;
     }
 }
