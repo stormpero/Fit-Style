@@ -115,7 +115,11 @@ export const ScheduleContainer = () => {
                     ToastMessages.success("Вы успешно записались на тренировку");
                 },
                 error => {
-                    ToastMessages.defaultError();
+                    if (error.response.data.errorCode === 9) {
+                        ToastMessages.error("Вы уже записались на эту тренировку!");
+                    } else {
+                        ToastMessages.defaultError();
+                    }
                 }
             ).finally(() => {
                 setReload(prev => !prev);
