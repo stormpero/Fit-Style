@@ -27,7 +27,7 @@ public interface PersonalTrainingRepository extends JpaRepository<PersonalTraini
     List<PersonalTrainingDto> findAllFitUserTrainingsWithFitUserEmail(@Param("email") final String email);
 
     @Query("select v " +
-            "from PersonalTraining v inner join v.fitUser w inner join FitUser t " +
+            "from PersonalTraining v inner join v.fitUser w inner join FitUser t on v.coachId=t.id " +
             "where t.email=:email")
     List<PersonalTraining> findAllOccupiedCoachTrainingsWithCoachEmail(@Param ("email") String email);
 }

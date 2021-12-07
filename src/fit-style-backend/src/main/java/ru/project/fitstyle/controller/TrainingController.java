@@ -48,14 +48,16 @@ public class TrainingController {
         );
     }
 
+    @PreAuthorize("hasRole('COACH')")
     @GetMapping("/coach/{id}")
-    public ResponseEntity<AllTrainingsResponse> getCoachTrainings(@PathVariable("id") final Long id) {
+    public ResponseEntity<AllTrainingsResponse> getCoachTrainingsById(@PathVariable("id") final Long id) {
         return ResponseEntity.ok(
                 new AllTrainingsResponse(trainingService.getCoachGroupTrainingsByCoachId(id),
                         trainingService.getCoachPersonalTrainingsByCoachId(id))
         );
     }
 
+    @PreAuthorize("hasRole('COACH')")
     @GetMapping("/coach")
     public ResponseEntity<AllTrainingsResponse> getCoachTrainings() {
         return ResponseEntity.ok(
@@ -155,7 +157,7 @@ public class TrainingController {
 
     @PreAuthorize("hasRole('COACH')")
     @GetMapping("/coach/trainings")
-    public ResponseEntity<AllCoachTrainingsResponse> getAllCoachTrainings() {
+    public ResponseEntity<AllCoachTrainingsResponse> getCoachUpcomingTrainings() {
         return ResponseEntity.ok(
                 new AllCoachTrainingsResponse(trainingService.getAllOccupiedCoachGroupTrainings(authService.getEmail()),
                         trainingService.getAllOccupiedCoachPersonalTrainings(authService.getEmail()))

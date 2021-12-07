@@ -2,7 +2,6 @@ package ru.project.fitstyle.model.dto.training;
 
 import ru.project.fitstyle.model.dto.user.FitUserFullNameDto;
 import ru.project.fitstyle.model.entity.training.ETrainingStatus;
-import ru.project.fitstyle.model.entity.training.PersonalTraining;
 
 import java.util.Date;
 
