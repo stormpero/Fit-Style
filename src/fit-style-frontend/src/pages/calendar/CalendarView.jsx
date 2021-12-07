@@ -29,12 +29,11 @@ export const CalendarView = ({events}) => {
                 step={custom.step}
                 timeslots={custom.timeslots}
                 titleAccessor={event => {
-                    let fio = `${event.coach.surname} ${event.coach.name.slice(0, 1)}. ${event.coach.patronymic.slice(0, 1)}.`;
+                    let fio = `${event.fitUser.surname} ${event.fitUser.name.slice(0, 1)}. ${event.fitUser.patronymic.slice(0, 1)}.`;
                     return event.isPersonal ? fio : event.title + " " + fio;
                 }}
                 eventPropGetter={
                     (event, start, end, isSelected) => {
-                        console.log(event)
                         return {
                             style: {
                                 backgroundColor: event.isPersonal ? "#008080" : "#FF8C00",
