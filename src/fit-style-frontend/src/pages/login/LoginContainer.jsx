@@ -40,7 +40,7 @@ export default class LoginContainer extends Component {
             () => {
                 ToastMessages.success("Добро пожаловать!", TOP_RIGHT);
                 this.props.setIsAuth(true);
-                this.props.history.push("/user");
+                this.props.history.push("/news");
             }).catch((error)=> {
                if (error?.response?.data?.message === "Bad credentials") {
                    ToastMessages.error("Неверные данные");

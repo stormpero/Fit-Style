@@ -33,14 +33,7 @@ const Navbar = ({isModer, logOut}) => {
                 <img className="svg-logo" src={logo} alt="Fit-Style"/>
                 <span className="menu-link-logo-name">Fit-Style</span>
             </Link>
-            <div className="menu-user">
-                <div className="menu-user-container">
-                    <Link to={URL_USER} className="menu-link">
-                        <img className="svg-icon" src={search} alt="Fit-Style"/>
-                        <span className="menu-link-name">Контент</span>
-                    </Link>
-                </div>
-            </div>
+
             <div className="menu-user">
                 <Link to={URL_NEWS} className="menu-link">
                     <img className="svg-icon" src={news} alt="Fit-Style"/>
@@ -72,11 +65,17 @@ const Navbar = ({isModer, logOut}) => {
                 </Link>
             </div>
             { isModer && (
-                <div className="menu-user">
-                    <div className="menu-user-container">
+                <div className="menu-user-container">
+                    <div className="menu-user">
                         <Link to={URL_REGISTER} className="menu-link">
                             <img className="svg-icon" src={register} alt="Fit-Style"/>
                             <span className="menu-link-name">Регистрация</span>
+                        </Link>
+                    </div>
+                    <div className="menu-user">
+                        <Link to={URL_USER} className="menu-link">
+                            <img className="svg-icon" src={search} alt="Fit-Style"/>
+                            <span className="menu-link-name">Пользователи</span>
                         </Link>
                     </div>
                 </div>

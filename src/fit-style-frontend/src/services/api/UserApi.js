@@ -1,13 +1,13 @@
 import api from "./Api";
 import {
+    URL_ALL_USERS,
     URL_ROLES,
-    URL_SUBSCRIPTIONTYPE,
-    URL_USERTEST
+    URL_SUBSCRIPTIONTYPE
 } from "../../config/consts/urlsApi";
 
 class UserApi {
-    getUserBoard() {
-        return api.get(URL_USERTEST);
+    getAllUsers() {
+        return api.get(URL_ALL_USERS);
     }
     getRoles() {
         return api.get(URL_ROLES);
@@ -15,6 +15,7 @@ class UserApi {
     getSubscriptionType() {
         return api.get(URL_SUBSCRIPTIONTYPE);
     }
+
 }
 
 export default new UserApi();

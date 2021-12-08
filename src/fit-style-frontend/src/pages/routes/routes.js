@@ -8,12 +8,12 @@ import {
 } from "../../config/consts/urlsPages";
 import RegisterContainer from "../register/RegisterContainer";
 import {ProfileContainer} from "../profile/ProfileContainer";
-import UserContent from "../../components/usercontent/UserContent";
 import {Map} from "../map/Map";
 import {NewsBoard} from "../news/NewsBoard";
 import {CalendarContainer} from "../calendar/CalendarContainer";
 import {ScheduleContainer} from "../schedule/ScheduleContainer";
 import {Info} from "../info/Info";
+import {UsersContainer} from "../users/UsersContainer";
 
 export const routes = [
     {
@@ -22,13 +22,13 @@ export const routes = [
         reqRole: "ROLE_MODERATOR"
     },
     {
-        path: URL_PROFILE,
-        Component: ProfileContainer,
-        reqRole: "ROLE_USER"
+        path: URL_USER,
+        Component: UsersContainer,
+        reqRole: "ROLE_MODERATOR"
     },
     {
-        path: URL_USER,
-        Component: UserContent,
+        path: URL_PROFILE,
+        Component: ProfileContainer,
         reqRole: "ROLE_USER"
     },
     {
