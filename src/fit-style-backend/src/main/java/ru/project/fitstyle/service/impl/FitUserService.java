@@ -43,6 +43,13 @@ public class FitUserService implements UserService {
     }
 
     @Override
+    public List<FitUserDto> getAllUsers() {
+        return fitUserRepository.findAllFitUser()
+                .filter(list -> list.size() != 0)
+                .orElseThrow(() -> new UserNotFoundException("There are no coaches!"));
+    }
+
+    @Override
     public void saveUser(FitUser fitUser, final List<Role> roles, final Subscription subscription) {
         fitUser.setRoles(roles);
         fitUser.setSubscription(subscription);

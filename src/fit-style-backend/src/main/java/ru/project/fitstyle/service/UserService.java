@@ -16,6 +16,8 @@ public interface UserService {
 
     FitUser getUserByEmail(final String email);
 
+    List<FitUserDto> getAllUsers();
+
     void saveUser(FitUser fitUser, final List<Role> roles, final Subscription subscription);
 
     void changeBalance(FitUser fitUser, final Long summary);

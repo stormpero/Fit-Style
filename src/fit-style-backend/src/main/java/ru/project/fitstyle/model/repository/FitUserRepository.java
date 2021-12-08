@@ -23,6 +23,10 @@ public interface FitUserRepository extends JpaRepository<FitUser, Long> {
             "from FitUser v inner join v.roles w on w.name='ROLE_COACH'")
     Optional<List<FitUserFullNameDto>> findAllCoaches();
 
+    @Query("select new ru.project.fitstyle.model.dto.user.FitUserDto(v.id, v.email, v.name, v.surname, v.patronymic, v.age, v.gender, v.birthdate, v.telephone, v.passport, v.address, v.imgURL, v.balance) " +
+            "from FitUser v ")
+    Optional<List<FitUserDto>> findAllFitUser();
+
     @Query("select new ru.project.fitstyle.model.dto.user.RoleDto(w.id, w.name) " +
             "from FitUser v inner join v.roles w " +
             "where v.email=:email")
