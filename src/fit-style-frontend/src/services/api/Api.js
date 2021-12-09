@@ -45,7 +45,7 @@ instance.interceptors.response.use(
             } catch (_error) {
                 if (_error.response.data.errorCode === 2) {
                     LStorageUser.remove();
-                    //window.location.reload();
+                    window.location.reload();
                 }
                 return Promise.reject(_error);
             }
