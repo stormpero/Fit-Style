@@ -17,7 +17,7 @@ const Schedule = ({lists, isCoach, selectInput, schedule}) => {
                             onChange={selectInput.handleSelect}
                             value={selectInput.selectValue}>
                         <option value="DEFAULT">Выберите тренера</option>
-                        {lists.coaches.map((coach, index) => <option value={coach.id} key={index}>{coach.surname} {coach.name} {coach.patronymic}</option>)}
+                        {lists.coaches?.map((coach, index) => <option value={coach?.id} key={index}>{coach?.surname} {coach?.name} {coach?.patronymic}</option>)}
                     </select>
                 </div>
             }

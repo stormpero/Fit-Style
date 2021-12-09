@@ -20,28 +20,32 @@ instance.interceptors.request.use(
     }
 );
 
+let isAlreadyFetchingAccessToken = false;
+
 instance.interceptors.response.use(
     (response) => {
         return response;
     },
     async error => {
         const config = error.config;
-
-        if (config.url !== URL_AUTH && error?.response?.status === 401 && !config._retry) {
-            config._retry = true;
+        if (config.url !== URL_AUTH && error?.response?.status === 401 && !config.retry) {
+            config.retry = true;
 
             try {
-                let response = await instance.get(URL_REFRESHTOKEN, {
-                    withCredentials: true
-                })
-                const {accessToken} = response.data;
-                JwtService.updateAccessToken(accessToken);
-
+                if (!isAlreadyFetchingAccessToken) {
+                    isAlreadyFetchingAccessToken = true;
+                    let response = await instance.get(URL_REFRESHTOKEN, {
+                        withCredentials: true
+                    })
+                    const {accessToken} = response.data;
+                    JwtService.updateAccessToken(accessToken);
+                    isAlreadyFetchingAccessToken = false;
+                }
                 return instance(config);
             } catch (_error) {
                 if (_error.response.data.errorCode === 2) {
                     LStorageUser.remove();
-                    window.location.reload();
+                    //window.location.reload();
                 }
                 return Promise.reject(_error);
             }
