@@ -2,10 +2,8 @@ package ru.project.fitstyle.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.project.fitstyle.model.dto.user.FitUserFullNameDto;
-import ru.project.fitstyle.model.dto.user.FitUserDto;
-import ru.project.fitstyle.model.dto.user.RoleDto;
-import ru.project.fitstyle.model.dto.user.SubscriptionDto;
+import org.springframework.transaction.annotation.Transactional;
+import ru.project.fitstyle.model.dto.user.*;
 import ru.project.fitstyle.model.entity.subscription.Subscription;
 import ru.project.fitstyle.model.entity.user.FitUser;
 import ru.project.fitstyle.model.entity.user.Role;
@@ -15,6 +13,7 @@ import ru.project.fitstyle.service.UserService;
 import ru.project.fitstyle.service.exception.user.BalanceLessThanZeroException;
 import ru.project.fitstyle.service.exception.user.UserNotFoundException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -42,11 +41,21 @@ public class FitUserService implements UserService {
                 .orElseThrow(() -> new UserNotFoundException("User with that email cannot be found!"));
     }
 
+    @Transactional
     @Override
-    public List<FitUserDto> getAllUsers() {
-        return fitUserRepository.findAllFitUser()
-                .filter(list -> list.size() != 0)
-                .orElseThrow(() -> new UserNotFoundException("There are no coaches!"));
+    public List<FitUserFullInfoDto> getAllUsers() {
+        List<FitUser> allFitUsers = fitUserRepository.findAll();
+        List<FitUserFullInfoDto> allUsers = new ArrayList<>();
+        for(FitUser fitUser : allFitUsers) {
+            List<RoleDto> roles = new ArrayList<>();
+            for(Role role : fitUser.getRoles()) {
+                roles.add(new RoleDto(role.getId(), role.getName()));
+            }
+            allUsers.add(new FitUserFullInfoDto(new FitUserDto(fitUser.getId(), fitUser.getEmail(), fitUser.getName(), fitUser.getSurname(), fitUser.getPatronymic(),
+                    fitUser.getAge(), fitUser.getGender(), fitUser.getBirthdate(), fitUser.getTelephone(), fitUser.getPassport(), fitUser.getAddress(), fitUser.getImgURL(), fitUser.getBalance()),
+                    new SubscriptionDto(fitUser.getSubscription().getSubscriptionType().getName(), fitUser.getSubscription().getEndDate()), roles));
+        }
+        return allUsers;
     }
 
     @Override
@@ -65,6 +74,24 @@ public class FitUserService implements UserService {
             return;
         }
         throw new BalanceLessThanZeroException("Balance cannot be less than zero!");
+    }
+
+    @Transactional
+    @Override
+    public void disableUser(Long id) {
+        FitUser fitUser = fitUserRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException("User with that id cannot be found!"));
+        fitUser.setEnabled(false);
+        fitUserRepository.save(fitUser);
+    }
+
+    @Transactional
+    @Override
+    public void enableUser(Long id) {
+        FitUser fitUser = fitUserRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException("User with that id cannot be found!"));
+        fitUser.setEnabled(true);
+        fitUserRepository.save(fitUser);
     }
 
     @Override

@@ -24,6 +24,7 @@ public class FitUserDetailsService implements UserDetailsService {
     @Transactional
     public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
         final FitUser fitUser = fitUserRepository.findByEmail(username)
+                .filter(FitUser::getEnabled)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
 
         return FitUserDetails.build(fitUser);

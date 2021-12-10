@@ -1,11 +1,11 @@
 // ROOT //
 export const URL_ROOT = "http://localhost:8080/api";
 // TOKENS //
-export const URL_REFRESHTOKEN = "auth/refreshtoken";
+export const URL_REFRESHTOKEN = "auth/refresh-token";
 // LOGIN //
-export const URL_AUTH = "auth/signin";
+export const URL_AUTH = "auth/sign-in";
 // REGISTER //
-export const URL_REGISTER = "auth/signup";
+export const URL_REGISTER = "users/add";
 export const URL_SUBSCRIPTIONTYPE = "subscriptiontype";
 // NAVBAR //
 export const URL_LOGOUT = "auth/logout";

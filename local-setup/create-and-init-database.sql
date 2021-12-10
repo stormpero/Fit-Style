@@ -33,6 +33,7 @@ CREATE TABLE public.fit_user (
     email character varying(50) NOT NULL,
     gender character varying(6) NOT NULL,
     img_url character varying(100),
+    is_enabled boolean NOT NULL,
     name character varying(20) NOT NULL,
     passport character varying(16) NOT NULL,
     password character varying(120) NOT NULL,
@@ -206,7 +207,7 @@ ALTER SEQUENCE public.personal_training_id_seq OWNED BY public.personal_training
 CREATE TABLE public.refresh_token (
     id bigint NOT NULL,
     expiry_date timestamp without time zone NOT NULL,
-    token character varying(200) NOT NULL,
+    token character varying(300) NOT NULL,
     fit_user_id bigint NOT NULL
 );
 
@@ -411,10 +412,11 @@ ALTER TABLE ONLY public.training ALTER COLUMN id SET DEFAULT nextval('public.tra
 -- Data for Name: fit_user; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.fit_user (id, address, age, balance, birthdate, email, gender, img_url, name, passport, password, patronymic, surname, telephone) FROM stdin;
-1	Москва, ул. Энгельса, н. 3 п.23	50	2500	1971-02-03 00:00:00	AdminProfile@gmail.com	M	admin.jpg	Валерий	345793459	$2a$10$FM7DRHjUIfhmAXgsq1uKC.tmah/oymXYr1xNKCLgKMOVPCI20rJdy	Александрович	Подкорытов	88005553535
-2	Санкт-Петербург, Ленина ул., д. 3 кв.17	43	0	1978-02-01 00:00:00	UserProfile@gmail.com	M	user.jpg	Владимир	4723637495	$2a$10$bJK2ha21uzpVRWxDAevZDusyxZT9gsr1SeJalDFEF0wl2TpnQKQg2	Петрович	Столяров	89236003343
-3	г Санкт-Петербург, Большой Сампсониевский пр-кт, д 7	35	200	1994-06-01 00:00:00	CoachProfile@gmail.com	M	coach.jpg	Гавриил	2313333342	$2a$10$SdgV.8KAG/Jvh2Xd8x2aqOfy5XRrTlyDx4mafbH9xfb2ubN9e.AKK	Иванович	Цуканов	89219692138
+COPY public.fit_user (id, address, age, balance, birthdate, email, gender, img_url, is_enabled, name, passport, password, patronymic, surname, telephone) FROM stdin;
+1	Москва, ул. Энгельса, н. 3 п.23	50	2500	1971-02-03 00:00:00	AdminProfile@gmail.com	M	admin.jpg	t	Валерий	345793459	$2a$10$FM7DRHjUIfhmAXgsq1uKC.tmah/oymXYr1xNKCLgKMOVPCI20rJdy	Александрович	Подкорытов	88005553535
+2	Санкт-Петербург, Ленина ул., д. 3 кв.17	43	0	1978-02-01 00:00:00	UserProfile@gmail.com	M	user.jpg	f	Владимир	4723637495	$2a$10$bJK2ha21uzpVRWxDAevZDusyxZT9gsr1SeJalDFEF0wl2TpnQKQg2	Петрович	Столяров	89236003343
+3	г Санкт-Петербург, Большой Сампсониевский пр-кт, д 7	35	200	1994-06-01 00:00:00	CoachProfile@gmail.com	M	coach.jpg	t	Гавриил	2313333342	$2a$10$SdgV.8KAG/Jvh2Xd8x2aqOfy5XRrTlyDx4mafbH9xfb2ubN9e.AKK	Иванович	Цуканов	89219692138
+4	г Санкт-Петербург, ул Народная	20	0	2001-03-03 03:00:00	fustone.steamer@mail.ru	M	\N	t	Чиганов	235434634634	$2a$10$ZKW0CvV.gHgftPbWyMFHbeeINB54eQBw659gkFwY/QBWU/CxZUvhO	Ренатович	Даниил	89818480243
 \.
 
 
@@ -436,6 +438,7 @@ COPY public.fit_user_roles (fit_user_id, role_id) FROM stdin;
 2	1
 3	1
 3	3
+4	1
 \.
 
 
@@ -485,6 +488,7 @@ COPY public.personal_training (id, coach_id, end_date, start_date, status, fit_u
 --
 
 COPY public.refresh_token (id, expiry_date, token, fit_user_id) FROM stdin;
+140	2021-12-17 18:37:25.014	eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBZG1pblByb2ZpbGVAZ21haWwuY29tIiwiaWF0IjoxNjM5MTUwNjQ1LCJleHAiOjE2Mzk3NTU0NDV9.sFXytkrtywqAgwyu2katrBbUPx2aPMUwByQUDIyGaIhvrD66qe_YkfwKsflQNi_5MmIPeqXRBbjSvGQxeUleJg	1
 \.
 
 
@@ -507,6 +511,7 @@ COPY public.subscription (id, begin_date, contract_number, end_date, subscriptio
 1	2021-11-26 00:00:00	89824655645	2021-11-27 00:00:00	1
 2	2021-12-31 00:00:00	89824561232	2022-01-01 00:00:00	2
 3	2021-11-26 00:00:00	89824655645	2021-11-27 00:00:00	3
+4	2021-12-10 18:38:10.327	34562346346	2022-06-10 18:38:10.327	1
 \.
 
 
@@ -536,7 +541,7 @@ COPY public.training (id, name) FROM stdin;
 -- Name: fit_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.fit_user_id_seq', 3, true);
+SELECT pg_catalog.setval('public.fit_user_id_seq', 4, true);
 
 
 --
@@ -571,7 +576,7 @@ SELECT pg_catalog.setval('public.role_id_seq', 3, true);
 -- Name: subscription_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.subscription_id_seq', 3, true);
+SELECT pg_catalog.setval('public.subscription_id_seq', 4, true);
 
 
 --
@@ -698,6 +703,14 @@ ALTER TABLE ONLY public.training
 
 ALTER TABLE ONLY public.refresh_token
     ADD CONSTRAINT uk_r4k4edos30bx9neoq81mdvwph UNIQUE (token);
+
+
+--
+-- Name: fit_user ukmldipv6rt0rx385vyykv70grd; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.fit_user
+    ADD CONSTRAINT ukmldipv6rt0rx385vyykv70grd UNIQUE (email);
 
 
 --
