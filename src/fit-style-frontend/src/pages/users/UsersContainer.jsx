@@ -3,6 +3,7 @@ import {Users} from "./Users";
 import UserApi from "../../services/api/UserApi";
 import ToastMessages from "../../components/toastmessages/ToastMessages";
 import NewsApi from "../../services/api/NewsApi";
+import "./Users.css"
 
 export const UsersContainer = (props) => {
     const [userList, setUserList] = useState([]);
