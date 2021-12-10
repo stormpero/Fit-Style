@@ -77,6 +77,7 @@ public class FitPasswordRecoveryService implements PasswordRecoveryService {
             passwordRecoveryRepository.delete(passwordRecovery);
         }
         else {
+            passwordRecoveryRepository.delete(passwordRecovery);
             throw new RecoveryCodeExpiredException("Recovery code has been expired!");
         }
     }
