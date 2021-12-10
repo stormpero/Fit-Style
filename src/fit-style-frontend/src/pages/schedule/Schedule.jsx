@@ -5,6 +5,8 @@ import {formats, messagesRu} from "../../config/calendar/Calendar";
 import moment from "moment";
 import TrainingService from "../../services/training/ScheduleService";
 import ScheduleService from "../../services/training/ScheduleService";
+import group from "../../assets/group.png";
+import solo from "../../assets/solo-training.png";
 
 const localize = momentLocalizer(moment)
 
@@ -52,10 +54,15 @@ const Schedule = ({lists, isCoach, selectInput, schedule}) => {
 
 const ScheduleEvent = ({ event }) => {
     return (
-        <div>
-            <strong>{ScheduleService.getCutFio(event?.fitUser)}</strong>
-            {!event.isPersonal && <p className="p-0 m-0">{event?.title} {event?.numberOfUsers + "/20"}</p>}
-            <p className="p-0 m-0">Статус: {TrainingService.getStatusName(event?.status)}</p>
+        <div className="container-training">
+            <div className="info-training">
+                <strong>{ScheduleService.getCutFio(event?.fitUser)}</strong>
+                {!event.isPersonal && <p className="p-0 m-0">{event?.title} {event?.numberOfUsers + "/20"}</p>}
+                <p className="p-0 m-0">Статус: {TrainingService.getStatusName(event?.status)}</p>
+            </div>
+            <div className="picture-training">
+                <img className="training-picture" src={event.isPersonal? solo : group } alt="picture"/>
+            </div>
         </div>
     )
 }

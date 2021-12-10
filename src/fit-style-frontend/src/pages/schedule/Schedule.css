@@ -1,0 +1,7 @@
+.training-picture{
+    width: 50px;
+}
+.container-training{
+    display: flex;
+    justify-content: space-between;
+}
