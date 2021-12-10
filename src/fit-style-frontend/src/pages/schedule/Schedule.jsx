@@ -4,6 +4,7 @@ import {views} from "react-big-calendar/lib/utils/constants";
 import {formats, messagesRu} from "../../config/calendar/Calendar";
 import moment from "moment";
 import TrainingService from "../../services/training/ScheduleService";
+import ScheduleService from "../../services/training/ScheduleService";
 
 const localize = momentLocalizer(moment)
 
@@ -39,15 +40,24 @@ const Schedule = ({lists, isCoach, selectInput, schedule}) => {
                 step={60}
                 timeslots={1}
                 eventPropGetter={(event) => TrainingService.getEventStatusColor(event.status)}
-                titleAccessor={event => {
-                    let fio = `${event.fitUser.surname} ${event.fitUser.name.slice(0, 1)}. ${event.fitUser.patronymic.slice(0, 1)}. Статус: ${TrainingService.getStatusName(event.status)}`;
-                    return event.isPersonal ? fio : event.title + " " + fio + " " + event.numberOfUsers + "/20";
-                }}
-                dayLayoutAlgorithm={'no-overlap'}
 
+                dayLayoutAlgorithm={'no-overlap'}
+                components={{
+                    event: ScheduleEvent,
+                }}
             />
         </div>
     );
 };
+
+const ScheduleEvent = ({ event }) => {
+    return (
+        <div className>
+            <strong>{ScheduleService.getCutFio(event?.fitUser)}</strong>
+            {!event.isPersonal && <p className="p-0 m-0">{event?.title} {event?.numberOfUsers + "/20"}</p>}
+            <p className="p-0 m-0">Статус: {TrainingService.getStatusName(event?.status)}</p>
+        </div>
+    )
+}
 
 export default Schedule;

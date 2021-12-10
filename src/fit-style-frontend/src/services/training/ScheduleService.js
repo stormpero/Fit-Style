@@ -12,6 +12,10 @@ class ScheduleService {
         }
     }
 
+    getCutFio(fitUser) {
+        return `${fitUser?.surname} ${fitUser?.name.slice(0, 1)}. ${fitUser?.patronymic.slice(0, 1)}.`
+    }
+
     getEventStatusColor = (status) => {
         let styles = {
             style: {

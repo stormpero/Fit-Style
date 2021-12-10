@@ -6,6 +6,7 @@ import * as custom from "../../config/calendar/Calendar";
 
 import "react-big-calendar/lib/css/react-big-calendar.css"
 import "./CalendarView.css"
+import ScheduleService from "../../services/training/ScheduleService";
 
 const localize = momentLocalizer(moment)
 
@@ -31,7 +32,7 @@ export const CalendarView = ({events}) => {
                 titleAccessor={event => {
                     let fio;
                     if (event.isPersonal) {
-                        fio = `${event.fitUser.surname} ${event.fitUser.name.slice(0, 1)}. ${event.fitUser.patronymic.slice(0, 1)}.`;
+                        fio = ScheduleService.getCutFio(event?.fitUser);
                     } else {
                         fio = event.numberOfUsers + "/20";
                     }
