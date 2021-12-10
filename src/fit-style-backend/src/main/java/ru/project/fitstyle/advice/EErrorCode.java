@@ -9,7 +9,8 @@ public enum EErrorCode {
     LESS_THAN_ZERO(6),
     ANONYMOUS_TOKEN(7),
     MAX_PEOPLE(8),
-    ALREADY_SIGNED(9);
+    ALREADY_SIGNED(9),
+    UNABLE_TO_SEND_EMAIL(10);
 
     private final int code;
 

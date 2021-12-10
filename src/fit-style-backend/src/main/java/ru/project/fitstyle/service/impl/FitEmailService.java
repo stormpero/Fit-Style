@@ -1,6 +1,7 @@
 package ru.project.fitstyle.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -18,11 +19,15 @@ public class FitEmailService implements EmailService {
 
     @Override
     public void sendSimpleEmail(String toAddress, String subject, String message) {
+        try {
+            SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+            simpleMailMessage.setTo(toAddress);
+            simpleMailMessage.setSubject(subject);
+            simpleMailMessage.setText(message);
+            emailSender.send(simpleMailMessage);
+        }
+        catch (MailException ex) {
 
-        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
-        simpleMailMessage.setTo(toAddress);
-        simpleMailMessage.setSubject(subject);
-        simpleMailMessage.setText(message);
-        emailSender.send(simpleMailMessage);
+        }
     }
 }
