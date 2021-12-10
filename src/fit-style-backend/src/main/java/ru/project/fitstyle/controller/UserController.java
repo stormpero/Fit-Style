@@ -80,7 +80,7 @@ public class UserController {
     public ResponseEntity<SuccessMessage> enable(@PathVariable("id") Long id) {
         userService.enableUser(id);
         return ResponseEntity.ok(
-                new SuccessMessage("User disabled successfully!"));
+                new SuccessMessage("User enabled successfully!"));
     }
 
     private FitUser createFitUser(final AddUserRequest request) {
