@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.project.fitstyle.controller.request.user.AddUserRequest;
 import ru.project.fitstyle.controller.response.SuccessMessage;
-import ru.project.fitstyle.controller.response.user.AllFitUserResponse;
+import ru.project.fitstyle.controller.response.user.AllUsersResponse;
 import ru.project.fitstyle.model.entity.user.FitUser;
 import ru.project.fitstyle.service.*;
 
@@ -43,9 +43,9 @@ public class UserController {
 
     @GetMapping("/all")
     @PreAuthorize("hasRole('MODERATOR')")
-    public ResponseEntity<AllFitUserResponse> getAllFitUsers() {
+    public ResponseEntity<AllUsersResponse> getAllFitUsers() {
         return ResponseEntity.ok(
-                new AllFitUserResponse(userService.getAllUsers())
+                new AllUsersResponse(userService.getAllUsers())
         );
     }
 

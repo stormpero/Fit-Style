@@ -1,9 +1,6 @@
 package ru.project.fitstyle.service;
 
-import ru.project.fitstyle.model.dto.user.FitUserFullNameDto;
-import ru.project.fitstyle.model.dto.user.FitUserDto;
-import ru.project.fitstyle.model.dto.user.RoleDto;
-import ru.project.fitstyle.model.dto.user.SubscriptionDto;
+import ru.project.fitstyle.model.dto.user.*;
 import ru.project.fitstyle.model.entity.subscription.Subscription;
 import ru.project.fitstyle.model.entity.user.FitUser;
 import ru.project.fitstyle.model.entity.user.Role;
@@ -16,7 +13,7 @@ public interface UserService {
 
     FitUser getUserByEmail(final String email);
 
-    List<FitUserDto> getAllUsers();
+    List<FitUserFullInfoDto> getAllUsers();
 
     void saveUser(FitUser fitUser, final List<Role> roles, final Subscription subscription);
 
