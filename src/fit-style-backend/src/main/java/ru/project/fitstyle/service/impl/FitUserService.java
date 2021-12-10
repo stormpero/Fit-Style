@@ -41,6 +41,12 @@ public class FitUserService implements UserService {
                 .orElseThrow(() -> new UserNotFoundException("User with that email cannot be found!"));
     }
 
+    @Override
+    public FitUser getUserById(Long id) {
+        return fitUserRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException("User with that id cannot be found!"));
+    }
+
     @Transactional
     @Override
     public List<FitUserFullInfoDto> getAllUsers() {
@@ -79,8 +85,7 @@ public class FitUserService implements UserService {
     @Transactional
     @Override
     public void disableUser(Long id) {
-        FitUser fitUser = fitUserRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException("User with that id cannot be found!"));
+        FitUser fitUser = getUserById(id);
         fitUser.setEnabled(false);
         fitUserRepository.save(fitUser);
     }
@@ -88,8 +93,7 @@ public class FitUserService implements UserService {
     @Transactional
     @Override
     public void enableUser(Long id) {
-        FitUser fitUser = fitUserRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException("User with that id cannot be found!"));
+        FitUser fitUser = getUserById(id);
         fitUser.setEnabled(true);
         fitUserRepository.save(fitUser);
     }
@@ -97,9 +101,7 @@ public class FitUserService implements UserService {
     @Override
     public void logoutUserByEmail(final String email) {
         refreshTokenRepository
-                .deleteByFitUser(fitUserRepository
-                        .findByEmail(email)
-                        .orElseThrow(() -> new UserNotFoundException("User with that email cannot be found!")));
+                .deleteByFitUser(getUserByEmail(email));
     }
 
     @Override
