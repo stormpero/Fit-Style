@@ -61,7 +61,7 @@ const ScheduleEvent = ({ event }) => {
                 <p className="p-0 m-0">Статус: {TrainingService.getStatusName(event?.status)}</p>
             </div>
             <div className="picture-training">
-                <img className="training-picture" src={event.isPersonal? solo : group } alt="picture"/>
+                <img className="training-picture" src={event.isPersonal? solo : group } alt={event.title + "-training-picture"}/>
             </div>
         </div>
     )
