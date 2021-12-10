@@ -6,11 +6,13 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import ru.project.fitstyle.controller.request.user.AddUserRequest;
+import ru.project.fitstyle.controller.request.user.AddEditUserRequest;
 import ru.project.fitstyle.controller.request.user.AskForRecoverRequest;
+import ru.project.fitstyle.controller.request.user.ChangePasswordRequest;
 import ru.project.fitstyle.controller.request.user.ConfirmRecoveryRequest;
 import ru.project.fitstyle.controller.response.SuccessMessage;
 import ru.project.fitstyle.controller.response.user.AllUsersResponse;
+import ru.project.fitstyle.model.entity.news.News;
 import ru.project.fitstyle.model.entity.user.FitUser;
 import ru.project.fitstyle.service.*;
 
@@ -61,7 +63,7 @@ public class UserController {
 
     @PostMapping("/add")
     @PreAuthorize("hasRole('MODERATOR')")
-    public ResponseEntity<SuccessMessage> add(@Valid @RequestPart(value = "request") final AddUserRequest request,
+    public ResponseEntity<SuccessMessage> add(@Valid @RequestPart(value = "request") final AddEditUserRequest request,
                                                        @RequestPart(value = "image", required = false) final MultipartFile image) {
         userService.validateEmailForRegister(request.getEmail());
 
@@ -75,6 +77,34 @@ public class UserController {
 
         return ResponseEntity.ok(
                 new SuccessMessage("User registered successfully!"));
+    }
+
+    @PatchMapping("/update/{id}")
+    @PreAuthorize("hasRole('MODERATOR')")
+    public ResponseEntity<SuccessMessage> update(@Valid @RequestPart(value = "request") final AddEditUserRequest request,
+                                                 @RequestPart(value = "image", required = false) final MultipartFile image,
+                                                 @PathVariable("id") final Long id) {
+        userService.validateEmailForRegister(request.getEmail());
+
+        FitUser fitUser = userService.getUserById(id);
+
+        fitUser.setImgURL(imageStorageService.store(image));
+
+        userService.saveUser(fitUser, roleService.createRoles(request.getRoles()),
+                subscriptionTypeService.createFitUserSubscription(request.getSubscriptionTypeInfo().getSubscriptionTypeId(),
+                        request.getSubscriptionTypeInfo().getContractNumber()));
+
+        return ResponseEntity.ok(
+                new SuccessMessage("User updated successfully!"));
+    }
+
+    @PostMapping("/change-password/{id}")
+    @PreAuthorize("hasRole('MODERATOR')")
+    public ResponseEntity<SuccessMessage> changePassword(@PathVariable("id") Long id, @RequestBody ChangePasswordRequest request) {
+        userService.changePassword(id, encoder.encode(request.getPassword()));
+
+        return ResponseEntity.ok(
+                new SuccessMessage("Password changed successfully!"));
     }
 
     @GetMapping("/disable/{id}")
@@ -118,7 +148,7 @@ public class UserController {
                 new SuccessMessage("Password changed successfully!"));
     }
 
-    private FitUser createFitUser(final AddUserRequest request) {
+    private FitUser createFitUser(final AddEditUserRequest request) {
         return new FitUser(request.getName(), request.getSurname(),
                 request.getPatronymic(), request.getEmail(),
                 encoder.encode(request.getPassword()),

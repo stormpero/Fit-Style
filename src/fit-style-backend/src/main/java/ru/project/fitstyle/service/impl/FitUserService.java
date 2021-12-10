@@ -82,6 +82,14 @@ public class FitUserService implements UserService {
         throw new BalanceLessThanZeroException("Balance cannot be less than zero!");
     }
 
+    @Override
+    @Transactional
+    public void changePassword(Long id, String password) {
+        FitUser fitUser = getUserById(id);
+        fitUser.setPassword(password);
+        fitUserRepository.save(fitUser);
+    }
+
     @Transactional
     @Override
     public void disableUser(Long id) {

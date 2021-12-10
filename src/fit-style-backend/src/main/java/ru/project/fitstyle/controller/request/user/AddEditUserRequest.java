@@ -6,7 +6,7 @@ import java.util.List;
 import javax.validation.constraints.*;
 
 
-public class AddUserRequest {
+public class AddEditUserRequest {
     @NotBlank(message = "name should not be blank")
     @Size(min = 2, max = 20, message = "name should be more or equal than 2 and less or equal than 20 characters")
     private String name;

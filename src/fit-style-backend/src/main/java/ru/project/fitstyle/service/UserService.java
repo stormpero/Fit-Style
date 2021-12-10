@@ -21,6 +21,8 @@ public interface UserService {
 
     void changeBalance(FitUser fitUser, final Long summary);
 
+    void changePassword(final Long id, final String password);
+
     void disableUser(Long id);
 
     void enableUser(Long id);
