@@ -29,9 +29,9 @@ public class FitUserService implements UserService {
     }
 
     @Override
-    public void validateEmail(final String email) {
+    public void validateEmailForRegister(final String email) {
         if(fitUserRepository.existsByEmail(email)) {
-            throw new UserNotFoundException("User with that email cannot be found!");
+            throw new UserNotFoundException("User with that email already exists!");
         }
     }
 

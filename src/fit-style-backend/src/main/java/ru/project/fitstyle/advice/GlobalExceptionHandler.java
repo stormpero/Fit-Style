@@ -5,9 +5,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
-import ru.project.fitstyle.service.exception.email.UnableToSendEmailException;
+import ru.project.fitstyle.service.exception.recovery.UnableToSendEmailException;
 import ru.project.fitstyle.service.exception.news.NewsPageNotFoundException;
 import ru.project.fitstyle.service.exception.news.NewsStoryNotFoundException;
+import ru.project.fitstyle.service.exception.recovery.WrongCodeException;
 import ru.project.fitstyle.service.exception.role.UsersWithRoleNotFoundException;
 import ru.project.fitstyle.service.exception.storage.FileNotFoundException;
 import ru.project.fitstyle.service.exception.storage.StorageException;
@@ -138,6 +139,17 @@ public class GlobalExceptionHandler {
                 new Date(),
                 ex.getMessage(),
                 EErrorCode.UNABLE_TO_SEND_EMAIL.value(),
+                request.getDescription(false));
+    }
+
+    @ExceptionHandler(value = {WrongCodeException.class})
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorMessage handleWrongCodeException(RuntimeException ex, WebRequest request) {
+        return new ErrorMessage(
+                HttpStatus.BAD_REQUEST.value(),
+                new Date(),
+                ex.getMessage(),
+                EErrorCode.WRONG_CODE.value(),
                 request.getDescription(false));
     }
 }

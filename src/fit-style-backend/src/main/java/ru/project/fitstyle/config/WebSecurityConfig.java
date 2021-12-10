@@ -74,6 +74,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 //        channel.anyRequest().requiresSecure())
                 .authorizeRequests()
                 .antMatchers("/api/auth/**").permitAll()
+                .antMatchers("/api/users/ask-for-recover-with-email").permitAll()
+                .antMatchers("/api/users/confirm-recovery").permitAll()
                 .antMatchers("/api/test/**").permitAll()
                 .anyRequest().authenticated();
 

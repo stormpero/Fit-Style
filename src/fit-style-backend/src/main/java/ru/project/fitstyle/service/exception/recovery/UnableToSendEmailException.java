@@ -1,4 +1,4 @@
-package ru.project.fitstyle.service.exception.email;
+package ru.project.fitstyle.service.exception.recovery;
 
 public class UnableToSendEmailException extends RuntimeException {
     public UnableToSendEmailException(String message) {

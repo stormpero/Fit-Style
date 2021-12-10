@@ -7,6 +7,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.project.fitstyle.controller.request.user.AddUserRequest;
+import ru.project.fitstyle.controller.request.user.AskForRecoverRequest;
+import ru.project.fitstyle.controller.request.user.ConfirmRecoveryRequest;
 import ru.project.fitstyle.controller.response.SuccessMessage;
 import ru.project.fitstyle.controller.response.user.AllUsersResponse;
 import ru.project.fitstyle.model.entity.user.FitUser;
@@ -28,17 +30,25 @@ public class UserController {
 
     private final StorageService imageStorageService;
 
+    private final PasswordRecoveryService passwordRecoveryService;
+
+    private final AuthService authService;
+
     @Autowired
     public UserController(final PasswordEncoder encoder,
                           final UserService userService,
                           final RoleService roleService,
                           final SubscriptionTypeService subscriptionTypeService,
-                          final StorageService imageStorageService) {
+                          final StorageService imageStorageService,
+                          final PasswordRecoveryService passwordRecoveryService,
+                          AuthService authService) {
         this.encoder = encoder;
         this.userService = userService;
         this.roleService = roleService;
         this.subscriptionTypeService = subscriptionTypeService;
         this.imageStorageService = imageStorageService;
+        this.passwordRecoveryService = passwordRecoveryService;
+        this.authService = authService;
     }
 
     @GetMapping("/all")
@@ -53,7 +63,7 @@ public class UserController {
     @PreAuthorize("hasRole('MODERATOR')")
     public ResponseEntity<SuccessMessage> add(@Valid @RequestPart(value = "request") final AddUserRequest request,
                                                        @RequestPart(value = "image", required = false) final MultipartFile image) {
-        userService.validateEmail(request.getEmail());
+        userService.validateEmailForRegister(request.getEmail());
 
         FitUser fitUser = createFitUser(request);
 
@@ -81,6 +91,31 @@ public class UserController {
         userService.enableUser(id);
         return ResponseEntity.ok(
                 new SuccessMessage("User enabled successfully!"));
+    }
+
+    @PostMapping("/ask-for-recover-with-email")
+    public ResponseEntity<SuccessMessage> askForRecoverWithEmail(@RequestBody AskForRecoverRequest request) {
+        passwordRecoveryService.sendEmail(request.getEmail());
+        return ResponseEntity.ok(
+                new SuccessMessage("The message was sent to the given address!"));
+    }
+
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/ask-for-recover")
+    public ResponseEntity<SuccessMessage> askForRecover() {
+
+        passwordRecoveryService.sendEmail(authService.getEmail());
+
+        return ResponseEntity.ok(
+                new SuccessMessage("The message was sent to the given address!"));
+    }
+
+    @PostMapping("/confirm-recovery")
+    public ResponseEntity<SuccessMessage> confirmRecovery(@RequestBody ConfirmRecoveryRequest request) {
+        passwordRecoveryService.confirmRecovery(request.getCode(), encoder.encode(request.getPassword()));
+
+        return ResponseEntity.ok(
+                new SuccessMessage("Password changed successfully!"));
     }
 
     private FitUser createFitUser(final AddUserRequest request) {

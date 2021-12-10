@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface UserService {
 
-    void validateEmail(final String email);
+    void validateEmailForRegister(final String email);
 
     FitUser getUserByEmail(final String email);
 
