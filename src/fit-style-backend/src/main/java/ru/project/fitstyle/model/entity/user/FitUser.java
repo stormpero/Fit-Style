@@ -77,6 +77,10 @@ public class FitUser {
     private Long balance;
 
 
+    @Column(name = "is_enabled", nullable = false)
+    private Boolean isEnabled;
+
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "fit_user_roles",
             joinColumns = @JoinColumn(name = "fit_user_id", referencedColumnName = "id", nullable = false),
@@ -102,7 +106,7 @@ public class FitUser {
     public FitUser(String name, String surname, String patronymic,
                    String email, String password, String age,
                    String gender, Date birthdate, String telephone,
-                   String passport, String address, Long balance) {
+                   String passport, String address) {
         this.name = name;
         this.surname=surname;
         this.patronymic=patronymic;
@@ -114,7 +118,8 @@ public class FitUser {
         this.telephone = telephone;
         this.passport = passport;
         this.address = address;
-        this.balance = balance;
+        this.balance = 0L;
+        this.isEnabled = true;
     }
 
     public Long getId() {
@@ -259,5 +264,13 @@ public class FitUser {
 
     public void setBalance(Long balance) {
         this.balance = balance;
+    }
+
+    public Boolean getEnabled() {
+        return isEnabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        isEnabled = enabled;
     }
 }

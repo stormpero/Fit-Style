@@ -70,7 +70,7 @@ public class RefreshTokenService implements TokenService {
                 .orElseThrow(() ->
                         new RefreshTokenNotValidException("Refresh token not found!"));
 
-        if (refreshToken.getExpiryDate().compareTo(Instant.now()) >= 0) {
+        if (isExpired(refreshToken)) {
             return refreshToken;
         }
         else {
@@ -84,4 +84,7 @@ public class RefreshTokenService implements TokenService {
         return expirationMs;
     }
 
+    private Boolean isExpired(RefreshToken refreshToken) {
+        return refreshToken.getExpiryDate().compareTo(Instant.now()) >= 0;
+    }
 }

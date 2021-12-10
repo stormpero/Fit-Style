@@ -87,7 +87,7 @@ public class AuthController {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        final FitUserDetails userDetails = (FitUserDetails) authentication.getPrincipal();
+        final FitUserDetails userDetails = ((FitUserDetails) authentication.getPrincipal());
         List<String> roles = userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
@@ -154,6 +154,6 @@ public class AuthController {
                 encoder.encode(request.getPassword()),
                 request.getAge(), request.getGender(),
                 request.getBirthdate(), request.getTelephone(),
-                request.getPassport(), request.getAddress(), 0L);
+                request.getPassport(), request.getAddress());
     }
 }

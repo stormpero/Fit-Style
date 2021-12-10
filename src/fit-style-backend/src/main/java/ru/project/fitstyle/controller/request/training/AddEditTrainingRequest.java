@@ -7,7 +7,7 @@ public class AddEditTrainingRequest {
 
     @NotBlank(message = "name should not be blank")
     @Size(min=3, max=50, message = "name should be more or equal than 3 and less or equal than 50 characters")
-    String name;
+    private String name;
 
     public String getName() {
         return name;
