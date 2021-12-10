@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {Users} from "./Users";
 import UserApi from "../../services/api/UserApi";
 import ToastMessages from "../../components/toastmessages/ToastMessages";
-import NewsApi from "../../services/api/NewsApi";
 import "./Users.css"
 
 export const UsersContainer = (props) => {
@@ -16,7 +15,12 @@ export const UsersContainer = (props) => {
                     value.roles = value?.roles.map(value => value.name);
                     return value;
                 });
-                setUserList(fitUsersTemp)
+
+                getUserImages(fitUsersTemp).then(
+                    response => {
+                        setUserList(response);
+                    }
+                );
             },
             error => {
                 ToastMessages.defaultError();
@@ -24,15 +28,15 @@ export const UsersContainer = (props) => {
         )
     }, [])
 
-    const getUserImages = async (rowNewsData) => {
+    const getUserImages = async (fitUsersTemp) => {
         try {
-            for (const value of rowNewsData) {
-                let response = await NewsApi.getUserImg(value.id);
+            for (const value of fitUsersTemp) {
+                let response = await UserApi.getUserImg(value?.fitUserInfo.id);
                 let imageData = response.data;
                 value.img = imageData ? URL.createObjectURL(imageData) : null
             }
         } catch (error) {}
-        return rowNewsData
+        return fitUsersTemp;
     }
 
     return (

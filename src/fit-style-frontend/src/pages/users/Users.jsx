@@ -6,10 +6,13 @@ export const Users = ({userList}) => {
     return (
         <div className="container">
             <ul >
-            {userList.map(({fitUserInfo, roles, subscriptionInfo}) =>
-                <li key={fitUserInfo.id} >
+            {userList.map(({fitUserInfo, img, roles, subscriptionInfo}) =>
+                <div key={fitUserInfo.id}>
+                    <img src={img} className="w-25"/>
+                <li  >
                     {fitUserInfo.id} {fitUserInfo.surname} {fitUserInfo.name} {fitUserInfo.patronymic} {fitUserInfo.email} {ProfileService.getRoleView(roles)} {subscriptionInfo.name}
-                </li>)
+                </li>
+                </div>)
             }
             </ul>
             <div className="row">
