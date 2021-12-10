@@ -13,6 +13,7 @@ import map from "../../assets/map.png";
 import info from "../../assets/info.png";
 import calendar from "../../assets/calendar.png"
 import workout from "../../assets/workout.png"
+import userlist from "../../assets/userlist.png"
 import {
     URL_CALENDAR,
     URL_INFO,
@@ -74,7 +75,7 @@ const Navbar = ({isModer, logOut}) => {
                     </div>
                     <div className="menu-user">
                         <Link to={URL_USER} className="menu-link">
-                            <img className="svg-icon" src={search} alt="Fit-Style"/>
+                            <img className="svg-icon" src={userlist} alt="Fit-Style"/>
                             <span className="menu-link-name">Пользователи</span>
                         </Link>
                     </div>
