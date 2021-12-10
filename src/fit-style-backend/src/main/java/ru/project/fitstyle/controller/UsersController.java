@@ -67,6 +67,22 @@ public class UsersController {
                 new SuccessMessage("User registered successfully!"));
     }
 
+    @GetMapping("/disable/{id}")
+    @PreAuthorize("hasRole('MODERATOR')")
+    public ResponseEntity<SuccessMessage> disable(@PathVariable("id") Long id) {
+        userService.disableUser(id);
+        return ResponseEntity.ok(
+                new SuccessMessage("User disabled successfully!"));
+    }
+
+    @GetMapping("/enable/{id}")
+    @PreAuthorize("hasRole('MODERATOR')")
+    public ResponseEntity<SuccessMessage> enable(@PathVariable("id") Long id) {
+        userService.enableUser(id);
+        return ResponseEntity.ok(
+                new SuccessMessage("User disabled successfully!"));
+    }
+
     private FitUser createFitUser(final SignupRequest request) {
         return new FitUser(request.getName(), request.getSurname(),
                 request.getPatronymic(), request.getEmail(),

@@ -22,6 +22,10 @@ public interface UserService {
 
     void changeBalance(FitUser fitUser, final Long summary);
 
+    void disableUser(Long id);
+
+    void enableUser(Long id);
+
     void logoutUserByEmail(final String email);
 
     FitUserDto getFitUserInfoByEmail(final String email);

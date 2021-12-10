@@ -2,6 +2,7 @@ package ru.project.fitstyle.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.project.fitstyle.model.dto.user.FitUserFullNameDto;
 import ru.project.fitstyle.model.dto.user.FitUserDto;
 import ru.project.fitstyle.model.dto.user.RoleDto;
@@ -65,6 +66,24 @@ public class FitUserService implements UserService {
             return;
         }
         throw new BalanceLessThanZeroException("Balance cannot be less than zero!");
+    }
+
+    @Transactional
+    @Override
+    public void disableUser(Long id) {
+        FitUser fitUser = fitUserRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException("User with that id cannot be found!"));
+        fitUser.setEnabled(false);
+        fitUserRepository.save(fitUser);
+    }
+
+    @Transactional
+    @Override
+    public void enableUser(Long id) {
+        FitUser fitUser = fitUserRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException("User with that id cannot be found!"));
+        fitUser.setEnabled(true);
+        fitUserRepository.save(fitUser);
     }
 
     @Override
