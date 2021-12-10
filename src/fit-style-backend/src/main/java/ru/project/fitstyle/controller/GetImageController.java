@@ -39,6 +39,13 @@ public class GetImageController {
         return createImageResponse(imageStorageService.loadAsResource(userService.getUserByEmail(authService.getEmail()).getImgURL()));
     }
 
+    @PreAuthorize("hasRole('MODERATOR')")
+    @GetMapping("/user/{id}")
+    public ResponseEntity<Resource> getUserProfileImageById(@PathVariable("id") Long id) {
+        return createImageResponse(imageStorageService.loadAsResource(userService.getUserById(id).getImgURL()));
+    }
+
+
     @GetMapping("/news/{id}")
     public ResponseEntity<Resource> getNewsImage(@PathVariable("id") Long id) {
         return createImageResponse(imageStorageService.loadAsResource(newsService.getNewsById(id).getImgURL()));

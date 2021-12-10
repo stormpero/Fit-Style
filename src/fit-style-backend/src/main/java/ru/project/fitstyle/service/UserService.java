@@ -13,6 +13,8 @@ public interface UserService {
 
     FitUser getUserByEmail(final String email);
 
+    FitUser getUserById(final Long id);
+
     List<FitUserFullInfoDto> getAllUsers();
 
     void saveUser(FitUser fitUser, final List<Role> roles, final Subscription subscription);
