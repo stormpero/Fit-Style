@@ -4,7 +4,6 @@ import {Link} from "react-router-dom";
 import "./Navbar.css"
 
 import logo from "../../assets/logo3.png";
-import search from "../../assets/search.png";
 import news from "../../assets/newspaper.png";
 import register from "../../assets/voting.png";
 import exit from "../../assets/exit.png";
