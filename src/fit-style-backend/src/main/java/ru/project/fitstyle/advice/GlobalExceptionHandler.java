@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
+import ru.project.fitstyle.service.exception.recovery.RecoveryCodeExpiredException;
 import ru.project.fitstyle.service.exception.recovery.UnableToSendEmailException;
 import ru.project.fitstyle.service.exception.news.NewsPageNotFoundException;
 import ru.project.fitstyle.service.exception.news.NewsStoryNotFoundException;
@@ -53,14 +54,14 @@ public class GlobalExceptionHandler {
                 request.getDescription(false));
     }
 
-    @ExceptionHandler(value = {RefreshTokenNotValidException.class})
+    @ExceptionHandler(value = {RefreshTokenNotValidException.class, RecoveryCodeExpiredException.class})
     @ResponseStatus(HttpStatus.FORBIDDEN)
-    public ErrorMessage handleRefreshTokenNotValid(RuntimeException ex, WebRequest request) {
+    public ErrorMessage handleNotValid(RuntimeException ex, WebRequest request) {
         return new ErrorMessage(
                 HttpStatus.FORBIDDEN.value(),
                 new Date(),
                 ex.getMessage(),
-                EErrorCode.REFRESH_NOT_VALID.value(),
+                EErrorCode.NOT_VALID.value(),
                 request.getDescription(false));
     }
 

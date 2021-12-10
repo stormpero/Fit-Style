@@ -12,10 +12,12 @@ import ru.project.fitstyle.model.entity.user.PasswordRecovery;
 import ru.project.fitstyle.model.repository.FitUserRepository;
 import ru.project.fitstyle.model.repository.PasswordRecoveryRepository;
 import ru.project.fitstyle.service.PasswordRecoveryService;
+import ru.project.fitstyle.service.exception.recovery.RecoveryCodeExpiredException;
 import ru.project.fitstyle.service.exception.recovery.UnableToSendEmailException;
 import ru.project.fitstyle.service.exception.recovery.WrongCodeException;
 import ru.project.fitstyle.service.exception.user.UserNotFoundException;
 
+import java.time.Instant;
 import java.util.Date;
 import java.util.UUID;
 
@@ -66,10 +68,16 @@ public class FitPasswordRecoveryService implements PasswordRecoveryService {
     public void confirmRecovery(String code, String password) {
         PasswordRecovery passwordRecovery = passwordRecoveryRepository.findByCode(code)
                 .orElseThrow(() -> new WrongCodeException("Provided code cannot be found in database!"));
-        FitUser fitUser = fitUserRepository.findByEmail(passwordRecovery.getEmail())
-                .orElseThrow(() -> new UserNotFoundException("User for given code is not in database!"));
-        fitUser.setPassword(password);
-        fitUserRepository.save(fitUser);
-        passwordRecoveryRepository.delete(passwordRecovery);
+
+        if(passwordRecovery.getDeadline().toInstant().compareTo(Instant.now()) >= 0) {
+            FitUser fitUser = fitUserRepository.findByEmail(passwordRecovery.getEmail())
+                    .orElseThrow(() -> new UserNotFoundException("User for given code is not in database!"));
+            fitUser.setPassword(password);
+            fitUserRepository.save(fitUser);
+            passwordRecoveryRepository.delete(passwordRecovery);
+        }
+        else {
+            throw new RecoveryCodeExpiredException("Recovery code has been expired!");
+        }
     }
 }
