@@ -1,4 +1,4 @@
-package ru.project.fitstyle.controller.response.fitusers;
+package ru.project.fitstyle.controller.response.user;
 
 import ru.project.fitstyle.model.dto.user.FitUserDto;
 

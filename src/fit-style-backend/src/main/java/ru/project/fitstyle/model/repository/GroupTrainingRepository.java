@@ -6,7 +6,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import ru.project.fitstyle.model.dto.training.GroupTrainingDto;
 import ru.project.fitstyle.model.entity.training.GroupTraining;
-import ru.project.fitstyle.model.entity.user.FitUser;
 
 import java.util.List;
 

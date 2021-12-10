@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -13,18 +12,15 @@ import javax.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-import org.springframework.web.multipart.MultipartFile;
 import ru.project.fitstyle.model.entity.user.RefreshToken;
 import ru.project.fitstyle.model.entity.user.FitUser;
 import ru.project.fitstyle.controller.request.auth.LoginRequest;
-import ru.project.fitstyle.controller.request.auth.SignupRequest;
 import ru.project.fitstyle.controller.response.auth.LoginResponse;
 import ru.project.fitstyle.controller.response.auth.RefreshTokenResponse;
 import ru.project.fitstyle.controller.response.SuccessMessage;

@@ -6,9 +6,9 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import ru.project.fitstyle.controller.request.auth.SignupRequest;
+import ru.project.fitstyle.controller.request.user.AddUserRequest;
 import ru.project.fitstyle.controller.response.SuccessMessage;
-import ru.project.fitstyle.controller.response.fitusers.AllFitUserResponse;
+import ru.project.fitstyle.controller.response.user.AllFitUserResponse;
 import ru.project.fitstyle.model.entity.user.FitUser;
 import ru.project.fitstyle.service.*;
 
@@ -17,7 +17,7 @@ import javax.validation.Valid;
 @CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
 @RestController
 @RequestMapping("/api/users")
-public class UsersController {
+public class UserController {
     private final PasswordEncoder encoder;
 
     private final UserService userService;
@@ -29,11 +29,11 @@ public class UsersController {
     private final StorageService imageStorageService;
 
     @Autowired
-    public UsersController(final PasswordEncoder encoder,
-                           final UserService userService,
-                           final RoleService roleService,
-                           final SubscriptionTypeService subscriptionTypeService,
-                           final StorageService imageStorageService) {
+    public UserController(final PasswordEncoder encoder,
+                          final UserService userService,
+                          final RoleService roleService,
+                          final SubscriptionTypeService subscriptionTypeService,
+                          final StorageService imageStorageService) {
         this.encoder = encoder;
         this.userService = userService;
         this.roleService = roleService;
@@ -51,7 +51,7 @@ public class UsersController {
 
     @PostMapping("/add")
     @PreAuthorize("hasRole('MODERATOR')")
-    public ResponseEntity<SuccessMessage> add(@Valid @RequestPart(value = "request") final SignupRequest request,
+    public ResponseEntity<SuccessMessage> add(@Valid @RequestPart(value = "request") final AddUserRequest request,
                                                        @RequestPart(value = "image", required = false) final MultipartFile image) {
         userService.validateEmail(request.getEmail());
 
@@ -83,7 +83,7 @@ public class UsersController {
                 new SuccessMessage("User disabled successfully!"));
     }
 
-    private FitUser createFitUser(final SignupRequest request) {
+    private FitUser createFitUser(final AddUserRequest request) {
         return new FitUser(request.getName(), request.getSurname(),
                 request.getPatronymic(), request.getEmail(),
                 encoder.encode(request.getPassword()),
