@@ -2,6 +2,7 @@ import axios from 'axios';
 import JwtService from "../jwt/JwtService";
 import LStorageUser from "../localstorage/LStorageUser";
 import {URL_AUTH, URL_REFRESHTOKEN, URL_ROOT} from "../../config/consts/urlsApi";
+import {REFRESH_NOT_VALID} from "../../config/consts/ErrorCode";
 
 const instance = axios.create({
     baseURL: URL_ROOT,
@@ -62,7 +63,7 @@ async function resetTokenAndReattemptRequest(error) {
         return retryOriginalRequest;
     } catch (err) {
         console.log(err.response)
-        if (err.response.data.errorCode === 2) {
+        if (err.response.data.errorCode === REFRESH_NOT_VALID) {
             LStorageUser.remove();
             window.location.reload();
         }

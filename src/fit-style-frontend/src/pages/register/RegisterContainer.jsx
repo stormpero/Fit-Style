@@ -7,6 +7,7 @@ import ToastMessages from "../../components/toastmessages/ToastMessages";
 import {TOP_RIGHT} from "../../config/consts/ToastPosition";
 import UserService from "../../services/api/UserApi";
 import RegisterApi from "../../services/api/RegisterApi";
+import {EMAIL_ALREADY_EXISTS} from "../../config/consts/ErrorCode";
 
 export default class RegisterContainer extends Component {
 
@@ -129,7 +130,7 @@ export default class RegisterContainer extends Component {
                     }
                 });
             }).catch((error)=> {
-                let errorMsg = error.response.data.errorCode === 4 ? 'Ошибка. Пользователь с таким Email уже существует!' : 'Ошибка';
+                let errorMsg = error.response.data.errorCode === EMAIL_ALREADY_EXISTS ? 'Ошибка. Пользователь с таким Email уже существует!' : 'Ошибка';
                 ToastMessages.error(errorMsg, TOP_RIGHT)
             }
         );
