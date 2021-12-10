@@ -14,15 +14,15 @@ INSERT INTO subscription(begin_date, contract_number, end_date, subscription_typ
 INSERT INTO subscription(begin_date, contract_number, end_date, subscription_type_id) VALUES ('31.12.2021', '89824561232', '01.01.2022', 2);
 INSERT INTO subscription(begin_date, contract_number, end_date, subscription_type_id) VALUES ('26.11.2021', '89824655645', '27.11.2021', 3);
 
-INSERT INTO fit_user(email, password, name, age, birthdate, gender, passport, patronymic, surname, telephone, address, img_url, balance)
+INSERT INTO fit_user(email, password, name, age, birthdate, gender, passport, patronymic, surname, telephone, address, img_url, balance, is_enabled)
 VALUES('AdminProfile@gmail.com', '$2a$10$FM7DRHjUIfhmAXgsq1uKC.tmah/oymXYr1xNKCLgKMOVPCI20rJdy', 'Валерий', 50, '03.02.1971', 'M',
-       '345793459', 'Александрович', 'Подкорытов', '88005553535', 'Москва, ул. Энгельса, н. 3 п.23', 'admin.jpg', 2500);
-INSERT INTO fit_user(email, password, name, age, birthdate, gender, passport, patronymic, surname, telephone, address, img_url, balance)
+       '345793459', 'Александрович', 'Подкорытов', '88005553535', 'Москва, ул. Энгельса, н. 3 п.23', 'admin.jpg', 2500, true);
+INSERT INTO fit_user(email, password, name, age, birthdate, gender, passport, patronymic, surname, telephone, address, img_url, balance, is_enabled)
 VALUES('UserProfile@gmail.com', '$2a$10$bJK2ha21uzpVRWxDAevZDusyxZT9gsr1SeJalDFEF0wl2TpnQKQg2', 'Владимир', 43, '01.02.1978', 'M',
-       '4723637495', 'Петрович', 'Столяров', '89236003343', 'Санкт-Петербург, Ленина ул., д. 3 кв.17', 'user.jpg', 0);
-INSERT INTO fit_user(email, password, name, age, birthdate, gender, passport, patronymic, surname, telephone, address, img_url, balance)
+       '4723637495', 'Петрович', 'Столяров', '89236003343', 'Санкт-Петербург, Ленина ул., д. 3 кв.17', 'user.jpg', 0, true);
+INSERT INTO fit_user(email, password, name, age, birthdate, gender, passport, patronymic, surname, telephone, address, img_url, balance, is_enabled)
 VALUES ('CoachProfile@gmail.com','$2a$10$SdgV.8KAG/Jvh2Xd8x2aqOfy5XRrTlyDx4mafbH9xfb2ubN9e.AKK','Гавриил', 35, '01.06.1994', 'M',
-        '2313333342', 'Иванович', 'Цуканов', '89219692138', 'г Санкт-Петербург, Большой Сампсониевский пр-кт, д 7', 'coach.jpg', 200);
+        '2313333342', 'Иванович', 'Цуканов', '89219692138', 'г Санкт-Петербург, Большой Сампсониевский пр-кт, д 7', 'coach.jpg', 200, true);
 
 INSERT INTO fit_user_roles(fit_user_id, role_id) VALUES (1,1);
 INSERT INTO fit_user_roles(fit_user_id, role_id) VALUES (1,2);
