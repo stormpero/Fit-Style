@@ -31,9 +31,11 @@ public class FitUserDto {
 
     private final Long balance;
 
+    private final Boolean isEnabled;
+
     public FitUserDto(final Long id, final String email, final String name, final String surname, final String patronymic,
                       final String age, final String gender, final Date birthdate, final String telephone, final String passport, final String address,
-                      final String imgURL, final Long balance) {
+                      final String imgURL, final Long balance, final Boolean isEnabled) {
         this.id = id;
         this.email = email;
         this.name = name;
@@ -47,6 +49,7 @@ public class FitUserDto {
         this.address = address;
         this.imgURL = imgURL;
         this.balance = balance;
+        this.isEnabled = isEnabled;
     }
 
     public Long getId() {
@@ -99,5 +102,9 @@ public class FitUserDto {
 
     public Long getBalance() {
         return balance;
+    }
+
+    public Boolean getEnabled() {
+        return isEnabled;
     }
 }

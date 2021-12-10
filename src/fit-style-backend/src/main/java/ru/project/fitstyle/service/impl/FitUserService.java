@@ -58,7 +58,7 @@ public class FitUserService implements UserService {
                 roles.add(new RoleDto(role.getId(), role.getName()));
             }
             allUsers.add(new FitUserFullInfoDto(new FitUserDto(fitUser.getId(), fitUser.getEmail(), fitUser.getName(), fitUser.getSurname(), fitUser.getPatronymic(),
-                    fitUser.getAge(), fitUser.getGender(), fitUser.getBirthdate(), fitUser.getTelephone(), fitUser.getPassport(), fitUser.getAddress(), fitUser.getImgURL(), fitUser.getBalance()),
+                    fitUser.getAge(), fitUser.getGender(), fitUser.getBirthdate(), fitUser.getTelephone(), fitUser.getPassport(), fitUser.getAddress(), fitUser.getImgURL(), fitUser.getBalance(), fitUser.getEnabled()),
                     new SubscriptionDto(fitUser.getSubscription().getSubscriptionType().getName(), fitUser.getSubscription().getEndDate()), roles));
         }
         return allUsers;
