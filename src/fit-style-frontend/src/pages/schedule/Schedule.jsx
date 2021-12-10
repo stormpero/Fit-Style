@@ -52,7 +52,7 @@ const Schedule = ({lists, isCoach, selectInput, schedule}) => {
 
 const ScheduleEvent = ({ event }) => {
     return (
-        <div className>
+        <div>
             <strong>{ScheduleService.getCutFio(event?.fitUser)}</strong>
             {!event.isPersonal && <p className="p-0 m-0">{event?.title} {event?.numberOfUsers + "/20"}</p>}
             <p className="p-0 m-0">Статус: {TrainingService.getStatusName(event?.status)}</p>
