@@ -49,7 +49,8 @@ public class ImageStorageService implements StorageService {
     public String store(MultipartFile file) {
         String filename;
         try {
-            filename = StringUtils.cleanPath(UUID.randomUUID().toString() + '.' + Objects.requireNonNull(Objects.requireNonNull(file.getOriginalFilename()).split("\\.")[1]));
+            String [] div = Objects.requireNonNull(file.getOriginalFilename()).split("\\.");
+            filename = StringUtils.cleanPath(UUID.randomUUID().toString() + '.' + Objects.requireNonNull(div[div.length - 1]));
             System.out.println(filename);
         }
         catch (NullPointerException e) {
