@@ -30,12 +30,7 @@ export const CalendarView = ({events}) => {
                 step={custom.step}
                 timeslots={custom.timeslots}
                 titleAccessor={event => {
-                    let fio;
-                    if (event.isPersonal) {
-                        fio = ScheduleService.getCutFio(event?.fitUser);
-                    } else {
-                        fio = event.numberOfUsers + "/20";
-                    }
+                    let fio = event.isPersonal ? ScheduleService.getCutFio(event?.fitUser) : event.numberOfUsers + "/20";
                     return event.isPersonal ? fio : event.title + " " + fio;
                 }}
                 eventPropGetter={
