@@ -13,7 +13,7 @@ export const Users = ({userList}) => {
                                         <thead>
                                         <tr>
                                             <th><span>Пользователь</span></th>
-                                            <th className="text-center"><span>ID</span></th>
+                                            <th className="text-center"><span>Телефон</span></th>
                                             <th className="text-center"><span>Статус</span></th>
                                             <th><span>Email</span></th>
                                             <th>&nbsp;</th>
@@ -25,11 +25,12 @@ export const Users = ({userList}) => {
                                         <tr>
                                             <td className="user-info">
                                                 <img src={img} alt=""/>
+                                                <label>{fitUserInfo.id}</label>
                                                 <span className="user-link">{fitUserInfo.surname} {fitUserInfo.name}</span>
                                                 <span className="user-subhead">{ProfileService.getRoleView(roles)}</span>
                                             </td>
                                             <td className="user-id">
-                                                {fitUserInfo.id}
+                                                {fitUserInfo.telephone}
                                             </td>
                                             <td className="text-center user-status">
                                                 <span className="badge bg-secondary">Inactive</span>
