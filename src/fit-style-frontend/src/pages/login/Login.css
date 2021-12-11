@@ -112,12 +112,11 @@ input.form-control-auth::placeholder{
 .bg3 {
     animation-duration:5s;
 }
-.btn-secondary {
+.btn-entry {
     background-color: rgba(255, 255, 255, 0);
     border-color: #ffffff;
 }
-
-.btn-secondary:hover {
+.btn-entry:hover {
     background-color: rgba(255, 255, 255, 0);
     border-color: #000;
 }

@@ -4,7 +4,7 @@ import "./Login.css";
 import {Link} from "react-router-dom";
 import logo from "../../assets/logo.png";
 
-const Login = (props) => {
+const Login = ({handleLogin, setModalActive, emailState , passwordState}) => {
   return (
       <div>
           <div className="d-flex justify-content-center">
@@ -33,8 +33,8 @@ const Login = (props) => {
                                  required
                                  name="email"
                                  type="text"
-                                 onChange={props.handleFunc.input}
-                                 value={props.value.email}
+                                 onChange={(e) => emailState.setEmail(e.target.value)}
+                                 value={emailState.email}
                                  placeholder="Email"
                           />
                       </div>
@@ -44,17 +44,20 @@ const Login = (props) => {
                                  required
                                  name="password"
                                  type="password"
-                                 onChange={props.handleFunc.input}
-                                 value={props.value.password}
+                                 onChange={(e) => passwordState.setPassword(e.target.value)}
+                                 value={passwordState.password}
                                  autoComplete="on"
                                  placeholder="Password"
                           />
                       </div>
-                      <br/>
-                      <div className="form-group d-flex justify-content-between">
-                          <button className="btn btn-secondary"
-                                  onClick={props.handleFunc.login}>
+                      <div className="d-flex justify-content-between mt-3">
+                          <button className="btn btn-secondary btn-entry"
+                                  onClick={handleLogin}>
                               Войти
+                          </button>
+                          <button className="btn text-white"
+                                  onClick={(e) => {e.preventDefault(); setModalActive(true)}}>
+                              Забыли пароль?
                           </button>
                       </div>
                   </form>
