@@ -8,14 +8,14 @@ export const URL_ASK_RECOVER_WITH_EMAIL = "users/ask-for-recover-with-email";
 export const URL_CONFIRM_RECOVERY = "users/confirm-recovery";
 // REGISTER //
 export const URL_REGISTER = "users/add";
-export const URL_SUBSCRIPTIONTYPE = "subscriptiontype";
+export const URL_SUBSCRIPTIONTYPE = "subscription-type";
 // NAVBAR //
 export const URL_LOGOUT = "auth/logout";
 // USERS TEST //
 export const URL_ALL_USERS = "users/all";
 // PROFILE //
 export const URL_PROFILE_INFO = "profile";
-export const URL_CHANGE_BALANCE = "profile/change_balance";
+export const URL_CHANGE_BALANCE = "profile/change-balance";
 // IMAGE //
 export const URL_PROFILE_IMG = "get-image/user";
 // PERMISSIONS //
