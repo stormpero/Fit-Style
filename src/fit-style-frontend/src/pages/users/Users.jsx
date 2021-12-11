@@ -12,9 +12,9 @@ export const Users = ({userList}) => {
                                     <table className="table user-list">
                                         <thead>
                                         <tr>
-                                            <th><span>User</span></th>
+                                            <th><span>Пользователь</span></th>
                                             <th className="text-center"><span>ID</span></th>
-                                            <th className="text-center"><span>Status</span></th>
+                                            <th className="text-center"><span>Статус</span></th>
                                             <th><span>Email</span></th>
                                             <th>&nbsp;</th>
                                         </tr>
@@ -38,7 +38,7 @@ export const Users = ({userList}) => {
                                                 <span>{fitUserInfo.email}</span>
                                             </td>
                                             <td className="buttons">
-                                                <button type="button" className="btn btn-danger">Сброс</button>
+                                                <button type="button" className="btn btn-danger">Заблокировать</button>
                                             </td>
                                         </tr>
                                         </tbody>)
