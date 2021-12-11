@@ -8,8 +8,8 @@ class ToastMessages {
     success(msg, position) {
         cogoToast.success(msg, { position: position });
     }
-    loading(msg) {
-        return cogoToast.loading(msg)
+    loading(msg, options) {
+        return cogoToast.loading(msg, options);
     }
     defaultError() {
         cogoToast.error("Произошла ошибка, повторите попытку позже", { position: TOP_RIGHT });
