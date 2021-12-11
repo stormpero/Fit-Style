@@ -47,7 +47,7 @@ Create database with name "fit-style"
 ./mvnw spring-boot:run
 ``` 
 
-or you can justpen folder backend with IntelliJ IDEA  
+or you can just open folder backend with IntelliJ IDEA  
 Wait until the dependencies are established  
 
 ----
