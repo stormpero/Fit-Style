@@ -14,7 +14,6 @@ export const messagesRu = {
 };
 
 export const formats = {
-    dateFormat: 'dd',
     monthHeaderFormat: 'MMMM YYYY',
     dayHeaderFormat: 'DD MMMM YYYY',
     dayRangeHeaderFormat: ({ start, end }, culture, local) => {
