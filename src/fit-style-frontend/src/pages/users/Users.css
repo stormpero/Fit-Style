@@ -1,13 +1,12 @@
 .user-list tbody td> img {
     position: relative;
-    max-width: 50px;
+    max-width: 68px;
     float: left;
     margin-right: 15px;
 }
 .user-list tbody td .user-link {
     display: block;
     font-size: 1.25em;
-    padding-top: 3px;
     margin-left: 60px;
 }
 .user-list tbody td .user-subhead {
