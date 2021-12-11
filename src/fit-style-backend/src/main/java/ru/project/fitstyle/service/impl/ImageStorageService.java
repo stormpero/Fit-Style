@@ -22,6 +22,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Stream;
 
 @Service
@@ -48,7 +49,8 @@ public class ImageStorageService implements StorageService {
     public String store(MultipartFile file) {
         String filename;
         try {
-            filename = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
+            filename = StringUtils.cleanPath(UUID.randomUUID().toString() + '.' + Objects.requireNonNull(Objects.requireNonNull(file.getOriginalFilename()).split("\\.")[1]));
+            System.out.println(filename);
         }
         catch (NullPointerException e) {
             return null;
@@ -70,7 +72,7 @@ public class ImageStorageService implements StorageService {
             throw new StorageException("Cannot store file!");
         }
 
-        return file.getOriginalFilename();
+        return filename;
     }
 
     @Override
