@@ -5,61 +5,50 @@ export const Users = ({userList}) => {
 
     return (
         <div className="container">
-            <ul >
-            {userList.map(({fitUserInfo, img, roles, subscriptionInfo}) =>
-                <div key={fitUserInfo.id}>
-                    <img src={img} className="w-25"/>
-                <li  >
-                    {fitUserInfo.id} {fitUserInfo.surname} {fitUserInfo.name} {fitUserInfo.patronymic} {fitUserInfo.email} {ProfileService.getRoleView(roles)} {subscriptionInfo.name}
-                </li>
-                </div>)
-            }
-            </ul>
-            <div className="row">
-                <div className="col-lg-12">
-                    <div className="main-box clearfix">
-                        <div className="table-responsive">
-                            <table className="table user-list">
-                                <thead>
-                                <tr>
-                                    <th><span>User</span></th>
-                                    <th><span>Created</span></th>
-                                    <th className="text-center"><span>Status</span></th>
-                                    <th><span>Email</span></th>
-                                    <th>&nbsp;</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt=""/>
-                                            <span href="#" className="user-link">Mila Kunis</span>
-                                            <span className="user-subhead">Admin</span>
-                                        </td>
-                                        <td>
-                                            2013/08/08
-                                        </td>
-                                        <td className="text-center">
-                                            <span className="label label-default">Inactive</span>
-                                        </td>
-                                        <td>
-                                            <a href="#">mila@kunis.com</a>
-                                        </td>
-                                        <td className="buttons">
-                                            <a href="#" className="table-link">
-                                                <span className="fa-stack">
-                                                    <i className="fa fa-square fa-stack-2x"></i>
-                                                    <i className="fa fa-search-plus fa-stack-1x fa-inverse"></i>
-                                                </span>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                    <div className="row">
+                        <div className="col-lg-12">
+                            <div className="main-box clearfix">
+                                <div className="table-responsive">
+                                    <table className="table user-list">
+                                        <thead>
+                                        <tr>
+                                            <th><span>Пользователь</span></th>
+                                            <th className="text-center"><span>ID</span></th>
+                                            <th className="text-center"><span>Статус</span></th>
+                                            <th><span>Email</span></th>
+                                            <th>&nbsp;</th>
+                                        </tr>
+                                        </thead>
+                                        {userList.map(({fitUserInfo, img, roles, subscriptionInfo}) =>
+
+                                        <tbody key={fitUserInfo.id}>
+                                        <tr>
+                                            <td className="user-info">
+                                                <img src={img} alt=""/>
+                                                <span className="user-link">{fitUserInfo.surname} {fitUserInfo.name}</span>
+                                                <span className="user-subhead">{ProfileService.getRoleView(roles)}</span>
+                                            </td>
+                                            <td className="user-id">
+                                                {fitUserInfo.id}
+                                            </td>
+                                            <td className="text-center user-status">
+                                                <span className="badge bg-secondary">Inactive</span>
+                                            </td>
+                                            <td className="text-center user-email">
+                                                <span>{fitUserInfo.email}</span>
+                                            </td>
+                                            <td className="buttons">
+                                                <button type="button" className="btn btn-danger">Заблокировать</button>
+                                            </td>
+                                        </tr>
+                                        </tbody>)
+                                        }
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
+
         </div>
     );
 };
