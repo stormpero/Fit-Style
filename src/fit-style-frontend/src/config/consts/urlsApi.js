@@ -4,6 +4,8 @@ export const URL_ROOT = "http://localhost:8080/api";
 export const URL_REFRESHTOKEN = "auth/refresh-token";
 // LOGIN //
 export const URL_AUTH = "auth/sign-in";
+export const URL_ASK_RECOVER_WITH_EMAIL = "users/ask-for-recover-with-email";
+export const URL_CONFIRM_RECOVERY = "users/confirm-recovery";
 // REGISTER //
 export const URL_REGISTER = "users/add";
 export const URL_SUBSCRIPTIONTYPE = "subscriptiontype";
