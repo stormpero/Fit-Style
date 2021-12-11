@@ -6,6 +6,8 @@ import "./Users.css"
 
 export const UsersContainer = (props) => {
     const [userList, setUserList] = useState([]);
+    const [reload, setReload] = useState(false);
+
     useEffect(() => {
         UserApi.getAllUsers().then(
             response => {
@@ -26,7 +28,7 @@ export const UsersContainer = (props) => {
                 ToastMessages.defaultError();
             }
         )
-    }, [])
+    }, [reload])
 
     const getUserImages = async (fitUsersTemp) => {
         try {
@@ -39,7 +41,35 @@ export const UsersContainer = (props) => {
         return fitUsersTemp;
     }
 
+    const disableUser = (event) => {
+        const {id} = event.target;
+        UserApi.disableUser(Number(id)).then(
+            response => {
+                ToastMessages.success("Пользователь заблокирован!");
+                setReload(prev => !prev);
+            },
+            error => {
+                console.log(error.response);
+                ToastMessages.defaultError();
+            }
+        )
+    }
+
+    const enableUser = (event) => {
+        const {id} = event.target;
+        UserApi.enableUser(Number(id)).then(
+            response => {
+                ToastMessages.success("Пользователь разблокирован!");
+                setReload(prev => !prev);
+            },
+            error => {
+                console.log(error.response);
+                ToastMessages.defaultError();
+            }
+        )
+    }
+
     return (
-        <Users userList={userList}/>
+        <Users userList={userList} disableUser={disableUser} enableUser={enableUser} setReload={setReload}/>
     );
 }

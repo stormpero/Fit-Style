@@ -1,7 +1,8 @@
 import React from 'react';
 import ProfileService from "../../services/profile/ProfileService";
+import LStorageUser from "../../services/localstorage/LStorageUser";
 
-export const Users = ({userList}) => {
+export const Users = ({userList, disableUser , enableUser , setReload}) => {
     return (
         <div className="container">
             <div className="row">
@@ -13,8 +14,8 @@ export const Users = ({userList}) => {
                                     <tr>
                                         <th><span>Пользователь</span></th>
                                         <th className="text-center"><span>Телефон</span></th>
-                                        <th className="text-center"><span>Статус</span></th>
                                         <th><span>Email</span></th>
+                                        <th className="text-center"><span>Статус</span></th>
                                         <th>&nbsp;</th>
                                     </tr>
                                 </thead>
@@ -30,14 +31,20 @@ export const Users = ({userList}) => {
                                         <td className="user-id">
                                             {fitUserInfo.telephone}
                                         </td>
-                                        <td className="text-center user-status">
-                                            <span className="badge bg-secondary">Inactive</span>
-                                        </td>
                                         <td className="text-center user-email">
                                             <span>{fitUserInfo.email}</span>
                                         </td>
+                                        <td className="text-center user-status">
+                                            <span className="badge bg-secondary">{ fitUserInfo.enabled ? "Активен" : "Заблокирован"}</span>
+                                        </td>
                                         <td className="buttons">
-                                            <button type="button" className="btn btn-danger">Заблокировать</button>
+                                            {LStorageUser.getId() !== Number(fitUserInfo.id) ? fitUserInfo.enabled ?
+                                                <button type="button" className="btn btn-danger" onClick={disableUser} id={fitUserInfo.id}>Заблокировать</button>
+                                                :
+                                                <button type="button" className="btn btn-success" onClick={enableUser} id={fitUserInfo.id}>Разблокировать</button>
+                                                :
+                                                <button type="button" className="btn btn-primary" disabled={true}>Текущий пользователь</button>
+                                            }
                                         </td>
                                     </tr>
                                 )}

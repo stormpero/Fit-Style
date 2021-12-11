@@ -26,17 +26,20 @@ export const LoginContainer = ({setIsAuth}) => {
         }
 
         LoginApi.login({email, password}).then(
-            () => {
+            response => {
                 ToastMessages.success("Добро пожаловать!", TOP_RIGHT);
                 setIsAuth(true);
                 history.push("/news");
-            }).catch((error)=> {
-               if (error?.response?.data?.message === "Bad credentials") {
-                   ToastMessages.error("Неверные данные");
-               } else {
-                   ToastMessages.defaultError();
-               }
-        });
+            },
+            error => {
+                console.log(error.response)
+                if (error?.response?.data?.message === "Bad credentials") {
+                    ToastMessages.error("Неверные данные");
+                } else {
+                    ToastMessages.defaultError();
+                }
+            }
+        );
     }
 
     return (

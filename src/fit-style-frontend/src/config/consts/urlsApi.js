@@ -36,3 +36,5 @@ export const URL_SIGN_TRAINING_GROUP ="training/sign/group/";
 export const URL_OCCUPIED_COACH_TRAININGS = "training/coach/trainings"
 // USERS //
 export const URL_IMG_USER = "get-image/user/";
+export const URL_DISABLE_USER = "users/disable/";
+export const URL_ENABLE_USER = "users/enable/";

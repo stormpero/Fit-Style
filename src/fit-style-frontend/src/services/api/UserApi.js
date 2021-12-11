@@ -1,6 +1,6 @@
 import api from "./Api";
 import {
-    URL_ALL_USERS, URL_ASK_RECOVER_WITH_EMAIL, URL_CONFIRM_RECOVERY, URL_IMG_USER,
+    URL_ALL_USERS, URL_ASK_RECOVER_WITH_EMAIL, URL_CONFIRM_RECOVERY, URL_DISABLE_USER, URL_ENABLE_USER, URL_IMG_USER,
     URL_ROLES,
     URL_SUBSCRIPTIONTYPE
 } from "../../config/consts/urlsApi";
@@ -24,6 +24,13 @@ class UserApi {
     }
     confirmRecovery(data) {
         return api.post(URL_CONFIRM_RECOVERY, data);
+    }
+
+    disableUser(id) {
+        return api.get(URL_DISABLE_USER + id);
+    }
+    enableUser(id) {
+        return api.get(URL_ENABLE_USER + id);
     }
 }
 
