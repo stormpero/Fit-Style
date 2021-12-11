@@ -36,7 +36,18 @@ npm start
 ### BackEnd  
 ----
 Download Postgresql: [Download](https://www.enterprisedb.com/downloads/postgres-postgresql-downloads "Postgresql =)")  
-Create database with name "fit-style"  
+Create database with name "fit-style"
+
+#### Start backend on windows
+```sh
+./mvnw.bat spring-boot:run
+``` 
+#### Start backend on linux
+```sh
+./mvnw spring-boot:run
+``` 
+
+...or you can just:
 Open folder backend with IntelliJ IDEA  
 Wait until the dependencies are established  
 
