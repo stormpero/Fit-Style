@@ -29,6 +29,9 @@ public class NewsController {
         this.imageStorageService = imageStorageService;
     }
 
+    /**
+     * Show news by page number
+     * */
     @GetMapping("/{page_number}")
     public ResponseEntity<NewsPageResponse> showPage(@PathVariable("page_number") final int pageNumber) {
         //Here we get first 6 (can be specified) recently added news
@@ -37,6 +40,7 @@ public class NewsController {
 
 
     /**
+     * Add news
      * */
     @PostMapping()
     @PreAuthorize("hasRole('MODERATOR')")
@@ -54,11 +58,13 @@ public class NewsController {
         );
     }
 
+    /**
+     * Update news (Currently not used)
+     * */
     @PatchMapping("/{id}")
     @PreAuthorize("hasRole('MODERATOR')")
     public ResponseEntity<SuccessMessage> update(@Valid @RequestBody final AddEditNewsRequest addEditNewsRequest,
                                                  @PathVariable("id") final Long id) {
-        //Update news.
         News news = newsService.getNewsById(id);
         news.setHeader(addEditNewsRequest.getHeader());
         news.setContent(addEditNewsRequest.getContent());
@@ -70,6 +76,9 @@ public class NewsController {
         );
     }
 
+    /**
+     * Delete news
+     * */
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('MODERATOR')")
     public ResponseEntity<SuccessMessage> delete(@PathVariable("id") final Long id) {

@@ -27,6 +27,9 @@ public class PermissionController {
         this.authServiceImpl = authServiceImpl;
     }
 
+    /**
+     * Get all user roles
+     * */
     @GetMapping("/roles")
     public ResponseEntity<PermissionResponse> getUserRoles() {
         return ResponseEntity.ok(

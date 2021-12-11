@@ -60,6 +60,10 @@ public class AuthController {
         this.authService = authService;
     }
 
+
+    /**
+     * Sign in using login and password
+     * */
     @PostMapping("/sign-in")
     public ResponseEntity<LoginResponse> authenticateUser(@Valid @RequestBody final LoginRequest loginRequest) {
         final Authentication authentication = authenticationManager
@@ -83,6 +87,9 @@ public class AuthController {
                         userDetails.getUsername(), accessToken, roles));
     }
 
+    /**
+     * Refresh token. Used if jwt is expired
+     * */
     @GetMapping("/refresh-token")
     public synchronized ResponseEntity<RefreshTokenResponse> refreshToken(@CookieValue(value="refreshToken", required = false)
                                                       final String requestRefreshToken) {
@@ -95,6 +102,9 @@ public class AuthController {
                         .generateTokenFromUsername(fitUser.getEmail())));
     }
 
+    /**
+     * Logout. Used if jwt and refresh token are expired
+     * */
     @GetMapping("/logout")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<SuccessMessage> logoutUser() {
@@ -104,6 +114,9 @@ public class AuthController {
     }
 
 
+    /**
+     * Help method. Creates refresh token cookie
+     * */
     private HttpHeaders createRefreshTokenCookie(final String refreshToken) {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add(HttpHeaders.SET_COOKIE, refreshTokenCookieService.createCookie(refreshToken,

@@ -39,6 +39,9 @@ public class TrainingController {
         this.trainingService = trainingService;
     }
 
+    /**
+     * Get all user trainings
+     * */
     @GetMapping("/user")
     public ResponseEntity<AllTrainingsResponse> getFitUserTrainings() {
 
@@ -48,14 +51,9 @@ public class TrainingController {
         );
     }
 
-    @GetMapping("/coach/{id}")
-    public ResponseEntity<AllTrainingsResponse> getCoachTrainingsById(@PathVariable("id") final Long id) {
-        return ResponseEntity.ok(
-                new AllTrainingsResponse(trainingService.getCoachGroupTrainingsByCoachId(id),
-                        trainingService.getCoachPersonalTrainingsByCoachId(id))
-        );
-    }
-
+    /**
+     * Get all coach trainings by its id
+     * */
     @PreAuthorize("hasRole('COACH')")
     @GetMapping("/coach")
     public ResponseEntity<AllTrainingsResponse> getCoachTrainings() {
@@ -65,29 +63,52 @@ public class TrainingController {
         );
     }
 
+    /**
+     * Get all coach trainings by its id
+     * */
+    @GetMapping("/coach/{id}")
+    public ResponseEntity<AllTrainingsResponse> getCoachTrainingsById(@PathVariable("id") final Long id) {
+        return ResponseEntity.ok(
+                new AllTrainingsResponse(trainingService.getCoachGroupTrainingsByCoachId(id),
+                        trainingService.getCoachPersonalTrainingsByCoachId(id))
+        );
+    }
+
+    /**
+     * Add new training type
+     * */
     @PreAuthorize("hasRole('COACH')")
     @PostMapping()
-    public ResponseEntity<SuccessMessage> addTraining(@RequestBody final AddEditTrainingRequest request) {
+    public ResponseEntity<SuccessMessage> addTrainingType(@RequestBody final AddEditTrainingRequest request) {
         trainingService.saveTraining(new TrainingType(request.getName()));
         return ResponseEntity.ok(
                 new SuccessMessage("Success! Training created!")
         );
     }
 
+    /**
+     * Delete training type
+     * */
     @PreAuthorize("hasRole('COACH')")
     @GetMapping("/delete/{id}")
-    public ResponseEntity<SuccessMessage> deleteTraining(@PathVariable("id") final Long id) {
+    public ResponseEntity<SuccessMessage> deleteTrainingType(@PathVariable("id") final Long id) {
         trainingService.deleteTraining(id);
         return ResponseEntity.ok(
                 new SuccessMessage("Success! Training created!")
         );
     }
 
+    /**
+     * Get all training types
+     * */
     @GetMapping()
     public ResponseEntity<TrainingTypesResponse> getTrainings() {
         return ResponseEntity.ok(new TrainingTypesResponse(trainingService.getTrainingNames()));
     }
 
+    /**
+     * Add new group training
+     * */
     @PreAuthorize("hasRole('COACH')")
     @PostMapping("/group")
     public ResponseEntity<SuccessMessage> addGroupTraining(@RequestBody final AddEditGroupTrainingRequest request) {
@@ -104,6 +125,9 @@ public class TrainingController {
         );
     }
 
+    /**
+     * Delete group training
+     * */
     @PreAuthorize("hasRole('COACH')")
     @GetMapping("/delete/group/{id}")
     public ResponseEntity<SuccessMessage> deleteGroupTraining(@PathVariable("id") final Long id) {
@@ -113,6 +137,9 @@ public class TrainingController {
         );
     }
 
+    /**
+     * Sign for group training
+     * */
     @GetMapping("/sign/group/{id}")
     public ResponseEntity<SuccessMessage> signForGroupTraining(@PathVariable("id") Long id) {
         trainingService.signForGroupTraining(authService.getEmail(), id);
@@ -121,6 +148,9 @@ public class TrainingController {
         );
     }
 
+    /**
+     * Add new personal training
+     * */
     @PreAuthorize("hasRole('COACH')")
     @PostMapping("/personal")
     public ResponseEntity<SuccessMessage> addPersonalTraining(@RequestBody final AddEditPersonalTrainingRequest request) {
@@ -137,6 +167,9 @@ public class TrainingController {
     }
 
 
+    /**
+     * Sign for personal training
+     * */
     @GetMapping("/sign/personal/{id}")
     public ResponseEntity<SuccessMessage> signForPersonalTraining(@PathVariable("id") Long id) {
         trainingService.signForPersonalTraining(authService.getEmail(), id);
@@ -145,6 +178,9 @@ public class TrainingController {
         );
     }
 
+    /**
+     * Delete personal training
+     * */
     @PreAuthorize("hasRole('COACH')")
     @GetMapping("/delete/personal/{id}")
     public ResponseEntity<SuccessMessage> deletePersonalTraining(@PathVariable("id") final Long id) {
@@ -154,6 +190,9 @@ public class TrainingController {
         );
     }
 
+    /**
+     * Get all coach upcoming trainings
+     * */
     @PreAuthorize("hasRole('COACH')")
     @GetMapping("/coach/trainings")
     public ResponseEntity<AllCoachTrainingsResponse> getCoachUpcomingTrainings() {

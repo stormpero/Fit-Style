@@ -19,8 +19,11 @@ public class SubscriptionTypeController {
         this.subscriptionTypeService = subscriptionTypeService;
     }
 
+    /**
+     * GReturn all subscription types
+     * */
     @GetMapping()
-    public ResponseEntity<SubscriptionTypeResponse> show() {
+    public ResponseEntity<SubscriptionTypeResponse> getAllSubscriptionTypes() {
         return ResponseEntity.ok(new SubscriptionTypeResponse(subscriptionTypeService.getAllSubscriptionTypes()));
     }
 }

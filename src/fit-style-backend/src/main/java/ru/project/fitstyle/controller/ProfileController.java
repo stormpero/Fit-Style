@@ -28,12 +28,18 @@ public class ProfileController {
         this.authService = authService;
     }
 
+    /**
+     * Get user profile info
+     * */
     @GetMapping()
     public ResponseEntity<UserProfileResponse> getUserProfileInfo() {
         return ResponseEntity.ok(new UserProfileResponse(userService.getFitUserInfoByEmail(authService.getEmail()),
                 userService.getSubscriptionInfoByEmail(authService.getEmail()), userService.getUserRolesByEmail(authService.getEmail())));
     }
 
+    /**
+     * Get user profile info by its id
+     * */
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('MODERATOR')")
     public ResponseEntity<UserProfileResponse> getUserProfileInfoById(@PathVariable("id") final Long id) {
@@ -42,6 +48,9 @@ public class ProfileController {
     };
 
 
+    /**
+     * Change user balance
+     * */
     @PatchMapping("/change-balance")
     public ResponseEntity<SuccessMessage> changeBalance(@RequestBody final ChangeBalanceRequest changeBalanceRequest) {
         userService.changeBalance(userService.getUserByEmail(authService.getEmail()), changeBalanceRequest.getSummary());

@@ -34,11 +34,17 @@ public class GetImageController {
         this.imageStorageService = imageStorageService;
     }
 
+    /**
+     * Get user profile image
+     * */
     @GetMapping("/user")
     public ResponseEntity<Resource> getUserProfileImage() {
         return createImageResponse(imageStorageService.loadAsResource(userService.getUserByEmail(authService.getEmail()).getImgURL()));
     }
 
+    /**
+     * Get user profile image by its id
+     * */
     @PreAuthorize("hasRole('MODERATOR')")
     @GetMapping("/user/{id}")
     public ResponseEntity<Resource> getUserProfileImageById(@PathVariable("id") Long id) {
@@ -46,6 +52,9 @@ public class GetImageController {
     }
 
 
+    /**
+     * Get news image by its id
+     * */
     @GetMapping("/news/{id}")
     public ResponseEntity<Resource> getNewsImage(@PathVariable("id") Long id) {
         return createImageResponse(imageStorageService.loadAsResource(newsService.getNewsById(id).getImgURL()));

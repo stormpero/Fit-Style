@@ -22,6 +22,9 @@ public class CoachController {
     }
 
 
+    /**
+     * Get all coaches info
+     * */
     @GetMapping()
     public ResponseEntity<AllCoachesResponse> getAllCoaches() {
         return ResponseEntity.ok(

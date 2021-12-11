@@ -53,6 +53,9 @@ public class UserController {
         this.authService = authService;
     }
 
+    /**
+     * Get all users
+     * */
     @GetMapping("/all")
     @PreAuthorize("hasRole('MODERATOR')")
     public ResponseEntity<AllUsersResponse> getAllFitUsers() {
@@ -61,6 +64,9 @@ public class UserController {
         );
     }
 
+    /**
+     * Add new user
+     * */
     @PostMapping("/add")
     @PreAuthorize("hasRole('MODERATOR')")
     public ResponseEntity<SuccessMessage> add(@Valid @RequestPart(value = "request") final AddEditUserRequest request,
@@ -79,6 +85,9 @@ public class UserController {
                 new SuccessMessage("User registered successfully!"));
     }
 
+    /**
+     * Update user info (currently not used)
+     * */
     @PatchMapping("/update/{id}")
     @PreAuthorize("hasRole('MODERATOR')")
     public ResponseEntity<SuccessMessage> update(@Valid @RequestPart(value = "request") final AddEditUserRequest request,
@@ -98,6 +107,9 @@ public class UserController {
                 new SuccessMessage("User updated successfully!"));
     }
 
+    /**
+     * Change user password by moderator
+     * */
     @PostMapping("/change-password/{id}")
     @PreAuthorize("hasRole('MODERATOR')")
     public ResponseEntity<SuccessMessage> changePassword(@PathVariable("id") Long id, @RequestBody ChangePasswordRequest request) {
@@ -107,6 +119,9 @@ public class UserController {
                 new SuccessMessage("Password changed successfully!"));
     }
 
+    /**
+     * Disable user
+     * */
     @GetMapping("/disable/{id}")
     @PreAuthorize("hasRole('MODERATOR')")
     public ResponseEntity<SuccessMessage> disable(@PathVariable("id") Long id) {
@@ -115,6 +130,9 @@ public class UserController {
                 new SuccessMessage("User disabled successfully!"));
     }
 
+    /**
+     * Enable user
+     * */
     @GetMapping("/enable/{id}")
     @PreAuthorize("hasRole('MODERATOR')")
     public ResponseEntity<SuccessMessage> enable(@PathVariable("id") Long id) {
@@ -123,6 +141,9 @@ public class UserController {
                 new SuccessMessage("User enabled successfully!"));
     }
 
+    /**
+     * Send recovery email to provided email if user with that email exists in database
+     * */
     @PostMapping("/ask-for-recover-with-email")
     public ResponseEntity<SuccessMessage> askForRecoverWithEmail(@RequestBody AskForRecoverRequest request) {
         passwordRecoveryService.sendEmail(request.getEmail());
@@ -130,6 +151,9 @@ public class UserController {
                 new SuccessMessage("The message was sent to the given address!"));
     }
 
+    /**
+     * Send recovery email to user email. Used to change password of currently logged user, currently not used
+     * */
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/ask-for-recover")
     public ResponseEntity<SuccessMessage> askForRecover() {
@@ -140,6 +164,9 @@ public class UserController {
                 new SuccessMessage("The message was sent to the given address!"));
     }
 
+    /**
+     * Check if provided recovery code fits with one that stored in database
+     * */
     @PostMapping("/confirm-recovery")
     public ResponseEntity<SuccessMessage> confirmRecovery(@RequestBody ConfirmRecoveryRequest request) {
         passwordRecoveryService.confirmRecovery(request.getCode(), encoder.encode(request.getPassword()));
@@ -148,6 +175,9 @@ public class UserController {
                 new SuccessMessage("Password changed successfully!"));
     }
 
+    /**
+     * Help method. Used to create user
+     * */
     private FitUser createFitUser(final AddEditUserRequest request) {
         return new FitUser(request.getName(), request.getSurname(),
                 request.getPatronymic(), request.getEmail(),
