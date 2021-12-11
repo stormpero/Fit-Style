@@ -1,6 +1,7 @@
 package ru.project.fitstyle.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.project.fitstyle.model.dto.user.*;
@@ -50,7 +51,7 @@ public class FitUserService implements UserService {
     @Transactional
     @Override
     public List<FitUserFullInfoDto> getAllUsers() {
-        List<FitUser> allFitUsers = fitUserRepository.findAll();
+        List<FitUser> allFitUsers = fitUserRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
         List<FitUserFullInfoDto> allUsers = new ArrayList<>();
         for(FitUser fitUser : allFitUsers) {
             List<RoleDto> roles = new ArrayList<>();
