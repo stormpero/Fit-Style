@@ -51,7 +51,6 @@ public class ImageStorageService implements StorageService {
         try {
             String [] div = Objects.requireNonNull(file.getOriginalFilename()).split("\\.");
             filename = StringUtils.cleanPath(UUID.randomUUID().toString() + '.' + Objects.requireNonNull(div[div.length - 1]));
-            System.out.println(filename);
         }
         catch (NullPointerException e) {
             return null;
