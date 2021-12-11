@@ -13,6 +13,11 @@ INSERT INTO training(name) VALUES ('Аэробика');
 INSERT INTO subscription(begin_date, contract_number, end_date, subscription_type_id) VALUES ('26.11.2021', '89824655645', '27.11.2021', 1);
 INSERT INTO subscription(begin_date, contract_number, end_date, subscription_type_id) VALUES ('31.12.2021', '89824561232', '01.01.2022', 2);
 INSERT INTO subscription(begin_date, contract_number, end_date, subscription_type_id) VALUES ('26.11.2021', '89824655645', '27.11.2021', 3);
+INSERT INTO subscription(begin_date, contract_number, end_date, subscription_type_id) VALUES ('26.11.2021', '89823454356', '27.12.2021', 4);
+INSERT INTO subscription(begin_date, contract_number, end_date, subscription_type_id) VALUES ('31.12.2021', '89800000000', '01.02.2022', 5);
+INSERT INTO subscription(begin_date, contract_number, end_date, subscription_type_id) VALUES ('26.11.2021', '89821111111', '31.12.2021', 6);
+INSERT INTO subscription(begin_date, contract_number, end_date, subscription_type_id) VALUES ('26.11.2021', '89822222222', '14.12.2021', 7);
+INSERT INTO subscription(begin_date, contract_number, end_date, subscription_type_id) VALUES ('31.12.2021', '89824566757', '01.03.2022', 8);
 
 INSERT INTO fit_user (id, address, age, balance, birthdate, email, gender, img_url, is_enabled, name, passport, password, patronymic, surname, telephone) VALUES (3, 'г Санкт-Петербург, Большой Сампсониевский пр-кт, д 7', '35', 200, '1994-06-01 00:00:00.000000', 'CoachProfile@gmail.com', 'M', 'coach.jpg', true, 'Гавриил', '2313333342', '$2a$10$SdgV.8KAG/Jvh2Xd8x2aqOfy5XRrTlyDx4mafbH9xfb2ubN9e.AKK', 'Иванович', 'Цуканов', '89219692138');
 INSERT INTO fit_user (id, address, age, balance, birthdate, email, gender, img_url, is_enabled, name, passport, password, patronymic, surname, telephone) VALUES (1, 'Москва, ул. Энгельса, н. 3 п.23', '50', 64567064, '1971-02-03 00:00:00.000000', 'AdminProfile@gmail.com', 'M', 'admin.jpg', true, 'Валерий', '345793459', '$2a$10$FM7DRHjUIfhmAXgsq1uKC.tmah/oymXYr1xNKCLgKMOVPCI20rJdy', 'Александрович', 'Подкорытов', '88005553535');
