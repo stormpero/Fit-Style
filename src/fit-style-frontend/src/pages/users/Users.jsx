@@ -1,7 +1,7 @@
 import React from 'react';
 import ProfileService from "../../services/profile/ProfileService";
 import LStorageUser from "../../services/localstorage/LStorageUser";
-import "./../../assets/default-profile-picture.jpg"
+import defaultProfile from "./../../assets/default-profile-picture.jpg"
 export const Users = ({userList, disableUser , enableUser , setReload}) => {
     return (
         <div className="container">
@@ -23,7 +23,7 @@ export const Users = ({userList, disableUser , enableUser , setReload}) => {
                                 {userList.map(({fitUserInfo, img, roles, subscriptionInfo}) =>
                                     <tr key={fitUserInfo.id}>
                                         <td className="user-info">
-                                            <img src={img ? img : ""} alt=""/>
+                                            <img src={img ? img : defaultProfile} alt=""/>
                                             <span className="user-subhead">{fitUserInfo.id}</span>
                                             <span className="user-link">{fitUserInfo.surname} {fitUserInfo.name}</span>
                                             <span className="user-subhead">{ProfileService.getRoleView(roles)}</span>

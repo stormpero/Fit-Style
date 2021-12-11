@@ -31,13 +31,18 @@ export const UsersContainer = (props) => {
     }, [reload])
 
     const getUserImages = async (fitUsersTemp) => {
-        try {
-            for (const value of fitUsersTemp) {
+        for (const value of fitUsersTemp) {
+            if (value?.fitUserInfo?.imgURL === null) {
+                value.img = null;
+                continue;
+            }
+
+            try {
                 let response = await UserApi.getUserImg(value?.fitUserInfo.id);
                 let imageData = response.data;
                 value.img = imageData ? URL.createObjectURL(imageData) : null
-            }
-        } catch (error) {}
+            } catch (error) {}
+        }
         return fitUsersTemp;
     }
 
