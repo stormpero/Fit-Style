@@ -14,15 +14,14 @@ INSERT INTO subscription(begin_date, contract_number, end_date, subscription_typ
 INSERT INTO subscription(begin_date, contract_number, end_date, subscription_type_id) VALUES ('31.12.2021', '89824561232', '01.01.2022', 2);
 INSERT INTO subscription(begin_date, contract_number, end_date, subscription_type_id) VALUES ('26.11.2021', '89824655645', '27.11.2021', 3);
 
-INSERT INTO fit_user(email, password, name, age, birthdate, gender, passport, patronymic, surname, telephone, address, img_url, balance, is_enabled)
-VALUES('AdminProfile@gmail.com', '$2a$10$FM7DRHjUIfhmAXgsq1uKC.tmah/oymXYr1xNKCLgKMOVPCI20rJdy', 'Валерий', 50, '03.02.1971', 'M',
-       '345793459', 'Александрович', 'Подкорытов', '88005553535', 'Москва, ул. Энгельса, н. 3 п.23', 'admin.jpg', 2500, true);
-INSERT INTO fit_user(email, password, name, age, birthdate, gender, passport, patronymic, surname, telephone, address, img_url, balance, is_enabled)
-VALUES('UserProfile@gmail.com', '$2a$10$bJK2ha21uzpVRWxDAevZDusyxZT9gsr1SeJalDFEF0wl2TpnQKQg2', 'Владимир', 43, '01.02.1978', 'M',
-       '4723637495', 'Петрович', 'Столяров', '89236003343', 'Санкт-Петербург, Ленина ул., д. 3 кв.17', 'user.jpg', 0, true);
-INSERT INTO fit_user(email, password, name, age, birthdate, gender, passport, patronymic, surname, telephone, address, img_url, balance, is_enabled)
-VALUES ('CoachProfile@gmail.com','$2a$10$SdgV.8KAG/Jvh2Xd8x2aqOfy5XRrTlyDx4mafbH9xfb2ubN9e.AKK','Гавриил', 35, '01.06.1994', 'M',
-        '2313333342', 'Иванович', 'Цуканов', '89219692138', 'г Санкт-Петербург, Большой Сампсониевский пр-кт, д 7', 'coach.jpg', 200, true);
+INSERT INTO fit_user (id, address, age, balance, birthdate, email, gender, img_url, is_enabled, name, passport, password, patronymic, surname, telephone) VALUES (3, 'г Санкт-Петербург, Большой Сампсониевский пр-кт, д 7', '35', 200, '1994-06-01 00:00:00.000000', 'CoachProfile@gmail.com', 'M', 'coach.jpg', true, 'Гавриил', '2313333342', '$2a$10$SdgV.8KAG/Jvh2Xd8x2aqOfy5XRrTlyDx4mafbH9xfb2ubN9e.AKK', 'Иванович', 'Цуканов', '89219692138');
+INSERT INTO fit_user (id, address, age, balance, birthdate, email, gender, img_url, is_enabled, name, passport, password, patronymic, surname, telephone) VALUES (1, 'Москва, ул. Энгельса, н. 3 п.23', '50', 64567064, '1971-02-03 00:00:00.000000', 'AdminProfile@gmail.com', 'M', 'admin.jpg', true, 'Валерий', '345793459', '$2a$10$FM7DRHjUIfhmAXgsq1uKC.tmah/oymXYr1xNKCLgKMOVPCI20rJdy', 'Александрович', 'Подкорытов', '88005553535');
+INSERT INTO fit_user (id, address, age, balance, birthdate, email, gender, img_url, is_enabled, name, passport, password, patronymic, surname, telephone) VALUES (2, 'Санкт-Петербург, Ленина ул., д. 3 кв.17', '43', 0, '1978-02-01 00:00:00.000000', 'UserProfile@gmail.com', 'M', 'user.jpg', true, 'Владимир', '4723637495', '$2a$10$bJK2ha21uzpVRWxDAevZDusyxZT9gsr1SeJalDFEF0wl2TpnQKQg2', 'Петрович', 'Столяров', '89236003343');
+INSERT INTO fit_user (id, address, age, balance, birthdate, email, gender, img_url, is_enabled, name, passport, password, patronymic, surname, telephone) VALUES (6, 'Омская обл, рп Русская Поляна, ул Жмыха', '35', 0, '1991-03-02 03:00:00.000000', 'AlbertIvanov@gmail.com', 'M', 'turtle.jpg', true, 'Альберт', '345346346346436', '$2a$10$jvQaKxxNSzPtMlw3dvkkTOsJQ.HiK1kqiP7BpjW7e6JD3FY6a3Uxa', 'Петрович', 'Иванов', '8890383253456');
+INSERT INTO fit_user (id, address, age, balance, birthdate, email, gender, img_url, is_enabled, name, passport, password, patronymic, surname, telephone) VALUES (7, 'г Москва, Семеновская наб', '23', 0, '1999-01-01 03:00:00.000000', 'SemenDmitr@yandex.ru', 'F', null, true, 'Семён', '363467347', '$2a$10$H3Xl/TaR7LsN8m.59OwcqeusMRgMNQYJHjif/gO6stTFJVShbIeJ6', 'Дмитриевич', 'Дмитриев', '893842385234');
+INSERT INTO fit_user (id, address, age, balance, birthdate, email, gender, img_url, is_enabled, name, passport, password, patronymic, surname, telephone) VALUES (8, 'г Санкт-Петербург, Московский пр-кт', '29', 0, '1988-01-01 03:00:00.000000', 'SemenSwalowIvanovich@gmail.com', 'M', null, true, 'Семён', '73548543', '$2a$10$R0p/YbupxVm7/ApNgQxxtOblJovpK/05s/X2Ox.08K/SgGkKbZwjO', 'Иванович', 'Свалов', '88005553535');
+INSERT INTO fit_user (id, address, age, balance, birthdate, email, gender, img_url, is_enabled, name, passport, password, patronymic, surname, telephone) VALUES (9, 'г Нижний Новгород, пер Вайгач', '22', 0, '1993-12-08 03:00:00.000000', 'alexSemen@gmail.com', 'M', null, true, 'Александр', '1234111333', '$2a$10$BwvoV8qA5eOPB6W161MSher39a.c6VgloDXxFxXGmxqfw.13h6I0a', 'Семёнович', 'Семёнов', '88005553535');
+INSERT INTO fit_user (id, address, age, balance, birthdate, email, gender, img_url, is_enabled, name, passport, password, patronymic, surname, telephone) VALUES (12, 'г Великий Новгород, ул Большая Санкт-Петербургская', '20', 0, '2005-11-16 03:00:00.000000', 'IAmVagon@gmail.com', 'M', null, true, 'Артём', '345634645', '$2a$10$7cNdd94fPOP9KenDb4XeFOo9f6pQIj2zf845CkEjTB2jVlEZU4m8i', 'Максимович', 'Вагонов', '88008720101');
 
 INSERT INTO fit_user_roles(fit_user_id, role_id) VALUES (1,1);
 INSERT INTO fit_user_roles(fit_user_id, role_id) VALUES (1,2);
@@ -31,6 +30,16 @@ INSERT INTO fit_user_roles(fit_user_id, role_id) VALUES (2,1);
 
 INSERT INTO fit_user_roles(fit_user_id, role_id) VALUES (3,1);
 INSERT INTO fit_user_roles(fit_user_id, role_id) VALUES (3,3);
+
+INSERT INTO fit_user_roles(fit_user_id, role_id) VALUES (4,1);
+
+INSERT INTO fit_user_roles(fit_user_id, role_id) VALUES (5,1);
+
+INSERT INTO fit_user_roles(fit_user_id, role_id) VALUES (6,1);
+
+INSERT INTO fit_user_roles(fit_user_id, role_id) VALUES (7,1);
+
+INSERT INTO fit_user_roles(fit_user_id, role_id) VALUES (8,1);
 
 INSERT INTO news(content, date_time, header, img_url) VALUES('Современные технологии достигли такого уровня, ' ||
                                                              'что семантический разбор внешних противодействий позволяет ' ||
