@@ -1,6 +1,6 @@
 @echo off
 
-cd ..\..\fit-style-backend\src\main\resources\secure
+cd ..\..\src\fit-style-backend\src\main\resources\secure
 mkcert -pkcs12 localhost
 
 mkcert -install
