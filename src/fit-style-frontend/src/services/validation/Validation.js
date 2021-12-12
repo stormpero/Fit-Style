@@ -3,6 +3,7 @@ import isEmpty from "validator/es/lib/isEmpty";
 class Validation {
     validateNull(obj) {
         let array = Object.values(obj);
+		console.log(array)
         for (let i of array) {
             if (i !== undefined && typeof i === "string" && isEmpty(i)) {
                 return true;

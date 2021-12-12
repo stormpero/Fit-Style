@@ -67,8 +67,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                //.requiresChannel(channel ->
-                //        channel.anyRequest().requiresSecure())
+//                .requiresChannel(channel ->
+//                        channel.anyRequest().requiresSecure())
                 .authorizeRequests()
                 .antMatchers("/api/auth/**").permitAll()
                 .antMatchers("/api/users/ask-for-recover-with-email").permitAll()
