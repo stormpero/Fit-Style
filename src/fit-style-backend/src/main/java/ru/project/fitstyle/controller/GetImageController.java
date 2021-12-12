@@ -11,7 +11,7 @@ import ru.project.fitstyle.service.NewsService;
 import ru.project.fitstyle.service.StorageService;
 import ru.project.fitstyle.service.UserService;
 
-@CrossOrigin(origins = "https://localhost:3000", maxAge = 3600)
+@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
 @RestController
 @RequestMapping("/api/get-image")
 @PreAuthorize("hasRole('USER')")

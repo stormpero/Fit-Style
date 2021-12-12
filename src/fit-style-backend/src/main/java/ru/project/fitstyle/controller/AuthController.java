@@ -28,7 +28,7 @@ import ru.project.fitstyle.service.*;
 import ru.project.fitstyle.service.impl.details.FitUserDetails;
 
 
-@CrossOrigin(origins = "https://localhost:3000", maxAge = 3600, allowCredentials = "true")
+@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600, allowCredentials = "true")
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {

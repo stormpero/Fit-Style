@@ -14,7 +14,7 @@ import ru.project.fitstyle.service.StorageService;
 
 import javax.validation.Valid;
 
-@CrossOrigin(origins = "https://localhost:3000", maxAge = 3600)
+@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
 @RestController
 @RequestMapping("/api/news")
 @PreAuthorize("hasRole('USER')")

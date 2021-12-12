@@ -18,7 +18,7 @@ import ru.project.fitstyle.service.*;
 
 import javax.validation.Valid;
 
-@CrossOrigin(origins = "https://localhost:3000", maxAge = 3600)
+@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
 @RestController
 @RequestMapping("/api/users")
 public class UserController {

@@ -1,5 +1,5 @@
 // ROOT //
-export const URL_ROOT = "https://localhost:8080/api";
+export const URL_ROOT = "http://localhost:8080/api";
 // TOKENS //
 export const URL_REFRESHTOKEN = "auth/refresh-token";
 // LOGIN //
