@@ -26,20 +26,23 @@ class ScheduleService {
         }
         switch (status) {
             case "LOGGED":
-                styles.style.backgroundColor = "#27FB6B"
-                styles.style.borderColor = "#27FB6B"
+                styles.style.color = "white"
+                styles.style.backgroundColor = "#1da614"
+                styles.style.borderColor = "#1fa115"
                 break;
             case "ACTIVE":
-                styles.style.backgroundColor = "#00E8FC"
-                styles.style.borderColor = "#00E8FC"
+                styles.style.color = "white"
+                styles.style.backgroundColor = "#4e54c8"
+                styles.style.borderColor = "#8f94fb"
                 break;
             case "COMPLETED":
+                styles.style.color = "white"
                 styles.style.backgroundColor = "#e62222"
                 styles.style.borderColor = "#e62222"
                 break;
             case "ENDED":
-                styles.style.backgroundColor = "#93ff8e"
-                styles.style.borderColor = "#0bff00"
+                styles.style.backgroundColor = "#8fcc8d"
+                styles.style.borderColor = "#78c774"
                 break;
             default:
                 console.error("Error, unknown training status");

@@ -7,6 +7,9 @@ import * as custom from "../../config/calendar/Calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css"
 import "./CalendarView.css"
 import ScheduleService from "../../services/training/ScheduleService";
+import TrainingService from "../../services/training/ScheduleService";
+import solo from "../../assets/solo-training.png";
+import group from "../../assets/group.png";
 
 const localize = momentLocalizer(moment)
 
@@ -34,16 +37,32 @@ export const CalendarView = ({events}) => {
                     return event.isPersonal ? fio : event.title + " " + fio;
                 }}
                 eventPropGetter={
-                    (event, start, end, isSelected) => {
+                    (event) => {
                         return {
                             style: {
-                                backgroundColor: event.isPersonal ? "#008080" : "#FF8C00",
-                                borderColor: event.isPersonal ? "#008080" : "#FF8C00"
+                                backgroundColor: "#4e54c8",
+                                borderColor: "#383c91"
                             }
                         }
                     }
                 }
+                components={{
+                    event: CalendarViewEvent
+                }}
             />
         </div>
     );
+}
+const CalendarViewEvent = ({ event }) => {
+    return (
+        <div className="container-training">
+            <div className="info-training">
+                {event.isPersonal &&<strong>{ScheduleService.getCutFio(event?.fitUser)}</strong>}
+                {!event.isPersonal && <p className="p-0 m-0">{event?.title} {event?.numberOfUsers + "/20"}</p>}
+            </div>
+            <div className="picture-training">
+                <img className="training-picture" src={event.isPersonal? solo : group } alt={event.title + "-training-picture"}/>
+            </div>
+        </div>
+    )
 }

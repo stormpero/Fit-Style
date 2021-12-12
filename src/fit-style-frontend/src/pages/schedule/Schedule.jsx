@@ -41,7 +41,10 @@ const Schedule = ({lists, isCoach, selectInput, schedule}) => {
                 onSelectSlot={schedule.handleSelectSlot}
                 step={60}
                 timeslots={1}
-                eventPropGetter={(event) => TrainingService.getEventStatusColor(event.status)}
+                eventPropGetter={(event) => {
+                    console.log(event)
+                    return TrainingService.getEventStatusColor(event.status)
+                }}
 
                 dayLayoutAlgorithm={'no-overlap'}
                 components={{
