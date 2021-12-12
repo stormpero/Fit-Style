@@ -28,7 +28,7 @@ class ScheduleService {
             case "LOGGED":
                 styles.style.color = "white"
                 styles.style.backgroundColor = "#1da614"
-                styles.style.borderColor = "#13730e"
+                styles.style.borderColor = "#1fa115"
                 break;
             case "ACTIVE":
                 styles.style.color = "white"

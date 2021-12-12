@@ -37,11 +37,11 @@ export const CalendarView = ({events}) => {
                     return event.isPersonal ? fio : event.title + " " + fio;
                 }}
                 eventPropGetter={
-                    (event, start, end, isSelected) => {
+                    (event) => {
                         return {
                             style: {
-                                backgroundColor: event.isPersonal ? "#4e54c8" : "#4e54c8",
-                                borderColor: event.isPersonal ? "#4e54c8" : "#4e54c8"
+                                backgroundColor: "#4e54c8",
+                                borderColor: "#383c91"
                             }
                         }
                     }
