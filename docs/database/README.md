@@ -24,7 +24,7 @@ Role table. Each role has id and name. It has many to many connection between us
 Represents user subscription info. It has one to one connection between user. Also user has the same subscription id as his own id (primary key connection).
 It contains begin and end date, contract nubmer and subscription type id. It has many to one connection between subscription type table. 
 
-## SubscriptionType
+## Subscription type
 
 ![subscription_type](subscription_type.png)
 
@@ -42,7 +42,7 @@ Contains info about coach who will conduct a training, user who will visit that 
 
 The same as personal training but many users can sign for that and also it has connection between training table.
 
-## TrainingType
+## Training type
 
 ![training_type](training_type.png)
 
@@ -53,6 +53,23 @@ Just info about training.
 ![news](news.png)
 
 Info about news. Time when it was published. Its image URL.
+
+## Refresh token
+
+![refresh_token](refresh_token.png)
+
+Stores refresh token of every logged user. Used to update access token.
+Every user can only have one refresh token. It has expire data - date
+when our refresh token will become invalid and would not refresh our
+access token.
+
+## Password recovery
+
+![password_recovery](password_recovery.png)
+
+Stores verification codes for password recovery.
+It also has expire date - date when our verification code 
+would not recover our password
 
 ## Database
 ![database](database.png)
