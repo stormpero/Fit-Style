@@ -181,8 +181,11 @@
     width: 120px;
 }
 .user-status{
-    width: 100px;
+    width: 120px;
 }
 .user-email{
    width: 300px;
+}
+.button-block{
+    min-width: 163px ;
 }

@@ -35,13 +35,13 @@ export const Users = ({userList, disableUser , enableUser , setReload}) => {
                                             <span>{fitUserInfo.email}</span>
                                         </td>
                                         <td className="text-center user-status">
-                                            <span className="badge bg-secondary">{ fitUserInfo.enabled ? "Активен" : "Заблокирован"}</span>
+                                            <span className={ fitUserInfo.enabled ? "badge rounded-pill bg-success" : "badge rounded-pill bg-danger"}>{ fitUserInfo.enabled ? "Активен" : "Заблокирован"}</span>
                                         </td>
                                         <td className="buttons">
                                             {LStorageUser.getId() !== Number(fitUserInfo.id) ? fitUserInfo.enabled ?
-                                                <button type="button" className="btn btn-danger" onClick={disableUser} id={fitUserInfo.id}>Заблокировать</button>
+                                                    <button type="button" className="btn btn-danger button-block" onClick={disableUser} id={fitUserInfo.id}>Заблокировать</button>
                                                 :
-                                                <button type="button" className="btn btn-success" onClick={enableUser} id={fitUserInfo.id}>Разблокировать</button>
+                                                <button type="button" className="btn btn-success button-block" onClick={enableUser} id={fitUserInfo.id}>Разблокировать</button>
                                                 :
                                                 <button type="button" className="btn btn-primary" disabled={true}>Текущий пользователь</button>
                                             }
