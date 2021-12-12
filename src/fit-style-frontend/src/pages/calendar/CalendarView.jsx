@@ -7,7 +7,6 @@ import * as custom from "../../config/calendar/Calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css"
 import "./CalendarView.css"
 import ScheduleService from "../../services/training/ScheduleService";
-import TrainingService from "../../services/training/ScheduleService";
 import solo from "../../assets/solo-training.png";
 import group from "../../assets/group.png";
 
@@ -33,7 +32,7 @@ export const CalendarView = ({events}) => {
                 step={custom.step}
                 timeslots={custom.timeslots}
                 titleAccessor={event => {
-                    let fio = event.isPersonal ? ScheduleService.getCutFio(event?.fitUser) : event.numberOfUsers + "/20";
+                    let fio = event.isPersonal ? ScheduleService.getCutFio(event?.fitUser) : event?.numberOfUsers + "/20";
                     return event.isPersonal ? fio : event.title + " " + fio;
                 }}
                 eventPropGetter={
