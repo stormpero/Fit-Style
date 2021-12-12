@@ -5,6 +5,7 @@ import NewsService from "../../../services/api/NewsApi";
 import ToastMessages from "../../../components/toastmessages/ToastMessages";
 import {TOP_RIGHT} from "../../../config/consts/ToastPosition";
 import ImgConvert from "../../../utils/RequestCreate";
+import trim from "validator/es/lib/trim";
 
 class NewsFormContainer extends Component {
 
@@ -42,8 +43,8 @@ class NewsFormContainer extends Component {
     handleAdd = async (event) => {
         event.preventDefault();
 
-        if (isEmpty(this.state.newsData.header) ||
-            isEmpty(this.state.newsData.content)) {
+        if (isEmpty(trim(this.state.newsData.header)) ||
+            isEmpty(trim(this.state.newsData.content))) {
             const errorMsg = "Заполните поля";
             this.setState({
                 message: errorMsg
