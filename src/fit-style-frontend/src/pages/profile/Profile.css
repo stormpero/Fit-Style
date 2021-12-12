@@ -1,0 +1,108 @@
+p {
+    margin-bottom: 0;
+}
+.profile-info{
+    position: absolute;
+    left:30%;
+    top:25%;
+    border-radius: 30px;
+    color: rgba(41, 31, 30, 1);
+    background-color: rgba(255, 255, 255, 0.8);
+    height: 23rem;
+    width: 55rem;
+    padding-left: 0px;
+    padding-right: 1rem;
+}
+.picture-profile{
+    width: 23rem;
+    overflow: hidden;
+}
+.right-info label{
+    color: #6c757d;
+    font-size: xx-small;
+    font-weight: bold;
+}
+.first-column{
+    padding: 1rem;
+}
+.second-column{
+    padding: 1rem;
+}
+.button-add{
+    text-align: center;
+}
+.balance{
+    padding-top: 10px;
+}
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+
+@keyframes fadeIn {
+    100% { opacity:1 }
+}
+/* CSS */
+.button-53 {
+    margin-top: 10px;
+    background-color: #00adbe;
+    border: 0 solid #E5E7EB;
+    box-sizing: border-box;
+    color: #fff;
+    display: flex;
+    font-family: ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    font-size: 1rem;
+    font-weight: 700;
+    justify-content: center;
+    line-height: 1.75rem;
+    padding: .75rem 1.65rem;
+    position: relative;
+    text-align: center;
+    text-decoration: none #000000 solid;
+    text-decoration-thickness: auto;
+    width: 100%;
+    max-width: 460px;
+    position: relative;
+    cursor: pointer;
+    transform: rotate(-2deg);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+
+
+
+.button-53:focus {
+    outline: 0;
+}
+
+.button-53:after {
+    content: '';
+    position: absolute;
+    border: 1px solid #000000;
+    bottom: 4px;
+    left: 4px;
+    width: calc(100% - 1px);
+    height: calc(100% - 1px);
+}
+
+.button-53:hover:after {
+    bottom: 2px;
+    left: 2px;
+}
+
+@media (min-width: 768px) {
+    .button-53 {
+        padding: .75rem 3rem;
+        font-size: 1.25rem;
+    }
+}

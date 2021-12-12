@@ -1,0 +1,174 @@
+.map-title{
+    color: white;
+    text-align: center;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+.map{
+    position: relative;
+    text-align: center;
+}
+.pool{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+.svg-map{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+.part{
+    fill: rgb(54, 57, 138);
+    transition: opacity 0.3s ease-in;
+    opacity: 0.1;
+}
+.part:hover{
+    transition: opacity 0.3s ease-in;
+    opacity: 0.8;
+}
+.map-img {
+    max-width: 100%;
+}
+.svg-title{
+    opacity: 1;
+}
+.map-none{
+    display: none;
+}
+.switch-button {
+    background: rgba(255, 255, 255, 0.56);
+    border-radius: 30px;
+    overflow: hidden;
+    width: 240px;
+    text-align: center;
+    font-size: 18px;
+    letter-spacing: 1px;
+    color: #155FFF;
+    position: relative;
+    padding-right: 120px;
+    position: relative;
+}
+.switch-button:before {
+    content: "2 Этаж";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+    pointer-events: none;
+}
+.switch-button-checkbox {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    z-index: 2;
+}
+.switch-button-checkbox:checked + .switch-button-label:before {
+    transform: translateX(120px);
+    transition: transform 300ms linear;
+}
+.switch-button-checkbox + .switch-button-label {
+    position: relative;
+    padding: 15px 0;
+    display: block;
+    user-select: none;
+    pointer-events: none;
+    margin: 0;
+}
+.switch-button-checkbox + .switch-button-label:before {
+    content: "";
+    background: #fff;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-radius: 30px;
+    transform: translateX(0);
+    transition: transform 300ms;
+}
+.switch-button-checkbox + .switch-button-label .switch-button-label-span {
+    position: relative;
+}
+
+
+
+text{
+    display:none;
+    fill:#fff;
+    font-size:2em;
+    font-family:sans-serif;
+    cursor: none;
+    pointer-events: none;
+}
+
+
+g:hover > text{
+    display:block;
+}
+.text-pool{
+    transform: rotate(14deg) skew(336deg,0deg);
+    font-size: 52px;
+}
+.text-reception{
+    transform: rotate(335deg) skew(12deg,0deg);
+}
+.text-hamam{
+    transform: rotate(18deg) skew(344deg,0deg);
+}
+.text-massage{
+    transform: rotate(18deg) skew(344deg,0deg);
+}
+.text-rest{
+    font-size: 40px;
+    transform: rotate(308deg) skew(14deg,0deg);
+}
+.text-cloakroom-male{
+    transform: rotate(286deg) skew(5deg,0deg);
+}
+.text-cloakroom-female{
+    transform: rotate(282deg) skew(4deg,0deg);
+}
+.text-coaching{
+    transform: rotate(13deg) skew(348deg, 0deg);
+    font-size: 30px;
+}
+.text-training{
+    transform: rotate(13deg) skew(338deg, 0deg);
+    font-size: 50px;
+}
+.text-aerobics{
+    transform: rotate(12deg) skew(338deg, 0deg);
+    font-size: 40px;
+}
+.text-cloakroom-male-second{
+    transform: rotate(
+            276deg) skew(
+            0deg,
+            11deg);
+    font-size: 25px;
+}
+.text-cloakroom-female-second{
+    transform: rotate(
+            274deg) skew(
+            0deg,
+            8deg);
+    font-size: 25px;
+}
+.male{
+    font-size: 30px;
+}

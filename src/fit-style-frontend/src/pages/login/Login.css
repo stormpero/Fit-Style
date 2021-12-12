@@ -1,0 +1,200 @@
+html {
+    height:100%;
+}
+
+body {
+    margin:0;
+}
+
+.navbar {
+    background: none;
+}
+
+.card-container.card {
+    max-width: 350px !important;
+    padding: 40px 40px;
+}
+.list-inline{
+    display: flex;
+    justify-content: center;
+    color: white;
+    font-size: 30px;
+}
+
+.head1, .head2,.head3{
+    opacity: 0;
+}
+
+.head1{
+    -webkit-animation: finalFade 1 5s ease-in;
+    -moz-animation: finalFade 1 5s ease-in;
+    -o-animation: finalFade 1 5s ease-in;
+    animation: finalFade 1 5s ease-in;
+    -webkit-animation-fill-mode: forwards;
+    -moz-animation-fill-mode: forwards;
+    -o-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+}
+
+.head2{
+    -webkit-animation: finalFade 1 5s ease-in;
+    -moz-animation: finalFade 1 5s ease-in;
+    -o-animation: finalFade 1 5s ease-in;
+    animation: finalFade 1 5s ease-in;
+    -webkit-animation-fill-mode: forwards;
+    -moz-animation-fill-mode: forwards;
+    -o-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+    -webkit-animation-delay: 1s;
+    -moz-animation-delay: 1s;
+    -o-animation-delay: 1s;
+    animation-delay: 1s;
+}
+
+.head3{
+    -webkit-animation: finalFade 1 5s ease-in;
+    -moz-animation: finalFade 1 5s ease-in;
+    -o-animation: finalFade 1 5s ease-in;
+    animation: finalFade 1 5s ease-in;
+    -webkit-animation-fill-mode: forwards;
+    -moz-animation-fill-mode: forwards;
+    -o-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+    -webkit-animation-delay: 2s;
+    -moz-animation-delay: 2s;
+    -o-animation-delay: 2s;
+    animation-delay: 2s;
+}
+
+.card {
+    background-color: rgba(255, 255, 255, 0);
+    padding: 20px 25px 30px;
+    margin: 30px auto 25px;
+    border: 0;
+}
+
+.form-control-auth{
+    text-decoration-color: white;
+    border-color: white;
+    background: rgba(255, 255, 255, 0);
+}
+.form-control-auth:focus {
+    -webkit-box-shadow: 5px 5px 5px -5px rgba(34, 60, 80, 0.6) inset;
+    -moz-box-shadow: 5px 5px 5px -5px rgba(34, 60, 80, 0.6) inset;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 30px 90px;
+    background-color: rgba(255, 255, 255, 0.5) ;
+}
+
+input.form-control-auth:focus::placeholder{
+    opacity: 0 ;
+}
+input.form-control-auth::placeholder{
+    color: white ;
+}
+
+.bg {
+    animation:slide 3s ease-in-out infinite alternate;
+    background-image: linear-gradient(-60deg,  #8f94fb 50%, #4e54c8 50%);
+    bottom:0;
+    left:-50%;
+    opacity:.5;
+    position:fixed;
+    right:-50%;
+    top:0;
+    z-index:-1;
+}
+
+.bg2 {
+    animation-direction:alternate-reverse;
+    animation-duration:4s;
+}
+
+.bg3 {
+    animation-duration:5s;
+}
+.btn-entry {
+    background-color: rgba(255, 255, 255, 0);
+    border-color: #ffffff;
+}
+.btn-entry:hover {
+    background-color: rgba(255, 255, 255, 0);
+    border-color: #000;
+}
+
+.content {
+    background-color:rgba(255,255,255,.8);
+    border-radius:.25em;
+    box-shadow:0 0 .25em rgba(0,0,0,.25);
+    box-sizing:border-box;
+    left:50%;
+    padding:10vmin;
+    position:fixed;
+    text-align:center;
+    top:50%;
+    transform:translate(-50%, -50%);
+}
+
+@keyframes slide {
+    0% {
+        transform:translateX(-25%);
+    }
+    100% {
+        transform:translateX(25%);
+    }
+}
+
+@-webkit-keyframes fadeOut{
+    0%{opacity: 0;}
+    30%{opacity: 1;}
+    80%{opacity: .9;}
+    100%{opacity: 0;}
+}
+
+@-moz-keyframes fadeOut{
+    0%{opacity: 0;}
+    30%{opacity: 1;}
+    80%{opacity: .9;}
+    100%{opacity: 0;}
+}
+
+@-o-keyframes fadeOut{
+    0%{opacity: 0;}
+    30%{opacity: 1;}
+    80%{opacity: .9;}
+    100%{opacity: 0;}
+}
+
+@keyframes fadeOut{
+    0%{opacity: 0;}
+    30%{opacity: 1;}
+    80%{opacity: .9;}
+    100%{opacity: 0;}
+}
+
+@-webkit-keyframes finalFade{
+    0%{opacity: 0;}
+    30%{opacity: 1;}
+    80%{opacity: .9;}
+    100%{opacity: 1;}
+}
+
+@-moz-keyframes finalFade{
+    0%{opacity: 0;}
+    30%{opacity: 1;}
+    80%{opacity: .9;}
+    100%{opacity: 1;}
+}
+
+@-o-keyframes finalFade{
+    0%{opacity: 0;}
+    30%{opacity: 1;}
+    80%{opacity: .9;}
+    100%{opacity: 1;}
+}
+
+@keyframes finalFade{
+    0%{opacity: 0;}
+    30%{opacity: 1;}
+    80%{opacity: .9;}
+    100%{opacity: 1;}
+}
