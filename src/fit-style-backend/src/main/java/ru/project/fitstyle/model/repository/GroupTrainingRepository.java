@@ -26,7 +26,7 @@ public interface GroupTrainingRepository extends JpaRepository<GroupTraining, Lo
             "where w.email=:email")
     List<GroupTrainingDto> findAllFitUserTrainingsWithFitUserEmail(@Param("email") final String email);
 
-    @Query("select v " +
+    @Query("select distinct v " +
             "from GroupTraining v inner join v.fitUsers w inner join FitUser t on v.coachId=t.id " +
             "where t.email=:email")
     List<GroupTraining> findAllOccupiedCoachTrainingsWithCoachEmail(@Param("email") String email);

@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
+@CrossOrigin(origins = "https://localhost:3000", maxAge = 3600)
 @RestController
 @RequestMapping("/api/test")
 public class TestController {

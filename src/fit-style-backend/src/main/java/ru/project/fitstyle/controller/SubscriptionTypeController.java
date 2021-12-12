@@ -7,7 +7,7 @@ import ru.project.fitstyle.controller.response.subscription.SubscriptionTypeResp
 import ru.project.fitstyle.service.SubscriptionTypeService;
 
 
-@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
+@CrossOrigin(origins = "https://localhost:3000", maxAge = 3600)
 @RestController
 @RequestMapping("/api/subscription-type")
 @PreAuthorize("hasRole('MODERATOR')")
