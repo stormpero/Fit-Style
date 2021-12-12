@@ -48,6 +48,10 @@ export const RecoverPassword = ({setActive}) => {
                 ToastMessages.error("Пароли не совпадают", TOP_CENTER);
                 return;
             }
+            if (password.length < 6) {
+                ToastMessages.error("Пароли должен быть больше 6 символов", TOP_CENTER);
+                return;
+            }
 
             UserApi.confirmRecovery({code, password}).then(
                 response => {
