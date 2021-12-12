@@ -1,4 +1,6 @@
-
+p {
+    margin-bottom: 0;
+}
 .profile-info{
     position: absolute;
     left:30%;
