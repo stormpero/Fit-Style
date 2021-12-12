@@ -81,6 +81,7 @@ class NewsFormContainer extends Component {
                         dateTime: "",
                         imageData: null,
                     },
+                    message: "",
                 })
                 ToastMessages.success("Новость успешно добавлена!", TOP_RIGHT);
                 this.props.setActive(false);

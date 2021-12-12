@@ -50,7 +50,7 @@ export const UsersContainer = (props) => {
         const {id} = event.target;
         UserApi.disableUser(Number(id)).then(
             response => {
-                ToastMessages.success("Пользователь заблокирован!");
+                ToastMessages.success("Пользователь удалён!");
                 setReload(prev => !prev);
             },
             error => {
@@ -64,7 +64,7 @@ export const UsersContainer = (props) => {
         const {id} = event.target;
         UserApi.enableUser(Number(id)).then(
             response => {
-                ToastMessages.success("Пользователь разблокирован!");
+                ToastMessages.success("Пользователь восстановлен!");
                 setReload(prev => !prev);
             },
             error => {
