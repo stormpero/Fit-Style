@@ -12,44 +12,47 @@ public class AllSubscriptionTypeResponse {
     public List<SubscriptionTypeDto> getSubscriptionTypes() {
         return subscriptionTypes;
     }
-}
 
-class SubscriptionTypeDto {
-    private final Long id;
 
-    private final String name;
 
-    private final int validityMonths;
 
-    private final String placementTime;
+    public static class SubscriptionTypeDto {
+        private final Long id;
 
-    private final String cost;
+        private final String name;
 
-    public SubscriptionTypeDto(final Long id, final String name, final int validityMonths, final String placementTime, final String cost) {
-        this.id = id;
-        this.name = name;
-        this.validityMonths = validityMonths;
-        this.placementTime = placementTime;
-        this.cost = cost;
-    }
+        private final int validityMonths;
 
-    public Long getId() {
-        return id;
-    }
+        private final String placementTime;
 
-    public String getName() {
-        return name;
-    }
+        private final String cost;
 
-    public int getValidityMonths() {
-        return validityMonths;
-    }
+        public SubscriptionTypeDto(final Long id, final String name, final int validityMonths, final String placementTime, final String cost) {
+            this.id = id;
+            this.name = name;
+            this.validityMonths = validityMonths;
+            this.placementTime = placementTime;
+            this.cost = cost;
+        }
 
-    public String getPlacementTime() {
-        return placementTime;
-    }
+        public Long getId() {
+            return id;
+        }
 
-    public String getCost() {
-        return cost;
+        public String getName() {
+            return name;
+        }
+
+        public int getValidityMonths() {
+            return validityMonths;
+        }
+
+        public String getPlacementTime() {
+            return placementTime;
+        }
+
+        public String getCost() {
+            return cost;
+        }
     }
 }

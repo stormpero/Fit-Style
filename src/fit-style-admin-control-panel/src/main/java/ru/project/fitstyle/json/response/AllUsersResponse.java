@@ -13,158 +13,190 @@ public class AllUsersResponse {
     public List<FitUserFullInfoDto> getFitUsers() {
         return fitUsers;
     }
-}
 
 
-class FitUserFullInfoDto {
-    private final FitUserDto fitUserInfo;
-
-    private final SubscriptionDto subscriptionInfo;
-
-    private final List<RoleDto> roles;
-
-    public FitUserFullInfoDto(FitUserDto fitUserInfo, SubscriptionDto subscriptionInfo, List<RoleDto> roles) {
-        this.fitUserInfo = fitUserInfo;
-        this.subscriptionInfo = subscriptionInfo;
-        this.roles = roles;
-    }
-
-    public FitUserDto getFitUserInfo() {
-        return fitUserInfo;
-    }
-
-    public SubscriptionDto getSubscriptionInfo() {
-        return subscriptionInfo;
-    }
-
-    public List<RoleDto> getRoles() {
-        return roles;
-    }
-}
 
 
-class FitUserDto {
-    private final Long id;
-
-    private final String email;
 
 
-    private final String name;
+    public static class FitUserFullInfoDto {
+        private final FitUserDto fitUserInfo;
 
-    private final String surname;
+        private final SubscriptionDto subscriptionInfo;
 
-    private final String patronymic;
+        private final List<RoleDto> roles;
+
+        public FitUserFullInfoDto(FitUserDto fitUserInfo, SubscriptionDto subscriptionInfo, List<RoleDto> roles) {
+            this.fitUserInfo = fitUserInfo;
+            this.subscriptionInfo = subscriptionInfo;
+            this.roles = roles;
+        }
+
+        public FitUserDto getFitUserInfo() {
+            return fitUserInfo;
+        }
+
+        public SubscriptionDto getSubscriptionInfo() {
+            return subscriptionInfo;
+        }
+
+        public List<RoleDto> getRoles() {
+            return roles;
+        }
 
 
-    private final String age;
 
-    private final String gender;
 
-    private final Date birthdate;
 
-    private final String telephone;
+        public static class RoleDto {
+            private final Long id;
 
-    private final String passport;
+            private final String name;
 
-    private final String address;
+            public RoleDto(final Long id, final String name) {
+                this.id = id;
+                this.name = name;
+            }
 
-    private final String imgURL;
+            public Long getId() {
+                return id;
+            }
 
-    private final Long balance;
+            public String getName() {
+                return name;
+            }
+        }
 
-    private final Boolean isEnabled;
 
-    public FitUserDto(final Long id, final String email, final String name, final String surname, final String patronymic,
-                      final String age, final String gender, final Date birthdate, final String telephone, final String passport, final String address,
-                      final String imgURL, final Long balance, final Boolean isEnabled) {
-        this.id = id;
-        this.email = email;
-        this.name = name;
-        this.surname = surname;
-        this.patronymic = patronymic;
-        this.age = age;
-        this.gender = gender;
-        this.birthdate = birthdate;
-        this.telephone = telephone;
-        this.passport = passport;
-        this.address = address;
-        this.imgURL = imgURL;
-        this.balance = balance;
-        this.isEnabled = isEnabled;
-    }
 
-    public Long getId() {
-        return id;
-    }
 
-    public String getEmail() {
-        return email;
-    }
+        public static class FitUserDto {
+            private final Long id;
 
-    public String getName() {
-        return name;
-    }
+            private final String email;
 
-    public String getSurname() {
-        return surname;
-    }
 
-    public String getPatronymic() {
-        return patronymic;
-    }
+            private final String name;
 
-    public String getAge() {
-        return age;
-    }
+            private final String surname;
 
-    public String getGender() {
-        return gender;
-    }
+            private final String patronymic;
 
-    public Date getBirthdate() {
-        return birthdate;
-    }
 
-    public String getTelephone() {
-        return telephone;
-    }
+            private final String age;
 
-    public String getPassport() {
-        return passport;
-    }
+            private final String gender;
 
-    public String getAddress() {
-        return address;
-    }
+            private final Date birthdate;
 
-    public String getImgURL() {
-        return imgURL;
-    }
+            private final String telephone;
 
-    public Long getBalance() {
-        return balance;
-    }
+            private final String passport;
 
-    public Boolean getEnabled() {
-        return isEnabled;
-    }
-}
+            private final String address;
 
-class SubscriptionDto {
-    private final String name;
+            private final String imgURL;
 
-    private final Date endDate;
+            private final Long balance;
 
-    public SubscriptionDto(final String name, final Date endDate) {
-        this.name = name;
-        this.endDate = endDate;
-    }
+            private final Boolean isEnabled;
 
-    public String getName() {
-        return name;
-    }
+            public FitUserDto(final Long id, final String email, final String name, final String surname, final String patronymic,
+                              final String age, final String gender, final Date birthdate, final String telephone, final String passport, final String address,
+                              final String imgURL, final Long balance, final Boolean isEnabled) {
+                this.id = id;
+                this.email = email;
+                this.name = name;
+                this.surname = surname;
+                this.patronymic = patronymic;
+                this.age = age;
+                this.gender = gender;
+                this.birthdate = birthdate;
+                this.telephone = telephone;
+                this.passport = passport;
+                this.address = address;
+                this.imgURL = imgURL;
+                this.balance = balance;
+                this.isEnabled = isEnabled;
+            }
 
-    public Date getEndDate() {
-        return endDate;
+            public Long getId() {
+                return id;
+            }
+
+            public String getEmail() {
+                return email;
+            }
+
+            public String getName() {
+                return name;
+            }
+
+            public String getSurname() {
+                return surname;
+            }
+
+            public String getPatronymic() {
+                return patronymic;
+            }
+
+            public String getAge() {
+                return age;
+            }
+
+            public String getGender() {
+                return gender;
+            }
+
+            public Date getBirthdate() {
+                return birthdate;
+            }
+
+            public String getTelephone() {
+                return telephone;
+            }
+
+            public String getPassport() {
+                return passport;
+            }
+
+            public String getAddress() {
+                return address;
+            }
+
+            public String getImgURL() {
+                return imgURL;
+            }
+
+            public Long getBalance() {
+                return balance;
+            }
+
+            public Boolean getEnabled() {
+                return isEnabled;
+            }
+        }
+
+
+
+
+        public static class SubscriptionDto {
+            private final String name;
+
+            private final Date endDate;
+
+            public SubscriptionDto(final String name, final Date endDate) {
+                this.name = name;
+                this.endDate = endDate;
+            }
+
+            public String getName() {
+                return name;
+            }
+
+            public Date getEndDate() {
+                return endDate;
+            }
+        }
     }
 }
