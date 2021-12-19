@@ -2,17 +2,11 @@ package ru.project.fitstyle.panel.tabs;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import ru.project.fitstyle.MainWindow;
 import ru.project.fitstyle.config.Url;
-import ru.project.fitstyle.exception.NotAnAdministratorException;
 import ru.project.fitstyle.exception.UnauthorizedException;
 import ru.project.fitstyle.json.post.AddEditTrainingRequest;
-import ru.project.fitstyle.json.post.SignInRequest;
 import ru.project.fitstyle.json.response.AllTrainingTypesResponse;
-import ru.project.fitstyle.json.response.TestResponse;
-import ru.project.fitstyle.json.response.UserAuthInfoResponse;
 import ru.project.fitstyle.panel.CustomJPanel;
-import ru.project.fitstyle.service.AuthInfoService;
 import ru.project.fitstyle.service.connection.ConnectionBuilder;
 import ru.project.fitstyle.service.connection.ConnectionService;
 import ru.project.fitstyle.service.connection.ConnectionType;
@@ -20,8 +14,6 @@ import ru.project.fitstyle.service.connection.ConnectionType;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import javax.swing.Timer;
@@ -47,7 +39,7 @@ public class TrainingTypeTab extends CustomJPanel {
 
 
         addButton.addActionListener(listener -> {
-            String training = trainingName.getText();//emailText.getText();
+            String training = trainingName.getText();
             AddEditTrainingRequest addRequest = new AddEditTrainingRequest(training);
             String jsonInputString;
             try {
@@ -94,14 +86,7 @@ public class TrainingTypeTab extends CustomJPanel {
 
         add(scrollPane);
         add(panel, BorderLayout.SOUTH);
-
-
-
-
-        //add(addButton, new GridBagConstraints(0, 6, 1, 1, 1, 1, GridBagConstraints.SOUTH, GridBagConstraints.HORIZONTAL, new Insets(1, 1, 1, 1), 0, 0));
     }
-
-
 
 
     @Override
@@ -133,10 +118,4 @@ public class TrainingTypeTab extends CustomJPanel {
             model.addRow(new Object[]{training.getId(), training.getName()});
         }
     }
-
-
-    /*public void addButton() throws UnauthorizedException {
-
-    }*/
-
 }
