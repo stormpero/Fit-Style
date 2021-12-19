@@ -1,11 +1,8 @@
 package ru.project.fitstyle;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ru.project.fitstyle.config.Url;
 import ru.project.fitstyle.exception.NotAnAdministratorException;
-import ru.project.fitstyle.exception.UnauthorizedException;
 import ru.project.fitstyle.json.post.SignInRequest;
 import ru.project.fitstyle.json.response.UserAuthInfoResponse;
 import ru.project.fitstyle.service.AuthInfoService;

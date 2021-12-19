@@ -2,15 +2,15 @@ package ru.project.fitstyle.json.response;
 
 import java.util.List;
 
-public class NewsResponse {
+public class TestResponse {
 
     private List<News> news;
 
-    public NewsResponse(List<News> news) {
+    public TestResponse(List<News> news) {
         this.news = news;
     }
 
-    public NewsResponse() {
+    public TestResponse() {
     }
 
     public List<News> getNews() {

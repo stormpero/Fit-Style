@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import ru.project.fitstyle.controller.request.permission.AddChangeRoleRequest;
+import ru.project.fitstyle.controller.request.permission.AddEditRoleRequest;
 import ru.project.fitstyle.controller.response.SuccessMessage;
 import ru.project.fitstyle.controller.response.permission.PermissionResponse;
 import ru.project.fitstyle.service.AuthService;
@@ -42,9 +42,15 @@ public class PermissionController {
                 new PermissionResponse(userService.getUserRolesByEmail(authServiceImpl.getEmail())));
     }
 
+    @GetMapping("/all-roles")
+    public ResponseEntity<PermissionResponse> getAllRoles() {
+        return ResponseEntity.ok(
+                new PermissionResponse(roleService.getAllRoles()));
+    }
+
     @PreAuthorize("hasRole('MODERATOR')")
     @PostMapping("/role")
-    public ResponseEntity<SuccessMessage> add(@RequestBody AddChangeRoleRequest request) {
+    public ResponseEntity<SuccessMessage> add(@RequestBody AddEditRoleRequest request) {
         roleService.addRole(request.getName());
         return ResponseEntity.ok(new SuccessMessage("Role successfully added!"));
     }

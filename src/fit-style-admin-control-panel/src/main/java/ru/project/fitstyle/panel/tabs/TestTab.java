@@ -3,7 +3,7 @@ package ru.project.fitstyle.panel.tabs;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ru.project.fitstyle.exception.UnauthorizedException;
-import ru.project.fitstyle.json.response.NewsResponse;
+import ru.project.fitstyle.json.response.TestResponse;
 import ru.project.fitstyle.panel.CustomJPanel;
 import ru.project.fitstyle.service.connection.ConnectionBuilder;
 import ru.project.fitstyle.service.connection.ConnectionService;
@@ -54,18 +54,18 @@ public class TestTab extends CustomJPanel {
             e.printStackTrace();
         }
         try {
-            NewsResponse newsResponse = new ObjectMapper().readValue(response, NewsResponse.class);
-            updatePanel(newsResponse);
+            TestResponse testResponse = new ObjectMapper().readValue(response, TestResponse.class);
+            updatePanel(testResponse);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
     }
 
-    private void updatePanel(NewsResponse newsResponse) {
+    private void updatePanel(TestResponse testResponse) {
         //Clear all data
         model.setRowCount(0);
 
-        for(NewsResponse.News news : newsResponse.getNews()) {
+        for(TestResponse.News news : testResponse.getNews()) {
             model.addRow(new Object[]{news.getId(), news.getHeader(), news.getContent(), news.getDateTime()});
         }
     }

@@ -1,13 +1,13 @@
-package ru.project.fitstyle.controller.request.permission;
+package ru.project.fitstyle.json.post;
 
-public class AddChangeRoleRequest {
+public class AddEditRoleRequest {
     private String name;
 
-    public AddChangeRoleRequest(String name) {
+    public AddEditRoleRequest(String name) {
         this.name = name;
     }
 
-    public AddChangeRoleRequest() {
+    public AddEditRoleRequest() {
     }
 
     public String getName() {

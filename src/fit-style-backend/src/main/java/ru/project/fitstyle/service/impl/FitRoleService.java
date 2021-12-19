@@ -2,6 +2,7 @@ package ru.project.fitstyle.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.project.fitstyle.model.dto.user.RoleDto;
 import ru.project.fitstyle.model.repository.RoleRepository;
 import ru.project.fitstyle.model.entity.user.Role;
 import ru.project.fitstyle.service.RoleService;
@@ -57,5 +58,10 @@ public class FitRoleService implements RoleService {
         } else {
             throw new RoleAlreadyExistsException("Given already in database!");
         }
+    }
+
+    @Override
+    public List<RoleDto> getAllRoles() {
+        return roleRepository.findAllRoles();
     }
 }
