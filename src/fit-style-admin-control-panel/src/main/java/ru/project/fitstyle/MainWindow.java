@@ -7,6 +7,8 @@ import ru.project.fitstyle.service.AuthInfoService;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 public class MainWindow {
@@ -24,6 +26,12 @@ public class MainWindow {
     }
 
     private void createUI(final JFrame frame){
+        JButton updateButton = new JButton("Обновить");
+        JButton exitButton = new JButton("Выйти");
+
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.add(updateButton, BorderLayout.WEST);
+        panel.add(exitButton, BorderLayout.EAST);
 
         ImageIcon icon = new ImageIcon(ClassLoader.getSystemResource("icon.png"));
         frame.setIconImage(icon.getImage());
@@ -53,6 +61,24 @@ public class MainWindow {
         tabs.addTab("Добавление ролей", null, new RoleTab(),"Добавить новую роль");
         tabs.setMnemonicAt(3, KeyEvent.VK_4);
 
+        updateButton.addActionListener(listener -> {
+            try {
+                ((CustomJPanel)tabs.getSelectedComponent()).update();
+            } catch (UnauthorizedException e) {
+                AuthInfoService.setInstance(null);
+                frame.dispose();
+                new Authorization().createWindow(true);
+            }
+        });
+
+        exitButton.addActionListener(e -> {
+            AuthInfoService.setInstance(null);
+            frame.dispose();
+            new Authorization().createWindow(false);
+        });
+
+
         frame.getContentPane().add(tabs, BorderLayout.CENTER);
+        frame.getContentPane().add(panel, BorderLayout.NORTH);
     }
 }

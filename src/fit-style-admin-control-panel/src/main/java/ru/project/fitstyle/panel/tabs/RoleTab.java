@@ -26,7 +26,7 @@ public class RoleTab extends CustomJPanel {
         setLayout(new BorderLayout());
 
         JPanel panel = new JPanel(new GridLayout(2, 2));
-        JLabel label = new JLabel("Введите название Роли");
+        JLabel label = new JLabel("Введите название роли");
         JLabel message = new JLabel("");
         JTextField roleName = new JTextField(20);
         JButton addButton = new JButton("Добавить");
@@ -63,7 +63,7 @@ public class RoleTab extends CustomJPanel {
 
             } catch (IOException ex) {
                 message.setForeground(Color.RED);
-                message.setText("Не удалось добавить новую Роль...");
+                message.setText("Не удалось добавить новую роль...");
             }
         });
 

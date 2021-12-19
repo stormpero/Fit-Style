@@ -64,7 +64,7 @@ public class TrainingTypeTab extends CustomJPanel {
 
             } catch (IOException ex) { //| InterruptedException ex
                 message.setForeground(Color.RED);
-                message.setText("Не удалось добавить тип тренировку...");
+                message.setText("Не удалось добавить тип тренировки...");
             }
         });
 
