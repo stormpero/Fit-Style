@@ -71,11 +71,11 @@ public class RoleAssigmentTab extends CustomJPanel {
             }
         };
 
-        //tableRoles.setRowSelectionAllowed(true);
         tableRoles.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
-        //tableUsers.setRowSelectionAllowed(true);
         tableUsers.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        tableRoles.getTableHeader().setReorderingAllowed(false);
+        tableUsers.getTableHeader().setReorderingAllowed(false);
 
         tableUsers.setDefaultRenderer(String.class, new MultiLineTableCellRenderer());
 

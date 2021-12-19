@@ -78,6 +78,8 @@ public class TrainingTypeTab extends CustomJPanel {
             }
         };
 
+        table.getTableHeader().setReorderingAllowed(false);
+
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setVerticalScrollBarPolicy(
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);

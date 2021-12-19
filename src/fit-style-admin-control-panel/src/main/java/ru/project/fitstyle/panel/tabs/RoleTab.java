@@ -75,6 +75,8 @@ public class RoleTab extends CustomJPanel {
             }
         };
 
+        table.getTableHeader().setReorderingAllowed(false);
+
         JScrollPane scrollPane = new JScrollPane(table);
         // Force the scrollbars to always be displayed
         scrollPane.setVerticalScrollBarPolicy(
