@@ -3,6 +3,7 @@ package ru.project.fitstyle;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ru.project.fitstyle.config.Url;
 import ru.project.fitstyle.exception.NotAnAdministratorException;
+import ru.project.fitstyle.exception.UnauthorizedException;
 import ru.project.fitstyle.json.post.SignInRequest;
 import ru.project.fitstyle.json.response.UserAuthInfoResponse;
 import ru.project.fitstyle.service.AuthInfoService;
@@ -90,7 +91,7 @@ public class Authorization {
                 ConnectionBuilder connectionBuilder = new ConnectionBuilder();
                 HttpURLConnection con = connectionBuilder.prepareRequestWithoutAuthHeader(Url.AUTH.getUrl());
                 con = connectionBuilder.prepareRequest(con, ConnectionType.POST);
-                String response = connectionService.sendPost(con, jsonInputString);
+                String response = connectionService.send(con, jsonInputString);
 
                 //Convert json string to object
                 UserAuthInfoResponse userInfo = new ObjectMapper().readValue(response, UserAuthInfoResponse.class);
@@ -104,17 +105,31 @@ public class Authorization {
                 message.setForeground(new Color(0, 107, 14));
                 message.setText("Успех");
 
-                //Close the auth window after success
-                jFrame.dispose();
+                Timer timer = new Timer(1000, arg0 -> {
+                    //Close the auth window after success
+                    jFrame.dispose();
 
-                //Open main window
-                new MainWindow().createWindow();
+                    //Open main window
+                    new MainWindow().createWindow();
+                });
+                timer.setRepeats(false);
+                timer.start();
             } catch (NotAnAdministratorException ex) {
                 message.setForeground(Color.RED);
                 message.setText("Вы не администратор!");
-            } catch (IOException ex) {
+                Timer timer = new Timer(3000, arg0 -> {
+                    message.setText("");
+                });
+                timer.setRepeats(false);
+                timer.start();
+            } catch (IOException | UnauthorizedException ex) {
                 message.setForeground(Color.RED);
                 message.setText("Не удалось войти...");
+                Timer timer = new Timer(3000, arg0 -> {
+                    message.setText("");
+                });
+                timer.setRepeats(false);
+                timer.start();
             }
 
     }

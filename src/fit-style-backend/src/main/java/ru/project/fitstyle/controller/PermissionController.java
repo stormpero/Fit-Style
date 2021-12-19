@@ -42,6 +42,7 @@ public class PermissionController {
                 new PermissionResponse(userService.getUserRolesByEmail(authServiceImpl.getEmail())));
     }
 
+    @PreAuthorize("hasRole('MODERATOR')")
     @GetMapping("/all-roles")
     public ResponseEntity<PermissionResponse> getAllRoles() {
         return ResponseEntity.ok(

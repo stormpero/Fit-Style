@@ -1,6 +1,5 @@
 package ru.project.fitstyle.service.connection;
 
-import ru.project.fitstyle.exception.ConnectionException;
 import ru.project.fitstyle.exception.UnauthorizedException;
 
 import java.io.BufferedReader;
@@ -24,11 +23,11 @@ public class ConnectionService {
         return instance;
     }
 
-    public String sendGet(HttpURLConnection con) throws UnauthorizedException, IOException {
+    public String send(HttpURLConnection con) throws UnauthorizedException, IOException {
         return getResponse(con);
     }
 
-    public String sendPost(HttpURLConnection con, String what) throws UnauthorizedException, IOException {
+    public String send(HttpURLConnection con, String what) throws UnauthorizedException, IOException {
         try(OutputStream os = con.getOutputStream()) {
             byte[] input = what.getBytes(StandardCharsets.UTF_8);
             os.write(input, 0, input.length);

@@ -77,7 +77,7 @@ public class TrainingController {
     /**
      * Add new training type
      * */
-    @PreAuthorize("hasRole('COACH')")
+    @PreAuthorize("hasRole('MODERATOR')")
     @PostMapping()
     public ResponseEntity<SuccessMessage> addTrainingType(@RequestBody final AddEditTrainingRequest request) {
         trainingService.saveTraining(new TrainingType(request.getName()));

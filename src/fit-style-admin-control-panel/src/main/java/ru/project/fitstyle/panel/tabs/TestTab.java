@@ -49,7 +49,7 @@ public class TestTab extends CustomJPanel {
         httpURLConnection = connectionBuilder.prepareRequest(httpURLConnection, ConnectionType.GET);
         String response = null;
         try {
-            response = connectionService.sendGet(httpURLConnection);
+            response = connectionService.send(httpURLConnection);
         } catch (IOException e) {
             e.printStackTrace();
         }
