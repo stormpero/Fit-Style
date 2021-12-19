@@ -20,8 +20,11 @@ import ru.project.fitstyle.service.connection.ConnectionType;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.HttpURLConnection;
+import javax.swing.Timer;
 
 public class TrainingTypeTab extends CustomJPanel {
     private final ConnectionService connectionService = ConnectionService.getInstance();
@@ -58,24 +61,23 @@ public class TrainingTypeTab extends CustomJPanel {
 
                 String response = connectionService.sendPost(con, jsonInputString);
                 System.out.println(response);
-                message.setForeground(Color.GREEN);
+
+                message.setForeground(new Color(0, 107, 14));
                 message.setText("Добавлено!");
-                Thread.sleep(500);
-                message.setText("");
+
+                Timer timer = new Timer(2000, arg0 -> message.setText(""));
+                timer.setRepeats(false);
+                timer.start();
+
                 update();
-                //Convert json string to object
-                //UserAuthInfoResponse userInfo = new ObjectMapper().readValue(response, UserAuthInfoResponse.class);
 
 
-
-            } catch (IOException | InterruptedException ex) {
+            } catch (IOException ex) { //| InterruptedException ex
                 message.setForeground(Color.RED);
                 message.setText("Не удалось добавить тип тренировку...");
             }
         });
 
-        //add(addButton, BorderLayout.SOUTH);
-        //add(trainingName, BorderLayout.SOUTH);
 
         model = new DefaultTableModel(new String[][]{}, new String[] {"Идентификатор", "Тип тренеровки"});
         JTable table = new JTable(model) {
@@ -86,9 +88,6 @@ public class TrainingTypeTab extends CustomJPanel {
         };
 
         JScrollPane scrollPane = new JScrollPane(table);
-        // Force the scrollbars to always be displayed
-        //scrollPane.setHorizontalScrollBarPolicy(
-               // JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         scrollPane.setVerticalScrollBarPolicy(
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 

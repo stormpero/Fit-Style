@@ -30,6 +30,7 @@ public class SubscriptionTypeController {
         return ResponseEntity.ok(new SubscriptionTypeResponse(subscriptionTypeService.getAllSubscriptionTypes()));
     }
 
+    @PreAuthorize("hasRole('MODERATOR')")
     @PostMapping()
     public ResponseEntity<SuccessMessage> add(@RequestBody AddSubscriptionTypeRequest request) {
         SubscriptionType subscriptionType =

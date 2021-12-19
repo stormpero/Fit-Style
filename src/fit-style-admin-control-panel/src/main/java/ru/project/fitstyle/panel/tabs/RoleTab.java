@@ -1,16 +1,29 @@
-/*package ru.project.fitstyle.panel.tabs;
+package ru.project.fitstyle.panel.tabs;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import ru.project.fitstyle.config.Url;
 import ru.project.fitstyle.exception.UnauthorizedException;
+import ru.project.fitstyle.json.response.AllRolesResponse;
 import ru.project.fitstyle.panel.CustomJPanel;
+import ru.project.fitstyle.service.connection.ConnectionBuilder;
+import ru.project.fitstyle.service.connection.ConnectionService;
+import ru.project.fitstyle.service.connection.ConnectionType;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.io.IOException;
+import java.net.HttpURLConnection;
 
 public class RoleTab extends CustomJPanel {
 
     private final DefaultTableModel model;
 
-    public TestTab() {
+    public RoleTab() {
         setLayout(new BorderLayout());
 
-        model = new DefaultTableModel(new String[][]{}, new String[] {"Идентификатор", "Тренировака"});
+        model = new DefaultTableModel(new String[][]{}, new String[] {"Идентификатор", "Название"});
         JTable table = new JTable(model) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -32,7 +45,7 @@ public class RoleTab extends CustomJPanel {
     public void update() throws UnauthorizedException {
         ConnectionBuilder connectionBuilder = new ConnectionBuilder();
         ConnectionService connectionService = ConnectionService.getInstance();
-        HttpURLConnection httpURLConnection = connectionBuilder.prepareRequestWithAuthHeader(Url.ALL_ROLES.GET);
+        HttpURLConnection httpURLConnection = connectionBuilder.prepareRequestWithAuthHeader(Url.ALL_ROLES.getUrl());
         httpURLConnection = connectionBuilder.prepareRequest(httpURLConnection, ConnectionType.GET);
         String response = null;
         try {
@@ -57,4 +70,3 @@ public class RoleTab extends CustomJPanel {
         }
     }
 }
-*/

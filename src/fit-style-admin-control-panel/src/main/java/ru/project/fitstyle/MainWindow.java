@@ -50,11 +50,11 @@ public class MainWindow {
         tabs.addTab("Добавление типов тренировок", null, new TrainingTypeTab(),"Добавить новый тип групповой тренировки");
         tabs.setMnemonicAt(2, KeyEvent.VK_3);
 
-        //tabs.addTab("Добавление ролей", null, new RoleTab(),"Добавить новую роль");
-        //tabs.setMnemonicAt(3, KeyEvent.VK_4);
+        tabs.addTab("Добавление ролей", null, new RoleTab(),"Добавить новую роль");
+        tabs.setMnemonicAt(3, KeyEvent.VK_4);
 
         tabs.addTab("Тест", null, new TestTab(),"Тест");
-        tabs.setMnemonicAt(3, KeyEvent.VK_5);
+        tabs.setMnemonicAt(4, KeyEvent.VK_5);
 
         frame.getContentPane().add(tabs, BorderLayout.CENTER);
     }
