@@ -1,22 +1,15 @@
 package ru.project.fitstyle.panel.tabs;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import ru.project.fitstyle.MainWindow;
 import ru.project.fitstyle.config.Url;
-import ru.project.fitstyle.exception.NotAnAdministratorException;
 import ru.project.fitstyle.exception.UnauthorizedException;
-import ru.project.fitstyle.json.post.AddEditRoleRequest;
 import ru.project.fitstyle.json.post.AssignRoleRequest;
-import ru.project.fitstyle.json.post.SignInRequest;
 import ru.project.fitstyle.json.response.AllRolesResponse;
 import ru.project.fitstyle.json.response.AllUsersResponse;
-import ru.project.fitstyle.json.response.UserAuthInfoResponse;
 import ru.project.fitstyle.panel.CustomJPanel;
-import ru.project.fitstyle.service.AuthInfoService;
 import ru.project.fitstyle.service.connection.ConnectionBuilder;
 import ru.project.fitstyle.service.connection.ConnectionService;
 import ru.project.fitstyle.service.connection.ConnectionType;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
@@ -148,21 +141,14 @@ public class RoleAssigmentTab extends CustomJPanel {
             HttpURLConnection con = connectionBuilder.prepareRequestWithAuthHeader(Url.ROLE_ASSIGN.getUrl());
             con = connectionBuilder.prepareRequest(con, ConnectionType.POST);
             String response = connectionService.send(con, jsonInputString);
-            System.out.println(response);
-
 
             message.setForeground(new Color(0, 107, 14));
             message.setText("Успех");
 
             update();
-
-        } catch (NotAnAdministratorException ex) {
-            message.setForeground(Color.RED);
-            message.setText("Вы не администратор!");
         } catch (IOException ex) {
             message.setForeground(Color.RED);
-            message.setText("Не удалось войти...");
+            message.setText("Ошибка...");
         }
     }
-
 }

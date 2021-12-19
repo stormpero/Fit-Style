@@ -79,9 +79,9 @@ public class Authorization {
         jFrame.add(panel, BorderLayout.CENTER);
 
         // Adding the listeners to components..
-
-            String email = "AdminProfile@gmail.com";
-            String password = "AdminProfile";
+        submit.addActionListener(listener -> {
+            String email = emailText.getText();
+            String password = passwordText.getText();
             SignInRequest signInRequest = new SignInRequest(email, password);
             String jsonInputString;
             try {
@@ -131,6 +131,6 @@ public class Authorization {
                 timer.setRepeats(false);
                 timer.start();
             }
-
+        });
     }
 }
