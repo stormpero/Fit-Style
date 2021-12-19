@@ -1,6 +1,5 @@
 package ru.project.fitstyle.service.connection;
 
-import ru.project.fitstyle.exception.ConnectionException;
 import ru.project.fitstyle.exception.UnauthorizedException;
 
 import java.io.BufferedReader;
@@ -38,7 +37,7 @@ public class ConnectionService {
     }
 
     private String getResponse(HttpURLConnection con) throws UnauthorizedException, IOException {
-        //validateAuth(con);
+        validateAuth(con);
         try(BufferedReader br = new BufferedReader(
                 new InputStreamReader(con.getInputStream(), StandardCharsets.UTF_8))) {
             StringBuilder response = new StringBuilder();
