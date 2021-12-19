@@ -19,6 +19,7 @@ import java.net.HttpURLConnection;
 
 public class RoleTab extends CustomJPanel {
 
+    private final ConnectionService connectionService = ConnectionService.getInstance();
     private final DefaultTableModel model;
 
     public RoleTab() {
@@ -37,20 +38,18 @@ public class RoleTab extends CustomJPanel {
 
 
         addButton.addActionListener(listener -> {
-            String roleDto = roleName.getText();//emailText.getText();
+            String roleDto = roleName.getText();
             AddEditTrainingRequest addRequest = new AddEditTrainingRequest(roleDto);
             String jsonInputString;
             try {
                 //Convert object to json string
                 jsonInputString = new ObjectMapper().writeValueAsString(addRequest);
-                System.out.println(jsonInputString);
                 ConnectionBuilder connectionBuilder = new ConnectionBuilder();
                 HttpURLConnection con = connectionBuilder.prepareRequestWithAuthHeader(Url.ROLE_ADD.getUrl());
                 con = connectionBuilder.prepareRequest(con, ConnectionType.POST);
 
 
-                //String response = connectionService.sendPost(con, jsonInputString);
-                //System.out.println(response);
+                String response = connectionService.sendPost(con, jsonInputString);
 
                 message.setForeground(new Color(0, 107, 14));
                 message.setText("Добавлено!");
@@ -84,6 +83,7 @@ public class RoleTab extends CustomJPanel {
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
         add(scrollPane);
+        add(panel, BorderLayout.SOUTH);
     }
 
     @Override
