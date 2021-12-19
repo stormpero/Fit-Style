@@ -171,6 +171,7 @@ public class UserController {
                 new SuccessMessage("Password changed successfully!"));
     }
 
+    @PreAuthorize("hasRole('MODERATOR')")
     @PostMapping("/assign-role/{id}")
     private ResponseEntity<SuccessMessage> roleAssign(@PathVariable("id") Long id, @RequestBody AssignRoleRequest request) {
         userService.roleAssign(id, request.getId());
