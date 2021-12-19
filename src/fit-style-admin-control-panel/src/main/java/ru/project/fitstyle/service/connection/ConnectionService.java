@@ -24,30 +24,21 @@ public class ConnectionService {
         return instance;
     }
 
-    public String sendGet(HttpURLConnection con) {
-        try {
-            return getResponse(con);
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new ConnectionException("Something gone wrong!");
-        }
+    public String sendGet(HttpURLConnection con) throws UnauthorizedException, IOException {
+        return getResponse(con);
     }
 
-    public String sendPost(HttpURLConnection con, String what) {
-        try {
-            try(OutputStream os = con.getOutputStream()) {
-                byte[] input = what.getBytes(StandardCharsets.UTF_8);
-                os.write(input, 0, input.length);
-            }
-
-            return getResponse(con);
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new ConnectionException("Something gone wrong!");
+    public String sendPost(HttpURLConnection con, String what) throws UnauthorizedException, IOException {
+        try(OutputStream os = con.getOutputStream()) {
+            byte[] input = what.getBytes(StandardCharsets.UTF_8);
+            os.write(input, 0, input.length);
         }
+
+        return getResponse(con);
     }
 
-    private String getResponse(HttpURLConnection con) throws IOException {
+    private String getResponse(HttpURLConnection con) throws UnauthorizedException, IOException {
+        validateAuth(con);
         try(BufferedReader br = new BufferedReader(
                 new InputStreamReader(con.getInputStream(), StandardCharsets.UTF_8))) {
             StringBuilder response = new StringBuilder();
@@ -56,13 +47,12 @@ public class ConnectionService {
                 response.append(responseLine.trim());
             }
 
-            validateAuth(con);
 
             return response.toString();
         }
     }
 
-    private void validateAuth(HttpURLConnection connection) throws IOException {
+    private void validateAuth(HttpURLConnection connection) throws UnauthorizedException, IOException {
         if(connection.getResponseCode() == HttpURLConnection.HTTP_UNAUTHORIZED) {
             throw new UnauthorizedException("User is not authorized anymore!");
         }

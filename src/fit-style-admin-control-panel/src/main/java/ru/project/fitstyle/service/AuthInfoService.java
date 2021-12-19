@@ -41,4 +41,8 @@ public class AuthInfoService {
     public String getToken() {
         return token;
     }
+
+    public static void setInstance(AuthInfoService instance) {
+        AuthInfoService.instance = instance;
+    }
 }

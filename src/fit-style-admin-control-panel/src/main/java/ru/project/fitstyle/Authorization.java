@@ -1,9 +1,11 @@
 package ru.project.fitstyle;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ru.project.fitstyle.config.Url;
 import ru.project.fitstyle.exception.NotAnAdministratorException;
+import ru.project.fitstyle.exception.UnauthorizedException;
 import ru.project.fitstyle.json.post.SignInRequest;
 import ru.project.fitstyle.json.response.UserAuthInfoResponse;
 import ru.project.fitstyle.service.AuthInfoService;
@@ -12,6 +14,7 @@ import ru.project.fitstyle.service.connection.ConnectionService;
 import ru.project.fitstyle.service.connection.ConnectionType;
 
 import java.awt.*;
+import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.util.Objects;
 
@@ -23,14 +26,14 @@ public class Authorization {
 
     //Starting point
     public static void main(String[] args) {
-        new Authorization().createWindow();
+        new Authorization().createWindow(false);
     }
 
-    public void createWindow() {
+    public void createWindow(boolean isSessionExpired) {
         JFrame frame = new JFrame("Авторизация");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        createUI(frame);
+        createUI(frame, isSessionExpired);
 
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Dimension dimension = toolkit.getScreenSize();
@@ -40,7 +43,7 @@ public class Authorization {
         frame.setResizable(false);
     }
 
-    private void createUI(final JFrame jFrame) {
+    private void createUI(final JFrame jFrame, boolean isSessionExpired) {
         ImageIcon icon = new ImageIcon(Objects.requireNonNull(ClassLoader.getSystemResource("icon.png")));
         jFrame.setIconImage(icon.getImage());
 
@@ -69,6 +72,11 @@ public class Authorization {
         message.setVerticalAlignment(SwingConstants.CENTER);
         panel.add(message);
         panel.add(submit);
+
+        if(isSessionExpired) {
+            message.setForeground(Color.RED);
+            message.setText("Сессия истекла!");
+        }
 
         jFrame.add(panel, BorderLayout.CENTER);
 
@@ -104,12 +112,12 @@ public class Authorization {
 
                 //Open main window
                 new MainWindow().createWindow();
-            } catch (JsonProcessingException | IllegalArgumentException ex){
-                message.setForeground(Color.RED);
-                message.setText("Не удалось войти...");
             } catch (NotAnAdministratorException ex) {
                 message.setForeground(Color.RED);
                 message.setText("Вы не администратор!");
+            } catch (IOException ex) {
+                message.setForeground(Color.RED);
+                message.setText("Не удалось войти...");
             }
         });
     }

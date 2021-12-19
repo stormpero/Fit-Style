@@ -3,6 +3,7 @@ package ru.project.fitstyle;
 import ru.project.fitstyle.exception.UnauthorizedException;
 import ru.project.fitstyle.panel.CustomJPanel;
 import ru.project.fitstyle.panel.tabs.*;
+import ru.project.fitstyle.service.AuthInfoService;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,7 +12,7 @@ import java.awt.event.KeyEvent;
 public class MainWindow {
     public void createWindow() {
         JFrame frame = new JFrame("Admin control panel");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         createUI(frame);
 
         Toolkit toolkit = Toolkit.getDefaultToolkit();
@@ -29,13 +30,14 @@ public class MainWindow {
 
         JTabbedPane tabs = new JTabbedPane();
 
-        tabs.addChangeListener(listener -> {
+
+        tabs.addChangeListener(changeEvent -> {
             try {
                 ((CustomJPanel)tabs.getSelectedComponent()).update();
             } catch (UnauthorizedException e) {
-                e.printStackTrace();
+                AuthInfoService.setInstance(null);
                 frame.dispose();
-                new Authorization().createWindow();
+                new Authorization().createWindow(true);
             }
         });
 

@@ -12,6 +12,7 @@ import ru.project.fitstyle.service.connection.ConnectionType;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.io.IOException;
 import java.net.HttpURLConnection;
 
 public class TestTab extends CustomJPanel {
@@ -46,7 +47,12 @@ public class TestTab extends CustomJPanel {
         ConnectionService connectionService = ConnectionService.getInstance();
         HttpURLConnection httpURLConnection = connectionBuilder.prepareRequestWithAuthHeader("/news/1");
         httpURLConnection = connectionBuilder.prepareRequest(httpURLConnection, ConnectionType.GET);
-        String response = connectionService.sendGet(httpURLConnection);
+        String response = null;
+        try {
+            response = connectionService.sendGet(httpURLConnection);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         try {
             NewsResponse newsResponse = new ObjectMapper().readValue(response, NewsResponse.class);
             updatePanel(newsResponse);
@@ -58,6 +64,7 @@ public class TestTab extends CustomJPanel {
     private void updatePanel(NewsResponse newsResponse) {
         //Clear all data
         model.setRowCount(0);
+
         for(NewsResponse.News news : newsResponse.getNews()) {
             model.addRow(new Object[]{news.getId(), news.getHeader(), news.getContent(), news.getDateTime()});
         }

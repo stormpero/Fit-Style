@@ -1,8 +1,6 @@
 package ru.project.fitstyle.exception;
 
-import java.io.IOException;
-
-public class UnauthorizedException extends IOException {
+public class UnauthorizedException extends RuntimeException {
     public UnauthorizedException(String message) {
         super(String.format("Failed. %s", message));
     }
