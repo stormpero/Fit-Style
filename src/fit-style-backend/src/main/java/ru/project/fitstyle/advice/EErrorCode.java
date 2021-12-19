@@ -11,7 +11,8 @@ public enum EErrorCode {
     MAX_PEOPLE(8),
     ALREADY_SIGNED(9),
     UNABLE_TO_SEND_EMAIL(10),
-    WRONG_CODE(11);
+    WRONG_CODE(11),
+    EXISTS(12);
 
     private final int code;
 

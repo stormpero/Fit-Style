@@ -49,4 +49,9 @@ final
 
         return subscription;
     }
+
+    @Override
+    public void save(SubscriptionType subscriptionType) {
+        subscriptionTypeRepository.save(subscriptionType);
+    }
 }

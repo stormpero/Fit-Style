@@ -33,7 +33,7 @@ public class FitUserDetails implements UserDetails {
 
 	public static FitUserDetails build(final FitUser fitUser) {
 		List<GrantedAuthority> authorities = fitUser.getRoles().stream()
-				.map(role -> new SimpleGrantedAuthority(role.getName().name()))
+				.map(role -> new SimpleGrantedAuthority(role.getName()))
 				.collect(Collectors.toList());
 
 		return new FitUserDetails(

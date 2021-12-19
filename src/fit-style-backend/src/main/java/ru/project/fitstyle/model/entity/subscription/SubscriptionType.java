@@ -35,8 +35,11 @@ public class SubscriptionType {
     public SubscriptionType() {
     }
 
-    public SubscriptionType(ESubsPlacementTime placementTime) {
+    public SubscriptionType(String name, int validityMonths, ESubsPlacementTime placementTime, String cost) {
+        this.name = name;
+        this.validityMonths = validityMonths;
         this.placementTime = placementTime;
+        this.cost = cost;
     }
 
     public Long getId() {

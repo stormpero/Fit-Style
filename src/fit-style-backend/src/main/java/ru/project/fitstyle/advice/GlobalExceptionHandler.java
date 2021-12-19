@@ -153,4 +153,13 @@ public class GlobalExceptionHandler {
                 EErrorCode.WRONG_CODE.value(),
                 request.getDescription(false));
     }
+
+    public ErrorMessage handleAlreadyExistsException(RuntimeException ex, WebRequest request) {
+        return new ErrorMessage(
+                HttpStatus.BAD_REQUEST.value(),
+                new Date(),
+                ex.getMessage(),
+                EErrorCode.WRONG_CODE.value(),
+                request.getDescription(false));
+    }
 }

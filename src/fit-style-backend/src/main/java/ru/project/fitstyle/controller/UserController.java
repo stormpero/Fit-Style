@@ -6,13 +6,9 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import ru.project.fitstyle.controller.request.user.AddEditUserRequest;
-import ru.project.fitstyle.controller.request.user.AskForRecoverRequest;
-import ru.project.fitstyle.controller.request.user.ChangePasswordRequest;
-import ru.project.fitstyle.controller.request.user.ConfirmRecoveryRequest;
+import ru.project.fitstyle.controller.request.user.*;
 import ru.project.fitstyle.controller.response.SuccessMessage;
 import ru.project.fitstyle.controller.response.user.AllUsersResponse;
-import ru.project.fitstyle.model.entity.news.News;
 import ru.project.fitstyle.model.entity.user.FitUser;
 import ru.project.fitstyle.service.*;
 
@@ -173,6 +169,13 @@ public class UserController {
 
         return ResponseEntity.ok(
                 new SuccessMessage("Password changed successfully!"));
+    }
+
+    @PostMapping("/assign-role/{id}")
+    private ResponseEntity<SuccessMessage> roleAssign(@PathVariable("id") Long id, @RequestBody AssignRoleRequest request) {
+        userService.roleAssign(id, request.getId());
+        return ResponseEntity.ok(
+                new SuccessMessage("Role assigned successfully!"));
     }
 
     /**

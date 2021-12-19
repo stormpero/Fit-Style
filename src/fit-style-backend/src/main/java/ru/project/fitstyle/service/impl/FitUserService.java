@@ -10,7 +10,9 @@ import ru.project.fitstyle.model.entity.user.FitUser;
 import ru.project.fitstyle.model.entity.user.Role;
 import ru.project.fitstyle.model.repository.RefreshTokenRepository;
 import ru.project.fitstyle.model.repository.FitUserRepository;
+import ru.project.fitstyle.model.repository.RoleRepository;
 import ru.project.fitstyle.service.UserService;
+import ru.project.fitstyle.service.exception.role.RoleNotFoundException;
 import ru.project.fitstyle.service.exception.user.BalanceLessThanZeroException;
 import ru.project.fitstyle.service.exception.user.UserNotFoundException;
 
@@ -21,12 +23,15 @@ import java.util.List;
 public class FitUserService implements UserService {
     private final FitUserRepository fitUserRepository;
     private final RefreshTokenRepository refreshTokenRepository;
+    private final RoleRepository roleRepository;
 
     @Autowired
     public FitUserService(final FitUserRepository fitUserRepository,
-                          final RefreshTokenRepository refreshTokenRepository) {
+                          final RefreshTokenRepository refreshTokenRepository,
+                          RoleRepository roleRepository) {
         this.fitUserRepository = fitUserRepository;
         this.refreshTokenRepository = refreshTokenRepository;
+        this.roleRepository = roleRepository;
     }
 
     @Override
@@ -111,6 +116,16 @@ public class FitUserService implements UserService {
     public void logoutUserByEmail(final String email) {
         refreshTokenRepository
                 .deleteByFitUser(getUserByEmail(email));
+    }
+
+    @Transactional
+    @Override
+    public void roleAssign(Long userId, Long roleId) {
+        FitUser fitUser = getUserById(userId);
+        Role role = roleRepository.findById(roleId)
+                .orElseThrow(() -> new RoleNotFoundException("Role is not in database!"));
+        fitUser.getRoles().add(role);
+        fitUserRepository.save(fitUser);
     }
 
     @Override

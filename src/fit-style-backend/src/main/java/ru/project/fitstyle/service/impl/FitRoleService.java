@@ -3,10 +3,9 @@ package ru.project.fitstyle.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.project.fitstyle.model.repository.RoleRepository;
-import ru.project.fitstyle.model.repository.FitUserRepository;
-import ru.project.fitstyle.model.entity.user.ERole;
 import ru.project.fitstyle.model.entity.user.Role;
 import ru.project.fitstyle.service.RoleService;
+import ru.project.fitstyle.service.exception.role.RoleAlreadyExistsException;
 import ru.project.fitstyle.service.exception.role.RoleNotFoundException;
 
 import java.util.ArrayList;
@@ -29,13 +28,13 @@ public class FitRoleService implements RoleService {
             strRoles.forEach(role -> {
                 switch (role) {
                     case "coach":
-                        final Role adminRole = roleRepository.findByName(ERole.ROLE_COACH)
+                        final Role adminRole = roleRepository.findByName("ROLE_COACH")
                                 .orElseThrow(() -> new RoleNotFoundException("Role cannot be found!"));
                         roles.add(adminRole);
 
                         break;
                     case "mod":
-                        final Role modRole = roleRepository.findByName(ERole.ROLE_MODERATOR)
+                        final Role modRole = roleRepository.findByName("ROLE_MODERATOR")
                                 .orElseThrow(() -> new RoleNotFoundException("Role cannot be found!"));
                         roles.add(modRole);
 
@@ -43,10 +42,20 @@ public class FitRoleService implements RoleService {
                 }
             });
         }
-        final Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+        final Role userRole = roleRepository.findByName("ROLE_USER")
                 .orElseThrow(() -> new RoleNotFoundException("Role cannot be found!"));
         roles.add(userRole);
 
         return roles;
+    }
+
+    @Override
+    public void addRole(String name) {
+        if(!roleRepository.existsByName(name)) {
+            Role role = new Role(name);
+            roleRepository.save(role);
+        } else {
+            throw new RoleAlreadyExistsException("Given already in database!");
+        }
     }
 }

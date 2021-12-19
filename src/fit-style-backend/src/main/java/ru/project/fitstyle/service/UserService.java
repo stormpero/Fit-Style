@@ -29,6 +29,8 @@ public interface UserService {
 
     void logoutUserByEmail(final String email);
 
+    void roleAssign(Long userId, Long roleId);
+
     FitUserDto getFitUserInfoByEmail(final String email);
 
     FitUserDto getFitUserInfoById(final Long id);
