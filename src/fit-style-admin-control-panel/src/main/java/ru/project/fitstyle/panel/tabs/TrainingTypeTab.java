@@ -45,14 +45,12 @@ public class TrainingTypeTab extends CustomJPanel {
             try {
                 //Convert object to json string
                 jsonInputString = new ObjectMapper().writeValueAsString(addRequest);
-                System.out.println(jsonInputString);
                 ConnectionBuilder connectionBuilder = new ConnectionBuilder();
                 HttpURLConnection con = connectionBuilder.prepareRequestWithAuthHeader(Url.TRAINING_TYPE_ADD.getUrl());
                 con = connectionBuilder.prepareRequest(con, ConnectionType.POST);
 
 
                 String response = connectionService.sendPost(con, jsonInputString);
-                System.out.println(response);
 
                 message.setForeground(new Color(0, 107, 14));
                 message.setText("Добавлено!");
