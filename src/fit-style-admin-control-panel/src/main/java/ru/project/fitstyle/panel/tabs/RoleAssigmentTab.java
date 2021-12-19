@@ -35,9 +35,9 @@ public class RoleAssigmentTab extends CustomJPanel {
     public void update() throws UnauthorizedException {
         String response = null;
         try {
-            response = connectionService.sendGet(configConnectionBuild(Url.ALL_ROLES));
+            response = connectionService.send(configConnectionBuild(Url.ALL_ROLES));
             AllRolesResponse allRolesResponse = new ObjectMapper().readValue(response, AllRolesResponse.class);
-            response = connectionService.sendGet(configConnectionBuild(Url.ALL_USERS));
+            response = connectionService.send(configConnectionBuild(Url.ALL_USERS));
             AllUsersResponse allUsersResponse = new ObjectMapper().readValue(response, AllUsersResponse.class);
 
             updatePanel(allRolesResponse, allUsersResponse);
@@ -147,7 +147,7 @@ public class RoleAssigmentTab extends CustomJPanel {
             ConnectionBuilder connectionBuilder = new ConnectionBuilder();
             HttpURLConnection con = connectionBuilder.prepareRequestWithAuthHeader(Url.ROLE_ASSIGN.getUrl());
             con = connectionBuilder.prepareRequest(con, ConnectionType.POST);
-            String response = connectionService.sendPost(con, jsonInputString);
+            String response = connectionService.send(con, jsonInputString);
             System.out.println(response);
 
 
