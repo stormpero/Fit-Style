@@ -79,8 +79,8 @@ public class Authorization {
 
         // Adding the listeners to components..
         submit.addActionListener(listener -> {
-            String email = emailText.getText();
-            String password = passwordText.getText();
+            String email = "AdminProfile@gmail.com";//emailText.getText();
+            String password = "AdminProfile"; //passwordText.getText();
             SignInRequest signInRequest = new SignInRequest(email, password);
             String jsonInputString;
             try {

@@ -67,6 +67,7 @@ public class ConnectionBuilder {
 
     private String createBasicAuthHeaderValue() {
         final AuthInfoService authInfoService = AuthInfoService.getInstance();
+        System.out.println(authInfoService.getToken());
         return "Bearer " + authInfoService.getToken();
     }
 }
