@@ -117,9 +117,19 @@ public class Authorization {
             } catch (NotAnAdministratorException ex) {
                 message.setForeground(Color.RED);
                 message.setText("Вы не администратор!");
+                Timer timer = new Timer(3000, arg0 -> {
+                    message.setText("");
+                });
+                timer.setRepeats(false);
+                timer.start();
             } catch (IOException | UnauthorizedException ex) {
                 message.setForeground(Color.RED);
                 message.setText("Не удалось войти...");
+                Timer timer = new Timer(3000, arg0 -> {
+                    message.setText("");
+                });
+                timer.setRepeats(false);
+                timer.start();
             }
         });
     }

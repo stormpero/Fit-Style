@@ -77,8 +77,6 @@ public class RoleTab extends CustomJPanel {
 
         JScrollPane scrollPane = new JScrollPane(table);
         // Force the scrollbars to always be displayed
-        scrollPane.setHorizontalScrollBarPolicy(
-                JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         scrollPane.setVerticalScrollBarPolicy(
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
