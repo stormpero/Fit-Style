@@ -3,7 +3,10 @@ package ru.project.fitstyle.model.entity.user;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "role")
+@Table(name = "role",
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = "name")
+        })
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

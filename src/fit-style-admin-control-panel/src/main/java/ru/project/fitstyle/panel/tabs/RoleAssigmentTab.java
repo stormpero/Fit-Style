@@ -25,6 +25,8 @@ public class RoleAssigmentTab extends CustomJPanel {
 
     private final ConnectionService connectionService = ConnectionService.getInstance();
     private final ConnectionBuilder connectionBuilder = new ConnectionBuilder();
+
+
     @Override
     public void update() throws UnauthorizedException {
         String response = null;
@@ -55,13 +57,6 @@ public class RoleAssigmentTab extends CustomJPanel {
             }
         };;
 
-        JTable tableRoles = new JTable(modelRoles) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        };
-
         JTable tableUsers = new JTable(modelUsers) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -69,10 +64,22 @@ public class RoleAssigmentTab extends CustomJPanel {
             }
         };
 
+        JTable tableRoles = new JTable(modelRoles) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+
+        //tableRoles.setRowSelectionAllowed(true);
+        tableRoles.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        //tableUsers.setRowSelectionAllowed(true);
+        tableUsers.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
         tableUsers.setDefaultRenderer(String.class, new MultiLineTableCellRenderer());
 
-
-        JPanel panel = new JPanel(new GridLayout(2, 1));
+        JPanel panel = new JPanel(new GridLayout(3, 2));
 
         JLabel nameLabel = new JLabel();
         nameLabel.setText("Идентификатор пользователя:");
@@ -89,10 +96,10 @@ public class RoleAssigmentTab extends CustomJPanel {
         message.setVerticalAlignment(SwingConstants.CENTER);
 
 
-//        panel.add(nameLabel);
-//        panel.add(userText);
-//        panel.add(roleIdLabel);
-//        panel.add(roleText);
+        panel.add(nameLabel);
+        panel.add(userText);
+        panel.add(roleIdLabel);
+        panel.add(roleText);
         panel.add(message);
         message.setText("");
         panel.add(submit);
@@ -108,6 +115,20 @@ public class RoleAssigmentTab extends CustomJPanel {
         add(tablePane);
 
 
+        tableUsers.getSelectionModel().addListSelectionListener(event -> {
+            if(tableUsers.getSelectedRow() != -1) {
+                userText.setText(tableUsers.getValueAt(tableUsers.getSelectedRow(), 0).toString());
+            }
+        });
+
+
+        tableRoles.getSelectionModel().addListSelectionListener(event -> {
+            if(tableRoles.getSelectedRow() != -1) {
+                roleText.setText(tableRoles.getValueAt(tableRoles.getSelectedRow(), 0).toString());
+            }
+        });
+
+
         submit.addActionListener(e -> submitButtonPressed(userText, roleText, message));
         add(panel, BorderLayout.SOUTH);
     }
@@ -116,14 +137,12 @@ public class RoleAssigmentTab extends CustomJPanel {
         //Clear all data
         modelRoles.setRowCount(0);
         modelUsers.setRowCount(0);
-
         for(AllRolesResponse.RoleDto roleDto : allRolesResponse.getRoles()) {
             modelRoles.addRow(new Object[]{roleDto.getId(), roleDto.getName()});
         }
-
         for(AllUsersResponse.FitUserFullInfoDto fitUserFullInfoDto : allUsersResponse.getFitUsers()) {
             AllUsersResponse.FitUserFullInfoDto.FitUserDto fitUserInfo = fitUserFullInfoDto.getFitUserInfo();
-            modelUsers.addRow(new Object[]{fitUserInfo.getId(), addSpaces(fitUserInfo.getSurname(),fitUserInfo.getName(), fitUserInfo.getPatronymic()),  getMainRole(fitUserFullInfoDto.getRoles())});
+            modelUsers.addRow(new Object[]{fitUserInfo.getId(), addSpaces(fitUserInfo.getSurname(),fitUserInfo.getName(), fitUserInfo.getPatronymic()),  getRoles(fitUserFullInfoDto.getRoles())});
         }
     }
 
@@ -140,7 +159,7 @@ public class RoleAssigmentTab extends CustomJPanel {
         return res.toString();
     }
 
-    private String getMainRole(List<AllUsersResponse.FitUserFullInfoDto.RoleDto> roleList) {
+    private String getRoles(List<AllUsersResponse.FitUserFullInfoDto.RoleDto> roleList) {
         StringBuilder result = new StringBuilder();
         for(AllUsersResponse.FitUserFullInfoDto.RoleDto roleDto : roleList) {
             String name;
@@ -158,7 +177,7 @@ public class RoleAssigmentTab extends CustomJPanel {
                     name = roleDto.getName();
                     break;
             }
-            result.append(name).append('\n');
+            result.append(name).append("\n");
         }
         return result.toString();
     }
@@ -177,10 +196,22 @@ public class RoleAssigmentTab extends CustomJPanel {
             message.setForeground(new Color(0, 107, 14));
             message.setText("Успех");
 
+            Timer timer = new Timer(3000, arg0 -> {
+                message.setText("");
+            });
+            timer.setRepeats(false);
+            timer.start();
+
             update();
         } catch (IOException ex) {
             message.setForeground(Color.RED);
             message.setText("Ошибка...");
+
+            Timer timer = new Timer(3000, arg0 -> {
+                message.setText("");
+            });
+            timer.setRepeats(false);
+            timer.start();
         }
     }
 }

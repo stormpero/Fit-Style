@@ -10,34 +10,34 @@ import ru.project.fitstyle.service.exception.recovery.UnableToSendEmailException
 import ru.project.fitstyle.service.exception.news.NewsPageNotFoundException;
 import ru.project.fitstyle.service.exception.news.NewsStoryNotFoundException;
 import ru.project.fitstyle.service.exception.recovery.WrongCodeException;
+import ru.project.fitstyle.service.exception.role.RoleAlreadyExistsException;
 import ru.project.fitstyle.service.exception.role.UsersWithRoleNotFoundException;
 import ru.project.fitstyle.service.exception.storage.FileNotFoundException;
 import ru.project.fitstyle.service.exception.storage.StorageException;
+import ru.project.fitstyle.service.exception.subscription.SubscriptionAlreadyExistsException;
 import ru.project.fitstyle.service.exception.subscription.SubscriptionTypeNotFoundException;
 import ru.project.fitstyle.service.exception.token.AnonymousTokenException;
 import ru.project.fitstyle.service.exception.token.RefreshTokenNotValidException;
 import ru.project.fitstyle.service.exception.training.ExceededMaxPeopleTrainingException;
 import ru.project.fitstyle.service.exception.training.TrainingNotFoundException;
 import ru.project.fitstyle.service.exception.training.UserAlreadySignedForTraining;
-import ru.project.fitstyle.service.exception.user.BalanceLessThanZeroException;
-import ru.project.fitstyle.service.exception.user.EmailAlreadyExistsException;
-import ru.project.fitstyle.service.exception.user.NotACoachException;
+import ru.project.fitstyle.service.exception.user.*;
 import ru.project.fitstyle.service.exception.role.RoleNotFoundException;
-import ru.project.fitstyle.service.exception.user.UserNotFoundException;
 
 import java.util.Date;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(value = {EmailAlreadyExistsException.class})
+    @ExceptionHandler(value = {AlreadyHasTheRoleException.class, EmailAlreadyExistsException.class,
+            RoleAlreadyExistsException.class, SubscriptionAlreadyExistsException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorMessage handleEmailAlreadyExistsException(RuntimeException ex, WebRequest request) {
+    public ErrorMessage handleAlreadyExistsException(RuntimeException ex, WebRequest request) {
         return new ErrorMessage(
                 HttpStatus.BAD_REQUEST.value(),
                 new Date(),
                 ex.getMessage(),
-                EErrorCode.EMAIL_ALREADY_EXISTS.value(),
+                EErrorCode.EXISTS.value(),
                 request.getDescription(false));
     }
 
@@ -146,15 +146,6 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = {WrongCodeException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorMessage handleWrongCodeException(RuntimeException ex, WebRequest request) {
-        return new ErrorMessage(
-                HttpStatus.BAD_REQUEST.value(),
-                new Date(),
-                ex.getMessage(),
-                EErrorCode.WRONG_CODE.value(),
-                request.getDescription(false));
-    }
-
-    public ErrorMessage handleAlreadyExistsException(RuntimeException ex, WebRequest request) {
         return new ErrorMessage(
                 HttpStatus.BAD_REQUEST.value(),
                 new Date(),

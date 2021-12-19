@@ -7,6 +7,7 @@ import ru.project.fitstyle.model.entity.subscription.Subscription;
 import ru.project.fitstyle.model.entity.subscription.SubscriptionType;
 import ru.project.fitstyle.model.repository.SubscriptionTypeRepository;
 import ru.project.fitstyle.service.SubscriptionTypeService;
+import ru.project.fitstyle.service.exception.subscription.SubscriptionAlreadyExistsException;
 import ru.project.fitstyle.service.exception.subscription.SubscriptionTypeNotFoundException;
 
 import java.util.Calendar;
@@ -22,7 +23,7 @@ public class FitSubscriptionTypeService implements SubscriptionTypeService {
     public FitSubscriptionTypeService(final SubscriptionTypeRepository subscriptionTypeRepository) {
         this.subscriptionTypeRepository = subscriptionTypeRepository;
     }
-final
+
     @Override
     public List<SubscriptionTypeDto> getAllSubscriptionTypes() {
         return subscriptionTypeRepository.findAllSubscriptions()
@@ -52,6 +53,9 @@ final
 
     @Override
     public void save(SubscriptionType subscriptionType) {
+        if(subscriptionTypeRepository.existsByName(subscriptionType.getName())) {
+            throw new SubscriptionAlreadyExistsException("Subscription type with that name already exists!");
+        }
         subscriptionTypeRepository.save(subscriptionType);
     }
 }

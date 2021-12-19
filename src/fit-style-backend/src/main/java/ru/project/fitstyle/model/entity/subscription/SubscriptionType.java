@@ -4,7 +4,10 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "subscription_type")
+@Table(name = "subscription_type",
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = "name")
+        })
 public class SubscriptionType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,7 +16,7 @@ public class SubscriptionType {
     private Long id;
 
     @Column(name = "name", length = 200,
-            nullable = false)
+            nullable = false, unique = true)
     private String name;
 
     @Column(name = "validity",

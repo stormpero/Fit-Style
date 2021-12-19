@@ -13,6 +13,7 @@ import ru.project.fitstyle.model.repository.FitUserRepository;
 import ru.project.fitstyle.model.repository.RoleRepository;
 import ru.project.fitstyle.service.UserService;
 import ru.project.fitstyle.service.exception.role.RoleNotFoundException;
+import ru.project.fitstyle.service.exception.user.AlreadyHasTheRoleException;
 import ru.project.fitstyle.service.exception.user.BalanceLessThanZeroException;
 import ru.project.fitstyle.service.exception.user.UserNotFoundException;
 
@@ -124,6 +125,12 @@ public class FitUserService implements UserService {
         FitUser fitUser = getUserById(userId);
         Role role = roleRepository.findById(roleId)
                 .orElseThrow(() -> new RoleNotFoundException("Role is not in database!"));
+        for(Role userRole : fitUser.getRoles()) {
+            if(userRole.getId().equals(role.getId())) {
+                throw new AlreadyHasTheRoleException("User already has the role!");
+            }
+        }
+
         fitUser.getRoles().add(role);
         fitUserRepository.save(fitUser);
     }

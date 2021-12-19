@@ -14,4 +14,6 @@ public interface SubscriptionTypeRepository extends JpaRepository<SubscriptionTy
     @Query("select new ru.project.fitstyle.model.dto.subscription.SubscriptionTypeDto(v.id, v.name, v.validityMonths, v.placementTime, v.cost) " +
             "from SubscriptionType v")
     Optional<List<SubscriptionTypeDto>> findAllSubscriptions();
+
+    Boolean existsByName(String name);
 }
