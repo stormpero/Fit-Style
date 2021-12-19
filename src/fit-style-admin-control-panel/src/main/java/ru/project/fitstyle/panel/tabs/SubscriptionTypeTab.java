@@ -87,7 +87,7 @@ public class SubscriptionTypeTab extends CustomJPanel {
             try {
                 jsonInputString = new ObjectMapper().writeValueAsString(addSubscription);
                 ConnectionBuilder connectionBuilder = new ConnectionBuilder();
-                HttpURLConnection con = connectionBuilder.prepareRequestWithoutAuthHeader(Url.SUBSCRIPTION_TYPE_ADD.getUrl());
+                HttpURLConnection con = connectionBuilder.prepareRequestWithAuthHeader(Url.SUBSCRIPTION_TYPE_ADD.getUrl());
                 con = connectionBuilder.prepareRequest(con, ConnectionType.POST);
                 String response = connectionService.sendPost(con, jsonInputString);
                 System.out.println(response);

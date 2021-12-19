@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ru.project.fitstyle.config.Url;
 import ru.project.fitstyle.exception.UnauthorizedException;
+import ru.project.fitstyle.json.post.AddEditTrainingRequest;
 import ru.project.fitstyle.json.response.AllRolesResponse;
 import ru.project.fitstyle.panel.CustomJPanel;
 import ru.project.fitstyle.service.connection.ConnectionBuilder;
@@ -48,8 +49,8 @@ public class RoleTab extends CustomJPanel {
                 con = connectionBuilder.prepareRequest(con, ConnectionType.POST);
 
 
-                String response = connectionService.sendPost(con, jsonInputString);
-                System.out.println(response);
+                //String response = connectionService.sendPost(con, jsonInputString);
+                //System.out.println(response);
 
                 message.setForeground(new Color(0, 107, 14));
                 message.setText("Добавлено!");
