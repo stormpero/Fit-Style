@@ -91,7 +91,7 @@ public class Authorization {
                 ConnectionBuilder connectionBuilder = new ConnectionBuilder();
                 HttpURLConnection con = connectionBuilder.prepareRequestWithoutAuthHeader(Url.AUTH.getUrl());
                 con = connectionBuilder.prepareRequest(con, ConnectionType.POST);
-                String response = connectionService.sendPost(con, jsonInputString);
+                String response = connectionService.send(con, jsonInputString);
 
                 //Convert json string to object
                 UserAuthInfoResponse userInfo = new ObjectMapper().readValue(response, UserAuthInfoResponse.class);

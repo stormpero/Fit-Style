@@ -50,7 +50,7 @@ public class TrainingTypeTab extends CustomJPanel {
                 con = connectionBuilder.prepareRequest(con, ConnectionType.POST);
 
 
-                String response = connectionService.sendPost(con, jsonInputString);
+                String response = connectionService.send(con, jsonInputString);
 
                 message.setForeground(new Color(0, 107, 14));
                 message.setText("Добавлено!");
@@ -96,7 +96,7 @@ public class TrainingTypeTab extends CustomJPanel {
         httpURLConnection = connectionBuilder.prepareRequest(httpURLConnection, ConnectionType.GET);
         String response = null;
         try {
-            response = connectionService.sendGet(httpURLConnection);
+            response = connectionService.send(httpURLConnection);
         } catch (IOException e) {
             e.printStackTrace();
         }

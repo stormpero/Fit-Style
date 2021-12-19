@@ -23,14 +23,17 @@ public class ConnectionService {
         return instance;
     }
 
-    public String sendGet(HttpURLConnection con) throws UnauthorizedException, IOException {
-        return getResponse(con);
+    public String send(HttpURLConnection con) throws UnauthorizedException, IOException {
+        return send(con, null);
     }
 
-    public String sendPost(HttpURLConnection con, String what) throws UnauthorizedException, IOException {
-        try(OutputStream os = con.getOutputStream()) {
-            byte[] input = what.getBytes(StandardCharsets.UTF_8);
-            os.write(input, 0, input.length);
+    public String send(HttpURLConnection con, String what) throws UnauthorizedException, IOException {
+        String req = con.getRequestMethod();
+        if(req.equals("POST")) {
+            try(OutputStream os = con.getOutputStream()) {
+                byte[] input = what.getBytes(StandardCharsets.UTF_8);
+                os.write(input, 0, input.length);
+            }
         }
 
         return getResponse(con);

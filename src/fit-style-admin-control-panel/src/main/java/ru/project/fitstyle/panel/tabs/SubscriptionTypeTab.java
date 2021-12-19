@@ -2,17 +2,11 @@ package ru.project.fitstyle.panel.tabs;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import ru.project.fitstyle.MainWindow;
 import ru.project.fitstyle.config.Url;
-import ru.project.fitstyle.exception.NotAnAdministratorException;
 import ru.project.fitstyle.exception.UnauthorizedException;
 import ru.project.fitstyle.json.post.AddSubscriptionTypeRequest;
-import ru.project.fitstyle.json.post.SignInRequest;
 import ru.project.fitstyle.json.response.AllSubscriptionTypeResponse;
-import ru.project.fitstyle.json.response.TestResponse;
-import ru.project.fitstyle.json.response.UserAuthInfoResponse;
 import ru.project.fitstyle.panel.CustomJPanel;
-import ru.project.fitstyle.service.AuthInfoService;
 import ru.project.fitstyle.service.connection.ConnectionBuilder;
 import ru.project.fitstyle.service.connection.ConnectionService;
 import ru.project.fitstyle.service.connection.ConnectionType;
@@ -89,7 +83,7 @@ public class SubscriptionTypeTab extends CustomJPanel {
                 ConnectionBuilder connectionBuilder = new ConnectionBuilder();
                 HttpURLConnection con = connectionBuilder.prepareRequestWithAuthHeader(Url.SUBSCRIPTION_TYPE_ADD.getUrl());
                 con = connectionBuilder.prepareRequest(con, ConnectionType.POST);
-                String response = connectionService.sendPost(con, jsonInputString);
+                String response = connectionService.send(con, jsonInputString);
                 System.out.println(response);
 
                 submit.setForeground(new Color(0, 107, 14));
@@ -117,7 +111,7 @@ public class SubscriptionTypeTab extends CustomJPanel {
         httpURLConnection = connectionBuilder.prepareRequest(httpURLConnection, ConnectionType.GET);
         String response = null;
         try {
-            response = connectionService.sendGet(httpURLConnection);
+            response = connectionService.send(httpURLConnection);
         } catch (IOException e) {
             e.printStackTrace();
         }
