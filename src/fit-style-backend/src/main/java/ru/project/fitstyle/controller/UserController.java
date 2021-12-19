@@ -1,6 +1,7 @@
 package ru.project.fitstyle.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -33,13 +34,9 @@ public class UserController {
     private final AuthService authService;
 
     @Autowired
-    public UserController(final PasswordEncoder encoder,
-                          final UserService userService,
-                          final RoleService roleService,
-                          final SubscriptionTypeService subscriptionTypeService,
-                          final StorageService imageStorageService,
-                          final PasswordRecoveryService passwordRecoveryService,
-                          AuthService authService) {
+    public UserController(PasswordEncoder encoder, UserService userService, RoleService roleService,
+                          SubscriptionTypeService subscriptionTypeService, StorageService imageStorageService,
+                          PasswordRecoveryService passwordRecoveryService, AuthService authService) {
         this.encoder = encoder;
         this.userService = userService;
         this.roleService = roleService;
@@ -171,9 +168,9 @@ public class UserController {
                 new SuccessMessage("Password changed successfully!"));
     }
 
-    @PreAuthorize("hasRole('MODERATOR')")
     @PostMapping("/assign-role/{id}")
-    private ResponseEntity<SuccessMessage> roleAssign(@PathVariable("id") Long id, @RequestBody AssignRoleRequest request) {
+    @PreAuthorize("hasRole('MODERATOR')")
+    public ResponseEntity<SuccessMessage> roleAssign(@PathVariable("id") Long id, @RequestBody AssignRoleRequest request) {
         userService.roleAssign(id, request.getId());
         return ResponseEntity.ok(
                 new SuccessMessage("Role assigned successfully!"));

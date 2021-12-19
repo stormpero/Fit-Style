@@ -28,7 +28,7 @@ public class FitUserService implements UserService {
     @Autowired
     public FitUserService(final FitUserRepository fitUserRepository,
                           final RefreshTokenRepository refreshTokenRepository,
-                          RoleRepository roleRepository) {
+                          final RoleRepository roleRepository) {
         this.fitUserRepository = fitUserRepository;
         this.refreshTokenRepository = refreshTokenRepository;
         this.roleRepository = roleRepository;
