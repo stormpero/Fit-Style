@@ -3,10 +3,13 @@ package ru.project.fitstyle.json.response;
 import java.util.List;
 
 public class AllTrainingTypesResponse {
-    private final List<TrainingTypeDto> trainingNames;
+    private List<TrainingTypeDto> trainingNames;
 
     public AllTrainingTypesResponse(List<TrainingTypeDto> trainingNames) {
         this.trainingNames = trainingNames;
+    }
+
+    public AllTrainingTypesResponse() {
     }
 
     public List<TrainingTypeDto> getTrainingNames() {
@@ -14,18 +17,17 @@ public class AllTrainingTypesResponse {
     }
 
 
-
-
-
-
     public static class TrainingTypeDto {
-        private final Long id;
+        private Long id;
 
-        private final String name;
+        private String name;
 
         public TrainingTypeDto(final Long id, final String name) {
             this.id = id;
             this.name = name;
+        }
+
+        public TrainingTypeDto() {
         }
 
         public Long getId() {

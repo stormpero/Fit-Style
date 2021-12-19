@@ -3,7 +3,7 @@ package ru.project.fitstyle.json.response;
 import java.util.List;
 
 public class AllRolesResponse {
-    private final List<RoleDto> roles;
+    private List<RoleDto> roles;
 
     public AllRolesResponse(List<RoleDto> roles) {
         this.roles = roles;
@@ -13,16 +13,21 @@ public class AllRolesResponse {
         return roles;
     }
 
+    public AllRolesResponse() {
+    }
 
 
     public static class RoleDto {
-        private final Long id;
+        private Long id;
 
-        private final String name;
+        private String name;
 
         public RoleDto(final Long id, final String name) {
             this.id = id;
             this.name = name;
+        }
+
+        public RoleDto() {
         }
 
         public Long getId() {

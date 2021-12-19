@@ -4,10 +4,13 @@ import java.util.Date;
 import java.util.List;
 
 public class AllUsersResponse {
-    private final List<FitUserFullInfoDto> fitUsers;
+    private List<FitUserFullInfoDto> fitUsers;
 
     public AllUsersResponse(List<FitUserFullInfoDto> fitUsers) {
         this.fitUsers = fitUsers;
+    }
+
+    public AllUsersResponse() {
     }
 
     public List<FitUserFullInfoDto> getFitUsers() {
@@ -15,21 +18,20 @@ public class AllUsersResponse {
     }
 
 
-
-
-
-
     public static class FitUserFullInfoDto {
-        private final FitUserDto fitUserInfo;
+        private FitUserDto fitUserInfo;
 
-        private final SubscriptionDto subscriptionInfo;
+        private SubscriptionDto subscriptionInfo;
 
-        private final List<RoleDto> roles;
+        private List<RoleDto> roles;
 
         public FitUserFullInfoDto(FitUserDto fitUserInfo, SubscriptionDto subscriptionInfo, List<RoleDto> roles) {
             this.fitUserInfo = fitUserInfo;
             this.subscriptionInfo = subscriptionInfo;
             this.roles = roles;
+        }
+
+        public FitUserFullInfoDto() {
         }
 
         public FitUserDto getFitUserInfo() {

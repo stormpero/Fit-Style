@@ -3,10 +3,13 @@ package ru.project.fitstyle.json.response;
 import java.util.List;
 
 public class AllSubscriptionTypeResponse {
-    private final List<SubscriptionTypeDto> subscriptionTypes;
+    private List<SubscriptionTypeDto> subscriptionTypes;
 
     public AllSubscriptionTypeResponse(List<SubscriptionTypeDto> subscriptionTypes) {
         this.subscriptionTypes = subscriptionTypes;
+    }
+
+    public AllSubscriptionTypeResponse() {
     }
 
     public List<SubscriptionTypeDto> getSubscriptionTypes() {
@@ -14,18 +17,16 @@ public class AllSubscriptionTypeResponse {
     }
 
 
-
-
     public static class SubscriptionTypeDto {
-        private final Long id;
+        private Long id;
 
-        private final String name;
+        private String name;
 
-        private final int validityMonths;
+        private int validityMonths;
 
-        private final String placementTime;
+        private String placementTime;
 
-        private final String cost;
+        private String cost;
 
         public SubscriptionTypeDto(final Long id, final String name, final int validityMonths, final String placementTime, final String cost) {
             this.id = id;
@@ -33,6 +34,9 @@ public class AllSubscriptionTypeResponse {
             this.validityMonths = validityMonths;
             this.placementTime = placementTime;
             this.cost = cost;
+        }
+
+        public SubscriptionTypeDto() {
         }
 
         public Long getId() {
