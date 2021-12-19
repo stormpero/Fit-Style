@@ -10,6 +10,14 @@ public class AddSubscriptionTypeRequest {
 
     private String cost;
 
+    public AddSubscriptionTypeRequest(String name, int validityMonths, String placementTime,String cost) {
+      this.name= name;
+      this.validityMonths = validityMonths;
+      this.placementTime = placementTime;
+      this.cost = cost;
+
+    }
+
     public String getName() {
         return name;
     }
