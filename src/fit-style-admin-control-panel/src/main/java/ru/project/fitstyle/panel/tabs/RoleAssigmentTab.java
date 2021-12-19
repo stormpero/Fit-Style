@@ -7,6 +7,7 @@ import ru.project.fitstyle.json.post.AssignRoleRequest;
 import ru.project.fitstyle.json.response.AllRolesResponse;
 import ru.project.fitstyle.json.response.AllUsersResponse;
 import ru.project.fitstyle.panel.CustomJPanel;
+import ru.project.fitstyle.panel.MultiLineTableCellRenderer;
 import ru.project.fitstyle.service.connection.ConnectionBuilder;
 import ru.project.fitstyle.service.connection.ConnectionService;
 import ru.project.fitstyle.service.connection.ConnectionType;
@@ -40,15 +41,24 @@ public class RoleAssigmentTab extends CustomJPanel {
     }
 
     public RoleAssigmentTab() {
-        setLayout(new GridLayout(3, 3));
+        setLayout(new BorderLayout());
 
         modelRoles = new DefaultTableModel(new String[][]{}, new String[] {"Идентификатор", "Имя роли"});
-        modelUsers = new DefaultTableModel(new String[][]{}, new String[] {"Идентификатор", "ФИО", "Роли"});
+        modelUsers = new DefaultTableModel(new String[][]{}, new String[] {"Идентификатор", "ФИО", "Роли"}){
+            @Override
+            public Class<String> getColumnClass(int columnIndex) {
+                return String.class;
+            }
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };;
 
         JTable tableRoles = new JTable(modelRoles) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return true;
+                return false;
             }
         };
 
@@ -59,13 +69,10 @@ public class RoleAssigmentTab extends CustomJPanel {
             }
         };
 
-        JScrollPane scrollPaneTableUsers = new JScrollPane(tableUsers);
-        scrollPaneTableUsers.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        tableUsers.setDefaultRenderer(String.class, new MultiLineTableCellRenderer());
 
-        add(new JScrollPane(tableRoles));
-        add(scrollPaneTableUsers);
 
-        JPanel panel = new JPanel(new GridLayout(3, 1));
+        JPanel panel = new JPanel(new GridLayout(2, 1));
 
         JLabel nameLabel = new JLabel();
         nameLabel.setText("Идентификатор пользователя:");
@@ -77,19 +84,32 @@ public class RoleAssigmentTab extends CustomJPanel {
 
         JButton submit = new JButton("Добавить");
 
-        panel.add(nameLabel);
-        panel.add(userText);
-        panel.add(roleIdLabel);
-        panel.add(roleText);
-
         JLabel message = new JLabel();
         message.setHorizontalAlignment(SwingConstants.CENTER);
         message.setVerticalAlignment(SwingConstants.CENTER);
+
+
+//        panel.add(nameLabel);
+//        panel.add(userText);
+//        panel.add(roleIdLabel);
+//        panel.add(roleText);
         panel.add(message);
+        message.setText("");
         panel.add(submit);
 
+        JScrollPane scrollPaneTableUsers = new JScrollPane(tableUsers);
+        scrollPaneTableUsers.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
+        JPanel tablePane = new JPanel(new GridLayout(1,2));
+
+        tablePane.add(scrollPaneTableUsers);
+        tablePane.add(new JScrollPane(tableRoles));
+
+        add(tablePane);
+
+
         submit.addActionListener(e -> submitButtonPressed(userText, roleText, message));
-        add(panel);
+        add(panel, BorderLayout.SOUTH);
     }
 
     private void updatePanel(AllRolesResponse allRolesResponse, AllUsersResponse allUsersResponse) {
@@ -121,14 +141,26 @@ public class RoleAssigmentTab extends CustomJPanel {
     }
 
     private String getMainRole(List<AllUsersResponse.FitUserFullInfoDto.RoleDto> roleList) {
-        String roleName = roleList.get(roleList.size() - 1).getName();
-        if (roleName.contains("ROLE_MODERATOR"))
-            return "Администратор";
-        if (roleName.contains("ROLE_COACH"))
-            return "Тренер";
-        if (roleName.contains("ROLE_USER"))
-            return "Пользователь";
-        return "";
+        StringBuilder result = new StringBuilder();
+        for(AllUsersResponse.FitUserFullInfoDto.RoleDto roleDto : roleList) {
+            String name;
+            switch(roleDto.getName()) {
+                case "ROLE_USER" :
+                    name = "Пользователь";
+                    break;
+                case "ROLE_COACH" :
+                    name = "Тренер";
+                    break;
+                case "ROLE_MODERATOR":
+                    name = "Администратор";
+                    break;
+                default:
+                    name = roleDto.getName();
+                    break;
+            }
+            result.append(name).append('\n');
+        }
+        return result.toString();
     }
 
     private void submitButtonPressed(JTextField userText, JTextField roleText, JLabel message) {
