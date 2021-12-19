@@ -54,6 +54,7 @@ public class TrainingTypeTab extends CustomJPanel {
 
                 message.setForeground(new Color(0, 107, 14));
                 message.setText("Добавлено!");
+                trainingName.setText("");
 
                 Timer timer = new Timer(2000, arg0 -> message.setText(""));
                 timer.setRepeats(false);
