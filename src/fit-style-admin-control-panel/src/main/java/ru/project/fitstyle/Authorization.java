@@ -78,9 +78,9 @@ public class Authorization {
         jFrame.add(panel, BorderLayout.CENTER);
 
         // Adding the listeners to components..
-        submit.addActionListener(listener -> {
-            String email = emailText.getText();
-            String password = passwordText.getText();
+
+            String email = "AdminProfile@gmail.com";
+            String password = "AdminProfile";
             SignInRequest signInRequest = new SignInRequest(email, password);
             String jsonInputString;
             try {
@@ -116,6 +116,6 @@ public class Authorization {
                 message.setForeground(Color.RED);
                 message.setText("Не удалось войти...");
             }
-        });
+
     }
 }

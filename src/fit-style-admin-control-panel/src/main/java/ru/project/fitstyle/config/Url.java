@@ -8,7 +8,7 @@ public enum Url {
     ROLE_ADD("/permission/role"),
     ALL_ROLES("/permission/all-roles"),
 
-    ROLE_ASSIGN("/users/assign-role/"),
+    ROLE_ASSIGN("/users/assign-role"),
     ALL_USERS("/users/all"),
 
     SUBSCRIPTION_TYPE_ADD("/subscription-type"),

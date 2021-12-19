@@ -51,9 +51,12 @@ public class AllUsersResponse {
 
 
         public static class RoleDto {
-            private final Long id;
+            private Long id;
 
-            private final String name;
+            private String name;
+
+            public RoleDto() {
+            }
 
             public RoleDto(final Long id, final String name) {
                 this.id = id;
@@ -73,39 +76,41 @@ public class AllUsersResponse {
 
 
         public static class FitUserDto {
-            private final Long id;
 
-            private final String email;
+            private Long id;
 
+            private String email;
 
-            private final String name;
+            private String name;
 
-            private final String surname;
+            private String surname;
 
-            private final String patronymic;
+            private String patronymic;
 
+            private String age;
 
-            private final String age;
+            private String gender;
 
-            private final String gender;
+            private Date birthdate;
 
-            private final Date birthdate;
+            private String telephone;
 
-            private final String telephone;
+            private String passport;
 
-            private final String passport;
+            private String address;
 
-            private final String address;
+            private String imgURL;
 
-            private final String imgURL;
+            private Long balance;
 
-            private final Long balance;
+            private Boolean enabled;
 
-            private final Boolean isEnabled;
+            public FitUserDto() {
+            }
 
             public FitUserDto(final Long id, final String email, final String name, final String surname, final String patronymic,
                               final String age, final String gender, final Date birthdate, final String telephone, final String passport, final String address,
-                              final String imgURL, final Long balance, final Boolean isEnabled) {
+                              final String imgURL, final Long balance, final Boolean enabled) {
                 this.id = id;
                 this.email = email;
                 this.name = name;
@@ -119,8 +124,9 @@ public class AllUsersResponse {
                 this.address = address;
                 this.imgURL = imgURL;
                 this.balance = balance;
-                this.isEnabled = isEnabled;
+                this.enabled = enabled;
             }
+
 
             public Long getId() {
                 return id;
@@ -175,7 +181,7 @@ public class AllUsersResponse {
             }
 
             public Boolean getEnabled() {
-                return isEnabled;
+                return enabled;
             }
         }
 
@@ -183,9 +189,12 @@ public class AllUsersResponse {
 
 
         public static class SubscriptionDto {
-            private final String name;
+            private String name;
 
-            private final Date endDate;
+            private Date endDate;
+
+            public SubscriptionDto() {
+            }
 
             public SubscriptionDto(final String name, final Date endDate) {
                 this.name = name;
@@ -198,6 +207,14 @@ public class AllUsersResponse {
 
             public Date getEndDate() {
                 return endDate;
+            }
+
+            public void setName(String name) {
+                this.name = name;
+            }
+
+            public void setEndDate(Date endDate) {
+                this.endDate = endDate;
             }
         }
     }

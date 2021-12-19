@@ -171,9 +171,12 @@ public class UserController {
                 new SuccessMessage("Password changed successfully!"));
     }
 
-    @PostMapping("/assign-role/{id}")
-    private ResponseEntity<SuccessMessage> roleAssign(@PathVariable("id") Long id, @RequestBody AssignRoleRequest request) {
-        userService.roleAssign(id, request.getId());
+    @PostMapping("/assign-role")
+    private ResponseEntity<SuccessMessage> roleAssign(@RequestBody AssignRoleRequest request) {
+        System.out.println(request.getUserId());
+        System.out.println(request.getRoleId());
+        System.out.println(roleService);
+        userService.roleAssign(request.getUserId(), request.getRoleId());
         return ResponseEntity.ok(
                 new SuccessMessage("Role assigned successfully!"));
     }
