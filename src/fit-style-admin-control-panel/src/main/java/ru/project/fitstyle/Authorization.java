@@ -5,10 +5,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import ru.project.fitstyle.config.Url;
 import ru.project.fitstyle.exception.NotAnAdministratorException;
 import ru.project.fitstyle.json.post.SignInRequest;
-import ru.project.fitstyle.json.response.UserInfoResponse;
+import ru.project.fitstyle.json.response.UserAuthInfoResponse;
 import ru.project.fitstyle.service.AuthInfoService;
 import ru.project.fitstyle.service.connection.ConnectionBuilder;
 import ru.project.fitstyle.service.connection.ConnectionService;
+import ru.project.fitstyle.service.connection.ConnectionType;
 
 import java.awt.*;
 import java.net.HttpURLConnection;
@@ -25,7 +26,7 @@ public class Authorization {
         new Authorization().createWindow();
     }
 
-    private void createWindow() {
+    public void createWindow() {
         JFrame frame = new JFrame("Авторизация");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
@@ -40,8 +41,6 @@ public class Authorization {
     }
 
     private void createUI(final JFrame jFrame) {
-        jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
         ImageIcon icon = new ImageIcon(Objects.requireNonNull(ClassLoader.getSystemResource("icon.png")));
         jFrame.setIconImage(icon.getImage());
 
@@ -85,11 +84,11 @@ public class Authorization {
 
                 ConnectionBuilder connectionBuilder = new ConnectionBuilder();
                 HttpURLConnection con = connectionBuilder.prepareRequestWithoutAuthHeader(Url.AUTH.getUrl());
-                con = connectionBuilder.preparePostRequest(con);
+                con = connectionBuilder.prepareRequest(con, ConnectionType.POST);
                 String response = connectionService.sendPost(con, jsonInputString);
 
                 //Convert json string to object
-                UserInfoResponse userInfo = new ObjectMapper().readValue(response, UserInfoResponse.class);
+                UserAuthInfoResponse userInfo = new ObjectMapper().readValue(response, UserAuthInfoResponse.class);
 
                 //Find out if authenticated user is moderator
                 userInfo.getRoles().stream().filter(role -> role.equals("ROLE_MODERATOR")).findAny()

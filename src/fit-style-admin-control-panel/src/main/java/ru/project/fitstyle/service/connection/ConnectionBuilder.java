@@ -12,22 +12,9 @@ import java.net.URL;
 
 public class ConnectionBuilder {
 
-    public HttpURLConnection prepareGetRequest(HttpURLConnection con) {
+    public HttpURLConnection prepareRequest(HttpURLConnection con, ConnectionType type) {
         try {
-            con.setRequestMethod("GET");
-            con.setRequestProperty("Content-Type", "application/json; utf-8");
-            con.setRequestProperty("Accept", "application/json");
-            con.setDoOutput(true);
-            return con;
-        } catch (ProtocolException e) {
-            e.printStackTrace();
-            throw new ConnectionException("Something goes wrong!");
-        }
-    }
-
-    public HttpURLConnection preparePostRequest(HttpURLConnection con) {
-        try {
-            con.setRequestMethod("POST");
+            con.setRequestMethod(type.toString());
             con.setRequestProperty("Content-Type", "application/json; utf-8");
             con.setRequestProperty("Accept", "application/json");
             con.setDoOutput(true);

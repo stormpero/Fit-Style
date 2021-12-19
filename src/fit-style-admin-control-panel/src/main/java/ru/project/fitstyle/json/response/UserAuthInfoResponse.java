@@ -2,20 +2,20 @@ package ru.project.fitstyle.json.response;
 
 import java.util.List;
 
-public class UserInfoResponse {
+public class UserAuthInfoResponse {
     private Long id;
     private String email;
     private String token;
     private List<String> roles;
 
-    public UserInfoResponse(Long id, String email, String token, List<String> roles) {
+    public UserAuthInfoResponse(Long id, String email, String token, List<String> roles) {
         this.id = id;
         this.email = email;
         this.token = token;
         this.roles = roles;
     }
 
-    public UserInfoResponse() {
+    public UserAuthInfoResponse() {
     }
 
     public Long getId() {

@@ -1,2 +1,2 @@
 cd target
-java -jar fit-style-admin-control-panel-1.0-SNAPSHOT.jar
+java -jar fit-style-admin-control-panel-1.0-SNAPSHOT-jar-with-dependencies.jar
