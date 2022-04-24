@@ -13,7 +13,7 @@ import {TOP_RIGHT} from "../../config/consts/ToastPosition";
 import {Payment} from "./Payment";
 import Validation from "../../services/validation/Validation";
 
-export const PaymentContainer = ({setReload, setActive}) => {
+export const PaymentContainer = ({setUserInfo, setActive}) => {
     const [cardNumber, setCardNumber] = useState("");
     const [cardName, setCardName] = useState("");
     const [cardExpiry, setCardExpiry] = useState("");
@@ -53,7 +53,11 @@ export const PaymentContainer = ({setReload, setActive}) => {
 
         ProfileApi.addBalance(balance).then(
             response => {
-                setReload(prev => !prev);
+                setUserInfo(prev => {
+                    const newUserInfo = {...prev};
+                    newUserInfo.fitUserInfo.balance += +balance;
+                    return newUserInfo;
+                });
                 ToastMessages.success("Баланс пополнен на " + ProfileService.declinationRuble(balance), TOP_RIGHT);
             },
             error => {

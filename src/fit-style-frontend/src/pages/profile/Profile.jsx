@@ -9,7 +9,7 @@ const Profile = ({userInfo, img, setModalActive}) => {
         <div className="container profile-info center-block">
             <div className="d-flex justify-content-between">
                 <div className="left-image d-flex flex-column">
-                    <img className="picture-profile" src={img ? img : ProfilePicture} alt={userInfo.name + " photo"}/>
+                    <img className="picture-profile" src={img ?? ProfilePicture} alt={userInfo.name + " photo"}/>
                 </div>
                 <div className="right-info d-flex justify-content-between">
                     <div className="first-column">
