@@ -34,50 +34,35 @@ export const UsersContainer = (props) => {
             if (value?.fitUserInfo?.imgURL === null) {
                 value.img = null;
                 continue;
-            } //
+            }
 
             try {
                 let response = await UserApi.getUserImg(value?.fitUserInfo.id);
                 let imageData = response.data;
-                value.img = imageData ? URL.createObjectURL(imageData) : null
+                value.img = imageData ? URL.createObjectURL(imageData) : null;
             } catch (error) {}
         }
         return fitUsersTemp;
     }
 
-    const disableUser = (event) => {
+    const setUserStatus = (event , status) => {
         const {id} = event.target;
-        UserApi.disableUser(+id).then(
+        let promise = status ? UserApi.enableUser(+id) : UserApi.disableUser(+id);
+        promise.then(
             response => {
-                ToastMessages.success("Пользователь удалён!");
+                const enabled = response.data.message === "User enabled successfully!";
+                ToastMessages.success(enabled ? "Пользователь удалён!" : "Пользователь восстановлен!");
                 const tempUsers = [...userList];
-                tempUsers[id - 1].fitUserInfo.enabled = false;
+                tempUsers[id - 1].fitUserInfo.enabled = enabled;
                 setUserList(tempUsers);
             },
             error => {
                 console.log(error.response);
                 ToastMessages.defaultError();
-            }
-        )
-    }
-
-    const enableUser = (event) => {
-        const {id} = event.target;
-        UserApi.enableUser(+id).then(
-            response => {
-                ToastMessages.success("Пользователь восстановлен!");
-                const tempUsers = [...userList];
-                tempUsers[id - 1].fitUserInfo.enabled = true;
-                setUserList(tempUsers);
-            },
-            error => {
-                console.log(error.response);
-                ToastMessages.defaultError();
-            }
-        )
+            });
     }
 
     return (
-        <Users userList={userList} disableUser={disableUser} enableUser={enableUser} />
+        <Users userList={userList} setUserStatus = {setUserStatus} />
     );
 }

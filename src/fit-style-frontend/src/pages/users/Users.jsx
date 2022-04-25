@@ -2,7 +2,7 @@ import React from 'react';
 import ProfileService from "../../services/profile/ProfileService";
 import LStorageUser from "../../services/localstorage/LStorageUser";
 import defaultProfile from "./../../assets/default-profile-picture.jpg"
-export const Users = ({userList, disableUser , enableUser}) => {
+export const Users = ({userList, setUserStatus}) => {
     return (
         <div className="container">
             <div className="row">
@@ -39,9 +39,9 @@ export const Users = ({userList, disableUser , enableUser}) => {
                                         </td>
                                         <td className="buttons">
                                             {LStorageUser.getId() !== Number(fitUserInfo.id) ? fitUserInfo.enabled ?
-                                                    <button type="button" className="btn btn-danger button-block" onClick={disableUser} id={fitUserInfo.id}>Удалить</button>
+                                                    <button type="button" className="btn btn-danger button-block" onClick={(e) => setUserStatus(e,false)} id={fitUserInfo.id}>Удалить</button>
                                                 :
-                                                <button type="button" className="btn btn-success button-block" onClick={enableUser} id={fitUserInfo.id}>Восстановить</button>
+                                                <button type="button" className="btn btn-success button-block" onClick={(e) => setUserStatus(e,true)} id={fitUserInfo.id}>Восстановить</button>
                                                 :
                                                 <button type="button" className="btn btn-primary" disabled={true}>Текущий пользователь</button>
                                             }
