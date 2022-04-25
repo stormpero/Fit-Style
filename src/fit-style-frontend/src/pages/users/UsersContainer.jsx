@@ -6,7 +6,6 @@ import "./Users.css"
 
 export const UsersContainer = (props) => {
     const [userList, setUserList] = useState([]);
-    const [reload, setReload] = useState(false);
 
     useEffect(() => {
         UserApi.getAllUsers().then(
@@ -28,14 +27,14 @@ export const UsersContainer = (props) => {
                 ToastMessages.defaultError();
             }
         )
-    }, [reload])
+    }, [])
 
     const getUserImages = async (fitUsersTemp) => {
         for (const value of fitUsersTemp) {
             if (value?.fitUserInfo?.imgURL === null) {
                 value.img = null;
                 continue;
-            }
+            } //
 
             try {
                 let response = await UserApi.getUserImg(value?.fitUserInfo.id);
@@ -48,10 +47,12 @@ export const UsersContainer = (props) => {
 
     const disableUser = (event) => {
         const {id} = event.target;
-        UserApi.disableUser(Number(id)).then(
+        UserApi.disableUser(+id).then(
             response => {
                 ToastMessages.success("Пользователь удалён!");
-                setReload(prev => !prev);
+                const tempUsers = [...userList];
+                tempUsers[id - 1].fitUserInfo.enabled = false;
+                setUserList(tempUsers);
             },
             error => {
                 console.log(error.response);
@@ -62,10 +63,12 @@ export const UsersContainer = (props) => {
 
     const enableUser = (event) => {
         const {id} = event.target;
-        UserApi.enableUser(Number(id)).then(
+        UserApi.enableUser(+id).then(
             response => {
                 ToastMessages.success("Пользователь восстановлен!");
-                setReload(prev => !prev);
+                const tempUsers = [...userList];
+                tempUsers[id - 1].fitUserInfo.enabled = true;
+                setUserList(tempUsers);
             },
             error => {
                 console.log(error.response);
@@ -75,6 +78,6 @@ export const UsersContainer = (props) => {
     }
 
     return (
-        <Users userList={userList} disableUser={disableUser} enableUser={enableUser} setReload={setReload}/>
+        <Users userList={userList} disableUser={disableUser} enableUser={enableUser} />
     );
 }

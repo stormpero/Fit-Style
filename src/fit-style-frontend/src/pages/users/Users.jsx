@@ -2,7 +2,7 @@ import React from 'react';
 import ProfileService from "../../services/profile/ProfileService";
 import LStorageUser from "../../services/localstorage/LStorageUser";
 import defaultProfile from "./../../assets/default-profile-picture.jpg"
-export const Users = ({userList, disableUser , enableUser , setReload}) => {
+export const Users = ({userList, disableUser , enableUser}) => {
     return (
         <div className="container">
             <div className="row">
