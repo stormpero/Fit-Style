@@ -1,7 +1,7 @@
 class LStorageUser {
     constructor() {
         this.user = JSON.parse(localStorage.getItem('user'));
-        this.exist =  !!(this.user);
+        this.exist = !!(this.user);
     }
 
     getUser() {

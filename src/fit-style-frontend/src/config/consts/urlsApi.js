@@ -21,7 +21,7 @@ export const URL_PROFILE_IMG = "get-image/user";
 // PERMISSIONS //
 export const URL_ROLES = "permission/roles";
 // NEWS //
-export const URL_ADD_NEWS = "news";
+export const URL_ADD_NEWS = "news/";
 // SCHEDULE //
 export const URL_TRAINING = "training/user";
 export const URL_COACHES = "coach";

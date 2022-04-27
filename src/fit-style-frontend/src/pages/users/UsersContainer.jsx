@@ -3,30 +3,26 @@ import {Users} from "./Users";
 import UserApi from "../../services/api/UserApi";
 import ToastMessages from "../../components/toastmessages/ToastMessages";
 import "./Users.css"
+import {users} from "../../packages/api/index"
+
 
 export const UsersContainer = (props) => {
     const [userList, setUserList] = useState([]);
 
     useEffect(() => {
-        UserApi.getAllUsers().then(
-            response => {
-                let fitUsersTemp = response.data?.fitUsers;
-                fitUsersTemp = fitUsersTemp.map(value => {
-                    value.fitUserInfo.id = ('000000' + value?.fitUserInfo.id).slice(Math.log(Number(value?.fitUserInfo.id)) * Math.LOG10E + 1 | 0)
-                    value.roles = value?.roles.map(value => value.name);
-                    return value;
-                });
-
-                getUserImages(fitUsersTemp).then(
-                    response => {
-                        setUserList(response);
-                    }
-                );
-            },
-            error => {
-                ToastMessages.defaultError();
-            }
-        )
+      users.getAllUsers()
+        .then(response => {
+          let fitUsersTemp = response.data?.fitUsers;
+          fitUsersTemp = fitUsersTemp.map(value => {
+            value.fitUserInfo.id = ('000000' + value?.fitUserInfo.id).slice(Math.log(Number(value?.fitUserInfo.id)) * Math.LOG10E + 1 | 0)
+            value.roles = value?.roles.map(value => value.name);
+            return value;
+          });
+          getUserImages(fitUsersTemp).then(response=>setUserList(response));
+        })
+        .catch(error => {
+          ToastMessages.defaultError();
+        });
     }, [])
 
     const getUserImages = async (fitUsersTemp) => {
@@ -35,7 +31,6 @@ export const UsersContainer = (props) => {
                 value.img = null;
                 continue;
             }
-
             try {
                 let response = await UserApi.getUserImg(value?.fitUserInfo.id);
                 let imageData = response.data;
