@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {Users} from "./Users";
-import UserApi from "../../services/api/UserApi";
 import ToastMessages from "../../components/toastmessages/ToastMessages";
 import "./Users.css"
 import {users} from "../../packages/api/index"
@@ -32,7 +31,7 @@ export const UsersContainer = (props) => {
                 continue;
             }
             try {
-                let response = await UserApi.getUserImg(value?.fitUserInfo.id);
+                let response = await users.getUserImg(value?.fitUserInfo.id);
                 let imageData = response.data;
                 value.img = imageData ? URL.createObjectURL(imageData) : null;
             } catch (error) {}
@@ -42,7 +41,7 @@ export const UsersContainer = (props) => {
 
     const setUserStatus = (event , status) => {
         const {id} = event.target;
-        let promise = status ? UserApi.enableUser(+id) : UserApi.disableUser(+id);
+        let promise = status ? users.enableUser(+id) : users.disableUser(+id);
         promise.then(
             response => {
                 const enabled = response.data.message === "User enabled successfully!";
