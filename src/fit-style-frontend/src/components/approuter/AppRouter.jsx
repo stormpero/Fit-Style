@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {Switch, Route} from "react-router-dom";
+import React from 'react';
+import {Switch, Route, BrowserRouter} from "react-router-dom";
 
 import {NavbarContainer} from "../navbar/NavbarContainer";
 import {LoginContainer} from "../../pages/login/LoginContainer";
@@ -7,43 +7,30 @@ import {LoginContainer} from "../../pages/login/LoginContainer";
 import {routes} from "../../pages/routes/routes";
 import {URL_LOGIN} from "../../config/consts/urlsPages";
 
-import LStorageUser from "../../services/localstorage/LStorageUser";
-import UserService from "../../services/api/UserApi";
 import {Background} from "../background/Background";
+import {useAuth} from "../../packages/auth/useAuth";
+
 
 const AppRouter = () => {
-    const [isAuth, setIsAuth] = useState(false);
-    const [roles, setRoles] = useState([]);
-    const [isLoad, setIsLoad] = useState(false)
-
-    useEffect( () => {
-        setIsAuth(LStorageUser.isExist())
-        if (isAuth) {
-            UserService.getRoles()
-            .then(roles => {
-                setRoles(roles.data?.roles.map(res => res.name));
-            }).finally(() => setIsLoad(true));
-        }
-
-    }, [isAuth])
+    const {isAuth, roles} = useAuth();
 
     return (
-        <div>
+      <BrowserRouter>
             {isAuth &&
                 <div>
                     <Background/>
-                    <NavbarContainer setIsAuth={setIsAuth}/>
+                    <NavbarContainer/>
                 </div>
-             }
+            }
             <Switch>
-                {isAuth && isLoad && routes.map(({path, Component, reqRole}) =>
-                        !!(roles.indexOf(reqRole) + 1) ? <Route key={path} path={path} component={Component}/> : null
-                )}
-                {!isAuth && <Route path={[URL_LOGIN, '/']} render={ props =>
-                    <LoginContainer setIsAuth={setIsAuth} {...props}/>}/>
+                {isAuth
+                  ? routes.map(({path, Component, reqRole}) =>
+                        !!(roles.indexOf(reqRole) + 1) ? <Route key={path} path={path} component={Component}/> : null)
+                  :
+                  <Route path={[URL_LOGIN, '/']} render={ props => <LoginContainer {...props}/>}/>
                 }
             </Switch>
-        </div>
+        </BrowserRouter>
     );
 };
 

@@ -4,16 +4,16 @@ import DateFormat from "../../utils/DateConvert";
 import ArrayHelper from "../../utils/ArrayConvert";
 import Modal from "../../components/modal/Modal";
 import NewsFormContainer from "./form/NewsFormContainer";
-import NewsService from "../../services/api/NewsApi";
 import "./NewsBoard.css";
 import ToastMessages from "../../components/toastmessages/ToastMessages";
 import {TOP_RIGHT} from "../../config/consts/ToastPosition";
 import arrow from "../../assets/arrow.png";
-import PermissionService from "../../services/security/permission/PermissionService";
-import NewsApi from "../../services/api/NewsApi";
+import {useRole} from "../../customHooks/useRole";
+import {news} from "../../packages/api";
+
 
 export const NewsBoard = () => {
-    const isModer = PermissionService.hasRole("MODERATOR");
+    const isModer = useRole("MODERATOR");
     const [reload, setReload] = useState(false);
 
     const [modalActive, setModalActive] = useState(false);
@@ -26,7 +26,7 @@ export const NewsBoard = () => {
     const [, setIsLoadImages] = useState(false);
     useEffect(() => {
         setIsLoadImages(false);
-        NewsService.getNews(rowNum).then(
+        news.getNews(rowNum).then(
             response => {
                 let rowNewsData = response.data.news;
                 rowNewsData.map(value => value.dateTime = DateFormat.convertDataTimeToData(value.dateTime))
@@ -52,7 +52,7 @@ export const NewsBoard = () => {
     const getNewsImages = async (rowNewsData) => {
         for (const value of rowNewsData) {
             try {
-                let response = await NewsApi.getNewsImage(value.id);
+                let response = await news.getNewsImage(value.id);
                 let imageData = response.data;
                 value.img = imageData ? URL.createObjectURL(imageData) : null
             } catch (error) {}
@@ -68,7 +68,7 @@ export const NewsBoard = () => {
     }
 
     const deleteNews = (id) => {
-        NewsService.deleteNews(id).then(
+        news.deleteNews(id).then(
             response => {
                 updateNews();
                 ToastMessages.success("Новость удалена!", TOP_RIGHT);

@@ -1,13 +1,14 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {Users} from "./Users";
 import ToastMessages from "../../components/toastmessages/ToastMessages";
 import "./Users.css"
 import {users} from "../../packages/api/index"
+import {useAuth} from "../../packages/auth/useAuth";
 
 
 export const UsersContainer = (props) => {
     const [userList, setUserList] = useState([]);
-
+    const {user: {id}} = useAuth();
     useEffect(() => {
       users.getAllUsers()
         .then(response => {
@@ -17,14 +18,14 @@ export const UsersContainer = (props) => {
             value.roles = value?.roles.map(value => value.name);
             return value;
           });
-          getUserImages(fitUsersTemp).then(response=>setUserList(response));
+          getUserImages(fitUsersTemp).then(response => setUserList(response));
         })
         .catch(error => {
           ToastMessages.defaultError();
         });
     }, [])
 
-    const getUserImages = async (fitUsersTemp) => {
+    const getUserImages = useCallback(async (fitUsersTemp) => {
         for (const value of fitUsersTemp) {
             if (value?.fitUserInfo?.imgURL === null) {
                 value.img = null;
@@ -37,7 +38,7 @@ export const UsersContainer = (props) => {
             } catch (error) {}
         }
         return fitUsersTemp;
-    }
+    }, []);
 
     const setUserStatus = (event , status) => {
         const {id} = event.target;
@@ -57,6 +58,6 @@ export const UsersContainer = (props) => {
     }
 
     return (
-        <Users userList={userList} setUserStatus = {setUserStatus} />
+        <Users currentUserId={id} userList={userList} setUserStatus = {setUserStatus} />
     );
 }

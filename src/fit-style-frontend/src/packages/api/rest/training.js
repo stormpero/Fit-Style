@@ -86,4 +86,12 @@ export const signPersonalTraining = (id) => {
   })
 }
 
+export const addGroupTraining = (data) => {
+  return makeRequest({
+    url: URL_ADD_TRAINING_GROUP,
+    method: POST,
+    data,
+  })
+}
+
 

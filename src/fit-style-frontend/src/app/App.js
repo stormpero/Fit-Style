@@ -1,16 +1,16 @@
 import React from "react";
-import {BrowserRouter} from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
 import AppRouter from "../components/approuter/AppRouter";
+import {AuthProvider} from "../packages/auth/AuthProvider";
 
 const App = () => {
     return (
-        <BrowserRouter>
-            <AppRouter/>
-        </BrowserRouter>
+      <AuthProvider>
+        <AppRouter/>
+      </AuthProvider>
     )
 }
 

@@ -6,6 +6,7 @@ export const URL_REFRESHTOKEN = "auth/refresh-token"; //auth
 export const URL_AUTH = "auth/sign-in"; //auth
 export const URL_ASK_RECOVER_WITH_EMAIL = "users/ask-for-recover-with-email"; //auth
 export const URL_CONFIRM_RECOVERY = "users/confirm-recovery"; //auth
+export const URL_USERDATA = "auth/userdata"; //auth
 // REGISTER //
 export const URL_REGISTER = "users/add"; //register
 export const URL_SUBSCRIPTIONTYPE = "subscription-type"; //register
@@ -21,7 +22,7 @@ export const URL_PROFILE_IMG = "get-image/user"; //profile
 // PERMISSIONS //
 export const URL_ROLES = "permission/roles"; // permission
 // NEWS //
-export const URL_NEWS = "news"; //news
+export const URL_NEWS = "news/"; //news
 export const URL_NEWS_IMG = "get-image/news/" //news
 // SCHEDULE //
 export const URL_TRAINING = "training/user"; //training

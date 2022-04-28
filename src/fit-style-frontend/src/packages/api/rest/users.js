@@ -36,3 +36,4 @@ export const disableUser = (id) => {
     method: GET,
   })
 }
+

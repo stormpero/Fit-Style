@@ -1,17 +1,18 @@
 import React, {useEffect, useState} from 'react';
 import {CalendarView} from "./CalendarView";
 import ToastMessages from "../../components/toastmessages/ToastMessages";
-import ScheduleApi from "../../services/api/ScheduleApi";
 import TrainingService from "../../services/training/TrainingService";
-import PermissionService from "../../services/security/permission/PermissionService";
+import {useRole} from "../../customHooks/useRole";
+import {training} from "../../packages/api";
 
 export const CalendarContainer = () => {
-    const isCoach = PermissionService.hasRole("COACH");
+    const isCoach = useRole("COACH");
+
     const [trainingsList, setTrainingsList] = useState([]);
 
     useEffect(() => {
         if (isCoach) {
-            ScheduleApi.getOccupiedCoachTrainings().then(
+            training.getOccupiedCoachTrainings().then(
                 response => {
                     let trainingsListTemp = TrainingService.concatTrainings(response.data);
                     setTrainingsList(trainingsListTemp);
@@ -20,7 +21,7 @@ export const CalendarContainer = () => {
                     ToastMessages.defaultError();
                 });
         } else {
-            ScheduleApi.getTrainings().then(
+            training.getTrainings().then(
                 response => {
                     let trainingsListTemp = TrainingService.concatTrainings(response.data);
                     setTrainingsList(trainingsListTemp);

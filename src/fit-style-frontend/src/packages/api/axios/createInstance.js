@@ -1,9 +1,8 @@
 import axios from "axios";
 import {URL_ROOT} from "../constants/urls";
-import JwtService from "../../../services/jwt/JwtService";
 import {URL_AUTH, URL_REFRESHTOKEN} from "../../../config/consts/urlsApi";
 import {REFRESH_NOT_VALID} from "../../../config/consts/ErrorCode";
-import LStorageUser from "../../../services/localstorage/LStorageUser";
+import Jwt from "../../../services/jwt/Jwt";
 
 export const instance = axios.create({
   baseURL: URL_ROOT,
@@ -11,7 +10,7 @@ export const instance = axios.create({
 
 instance.interceptors.request.use(
   (config) => {
-    const accessToken = JwtService.getAccessToken();
+    const accessToken = Jwt.getToken();
     if (accessToken) {
       config.headers.Authorization = 'Bearer ' + accessToken;
     }
@@ -57,7 +56,7 @@ async function resetTokenAndReattemptRequest(error) {
         withCredentials: true
       })
       const {accessToken} = response.data;
-      JwtService.updateAccessToken(accessToken);
+      Jwt.setToken(accessToken);
       isAlreadyFetchingAccessToken = false;
       onAccessTokenFetched(accessToken);
     }
@@ -65,7 +64,7 @@ async function resetTokenAndReattemptRequest(error) {
   } catch (err) {
     console.log(err.response)
     if (err.response.data.errorCode === REFRESH_NOT_VALID) {
-      LStorageUser.remove();
+      Jwt.removeToken()
       window.location.reload();
     }
     return Promise.reject(err);

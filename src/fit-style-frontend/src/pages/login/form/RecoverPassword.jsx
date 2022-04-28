@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import UserApi from "../../../services/api/UserApi";
 import ToastMessages from "../../../components/toastmessages/ToastMessages";
 import isEmpty from "validator/es/lib/isEmpty";
 import {TOP_CENTER} from "../../../config/consts/ToastPosition";
 import {NOT_FOUND, WRONG_CODE} from "../../../config/consts/ErrorCode";
+import {auth} from "../../../packages/api";
 
 export const RecoverPassword = ({setActive}) => {
     const [isStepOne, setIsStepOne] = useState(true);
@@ -23,7 +23,7 @@ export const RecoverPassword = ({setActive}) => {
                 return
             }
             const {hide} = ToastMessages.loading("Отправка письма", { hideAfter: 0 });
-            UserApi.askForRecoverWithEmail({email}).then(
+            auth.askForRecoverWithEmail({email}).then(
                 response => {
                     hide();
                     ToastMessages.success("Письмо с восстановлением пароля отправлено Вам на почту!");
@@ -53,7 +53,7 @@ export const RecoverPassword = ({setActive}) => {
                 return;
             }
 
-            UserApi.confirmRecovery({code, password}).then(
+            auth.confirmRecovery({code, password}).then(
                 response => {
                     ToastMessages.success("Ваш пароль успешно изменён!");
                 },

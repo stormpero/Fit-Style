@@ -4,7 +4,8 @@ import {
   URL_AUTH,
   URL_ASK_RECOVER_WITH_EMAIL,
   URL_CONFIRM_RECOVERY,
-  URL_LOGOUT
+  URL_LOGOUT,
+  URL_USERDATA
 } from "../constants/urls";
 
 
@@ -40,4 +41,10 @@ export const logout = () => {
   });
 }
 
+export const getUserData = () =>{
+  return makeRequest({
+    url: URL_USERDATA,
+    method: GET,
+  })
+}
 //TODO: URL_REFRESHTOKEN

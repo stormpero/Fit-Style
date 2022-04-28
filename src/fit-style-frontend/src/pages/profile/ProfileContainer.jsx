@@ -3,7 +3,7 @@ import Profile from "./Profile";
 import Modal from "../../components/modal/Modal";
 import {PaymentContainer} from "../../components/paymentform/PaymentContainer";
 import DateFormat from "../../utils/DateConvert";
-import ProfileApi from "../../services/api/ProfileApi";
+import {profile} from "../../packages/api";
 
 export const ProfileContainer = () => {
     const [modalActive, setModalActive] = useState(false);
@@ -12,7 +12,7 @@ export const ProfileContainer = () => {
     const [isReady, setIsReady] = useState(false);
 
     useEffect(() => {
-        Promise.allSettled([ProfileApi.getProfileInfo(), ProfileApi.getProfileImg()]).then(
+        Promise.allSettled([profile.getProfileInfo(), profile.getProfileImg()]).then(
             response => {
                 const [userInfo, img] = response.map(element => element?.status === "fulfilled" ? element?.value.data : null);
                 userInfo.fitUserInfo.id = ("000000" + userInfo.fitUserInfo.id).slice(Math.log(Number(userInfo.fitUserInfo.id)) * Math.LOG10E + 1 | 0);

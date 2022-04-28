@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import NewsForm from "./NewsForm";
 import isEmpty from "validator/es/lib/isEmpty";
-import NewsService from "../../../services/api/NewsApi";
 import ToastMessages from "../../../components/toastmessages/ToastMessages";
 import {TOP_RIGHT} from "../../../config/consts/ToastPosition";
 import ImgConvert from "../../../utils/RequestCreate";
 import trim from "validator/es/lib/trim";
+import {news} from "../../../packages/api";
 
 class NewsFormContainer extends Component {
 
@@ -72,7 +72,7 @@ class NewsFormContainer extends Component {
         });
 
         const data = ImgConvert.createRequestData(this.state.newsData, this.state.newsData.imageData);
-        NewsService.addNews(data).then(
+        news.addNews(data).then(
             response => {
                 this.setState({
                     newsData: {

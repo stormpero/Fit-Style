@@ -1,8 +1,7 @@
 import React from 'react';
 import ProfileService from "../../services/profile/ProfileService";
-import LStorageUser from "../../services/localstorage/LStorageUser";
 import defaultProfile from "./../../assets/default-profile-picture.jpg"
-export const Users = ({userList, setUserStatus}) => {
+export const Users = ({currentUserId, userList, setUserStatus}) => {
     return (
         <div className="container">
             <div className="row">
@@ -38,10 +37,11 @@ export const Users = ({userList, setUserStatus}) => {
                                             <span className={ fitUserInfo.enabled ? "badge rounded-pill bg-success" : "badge rounded-pill bg-danger"}>{ fitUserInfo.enabled ? "Активен" : "Удалён"}</span>
                                         </td>
                                         <td className="buttons">
-                                            {LStorageUser.getId() !== Number(fitUserInfo.id) ? fitUserInfo.enabled ?
+                                            {currentUserId !== +fitUserInfo.id
+                                                ? fitUserInfo.enabled ?
                                                     <button type="button" className="btn btn-danger button-block" onClick={(e) => setUserStatus(e,false)} id={fitUserInfo.id}>Удалить</button>
-                                                :
-                                                <button type="button" className="btn btn-success button-block" onClick={(e) => setUserStatus(e,true)} id={fitUserInfo.id}>Восстановить</button>
+                                                    :
+                                                    <button type="button" className="btn btn-success button-block" onClick={(e) => setUserStatus(e,true)} id={fitUserInfo.id}>Восстановить</button>
                                                 :
                                                 <button type="button" className="btn btn-primary" disabled={true}>Текущий пользователь</button>
                                             }
