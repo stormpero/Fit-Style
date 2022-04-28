@@ -22,16 +22,17 @@ export const LoginContainer = () => {
     const handleLogin = (event) => {
         event.preventDefault();
 
-        const email = "AdminProfile@gmail.com";
-        const password = "AdminProfile"
-        login({email, password});
+        //TODO: DELETE  - - - <<< TESTING >>>
+        // const email = "AdminProfile@gmail.com";
+        // const password = "AdminProfile"
+        // login({email, password});
 
-        // if (isEmpty(email.value) || isEmpty(password.value)) {
-        //     const errorMsg = "Заполните поля";
-        //     ToastMessages.error(errorMsg, TOP_CENTER);
-        //     return;
-        // }
-        // login({email: email.value, password: password.value});
+        if (isEmpty(email.value) || isEmpty(password.value)) {
+            const errorMsg = "Заполните поля";
+            ToastMessages.error(errorMsg, TOP_CENTER);
+            return;
+        }
+        login({email: email.value, password: password.value});
     }
 
     return (
