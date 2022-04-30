@@ -5,16 +5,7 @@ export const Background = () => {
     return (
         <div>
             <ul className="circles">
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
+                {[...new Array(10)].map((el,i) => <li key={i}/>)}
             </ul>
         </div>
     );
