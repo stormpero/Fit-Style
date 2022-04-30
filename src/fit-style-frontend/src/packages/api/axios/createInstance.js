@@ -1,8 +1,8 @@
 import axios from "axios";
 import {URL_ROOT} from "../constants/urls";
-import {URL_AUTH, URL_REFRESHTOKEN} from "../../../config/consts/urlsApi";
+import {URL_AUTH, URL_REFRESHTOKEN} from "../constants/urls";
 import {REFRESH_NOT_VALID} from "../../../config/consts/ErrorCode";
-import Jwt from "../../../services/jwt/Jwt";
+import {token} from "../../storage";
 
 export const instance = axios.create({
   baseURL: URL_ROOT,
@@ -10,7 +10,7 @@ export const instance = axios.create({
 
 instance.interceptors.request.use(
   (config) => {
-    const accessToken = Jwt.getToken();
+    const accessToken = token.getToken();
     if (accessToken) {
       config.headers.Authorization = 'Bearer ' + accessToken;
     }
@@ -56,7 +56,7 @@ async function resetTokenAndReattemptRequest(error) {
         withCredentials: true
       })
       const {accessToken} = response.data;
-      Jwt.setToken(accessToken);
+      token.setToken(accessToken);
       isAlreadyFetchingAccessToken = false;
       onAccessTokenFetched(accessToken);
     }
@@ -64,7 +64,7 @@ async function resetTokenAndReattemptRequest(error) {
   } catch (err) {
     console.log(err.response)
     if (err.response.data.errorCode === REFRESH_NOT_VALID) {
-      Jwt.removeToken()
+      token.removeToken()
       window.location.reload();
     }
     return Promise.reject(err);

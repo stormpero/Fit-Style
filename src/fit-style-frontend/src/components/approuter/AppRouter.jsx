@@ -15,22 +15,22 @@ const AppRouter = () => {
     const {isAuth, roles} = useAuth();
 
     return (
-      <BrowserRouter>
-            {isAuth &&
-                <div>
-                    <Background/>
-                    <NavbarContainer/>
-                </div>
-            }
-            <Switch>
-                {isAuth
-                  ? routes.map(({path, Component, reqRole}) =>
-                        !!(roles.indexOf(reqRole) + 1) ? <Route key={path} path={path} component={Component}/> : null)
-                  :
-                  <Route path={[URL_LOGIN, '/']} render={ props => <LoginContainer {...props}/>}/>
-                }
-            </Switch>
-        </BrowserRouter>
+    <BrowserRouter>
+          {isAuth &&
+              <div>
+                  <Background/>
+                  <NavbarContainer/>
+              </div>
+          }
+          <Switch>
+              {isAuth
+                ? routes.map(({path, Component, reqRole}) =>
+                      !!(roles.indexOf(reqRole) + 1) ? <Route key={path} path={path} component={Component}/> : null)
+                :
+                <Route path={[URL_LOGIN, '/']} render={ props => <LoginContainer {...props}/>}/>
+              }
+          </Switch>
+      </BrowserRouter>
     );
 };
 
