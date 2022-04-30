@@ -3,7 +3,7 @@ import React, {useEffect, useState} from "react";
 import {auth} from "../api";
 import ToastMessages from "../../components/toastmessages/ToastMessages";
 import {TOP_RIGHT} from "../../config/consts/ToastPosition";
-import LStorage from "../../services/jwt/Jwt";
+import {token} from "../storage";
 
 export function AuthProvider({children}) {
   const [isAuth, setIsAuth] = useState(false);
@@ -11,15 +11,16 @@ export function AuthProvider({children}) {
   const [roles, setRoles] = useState([]);
 
   useEffect(() => {
-    if (LStorage.isTokenExists()) {
+    if (token.getToken()) {
        auth.getUserData()
         .then(response => {
           setUser(response.data);
           setRoles(response.data.roles);
+          setIsAuth(true);
         })
         .catch(error => {
           console.log(error.response);
-        }).finally(() => setIsAuth(true));
+        });
     }
   }, [])
 
@@ -29,7 +30,7 @@ export function AuthProvider({children}) {
           const userData = response.data;
           setUser(userData);
           setRoles(userData.roles)
-          LStorage.setToken(userData.token);
+          token.setToken(userData.token)
           setIsAuth(true);
           ToastMessages.success("Добро пожаловать!", TOP_RIGHT);
       })
@@ -52,7 +53,7 @@ export function AuthProvider({children}) {
         console.error(error)
         ToastMessages.defaultError();
       }).finally(() => {
-        LStorage.removeToken();
+        token.removeToken();
         setIsAuth(false);
       });
   }
