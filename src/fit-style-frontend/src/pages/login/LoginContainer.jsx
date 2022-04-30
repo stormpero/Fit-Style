@@ -7,13 +7,11 @@ import ToastMessages from "../../components/toastmessages/ToastMessages";
 import {TOP_CENTER} from "../../config/consts/ToastPosition";
 import Modal from "../../components/modal/Modal";
 import {RecoverPassword} from "./form/RecoverPassword";
-import {useHistory} from "react-router-dom";
 import {useInput} from "../../customHooks/useInput";
 import {useAuth} from "../../packages/auth/useAuth";
 
 
 export const LoginContainer = () => {
-    const history = useHistory();
     const [modalActive, setModalActive] = useState(false);
     const {login} = useAuth();
     const email = useInput("","Email","text")

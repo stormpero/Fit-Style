@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Users} from "./Users";
 import ToastMessages from "../../components/toastmessages/ToastMessages";
 import "./Users.css"
@@ -25,7 +25,7 @@ export const UsersContainer = (props) => {
         });
     }, [])
 
-    const getUserImages = useCallback(async (fitUsersTemp) => {
+    const getUserImages = async (fitUsersTemp) => {
         for (const value of fitUsersTemp) {
             if (value?.fitUserInfo?.imgURL === null) {
                 value.img = null;
@@ -38,7 +38,7 @@ export const UsersContainer = (props) => {
             } catch (error) {}
         }
         return fitUsersTemp;
-    }, []);
+    };
 
     const setUserStatus = (event , status) => {
         const {id} = event.target;
