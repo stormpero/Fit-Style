@@ -3,15 +3,19 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
-import AppRouter from "../components/approuter/AppRouter";
 import {AuthProvider} from "../packages/auth/AuthProvider";
+import {BrowserRouter as Router} from "react-router-dom";
+
+import AppRouter from "./AppRouter";
 
 const App = () => {
-    return (
-      <AuthProvider>
+  return (
+    <AuthProvider>
+      <Router>
         <AppRouter/>
-      </AuthProvider>
-    )
-}
+      </Router>
+    </AuthProvider>
+  );
+};
 
 export default App;
