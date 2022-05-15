@@ -29,7 +29,7 @@ export const getTrainings = () => {
   })
 }
 
-export const getCoachTrainings = (id) => {
+export const getCoachTrainings = (id = "") => {
   return makeRequest({
     url: URL_COACH_TRAININGS + id,
     method: GET,
