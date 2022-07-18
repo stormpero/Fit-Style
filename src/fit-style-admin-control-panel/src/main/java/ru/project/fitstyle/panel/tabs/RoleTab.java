@@ -49,7 +49,7 @@ public class RoleTab extends CustomJPanel {
                 con = connectionBuilder.prepareRequest(con, ConnectionType.POST);
 
 
-                String response = connectionService.send(con, jsonInputString);
+                connectionService.send(con, jsonInputString);
 
                 message.setForeground(new Color(0, 107, 14));
                 message.setText("Добавлено!");

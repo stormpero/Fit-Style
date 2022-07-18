@@ -40,6 +40,7 @@ public class MainWindow {
 
 
         tabs.addChangeListener(changeEvent -> {
+            System.out.println("called");
             try {
                 ((CustomJPanel)tabs.getSelectedComponent()).update();
             } catch (UnauthorizedException e) {

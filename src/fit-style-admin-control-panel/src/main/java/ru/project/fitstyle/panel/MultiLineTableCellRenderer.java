@@ -9,7 +9,7 @@ import java.util.List;
 
 public class MultiLineTableCellRenderer extends JTextArea
         implements TableCellRenderer {
-    private final List<List<Integer>> rowColHeight = new ArrayList<List<Integer>>();
+    private final List<List<Integer>> rowColHeight = new ArrayList<>();
 
     public MultiLineTableCellRenderer() {
         setLineWrap(true);
@@ -55,7 +55,7 @@ public class MultiLineTableCellRenderer extends JTextArea
         setSize(new Dimension(cWidth, 1000));
         int prefH = getPreferredSize().height;
         while (rowColHeight.size() <= row) {
-            rowColHeight.add(new ArrayList<Integer>(column));
+            rowColHeight.add(new ArrayList<>(column));
         }
         List<Integer> colHeights = rowColHeight.get(row);
         while (colHeights.size() <= column) {

@@ -29,7 +29,7 @@ public class RoleAssigmentTab extends CustomJPanel {
 
     @Override
     public void update() throws UnauthorizedException {
-        String response = null;
+        String response;
         try {
             response = connectionService.send(configConnectionBuild(Url.ALL_ROLES));
             AllRolesResponse allRolesResponse = new ObjectMapper().readValue(response, AllRolesResponse.class);
@@ -55,7 +55,7 @@ public class RoleAssigmentTab extends CustomJPanel {
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
-        };;
+        };
 
         JTable tableUsers = new JTable(modelUsers) {
             @Override
@@ -151,9 +151,9 @@ public class RoleAssigmentTab extends CustomJPanel {
         return connectionBuilder.prepareRequest(httpURLConnection, ConnectionType.GET);
     }
 
-    private String addSpaces(String ...strs) {
+    private String addSpaces(String ...strings) {
         StringBuilder res = new StringBuilder();
-        for (String str : strs) {
+        for (String str : strings) {
             res.append(str).append(" ");
         }
         return res.toString();
@@ -191,14 +191,12 @@ public class RoleAssigmentTab extends CustomJPanel {
             ConnectionBuilder connectionBuilder = new ConnectionBuilder();
             HttpURLConnection con = connectionBuilder.prepareRequestWithAuthHeader(Url.ROLE_ASSIGN.getUrl());
             con = connectionBuilder.prepareRequest(con, ConnectionType.POST);
-            String response = connectionService.send(con, jsonInputString);
+            connectionService.send(con, jsonInputString);
 
             message.setForeground(new Color(0, 107, 14));
             message.setText("Успех");
 
-            Timer timer = new Timer(3000, arg0 -> {
-                message.setText("");
-            });
+            Timer timer = new Timer(3000, arg0 -> message.setText(""));
             timer.setRepeats(false);
             timer.start();
 
@@ -207,9 +205,7 @@ public class RoleAssigmentTab extends CustomJPanel {
             message.setForeground(Color.RED);
             message.setText("Ошибка...");
 
-            Timer timer = new Timer(3000, arg0 -> {
-                message.setText("");
-            });
+            Timer timer = new Timer(3000, arg0 -> message.setText(""));
             timer.setRepeats(false);
             timer.start();
         }
