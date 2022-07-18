@@ -28,10 +28,14 @@ public class MainWindow {
     private void createUI(final JFrame frame){
         JButton updateButton = new JButton("Обновить");
         JButton exitButton = new JButton("Выйти");
+        JButton submitButton = new JButton("Добавить");
 
         JPanel panel = new JPanel(new BorderLayout());
         panel.add(updateButton, BorderLayout.WEST);
         panel.add(exitButton, BorderLayout.EAST);
+
+        JPanel submitPanel = new JPanel(new BorderLayout());
+        submitPanel.add(submitButton, BorderLayout.EAST);
 
         ImageIcon icon = new ImageIcon(ClassLoader.getSystemResource("icon.png"));
         frame.setIconImage(icon.getImage());
@@ -40,7 +44,6 @@ public class MainWindow {
 
 
         tabs.addChangeListener(changeEvent -> {
-            System.out.println("called");
             try {
                 ((CustomJPanel)tabs.getSelectedComponent()).update();
             } catch (UnauthorizedException e) {
@@ -49,7 +52,6 @@ public class MainWindow {
                 new Authorization().createWindow(true);
             }
         });
-
         tabs.addTab("Назначение ролей", null, new RoleAssigmentTab(),"Назначить роль пользователю");
         tabs.setMnemonicAt(0, KeyEvent.VK_1);
 
@@ -78,8 +80,20 @@ public class MainWindow {
             new Authorization().createWindow(false);
         });
 
+        submitButton.addActionListener(listener -> {
+            try {
+                ((CustomJPanel)tabs.getSelectedComponent()).submit();
+                ((CustomJPanel)tabs.getSelectedComponent()).update();
+            } catch (UnauthorizedException e) {
+                AuthInfoService.setInstance(null);
+                frame.dispose();
+                new Authorization().createWindow(true);
+            }
+        });
+
 
         frame.getContentPane().add(tabs, BorderLayout.CENTER);
         frame.getContentPane().add(panel, BorderLayout.NORTH);
+        frame.getContentPane().add(submitPanel, BorderLayout.SOUTH);
     }
 }

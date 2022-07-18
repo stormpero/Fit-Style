@@ -22,50 +22,20 @@ public class RoleTab extends CustomJPanel {
     private final ConnectionService connectionService = ConnectionService.getInstance();
     private final DefaultTableModel model;
 
+    private final JTextField roleName;
+    private final JLabel message;
+
     public RoleTab() {
         setLayout(new BorderLayout());
 
         JPanel panel = new JPanel(new GridLayout(2, 2));
         JLabel label = new JLabel("Введите название роли");
-        JLabel message = new JLabel("");
-        JTextField roleName = new JTextField(20);
-        JButton addButton = new JButton("Добавить");
+        message = new JLabel("");
+        roleName = new JTextField(20);
 
         panel.add(label);
         panel.add(roleName);
         panel.add(message);
-        panel.add(addButton);
-
-
-        addButton.addActionListener(listener -> {
-            String roleDto = roleName.getText();
-            AddEditTrainingRequest addRequest = new AddEditTrainingRequest(roleDto);
-            String jsonInputString;
-            try {
-                //Convert object to json string
-                jsonInputString = new ObjectMapper().writeValueAsString(addRequest);
-                ConnectionBuilder connectionBuilder = new ConnectionBuilder();
-                HttpURLConnection con = connectionBuilder.prepareRequestWithAuthHeader(Url.ROLE_ADD.getUrl());
-                con = connectionBuilder.prepareRequest(con, ConnectionType.POST);
-
-
-                connectionService.send(con, jsonInputString);
-
-                message.setForeground(new Color(0, 107, 14));
-                message.setText("Добавлено!");
-
-                Timer timer = new Timer(2000, arg0 -> message.setText(""));
-                timer.setRepeats(false);
-                timer.start();
-
-                update();
-
-
-            } catch (IOException ex) {
-                message.setForeground(Color.RED);
-                message.setText("Не удалось добавить новую роль...");
-            }
-        });
 
         model = new DefaultTableModel(new String[][]{}, new String[] {"Идентификатор", "Название"});
         JTable table = new JTable(model) {
@@ -103,6 +73,37 @@ public class RoleTab extends CustomJPanel {
             updatePanel(allRolesResponse);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void submit() {
+        String roleDto = roleName.getText();
+        AddEditTrainingRequest addRequest = new AddEditTrainingRequest(roleDto);
+        String jsonInputString;
+        try {
+            //Convert object to json string
+            jsonInputString = new ObjectMapper().writeValueAsString(addRequest);
+            ConnectionBuilder connectionBuilder = new ConnectionBuilder();
+            HttpURLConnection con = connectionBuilder.prepareRequestWithAuthHeader(Url.ROLE_ADD.getUrl());
+            con = connectionBuilder.prepareRequest(con, ConnectionType.POST);
+
+
+            connectionService.send(con, jsonInputString);
+
+            message.setForeground(new Color(0, 107, 14));
+            message.setText("Добавлено!");
+
+            Timer timer = new Timer(2000, arg0 -> message.setText(""));
+            timer.setRepeats(false);
+            timer.start();
+
+            update();
+
+
+        } catch (IOException ex) {
+            message.setForeground(Color.RED);
+            message.setText("Не удалось добавить новую роль...");
         }
     }
 

@@ -22,53 +22,22 @@ public class TrainingTypeTab extends CustomJPanel {
     private final ConnectionService connectionService = ConnectionService.getInstance();
     private final DefaultTableModel model;
 
+
+    private final JLabel message;
+    private final JTextField trainingName;
+
     public TrainingTypeTab() {
 
         setLayout(new BorderLayout());
 
         JPanel panel = new JPanel(new GridLayout(2, 2));
         JLabel label = new JLabel("Введите имя тренировки");
-        JLabel message = new JLabel("");
-        JTextField trainingName = new JTextField(20);
-        JButton addButton = new JButton("Добавить");
+        message = new JLabel("");
+        trainingName = new JTextField(20);
 
         panel.add(label);
         panel.add(trainingName);
         panel.add(message);
-        panel.add(addButton);
-
-
-        addButton.addActionListener(listener -> {
-            String training = trainingName.getText();
-            AddEditTrainingRequest addRequest = new AddEditTrainingRequest(training);
-            String jsonInputString;
-            try {
-                //Convert object to json string
-                jsonInputString = new ObjectMapper().writeValueAsString(addRequest);
-                ConnectionBuilder connectionBuilder = new ConnectionBuilder();
-                HttpURLConnection con = connectionBuilder.prepareRequestWithAuthHeader(Url.TRAINING_TYPE_ADD.getUrl());
-                con = connectionBuilder.prepareRequest(con, ConnectionType.POST);
-
-
-                connectionService.send(con, jsonInputString);
-
-                message.setForeground(new Color(0, 107, 14));
-                message.setText("Добавлено!");
-                trainingName.setText("");
-
-                Timer timer = new Timer(2000, arg0 -> message.setText(""));
-                timer.setRepeats(false);
-                timer.start();
-
-                update();
-
-
-            } catch (IOException ex) { //| InterruptedException ex
-                message.setForeground(Color.RED);
-                message.setText("Не удалось добавить тип тренировки...");
-            }
-        });
-
 
         model = new DefaultTableModel(new String[][]{}, new String[] {"Идентификатор", "Тип тренеровки"});
         JTable table = new JTable(model) {
@@ -108,6 +77,38 @@ public class TrainingTypeTab extends CustomJPanel {
             updatePanel(allTrainingTypesResponse);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void submit() {
+        String training = trainingName.getText();
+        AddEditTrainingRequest addRequest = new AddEditTrainingRequest(training);
+        String jsonInputString;
+        try {
+            //Convert object to json string
+            jsonInputString = new ObjectMapper().writeValueAsString(addRequest);
+            ConnectionBuilder connectionBuilder = new ConnectionBuilder();
+            HttpURLConnection con = connectionBuilder.prepareRequestWithAuthHeader(Url.TRAINING_TYPE_ADD.getUrl());
+            con = connectionBuilder.prepareRequest(con, ConnectionType.POST);
+
+
+            connectionService.send(con, jsonInputString);
+
+            message.setForeground(new Color(0, 107, 14));
+            message.setText("Добавлено!");
+            trainingName.setText("");
+
+            Timer timer = new Timer(2000, arg0 -> message.setText(""));
+            timer.setRepeats(false);
+            timer.start();
+
+            update();
+
+
+        } catch (IOException ex) { //| InterruptedException ex
+            message.setForeground(Color.RED);
+            message.setText("Не удалось добавить тип тренировки...");
         }
     }
 

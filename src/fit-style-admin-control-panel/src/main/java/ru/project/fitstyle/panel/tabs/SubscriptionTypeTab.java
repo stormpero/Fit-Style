@@ -23,6 +23,13 @@ public class SubscriptionTypeTab extends CustomJPanel {
 
     private final DefaultTableModel model;
 
+
+    private final JTextField costText;
+    private final JTextField nameText;
+    private final JTextField placementTimeText;
+    private final JTextField validityMonthsTimeText;
+    private final JLabel message;
+
     public SubscriptionTypeTab() {
         setLayout(new BorderLayout());
 
@@ -41,13 +48,10 @@ public class SubscriptionTypeTab extends CustomJPanel {
         scrollPane.setVerticalScrollBarPolicy(
                 JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 
-
-        JButton addButton = new JButton("Добавить");
-
-        JTextField costText = new JTextField();
-        JTextField nameText = new JTextField();
-        JTextField placementTimeText = new JTextField();
-        JTextField validityMonthsTimeText = new JTextField();
+        costText = new JTextField();
+        nameText = new JTextField();
+        placementTimeText = new JTextField();
+        validityMonthsTimeText = new JTextField();
         JLabel costLabel = new JLabel();
         costLabel.setText("Цена:");
         JLabel nameLabel = new JLabel();
@@ -56,7 +60,7 @@ public class SubscriptionTypeTab extends CustomJPanel {
         placementTimeLabel.setText("Время посещения:");
         JLabel validityMonthsTimeLabel = new JLabel();
         validityMonthsTimeLabel.setText("Срок(месяцы):");
-        JLabel submit = new JLabel();
+        message = new JLabel();
         add(scrollPane);
         JPanel panel = new JPanel(new GridLayout(10, 1));
 
@@ -68,41 +72,9 @@ public class SubscriptionTypeTab extends CustomJPanel {
         panel.add(placementTimeText);
         panel.add(validityMonthsTimeLabel);
         panel.add(validityMonthsTimeText);
-        panel.add(submit);
-        panel.add(addButton);
+        panel.add(message);
 
         add(panel, BorderLayout.EAST);
-
-        addButton.addActionListener(listener -> {
-            String cost = costText.getText();
-            String name = nameText.getText();
-            String placementTime = placementTimeText.getText();
-            int validityMonths = Integer.parseInt(validityMonthsTimeText.getText());
-            AddSubscriptionTypeRequest addSubscription = new AddSubscriptionTypeRequest(name,validityMonths,placementTime,cost);
-            String jsonInputString;
-            try {
-                jsonInputString = new ObjectMapper().writeValueAsString(addSubscription);
-                ConnectionBuilder connectionBuilder = new ConnectionBuilder();
-                HttpURLConnection con = connectionBuilder.prepareRequestWithAuthHeader(Url.SUBSCRIPTION_TYPE_ADD.getUrl());
-                con = connectionBuilder.prepareRequest(con, ConnectionType.POST);
-                String response = connectionService.send(con, jsonInputString);
-                System.out.println(response);
-
-                submit.setForeground(new Color(0, 107, 14));
-                submit.setText("Добавлено");
-
-                Timer timer = new Timer(2000, arg0 -> submit.setText(""));
-                timer.setRepeats(false);
-                timer.start();
-
-                update();
-            } catch (IOException ex) {
-                submit.setForeground(Color.RED);
-                submit.setText("Введите валидные данные");
-            }
-        });
-
-
     }
 
     @Override
@@ -124,6 +96,37 @@ public class SubscriptionTypeTab extends CustomJPanel {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void submit() {
+        String cost = costText.getText();
+        String name = nameText.getText();
+        String placementTime = placementTimeText.getText();
+        int validityMonths = Integer.parseInt(validityMonthsTimeText.getText());
+        AddSubscriptionTypeRequest addSubscription = new AddSubscriptionTypeRequest(name,validityMonths,placementTime,cost);
+        String jsonInputString;
+        try {
+            jsonInputString = new ObjectMapper().writeValueAsString(addSubscription);
+            ConnectionBuilder connectionBuilder = new ConnectionBuilder();
+            HttpURLConnection con = connectionBuilder.prepareRequestWithAuthHeader(Url.SUBSCRIPTION_TYPE_ADD.getUrl());
+            con = connectionBuilder.prepareRequest(con, ConnectionType.POST);
+            String response = connectionService.send(con, jsonInputString);
+            System.out.println(response);
+
+            message.setForeground(new Color(0, 107, 14));
+            message.setText("Добавлено");
+
+            Timer timer = new Timer(2000, arg0 -> message.setText(""));
+            timer.setRepeats(false);
+            timer.start();
+
+            update();
+        } catch (IOException ex) {
+            message.setForeground(Color.RED);
+            message.setText("Введите валидные данные");
+        }
+    }
+
     private void updatePanel( AllSubscriptionTypeResponse allSubscriptionTypeResponse) {
         //Clear all data
         model.setRowCount(0);
@@ -132,6 +135,4 @@ public class SubscriptionTypeTab extends CustomJPanel {
             model.addRow(new Object[]{dto.getId(), dto.getCost(),dto.getName(), dto.getPlacementTime(), dto.getValidityMonths()});
         }
     }
-
-
 }
