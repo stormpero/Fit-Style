@@ -26,7 +26,7 @@ import {
 } from "../../config/consts/urlsPages";
 
 
-const Navbar = ({isModer, logOut}) => {
+const Navbar = ({isModer, logout}) => {
     return (
         <div className="menu">
             <Link to={"/news"} className="menu-link-logo">
@@ -82,7 +82,7 @@ const Navbar = ({isModer, logOut}) => {
             )}
             <div className="menu-user">
                 <div className="menu-user-container">
-                    <Link to={URL_LOGIN} className="menu-link-exit" onClick={logOut}>
+                    <Link to={URL_LOGIN} className="menu-link-exit" onClick={logout}>
                         <img className="svg-icon" src={exit} alt="Fit-Style"/>
                         <span className="menu-link-name">Выход</span>
                     </Link>

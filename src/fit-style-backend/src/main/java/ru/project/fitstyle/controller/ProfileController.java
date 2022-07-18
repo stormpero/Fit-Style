@@ -47,7 +47,6 @@ public class ProfileController {
                 userService.getSubscriptionInfoById(id), userService.getUserRolesById(id)));
     };
 
-
     /**
      * Change user balance
      * */

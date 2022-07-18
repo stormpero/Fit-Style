@@ -5,9 +5,8 @@ import Register from "./Register";
 import Validation from "../../services/validation/Validation";
 import ToastMessages from "../../components/toastmessages/ToastMessages";
 import {TOP_RIGHT} from "../../config/consts/ToastPosition";
-import UserService from "../../services/api/UserApi";
-import RegisterApi from "../../services/api/RegisterApi";
 import {EMAIL_ALREADY_EXISTS} from "../../config/consts/ErrorCode";
+import {register} from "../../packages/api";
 
 export default class RegisterContainer extends Component {
 
@@ -34,7 +33,7 @@ export default class RegisterContainer extends Component {
     }
 
     componentDidMount() {
-        UserService.getSubscriptionType().then(
+        register.getSubscriptionType().then(
             response => {
                 this.setState({
                     subscriptionTypes: response.data?.subscriptionTypes
@@ -106,7 +105,7 @@ export default class RegisterContainer extends Component {
         formData.append('request', blob);
         formData.append('image', this.state.imageData);
 
-        RegisterApi.register(formData).then(
+        register.register(formData).then(
             (response) => {
                 let msg = response.data.message === 'User registered successfully!' ? 'Пользователь успешно зарегистрирован' : "-_-";
                 ToastMessages.success(msg, TOP_RIGHT)
