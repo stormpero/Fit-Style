@@ -19,7 +19,7 @@ The web application will allow you to combine many fitness-related processes in 
 
 | Full name  | Roles |
 | ------------- | ------------- |
-| Старосельский Александр Константинович | Project Manager, Architect  |
+| Старосельский Александр Константинович | Project Manager, Architect, Front-end |
 | Жиренкин Артем Валерьевич | Front-end  |
 | Чиганов Даниил Ренатович | Back-end  |
 | Астахов Михаил Андреевич | Database  |
@@ -38,6 +38,19 @@ The web application will allow you to combine many fitness-related processes in 
 - Spring MVC
 - PostgreSQL 
 
+## Preview
+
+### Authorization page
+![Main_Screen](images/Authorization_page.png)
+### User Profile
+![History](images/User_Profile.png)
+### Training tab
+![History_View](images/Training_tab.png)
+### Map
+![Settings](images/Map.png)
+### Users tab
+![Select_Category](images/Users_tab.png)
+---
 
 ## Installation 
 
