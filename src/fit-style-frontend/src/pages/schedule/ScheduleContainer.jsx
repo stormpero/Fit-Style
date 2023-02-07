@@ -4,13 +4,13 @@ import "./Schedule.css"
 import ToastMessages from "../../components/toastmessages/ToastMessages";
 import Modal from "../../components/modal/Modal";
 import {ScheduleModalTrainingInfo} from "./form/ScheduleModalTrainingInfo";
-import PermissionService from "../../services/security/permission/PermissionService";
-import ScheduleApi from "../../services/api/ScheduleApi";
 import TrainingService from "../../services/training/TrainingService";
 import {ScheduleModalTrainingCreate} from "./form/ScheduleModalTrainingCreate";
+import {useRole} from "../../customHooks/useRole";
+import {training} from "../../packages/api";
 
 export const ScheduleContainer = () => {
-    const isCoach = PermissionService.hasRole("COACH");
+    const isCoach = useRole("COACH");
 
     const [eventList, setEventList] = useState([]);
     const [coachList, setCoachList] = useState(null);
@@ -23,7 +23,7 @@ export const ScheduleContainer = () => {
 
     useEffect(() => {
         if (isCoach) {
-            ScheduleApi.getCoachTrainings().then(
+            training.getCoachTrainings().then(
                 response => {
                     let trainingsListTemp = TrainingService.concatTrainings(response.data);
                     setEventList(trainingsListTemp);
@@ -32,7 +32,7 @@ export const ScheduleContainer = () => {
                     ToastMessages.defaultError();
                 }).finally(() => setIsReady(true));
         } else {
-            ScheduleApi.getCoachesList().then(
+            training.getCoachesList().then(
                 response => {
                     setCoachList(response.data?.coaches)
                 },
@@ -46,7 +46,7 @@ export const ScheduleContainer = () => {
 
     useEffect(() => {
         if (selectCoach !== "DEFAULT") {
-            ScheduleApi.getCoachTrainings(selectCoach).then(
+            training.getCoachTrainings(selectCoach).then(
                 response => {
                     let trainingsListTemp = TrainingService.concatTrainings(response.data);
                     setEventList(trainingsListTemp);
@@ -69,7 +69,7 @@ export const ScheduleContainer = () => {
     const deleteTraining = (event) => {
         const {isPersonal, id} = event;
         if (isPersonal) {
-            ScheduleApi.deletePersonalTraining(id).then(
+            training.deletePersonalTraining(id).then(
                 response => {
                     ToastMessages.success("Тренировка удалена");
                 },
@@ -81,7 +81,7 @@ export const ScheduleContainer = () => {
                 setModalActiveInfo(false);
             })
         } else {
-            ScheduleApi.deleteGroupTraining(id).then(
+            training.deleteGroupTraining(id).then(
                 response => {
                     ToastMessages.success("Тренировка удалена");
                 },
@@ -98,7 +98,7 @@ export const ScheduleContainer = () => {
     const signTraining = (event) => {
         const {isPersonal, id} = event;
         if (isPersonal) {
-            ScheduleApi.signPersonalTraining(id).then(
+            training.signPersonalTraining(id).then(
                 response => {
                     ToastMessages.success("Вы успешно записались на тренировку");
                 },
@@ -110,7 +110,7 @@ export const ScheduleContainer = () => {
                 setModalActiveInfo(false);
             })
         } else {
-            ScheduleApi.signGroupTraining(id).then(
+            training.signGroupTraining(id).then(
                 response => {
                     ToastMessages.success("Вы успешно записались на тренировку");
                 },

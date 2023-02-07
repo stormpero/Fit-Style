@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import ScheduleApi from "../../../services/api/ScheduleApi";
 import ScheduleService from "../../../services/training/ScheduleService";
 import ToastMessages from "../../../components/toastmessages/ToastMessages";
+import {training} from "../../../packages/api";
 
 export const ScheduleModalTrainingCreate = ({setActive, eventInfo, setReload, eventList}) => {
     const [checked, setChecked] = useState(false);
@@ -10,7 +10,7 @@ export const ScheduleModalTrainingCreate = ({setActive, eventInfo, setReload, ev
     const [isReady, setIsReady] = useState(false)
 
     useEffect(() => {
-        ScheduleApi.getTrainingsName().then(
+        training.getTrainingsName().then(
             response => {
                 setGroupTrainingTypes(response.data?.trainingNames)
             },
@@ -50,7 +50,7 @@ export const ScheduleModalTrainingCreate = ({setActive, eventInfo, setReload, ev
     }
 
     const addGroupTraining = (data) => {
-        ScheduleApi.addGroupTraining(data).then(
+        training.addGroupTraining(data).then(
             response => {
                 ToastMessages.success("Тренировка создана")
                 setReload(prev => !prev);
@@ -65,7 +65,7 @@ export const ScheduleModalTrainingCreate = ({setActive, eventInfo, setReload, ev
 
     const addPersonalTraining = (data) => {
 
-        ScheduleApi.addPersonalTraining(data).then(
+        training.addPersonalTraining(data).then(
             response => {
                 ToastMessages.success("Тренировка создана")
                 setReload(prev => !prev);

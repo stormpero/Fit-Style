@@ -4,55 +4,46 @@ import Login from "./Login";
 
 import isEmpty from "validator/es/lib/isEmpty";
 import ToastMessages from "../../components/toastmessages/ToastMessages";
-import {TOP_CENTER, TOP_RIGHT} from "../../config/consts/ToastPosition";
-import LoginApi from "../../services/api/LoginApi";
+import {TOP_CENTER} from "../../config/consts/ToastPosition";
 import Modal from "../../components/modal/Modal";
 import {RecoverPassword} from "./form/RecoverPassword";
-import {useHistory} from "react-router-dom";
+import {useInput} from "../../customHooks/useInput";
+import {useAuth} from "../../packages/auth/useAuth";
 
-export const LoginContainer = ({setIsAuth}) => {
-    const history = useHistory();
+
+export const LoginContainer = () => {
     const [modalActive, setModalActive] = useState(false);
-
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const {login} = useAuth();
+    const email = useInput("","Email","text")
+    const password = useInput("","Password", "password")
 
     const handleLogin = (event) => {
         event.preventDefault();
-        if (isEmpty(email) || isEmpty(password)) {
+
+        //TODO: DELETE  - - - <<< TESTING >>>
+        // const email = "AdminProfile@gmail.com";
+        // const password = "AdminProfile"
+        // login({email, password});
+
+        if (isEmpty(email.value) || isEmpty(password.value)) {
             const errorMsg = "Заполните поля";
             ToastMessages.error(errorMsg, TOP_CENTER);
             return;
         }
-
-        LoginApi.login({email, password}).then(
-            response => {
-                ToastMessages.success("Добро пожаловать!", TOP_RIGHT);
-                setIsAuth(true);
-                history.push("/news");
-            },
-            error => {
-                console.log(error.response)
-                if (error?.response?.data?.message === "Bad credentials") {
-                    ToastMessages.error("Неверные данные");
-                } else {
-                    ToastMessages.defaultError();
-                }
-            }
-        );
+        login({email: email.value, password: password.value});
     }
 
     return (
-        <>
-        <Login
-            handleLogin={handleLogin}
-            setModalActive={setModalActive}
-            emailState={{email, setEmail}}
-            passwordState={{password, setPassword}}
-        />
+        <div>
+            <Login
+                handleLogin={handleLogin}
+                setModalActive={setModalActive}
+                emailState={email}
+                passwordState={password}
+            />
             <Modal active={modalActive} setActive={setModalActive} options={{closeBackground: false}}>
                 <RecoverPassword setActive={setModalActive}/>
             </Modal>
-        </>
+        </div>
     );
 }

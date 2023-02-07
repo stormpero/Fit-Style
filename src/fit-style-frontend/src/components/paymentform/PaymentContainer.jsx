@@ -6,14 +6,15 @@ import {
     formatExpirationDate
 } from "./Utils";
 
-import ProfileApi from "../../services/api/ProfileApi";
+
 import ProfileService from "../../services/profile/ProfileService";
 import ToastMessages from "../toastmessages/ToastMessages";
 import {TOP_RIGHT} from "../../config/consts/ToastPosition";
 import {Payment} from "./Payment";
 import Validation from "../../services/validation/Validation";
+import {profile} from "../../packages/api";
 
-export const PaymentContainer = ({setReload, setActive}) => {
+export const PaymentContainer = ({setUserInfo, setActive}) => {
     const [cardNumber, setCardNumber] = useState("");
     const [cardName, setCardName] = useState("");
     const [cardExpiry, setCardExpiry] = useState("");
@@ -51,9 +52,13 @@ export const PaymentContainer = ({setReload, setActive}) => {
             return;
         }
 
-        ProfileApi.addBalance(balance).then(
+        profile.addBalance(balance).then(
             response => {
-                setReload(prev => !prev);
+                setUserInfo(prev => {
+                    const newUserInfo = {...prev};
+                    newUserInfo.fitUserInfo.balance += +balance;
+                    return newUserInfo;
+                });
                 ToastMessages.success("Баланс пополнен на " + ProfileService.declinationRuble(balance), TOP_RIGHT);
             },
             error => {

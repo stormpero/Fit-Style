@@ -18,6 +18,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import java.util.*;
 import java.util.stream.Collectors;
 
+import ru.project.fitstyle.controller.response.auth.UserDataResponse;
+import ru.project.fitstyle.model.dto.user.RoleDto;
 import ru.project.fitstyle.model.entity.user.RefreshToken;
 import ru.project.fitstyle.model.entity.user.FitUser;
 import ru.project.fitstyle.controller.request.auth.LoginRequest;
@@ -44,6 +46,7 @@ public class AuthController {
     private final CookieService refreshTokenCookieService;
 
     private final AuthService authService;
+
 
     @Autowired
     public AuthController(final AuthenticationManager authenticationManager,
@@ -85,6 +88,13 @@ public class AuthController {
         return ResponseEntity.ok().headers(createRefreshTokenCookie(refreshToken)).body(
                 new LoginResponse(userDetails.getId(),
                         userDetails.getUsername(), accessToken, roles));
+    }
+
+    @GetMapping("/userdata")
+    public ResponseEntity<UserDataResponse> getUserData() {
+        FitUser fitUser = userService.getUserByEmail(authService.getEmail());
+        return ResponseEntity.ok(new UserDataResponse(fitUser.getId(), authService.getEmail(),
+                userService.getUserRolesByEmail(authService.getEmail()).stream().map(RoleDto::getName).collect(Collectors.toList())));
     }
 
     /**

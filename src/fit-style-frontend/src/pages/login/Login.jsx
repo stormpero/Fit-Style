@@ -1,54 +1,25 @@
 import React from 'react';
 
 import "./Login.css";
-import {Link} from "react-router-dom";
-import logo from "../../assets/logo.png";
+import {LoginBackGround} from "./LoginBackGround";
+import {Logo} from "./Logo";
 
 const Login = ({handleLogin, setModalActive, emailState , passwordState}) => {
-  return (
+    const handleRecoverPassword = (event) => {event.preventDefault(); setModalActive(true)}
+    return (
       <div>
-          <div className="d-flex justify-content-center">
-              <Link to={"/"} className="navbar-brand ">
-                  <img className="logo" src={logo} alt="Fit-Style"/>
-              </Link>
-          </div>
+         <Logo/>
           <div className="col-md-12">
               <div className="card card-container">
-                  <ul className="list-inline">
-                      <li className="list-inline-item head1">Go</li>
-                      <li className="list-inline-item head2">Beyond</li>
-                      <li className="list-inline-item head3">Limits</li>
-                  </ul>
-                  <ul className="list-inline">
-                      <li className="list-inline-item head2">Fit</li>
-                      <li className="list-inline-item head3">Style</li>
-                  </ul>
-                  <div className="bg"/>
-                  <div className="bg bg2"/>
-                  <div className="bg bg3"/>
+                  <LoginBackGround/>
                   <form className="form-div">
                       <div className="form-group">
                           <label htmlFor="username"/>
-                          <input className="form-control form-control-auth"
-                                 required
-                                 name="email"
-                                 type="text"
-                                 onChange={(e) => emailState.setEmail(e.target.value)}
-                                 value={emailState.email}
-                                 placeholder="Email"
-                          />
+                          <input className="form-control form-control-auth" {...emailState}/>
                       </div>
                       <div className="form-group">
                           <label htmlFor="password"/>
-                          <input className="form-control form-control-auth"
-                                 required
-                                 name="password"
-                                 type="password"
-                                 onChange={(e) => passwordState.setPassword(e.target.value)}
-                                 value={passwordState.password}
-                                 autoComplete="on"
-                                 placeholder="Password"
-                          />
+                          <input className="form-control form-control-auth" {...passwordState} autoComplete="on"/>
                       </div>
                       <div className="d-flex justify-content-between mt-3">
                           <button className="btn btn-secondary btn-entry"
@@ -56,7 +27,7 @@ const Login = ({handleLogin, setModalActive, emailState , passwordState}) => {
                               Войти
                           </button>
                           <button className="btn text-white"
-                                  onClick={(e) => {e.preventDefault(); setModalActive(true)}}>
+                                  onClick={handleRecoverPassword}>
                               Забыли пароль?
                           </button>
                       </div>
@@ -64,7 +35,7 @@ const Login = ({handleLogin, setModalActive, emailState , passwordState}) => {
               </div>
           </div>
       </div>
-  );
+    );
 }
 
 export default Login;

@@ -26,10 +26,14 @@ public class RoleAssigmentTab extends CustomJPanel {
     private final ConnectionService connectionService = ConnectionService.getInstance();
     private final ConnectionBuilder connectionBuilder = new ConnectionBuilder();
 
+    private final JLabel message;
+    private final JTextField userText;
+    private final JTextField roleText;
+
 
     @Override
     public void update() throws UnauthorizedException {
-        String response = null;
+        String response;
         try {
             response = connectionService.send(configConnectionBuild(Url.ALL_ROLES));
             AllRolesResponse allRolesResponse = new ObjectMapper().readValue(response, AllRolesResponse.class);
@@ -39,6 +43,36 @@ public class RoleAssigmentTab extends CustomJPanel {
             updatePanel(allRolesResponse, allUsersResponse);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void submit() {
+        Long userId = Long.parseLong(userText.getText());
+        Long roleId = Long.parseLong(roleText.getText());
+        AssignRoleRequest assignRoleRequest = new AssignRoleRequest(userId, roleId);
+        try {
+            String jsonInputString = new ObjectMapper().writeValueAsString(assignRoleRequest);
+            ConnectionBuilder connectionBuilder = new ConnectionBuilder();
+            HttpURLConnection con = connectionBuilder.prepareRequestWithAuthHeader(Url.ROLE_ASSIGN.getUrl());
+            con = connectionBuilder.prepareRequest(con, ConnectionType.POST);
+            connectionService.send(con, jsonInputString);
+
+            message.setForeground(new Color(0, 107, 14));
+            message.setText("Успех");
+
+            Timer timer = new Timer(3000, arg0 -> message.setText(""));
+            timer.setRepeats(false);
+            timer.start();
+
+            update();
+        } catch (IOException ex) {
+            message.setForeground(Color.RED);
+            message.setText("Ошибка...");
+
+            Timer timer = new Timer(3000, arg0 -> message.setText(""));
+            timer.setRepeats(false);
+            timer.start();
         }
     }
 
@@ -55,7 +89,7 @@ public class RoleAssigmentTab extends CustomJPanel {
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
-        };;
+        };
 
         JTable tableUsers = new JTable(modelUsers) {
             @Override
@@ -83,15 +117,13 @@ public class RoleAssigmentTab extends CustomJPanel {
 
         JLabel nameLabel = new JLabel();
         nameLabel.setText("Идентификатор пользователя:");
-        JTextField userText = new JTextField();
+        userText = new JTextField();
 
         JLabel roleIdLabel = new JLabel();
         roleIdLabel.setText("Идентификатор роли:");
-        JTextField roleText = new JTextField();
+        roleText = new JTextField();
 
-        JButton submit = new JButton("Добавить");
-
-        JLabel message = new JLabel();
+        message = new JLabel();
         message.setHorizontalAlignment(SwingConstants.CENTER);
         message.setVerticalAlignment(SwingConstants.CENTER);
 
@@ -102,7 +134,6 @@ public class RoleAssigmentTab extends CustomJPanel {
         panel.add(roleText);
         panel.add(message);
         message.setText("");
-        panel.add(submit);
 
         JScrollPane scrollPaneTableUsers = new JScrollPane(tableUsers);
         scrollPaneTableUsers.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -128,8 +159,6 @@ public class RoleAssigmentTab extends CustomJPanel {
             }
         });
 
-
-        submit.addActionListener(e -> submitButtonPressed(userText, roleText, message));
         add(panel, BorderLayout.SOUTH);
     }
 
@@ -151,9 +180,9 @@ public class RoleAssigmentTab extends CustomJPanel {
         return connectionBuilder.prepareRequest(httpURLConnection, ConnectionType.GET);
     }
 
-    private String addSpaces(String ...strs) {
+    private String addSpaces(String ...strings) {
         StringBuilder res = new StringBuilder();
-        for (String str : strs) {
+        for (String str : strings) {
             res.append(str).append(" ");
         }
         return res.toString();
@@ -180,38 +209,5 @@ public class RoleAssigmentTab extends CustomJPanel {
             result.append(name).append("\n");
         }
         return result.toString();
-    }
-
-    private void submitButtonPressed(JTextField userText, JTextField roleText, JLabel message) {
-        Long userId = Long.parseLong(userText.getText());
-        Long roleId = Long.parseLong(roleText.getText());
-        AssignRoleRequest assignRoleRequest = new AssignRoleRequest(userId, roleId);
-        try {
-            String jsonInputString = new ObjectMapper().writeValueAsString(assignRoleRequest);
-            ConnectionBuilder connectionBuilder = new ConnectionBuilder();
-            HttpURLConnection con = connectionBuilder.prepareRequestWithAuthHeader(Url.ROLE_ASSIGN.getUrl());
-            con = connectionBuilder.prepareRequest(con, ConnectionType.POST);
-            String response = connectionService.send(con, jsonInputString);
-
-            message.setForeground(new Color(0, 107, 14));
-            message.setText("Успех");
-
-            Timer timer = new Timer(3000, arg0 -> {
-                message.setText("");
-            });
-            timer.setRepeats(false);
-            timer.start();
-
-            update();
-        } catch (IOException ex) {
-            message.setForeground(Color.RED);
-            message.setText("Ошибка...");
-
-            Timer timer = new Timer(3000, arg0 -> {
-                message.setText("");
-            });
-            timer.setRepeats(false);
-            timer.start();
-        }
     }
 }
